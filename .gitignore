@@ -1,4 +1,7 @@
 *.aux
+*.bcf
+*.run.xml
+*.tex
 *.bbl
 *.blg
 *.dvi
@@ -25,3 +28,9 @@
 *.maf
 *.mtc
 *.mtc0
+*tikzDictionary
+cache/*.RData
+cache/*.rdb
+cache/*.rdx
+cache/*packages
+subdocuments/open_science_paper.bib
