@@ -1,0 +1,144 @@
+%%%------------------------------------------------------------------------------------%%
+%%%------------------------------------------------------------------------------------%%
+%%% Content : Open-Science-Paper LateX-Style 
+%%% Use : Open-Sciene-Paper user modifications 
+%%% Author : Claas-Thido Pfaff
+%%%------------------------------------------------------------------------------------%%
+%%%------------------------------------------------------------------------------------%%
+
+%%%-------------------------------------------------%%%
+%%% Define your papers geometry %%%
+%%%-------------------------------------------------%%%
+
+%% Note: 
+
+% Needs the class option autolayout=false
+
+%% Example:
+
+% \geometry{left=4cm, right=4cm, textheight=25cm}
+
+%% Note: 
+
+% Find all available options in the geometry package 
+% documentation.
+
+%%%-------------------------------------------------%%%
+%%% Define own colors %%%
+%%%-------------------------------------------------%%%
+
+%% Example:
+
+% \xdefinecolor{YourColor}{rgb}{0,0,0.7}
+
+%%%-------------------------------------------------%%%
+%%% Define own commands %%%
+%%%-------------------------------------------------%%%
+
+%% Example:
+
+% \newcommand{name}[number of parameters]{things to do}
+
+%%%-------------------------------------------------%%%
+%%% Define own environments %%%
+%%%-------------------------------------------------%%%
+
+%% Example:
+
+% \newenvironment{name}[number of parameters]{definition begin}{definition end}
+
+%%%-------------------------------------------------%%%
+%%% Define titlel authors and affiliation %%%
+%%%-------------------------------------------------%%%
+
+%% Note: You can set them empty to remove the line
+
+% \ospSetTitle{This is the title of the paper}  
+% \ospSetAuthors{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2,b}}  
+% \ospSetContacts{foo@bar.com\textsuperscript{a}, bar@foo.com\textsuperscript{b}}
+% \ospSetAffiliations{University of XY departement of Z\textsuperscript{1}, University of \ldots}
+% \ospSetKeywords{Open Science, Git, R, Knitr, ggplot2, tikz}
+
+% \ospSetTitleKeywordContactName{Cont:}
+% \ospSetTitleKeywordAffiliationName{Affi:}
+% \ospSetTitleKeywordName{Keys:}
+
+%% Fonts 
+
+% \ospSetFontTitle{\normalfont\sffamily\Huge\bfseries} 
+
+%% Lengths [default]
+
+% \setlength{\ospLengtTitleLogoColwidth}{0.2\textwidth} %[0.23\textwidth]
+% \setlength{\ospLengtTitleTitleColwidth}{0.5\textwidth} %[0.55\textwidth] 
+% \setlength{\ospLengtTitleSpaceAbove}{2\baselineskip} %[0.01\baselineskip] 
+% \setlength{\ospLengtTitleSpaceBelow}{-1\baselineskip} %[0.01\baselineskip] 
+
+%%%-------------------------------------------------%%%
+%%% Define document column count %%%
+%%%-------------------------------------------------%%%
+
+% \ospSetColumnCount{3}
+
+%%%-------------------------------------------------%%%
+%%% Define footer contents and styling %%%
+%%%-------------------------------------------------%%%
+
+%% Contents
+
+% \ospSetFooterTextRightOfSeparator{Right of separator} 
+% \ospSetFooterTextSeparator{xx} 
+% \ospSetFooterTextLeftOfSeparator{Left of separator} 
+% \ospSetFullLeftFooter{I am the complete left footer}
+% \ospSetFullRightFooter{\textbf{\thepage}}
+
+%% Colors
+
+% \ospSetFooterRuleColor{YourColor}
+% \ospSetFooterPageNumberingColor{DarkOrange} 
+
+%% Lengths [default]
+
+% \setlength{\ospLengthFooterRuleWidth}{5pt} %[0.3pt]
+% \setlength{\ospLengthHeaderRuleWidth}{0pt} %[0pt] 
+
+%%%-------------------------------------------------%%%
+%%% Set and change the git info display  %%%
+%%%-------------------------------------------------%%%
+
+%% Note 
+% This features need the gitinfo class option set 
+% inside the root file.
+
+% \ospSetGitUrl{\url{www.....}}
+% \ospSetGitInfoLine{}
+
+%%%-------------------------------------------------%%%
+%%% Set PDF options %%%
+%%%-------------------------------------------------%%%
+
+%% Example:
+%  \hypersetup{%
+%   pdfauthor={Your-Name},
+%   pdfcreator={Your-Name},
+%   pdfsubject={Subject},
+%   pdfkeywords={Keyword1, Keyword2, ...}
+%  }
+
+%% Note: 
+% See the hyperref package documentation for more options
+
+%%%-------------------------------------------------%%%
+%%% Bibliography options %%%
+%%%-------------------------------------------------%%%
+
+\ExecuteBibliographyOptions{%
+url=false,%
+isbn=false,%
+doi=false,%
+firstinits=false,%
+bibencoding=utf8%
+} 
+
+% Add a BibTeX bibliography file 
+\addbibresource{usr/subdocuments/open_science_paper.bib}
