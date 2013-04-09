@@ -56,6 +56,32 @@
 %%
 %
 
+\begin{titlepage}
+%\CenterBackgroundPic{Bilder/PowerPlant.png}
+  \vspace*{\stretch{1}}
+  \ostTitleRule
+  \vspace{1em}
+  \begin{center}
+    \begin{LARGE}
+      {\ostFontTitle\ostTitle}
+    \end{LARGE} 
+  \end{center}
+  \begin{center}
+    \begin{normalsize}\ostAuthors\end{normalsize}
+    \end{center} 
+    \begin{center}
+      \begin{footnotesize}
+        Universität Leipzig: \today
+      \end{footnotesize} 
+    \end{center}      
+    \ostTitleRule
+    \vspace*{\stretch{2}}
+  \end{titlepage}
+
+\tableofcontents
+\listoffigures 
+\listoftables 
+
 %%%-------------------------------------------------%%%
 %%% Preferences for Knitr %%%
 %%%-------------------------------------------------%%%
@@ -73,15 +99,15 @@
 %%% Include header %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_header, child='usr/subdocuments/ost_header.Rnw', eval=T>>=
-@
+% <<subdoc_content_header, child='usr/subdocuments/ost_header.Rnw', eval=T>>=
+% @
 
 %%%-------------------------------------------------%%%
 %%% Include abstract %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_abstract, child='usr/subdocuments/ost_abstract_section.Rnw', eval=T>>=
-@
+% <<subdoc_content_abstract, child='usr/subdocuments/ost_abstract_section.Rnw', eval=T>>=
+% @
 
 %%%-------------------------------------------------%%%
 %%% Include introduction %%%

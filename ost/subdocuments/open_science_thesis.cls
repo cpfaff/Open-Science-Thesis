@@ -55,21 +55,19 @@
 \else% 
    \ifost@autolayout  
       \ifost@twosidelayout%
-         \LoadClass[fontsize=12pt, pagesize=auto, headings=small, captions=tableheading, DIV=calc, notitlepage, twoside, final]{scrartcl}   
+         \LoadClass[pagesize=auto, DIV=calc, BCOR=5mm, fontsize=12pt, headings=small, captions=tableheading, twoside, final]{scrreprt}   
       \else%
-         \LoadClass[fontsize=12pt, pagesize=auto, headings=small, captions=tableheading, DIV=calc, notitlepage, oneside, final]{scrartcl}   
+         \LoadClass[pagesize=auto, DIV=calc, BCOR=5mm, fontsize=12pt, headings=small, captions=tableheading, oneside, final]{scrreprt}   
       \fi%
    \else%
       \ifost@twosidelayout%
-         \LoadClass[headings=small, captions=tableheading, notitlepage, twoside, final]{scrartcl}
+         \LoadClass[pagesize=auto, fontsize=12pt, headings=small, captions=tableheading, twoside, final]{scrreprt}
       \else%
-         \LoadClass[headings=small, captions=tableheading, notitlepage, oneside, final]{scrartcl}
+         \LoadClass[pagesize=auto, fontsize=12pt, headings=small, captions=tableheading, oneside, final]{scrartcl}
       \fi%
       \RequirePackage{geometry}
    \fi% 
 \fi%
-
-% fontsize=12pt,pagesize=auto,DIV=calc,BCOR=5mm
 
 %%%-------------------------------------------------%%%
 %%% Input encodings fonts and symbols %%%
@@ -80,12 +78,19 @@
 \RequirePackage[utf8]{inputenc}
 
 %% Fonts and math symbols %%
-\RequirePackage{libertine}
+\RequirePackage{lmodern}
+
+% \RequirePackage{libertine}
+% \RequirePackage[libertine]{newtxmath}
+
 \RequirePackage{amsmath}
-\RequirePackage[libertine]{newtxmath}
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb} 
+
 \RequirePackage{textcomp}
+% \RequirePackage{pifont}
+% \RequirePackage{marvosym}
+% \RequirePackage{dingbat}
 
 %%%-------------------------------------------------%%%
 %%% Patch some LaTeX shortcommings %%%
@@ -339,6 +344,7 @@
 %%% List options %%%
 %%%-------------------------------------------------%%%
 
+
 \RequirePackage[neverdecrease]{paralist}
 
 % override item lists 
@@ -347,8 +353,7 @@
 \let\enumerate\compactenum%
 \let\endenumerate\endcompactenum%
 \let\description\compactdesc%
-\let\enddescription\endcompactdesc%
-
+\let\enddescription\endcompactdesc% 
 \pltopsep=\medskipamount%
 \setdefaultenum{1.}{a)~}{i.~}{A)~}%
 \setdefaultleftmargin{1.5em}{1.2em}{1.2em}{1.2em}{1.2em}{1.2em}%
@@ -394,6 +399,20 @@
 
 %% Control float placement %%
 \RequirePackage{float} 
+
+% tune floating 
+\RequirePackage{flafter} %floats appear after first referene on them not before
+\RequirePackage[section]{placeins} % helps to place floats (here section with \floatbarrier)
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.7}
+\setcounter{dbltopnumber}{2}    % for 2-column pages
+\renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+\renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
 
 %% Control caption layout %%
 \RequirePackage[format=plain, margin=7pt, font={small,it}, labelformat=default, labelfont=bf]{caption}
@@ -546,12 +565,24 @@
    {~}{{\textasciitilde}}1
 }
 
+%highlight definition for XML in listings 
+% \lstdefinelanguage{XML}
+% {
+  % morestring=[b],
+  % morestring=[s]{>}{<},
+  % morecomment=[s]{<?}{?>},
+  % stringstyle=\color{black},
+  % identifierstyle=\color{darkblue},
+  % keywordstyle=\color{cyan},
+  % morekeywords={xmlns,version,type}% list your attributes here
+% }
+
 %%%-------------------------------------------------%%%
 %%% Definition of environments %%%
 %%%-------------------------------------------------%%%
 
 %% Title header defaults %%
-\newcommand{\ostTitle}{The open science paper title} 
+\newcommand{\ostTitle}{The open science thesis title} 
 \newcommand{\ostSetTitle}[1]{\def\ostTitle{#1}}
 
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2,b}, \ldots} 
@@ -667,41 +698,41 @@
 
 \RequirePackage[noindentafter,calcwidth]{titlesec}  
 
-\ifost@sectionnumbers%
-   \titleformat{\section}
-   {\color{ostColor@SectionHeader}\normalfont\sffamily\large\bfseries}{\thesection}{0.5em}{}
-   \titlespacing*{\section}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+% \ifost@sectionnumbers%
+   % \titleformat{\section}
+   % {\color{ostColor@SectionHeader}\normalfont\sffamily\large\bfseries}{\thesection}{0.5em}{}
+   % \titlespacing*{\section}
+    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
+   % \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
 
-   \titleformat{\subsection}[runin]
-   {\color{ostColor@SubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{\thesubsection}{0.5em}{}
-   \titlespacing*{\subsection}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+   % \titleformat{\subsection}[runin]
+   % {\color{ostColor@SubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{\thesubsection}{0.5em}{}
+   % \titlespacing*{\subsection}
+    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \titleformat{\paragraph}[runin]
-   {\color{ostColor@ParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{\theparagraph}{0.5em}{}
-   \titlespacing*{\paragraph}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
-\else% 
-   \titleformat{\section}
-   {\color{ostColor@SectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
-   \titlespacing*{\section}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+   % \titleformat{\paragraph}[runin]
+   % {\color{ostColor@ParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{\theparagraph}{0.5em}{}
+   % \titlespacing*{\paragraph}
+    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
+% \else% 
+   % \titleformat{\section}
+   % {\color{ostColor@SectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
+   % \titlespacing*{\section}
+    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
+   % \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
 
-   \titleformat{\subsection}[runin]
-   {\color{ostColor@SubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
-   \titlespacing*{\subsection}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+   % \titleformat{\subsection}[runin]
+   % {\color{ostColor@SubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
+   % \titlespacing*{\subsection}
+    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \titleformat{\paragraph}[runin]
-   {\color{ostColor@ParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
-   \titlespacing*{\paragraph}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
-\fi%
+   % \titleformat{\paragraph}[runin]
+   % {\color{ostColor@ParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
+   % \titlespacing*{\paragraph}
+    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
+% \fi%
 
 %%%-------------------------------------------------%%%
 %%% Typographical fine-tuning %%%
