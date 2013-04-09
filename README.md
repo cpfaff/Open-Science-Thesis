@@ -11,7 +11,7 @@ package. This combination allows for the production of executable documents that
 enhance the reproducibility of your research.
 
 The Open-Science-Thesis offers a clean and logical folder structure and lots of
-examples of typical typesetting requirements to help you typeset your poster. It
+examples of typical typesetting requirements to help you typeset your thesis. It
 comes with a makefile that helps you to compile, clean and archive the document.
 The document layout is specialized to typeset report or book formated documents.
 For an example see the PDF file inside of the repository or have a look into the
