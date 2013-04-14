@@ -4,9 +4,11 @@
 
 \chapter{Material And Methods}
 
+\gls{eml} 
+
 % Remove the lipsum and example table and fill in your material and methods text here
 
-\lipsum[1]
+\lipsum[1] 
 
 \section{Example table}
 
