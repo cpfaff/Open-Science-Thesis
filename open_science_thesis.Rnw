@@ -1,23 +1,21 @@
 %%%------------------------------------------------------------------------------------%%
 %%%------------------------------------------------------------------------------------%%
-%%% Content: Open-Science-Paper LaTeX Scaffold 
-%%% Usage: Collaborative scientific paper writing 
+%%% Content: Open-Science-Thesis LaTeX Scaffold 
+%%% Usage: Collaborative scientific document writing 
 %%% Author: Claas-Thido Pfaff
 %%%------------------------------------------------------------------------------------%%
 %%%------------------------------------------------------------------------------------%%
 
 %%%------------------------------------------------------------------------------%%%
-%%% Document class: open_science_paper (Based on Koma-Script: article) %%%
+%%% Document class: open_science_thesis (Based on Koma-Script: article) %%%
 %%%------------------------------------------------------------------------------%%%
 %%
 %
 
-\documentclass[color=false, csvdata=false]{ost/subdocuments/open_science_thesis} 
+\documentclass[linenumbers=false, color=false]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 % - color true/[false]: Changes between colored output and a black and white theme 
-% - csvdata true/[false]: With csv data enabled you can use the csv file under
-%   the data folder to insert title header information into the document.
 % - gitinfo true/[false]: Include git information into the title header of the 
 %   document. This requires the setup of git hooks which you can do by issuing 
 %   the make task (make githooks). After that you need to specify the url of the 
@@ -25,7 +23,6 @@
 % - print true/[false] switches between the color model rgb which is optimal for displays 
 %   and the cmyk color model which is required for professional printing. 
 % - linenumbers true/[false]: Switch on/off line numbers for the whole document.
-% - sectionnumbers true/[false]: Switch between numbered and numberless sections 
 % - autolayout [true]/false: Switch between the nice automatic calculated typearea layout 
 %   (Koma script) and a fixed geometry page layout (geometry package). You need to set the 
 %   geometry inside of the style file if you choose false. 
@@ -54,33 +51,7 @@
 %%% Document preparations %%%
 %%%--------------------------------------------------------------%%%
 %%
-%
-
-\begin{titlepage}
-%\CenterBackgroundPic{Bilder/PowerPlant.png}
-  \vspace*{\stretch{1}}
-  \ostTitleRule
-  \vspace{1em}
-  \begin{center}
-    \begin{LARGE}
-      {\ostFontTitle\ostTitle}
-    \end{LARGE} 
-  \end{center}
-  \begin{center}
-    \begin{normalsize}\ostAuthors\end{normalsize}
-    \end{center} 
-    \begin{center}
-      \begin{footnotesize}
-        Universität Leipzig: \today
-      \end{footnotesize} 
-    \end{center}      
-    \ostTitleRule
-    \vspace*{\stretch{2}}
-  \end{titlepage}
-
-\tableofcontents
-\listoffigures 
-\listoftables 
+% 
 
 %%%-------------------------------------------------%%%
 %%% Preferences for Knitr %%%
@@ -96,18 +67,19 @@
 %
 
 %%%-------------------------------------------------%%%
-%%% Include header %%%
+%%% Include title %%%
 %%%-------------------------------------------------%%%
 
-% <<subdoc_content_header, child='usr/subdocuments/ost_header.Rnw', eval=T>>=
-% @
+<<subdoc_content_titlepage, child='usr/subdocuments/ost_titlepage.Rnw', eval=T>>=
+@
 
 %%%-------------------------------------------------%%%
-%%% Include abstract %%%
+%%% Tables of content %%%
 %%%-------------------------------------------------%%%
 
-% <<subdoc_content_abstract, child='usr/subdocuments/ost_abstract_section.Rnw', eval=T>>=
-% @
+\tableofcontents
+\listoffigures 
+\listoftables 
 
 %%%-------------------------------------------------%%%
 %%% Include introduction %%%

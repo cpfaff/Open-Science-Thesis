@@ -16,7 +16,7 @@
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
 
-\ProvidesClass{open-science-thesis}[2013/03/03 version 0.1 LaTeX class of the Open-Science-Thesis]
+\ProvidesClass{open-science-thesis}[2013/04/14 version 0.1 LaTeX class of the Open-Science-Thesis]
 
 \RequirePackage{xkeyval} 
 
@@ -24,8 +24,6 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{color}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{print}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{csvdata}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{twosidelayout}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
@@ -39,8 +37,6 @@
    color=false, 
    print=false, 
    gitinfo=false, 
-   csvdata=false,
-   sectionnumbers=false,
    autolayout=true,
    twosidelayout=false,
    reversepagelayout=false, 
@@ -75,7 +71,7 @@
 
 %% input and font encoding %%
 \RequirePackage[T1]{fontenc}
-\RequirePackage[utf8]{inputenc}
+\RequirePackage[utf8]{luainputenc}
 
 %% Fonts and math symbols %%
 \RequirePackage{lmodern}
@@ -93,7 +89,7 @@
 % \RequirePackage{dingbat}
 
 %%%-------------------------------------------------%%%
-%%% Patch some LaTeX shortcommings %%%
+%%% Patch some LaTeX shortcomings %%%
 %%%-------------------------------------------------%%%
 
 \RequirePackage{fixltx2e}
@@ -233,67 +229,67 @@
 %%% Define header and footer %%%
 %%%-------------------------------------------------%%%
 
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
 
-%% Set the footer contents
-\newcommand{\ostFooterTextLeftOfSeparator}{Open-Science-Thesis} 
-\newcommand{\ostSetFooterTextLeftOfSeparator}[1]{\def\ostFooterTextLeftOfSeparator{#1}}
+% %% Set the footer contents
+% \newcommand{\ostFooterTextLeftOfSeparator}{Open-Science-Thesis} 
+% \newcommand{\ostSetFooterTextLeftOfSeparator}[1]{\def\ostFooterTextLeftOfSeparator{#1}}
 
-\newcommand{\ostFooterTextRightOfSeparator}{Compiled on \today} 
-\newcommand{\ostSetFooterTextRightOfSeparator}[1]{\def\ostFooterTextRightOfSeparator{#1}}
+% \newcommand{\ostFooterTextRightOfSeparator}{Compiled on \today} 
+% \newcommand{\ostSetFooterTextRightOfSeparator}[1]{\def\ostFooterTextRightOfSeparator{#1}}
 
-\newcommand{\ostFooterLogo}{\relax}
-\newcommand{\ostSetFooterLogo}[1]{\gdef\ostFooterLogo{#1}}
+% \newcommand{\ostFooterLogo}{\relax}
+% \newcommand{\ostSetFooterLogo}[1]{\gdef\ostFooterLogo{#1}}
 
-\ifost@color%
-   \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-thesis-footer-logo-gray.pdf}}}
-\else% 
-   \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-thesis-footer-logo-black.pdf}}}
-\fi%
+% \ifost@color%
+   % \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-thesis-footer-logo-gray.pdf}}}
+% \else% 
+   % \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-thesis-footer-logo-black.pdf}}}
+% \fi%
 
-\newcommand{\ostFooterTextSeparator}{\textcolor{ostColor@FooterTextSeparator}{$\circ$}} 
-\newcommand{\ostSetFooterTextSeparator}[1]{\gdef\ostFooterTextSeparator{#1}}
+% \newcommand{\ostFooterTextSeparator}{\textcolor{ostColor@FooterTextSeparator}{$\circ$}} 
+% \newcommand{\ostSetFooterTextSeparator}[1]{\gdef\ostFooterTextSeparator{#1}}
 
-\newcommand{\ostFullLeftFooter}{\ostFooterLogo\xspace~ \textcolor{ostColor@FullLeftFooter}{{\normalsize \ostFooterTextLeftOfSeparator\xspace \ostFooterTextSeparator\xspace \ostFooterTextRightOfSeparator}}} 
-\newcommand{\ostSetFullLeftFooter}[1]{\gdef\ostFullLeftFooter{#1}}
+% \newcommand{\ostFullLeftFooter}{\ostFooterLogo\xspace~ \textcolor{ostColor@FullLeftFooter}{{\normalsize \ostFooterTextLeftOfSeparator\xspace \ostFooterTextSeparator\xspace \ostFooterTextRightOfSeparator}}} 
+% \newcommand{\ostSetFullLeftFooter}[1]{\gdef\ostFullLeftFooter{#1}}
 
-%% Style the footer and header elements 
-\newcommand{\ostFooterRuleColor}{ostColor@FooterRule} 
-\newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
+% %% Style the footer and header elements 
+% \newcommand{\ostFooterRuleColor}{ostColor@FooterRule} 
+% \newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
 
-\newlength{\ostLengthHeaderRuleWidth} 
-\setlength{\ostLengthHeaderRuleWidth}{0pt} 
-\renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
+% \newlength{\ostLengthHeaderRuleWidth} 
+% \setlength{\ostLengthHeaderRuleWidth}{0pt} 
+% \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
 
-\newlength{\ostLengthFooterRuleWidth} 
-\setlength{\ostLengthFooterRuleWidth}{0.4pt} 
-\renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
+% \newlength{\ostLengthFooterRuleWidth} 
+% \setlength{\ostLengthFooterRuleWidth}{0.4pt} 
+% \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
 
-\patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
+% \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
 
-\newcommand{\ostFooterPageNumberingColor}{ostColor@FooterPageNumbering} 
-\newcommand{\ostSetFooterPageNumberingColor}[1]{\gdef\ostFooterPageNumberingColor{#1}} 
+% \newcommand{\ostFooterPageNumberingColor}{ostColor@FooterPageNumbering} 
+% \newcommand{\ostSetFooterPageNumberingColor}[1]{\gdef\ostFooterPageNumberingColor{#1}} 
 
-\newcommand{\ostFooterPageNumberingStyle}{\normalsize\textbf} 
-\newcommand{\ostSetFooterPageNumberingStyle}[1]{\gdef\ostFooterPageNumberingStyle{#1}} 
+% \newcommand{\ostFooterPageNumberingStyle}{\normalsize\textbf} 
+% \newcommand{\ostSetFooterPageNumberingStyle}[1]{\gdef\ostFooterPageNumberingStyle{#1}} 
 
-\newcommand{\ostFullRightFooter}{{\ostFooterPageNumberingStyle{\textcolor{\ostFooterPageNumberingColor}{{\thepage}}}}} 
-\newcommand{\ostSetFullRightFooter}[1]{\gdef\ostFullRightFooter{#1}}
+% \newcommand{\ostFullRightFooter}{{\ostFooterPageNumberingStyle{\textcolor{\ostFooterPageNumberingColor}{{\thepage}}}}} 
+% \newcommand{\ostSetFullRightFooter}[1]{\gdef\ostFullRightFooter{#1}}
 
-\ifost@twosidelayout% 
-   \ifost@reversepagelayout%
-      \fancyfoot[LO, RE]{\ostFullLeftFooter}
-      \fancyfoot[RO, LE]{\ostFullRightFooter} 
-   \else%
-      \fancyfoot[RO, LE]{\ostFullLeftFooter}
-      \fancyfoot[LO, RE]{\ostFullRightFooter} 
-   \fi%
-\else%
-   \fancyfoot[L]{\ostFullLeftFooter}
-   \fancyfoot[R]{\ostFullRightFooter} 
-\fi%
+% \ifost@twosidelayout% 
+   % \ifost@reversepagelayout%
+      % \fancyfoot[LO, RE]{\ostFullLeftFooter}
+      % \fancyfoot[RO, LE]{\ostFullRightFooter} 
+   % \else%
+      % \fancyfoot[RO, LE]{\ostFullLeftFooter}
+      % \fancyfoot[LO, RE]{\ostFullRightFooter} 
+   % \fi%
+% \else%
+   % \fancyfoot[L]{\ostFullLeftFooter}
+   % \fancyfoot[R]{\ostFullRightFooter} 
+% \fi%
 
 %%%-------------------------------------------------%%%
 %%% Control big starting letters (Lettrine) %%%
@@ -588,9 +584,6 @@
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2,b}, \ldots} 
 \newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
 
-\newcommand{\ostTitleKeywordContactName}{Contact:} 
-\newcommand{\ostSetTitleKeywordContactName}[1]{\gdef\ostTitleKeywordContactName{#1}}  
-
 \newcommand{\ostContacts}{foo@bar.com\textsuperscript{a}, bar@foo.com\textsuperscript{b}, \ldots} 
 \newcommand{\ostSetContacts}[1]{\def\ostContacts{#1}}
 
@@ -629,63 +622,31 @@
 \newlength{\ostLengtTitleSpaceBelow} 
 \setlength{\ostLengtTitleSpaceBelow}{0\baselineskip}  
 
-\ifost@csvdata
-   \DTLloaddb{ostHeaderInfoFromTable}{\ostHeaderInfoFilePath}
-   \DTLgetvalue{\ostTitleCsv}{ostHeaderInfoFromTable}{1}{\dtlcolumnindex{ostHeaderInfoFromTable}{ostTitle}}   
-   \newcommand{\ostMakeTitle}{% 
-      \ostTitleRule\par\vspace{\ostLengtTitleSpaceAbove}
-         \begin{tabular}{p{\ostLengtTitleLogoColwidth}p{\ostLengtTitleTitleColwidth}}
-            \begin{minipage}{0.25\textwidth}
-               \ostTitleLogo%
-            \end{minipage}&%
-            \begin{minipage}{0.7\textwidth} 
-               \vspace{\baselineskip}
-                  {\color{ostColor@Title}{{\ostFontTitle \ostTitleCsv}}}\par%
-                     \begin{normalsize}\textbf{%
-                        \DTLsort{ostAuthorPriorityToAppear,ostAuthorFirstName}{ostHeaderInfoFromTable} 
-                        \DTLforeach{ostHeaderInfoFromTable}{%
-                           \firstName=ostAuthorFirstNameShort,% 
-                           \lastName=ostAuthorLastName,%
-                           \id=ostAuthorAffiliationIDs}{\ifdefempty{\firstName}{}{\DTLiflastrow{\firstName\xspace\lastName\textsuperscript{\id}}{\firstName\xspace\lastName\textsuperscript{\id}, }}}
-                     }\end{normalsize}\par 
-                  \begin{normalsize}\textbf{\ostTitleKeywordContactName}  
-                     \DTLsort{ostAuthorEmailID}{ostHeaderInfoFromTable} 
-                     \DTLforeach{ostHeaderInfoFromTable}{%
-                        \email=ostAuthorEmail,%
-                        \id=ostAuthorEmailID}{\ifdefempty{\email}{}{\DTLiflastrow{\href{mailto:\email}{\email}\textsuperscript{\id}}{\href{mailto:\email}{\email}\textsuperscript{\id}, }}}
-                  \end{normalsize}\par%
-                  \begin{normalsize}\textbf{\ostTitleKeywordAffiliationName}  
-                     \DTLsort{ostAffiliationIDs}{ostHeaderInfoFromTable} 
-                     \DTLforeach{ostHeaderInfoFromTable}{%
-                        \affiliation=ostAffiliations,%
-                        \id=ostAffiliationIDs}{\ifdefempty{\affiliation}{}{\DTLiflastrow{\affiliation\textsuperscript{\id}}{\affiliation\textsuperscript{\id}, }}}
-                  \end{normalsize}\par%
-                  \begin{normalsize}\textbf{\ostTitleKeywordName}% 
-                     \DTLsort{ostKeywords}{ostHeaderInfoFromTable} 
-                     \DTLforeach{ostHeaderInfoFromTable}{\keyword=ostKeywords}{\ifdefempty{\keyword}{}{\DTLiflastrow{\keyword}{\keyword, }}} \end{normalsize}\par%
-                  \ostGitInfoLine%
-            \end{minipage}
-         \end{tabular}\par\vspace{\ostLengtTitleSpaceBelow}
-      }
-\else%
-   \newcommand{\ostMakeTitle}{%
-      \ostTitleRule\par\vspace{\ostLengtTitleSpaceAbove}
-         \begin{tabular}{p{\ostLengtTitleLogoColwidth}p{\ostLengtTitleTitleColwidth}}
-            \begin{minipage}{0.25\textwidth}
-               \ostTitleLogo%
-            \end{minipage}&	
-            \begin{minipage}{0.7\textwidth} 
-               \vspace{\baselineskip}
-                  {\color{ostColor@Title}{{\ostFontTitle \ostTitle}}} \par
-                  \ifdefempty{\ostAuthors}{}{\begin{normalsize}\textbf{\ostAuthors}\end{normalsize}\par}
-                  \ifdefempty{\ostContacts}{}{\begin{normalsize}\textbf{\ostTitleKeywordContactName} \ostContacts\end{normalsize}\par}
-                  \ifdefempty{\ostAffiliations}{}{\begin{normalsize}\textbf{\ostTitleKeywordAffiliationName} \ostAffiliations\end{normalsize}\par}
-                  \ifdefempty{\ostKeywords}{}{\begin{normalsize}\textbf{\ostTitleKeywordName} \ostKeywords\end{normalsize}\par}
-                  \ostGitInfoLine%
-            \end{minipage}
-         \end{tabular}\par\vspace{\ostLengtTitleSpaceBelow}
-      }
-\fi%
+\newcommand{\ostMakeTitle}{%
+   \begin{titlepage}
+    %\CenterBackgroundPic{Bilder/PowerPlant.png}
+     \vspace*{\stretch{1}}
+     \ostTitleRule%
+     \vspace{1em}
+     \begin{center}
+       \begin{LARGE}
+         {\ostFontTitle\ostTitle}
+       \end{LARGE} 
+     \end{center}
+     \begin{center}
+       \begin{normalsize}\ostAuthors\end{normalsize}
+       \end{center} 
+       \begin{center}
+         \begin{footnotesize}
+           Universität Leipzig: \today
+         \end{footnotesize} 
+       \end{center}      
+       \ostTitleRule%
+       \vspace*{\stretch{2}}
+     \end{titlepage}
+}
+
+
 
 %% Defines the abstract %%
 \RequirePackage{abstract}
@@ -696,43 +657,24 @@
 %%% Typographical options of the headings %%%
 %%%-------------------------------------------------%%%
 
-\RequirePackage[noindentafter,calcwidth]{titlesec}  
+% \RequirePackage[noindentafter,calcwidth]{titlesec}  
 
-% \ifost@sectionnumbers%
-   % \titleformat{\section}
-   % {\color{ostColor@SectionHeader}\normalfont\sffamily\large\bfseries}{\thesection}{0.5em}{}
-   % \titlespacing*{\section}
-    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+% \titleformat{\section}
+% {\color{ostColor@SectionHeader}\normalfont\sffamily\large\bfseries}{\thesection}{0.5em}{}
+% \titlespacing*{\section}
+% {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   % \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
+% \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
 
-   % \titleformat{\subsection}[runin]
-   % {\color{ostColor@SubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{\thesubsection}{0.5em}{}
-   % \titlespacing*{\subsection}
-    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+% \titleformat{\subsection}[runin]
+% {\color{ostColor@SubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{\thesubsection}{0.5em}{}
+% \titlespacing*{\subsection}
+% {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   % \titleformat{\paragraph}[runin]
-   % {\color{ostColor@ParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{\theparagraph}{0.5em}{}
-   % \titlespacing*{\paragraph}
-    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
-% \else% 
-   % \titleformat{\section}
-   % {\color{ostColor@SectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
-   % \titlespacing*{\section}
-    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
-
-   % \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
-
-   % \titleformat{\subsection}[runin]
-   % {\color{ostColor@SubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
-   % \titlespacing*{\subsection}
-    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
-
-   % \titleformat{\paragraph}[runin]
-   % {\color{ostColor@ParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
-   % \titlespacing*{\paragraph}
-    % {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
-% \fi%
+% \titleformat{\paragraph}[runin]
+% {\color{ostColor@ParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{\theparagraph}{0.5em}{}
+% \titlespacing*{\paragraph}
+% {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 
 %%%-------------------------------------------------%%%
 %%% Typographical fine-tuning %%%
