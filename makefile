@@ -15,7 +15,9 @@ DEPENDENCIES = $(DOCUMENT).Rnw ost/subdocuments/open_science_thesis.* usr/subdoc
 # Used Programs
 KNITR = knit
 BIBTEX = biber
-PDFLATEX = pdflatex
+PDFLATEX = pdflatex 
+LUALATEX = lualatex 
+GLOSSARYINDEXER = makeglossaries
 PACKER= tar -czf
 REMOVER = @-rm -r
 PRINTER = @-echo 
@@ -50,6 +52,13 @@ $(DOCUMENT).pdf: $(DEPENDENCIES)
 	$(PDFLATEX) $(DOCUMENT).tex
 	$(PDFLATEX) $(DOCUMENT).tex
 	$(BIBTEX) $(DOCUMENT)
+	$(PDFLATEX) $(DOCUMENT).tex
+
+gloss:	
+	$(KNITR) $(DOCUMENT).Rnw $(DOCUMENT).tex --no-convert
+	$(PDFLATEX) $(DOCUMENT).tex
+	$(PDFLATEX) $(DOCUMENT).tex
+	$(GLOSSARYINDEXER) $(DOCUMENT)
 	$(PDFLATEX) $(DOCUMENT).tex
 
 # Special rules
