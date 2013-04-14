@@ -27,7 +27,7 @@ collaborative paper writing on GitHub and much more.
 The Open-Science-Thesis is one document of a series of documents that are in
 preparation. You might also be interested in one of the following repositories.
 
-- [Open-Science-Thesis](https://github.com/cpfaff/Open-Science-Paper) (Status: Usable)
+- [Open-Science-Thesis](https://github.com/cpfaff/Open-Science-Paper) (Status: Usable, Wiki: Available)
 - [Open-Science-Poster](https://github.com/cpfaff/Open-Science-Poster) (Status: In preparation)
 
 ## Self-promotion
