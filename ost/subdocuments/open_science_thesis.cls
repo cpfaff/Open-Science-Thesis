@@ -581,77 +581,40 @@
 \newcommand{\ostTitle}{The open science thesis title} 
 \newcommand{\ostSetTitle}[1]{\def\ostTitle{#1}}
 
-\newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2,b}, \ldots} 
-\newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
-
-\newcommand{\ostContacts}{foo@bar.com\textsuperscript{a}, bar@foo.com\textsuperscript{b}, \ldots} 
-\newcommand{\ostSetContacts}[1]{\def\ostContacts{#1}}
-
-\newcommand{\ostAffiliations}{University of XY departement of Z\textsuperscript{1}, \ldots} 
-\newcommand{\ostSetAffiliations}[1]{\def\ostAffiliations{#1}}
-
-\newcommand{\ostKeywords}{Open Science, Git, R, Knitr, ggplot2, tikz}
-\newcommand{\ostSetKeywords}[1]{\def\ostKeywords{#1}}
-
-\newcommand{\ostTitleRule}{\textcolor{ostColor@TitleRule}{\noindent\rule{\linewidth}{1.7pt}}}
-
-\newcommand{\ostTitleLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-thesis-title-header-logo.pdf}} 
-\newcommand{\ostSetTitleLogo}[1]{\gdef\ostTitleLogo{#1}} 
-
-\newcommand{\ostTitleKeywordAffiliationName}{Affiliation:} 
-\newcommand{\ostSetTitleKeywordAffiliationName}[1]{\gdef\ostTitleKeywordAffiliationName{#1}} 
-
-\newcommand{\ostTitleKeywordName}{Keywords:} 
-\newcommand{\ostSetTitleKeywordName}[1]{\gdef\ostTitleKeywordName{#1}}  
-
-\newcommand{\ostHeaderInfoFilePath}{ost/data/ostHeaderTable.csv} 
-\newcommand{\ostSetHeaderInfoFilePath}[1]{\gdef\ostHeaderInfoFilePath{#1}}  
-
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries} 
 \newcommand{\ostSetFontTitle}[1]{\gdef\ostFontTitle{#1}} 
 
-\newlength{\ostLengtTitleLogoColwidth} 
-\setlength{\ostLengtTitleLogoColwidth}{0.23\textwidth} 
+\newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2,b}, \ldots} 
+\newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
 
-\newlength{\ostLengtTitleTitleColwidth} 
-\setlength{\ostLengtTitleTitleColwidth}{0.55\textwidth} 
+\newcommand{\ostTitleSubTitle}{Universität Leipzig: \today} 
+\newcommand{\ostSetTitleSubTitle}[1]{\def\ostTitle{#1}}
 
-\newlength{\ostLengtTitleSpaceAbove}
-\setlength{\ostLengtTitleSpaceAbove}{0.5\baselineskip} 
-
-\newlength{\ostLengtTitleSpaceBelow} 
-\setlength{\ostLengtTitleSpaceBelow}{0\baselineskip}  
+\newcommand{\ostTitleRule}{\textcolor{ostColor@TitleRule}{\noindent\rule{\linewidth}{1.7pt}}}
 
 \newcommand{\ostMakeTitle}{%
-   \begin{titlepage}
-    %\CenterBackgroundPic{Bilder/PowerPlant.png}
-     \vspace*{\stretch{1}}
-     \ostTitleRule%
-     \vspace{1em}
-     \begin{center}
-       \begin{LARGE}
-         {\ostFontTitle\ostTitle}
-       \end{LARGE} 
-     \end{center}
-     \begin{center}
-       \begin{normalsize}\ostAuthors\end{normalsize}
-       \end{center} 
-       \begin{center}
-         \begin{footnotesize}
-           Universität Leipzig: \today
-         \end{footnotesize} 
-       \end{center}      
-       \ostTitleRule%
-       \vspace*{\stretch{2}}
-     \end{titlepage}
+  \begin{titlepage}
+    %\CenterBackgroundPic{Bilder/yourpic.png}
+    \vspace*{\stretch{1}}
+      \ostTitleRule%
+        \vspace{1em}
+          \begin{center}
+            \begin{LARGE}
+              {\ostFontTitle\ostTitle}
+            \end{LARGE} 
+          \end{center} 
+          \begin{center}
+            \begin{normalsize}\ostAuthors\end{normalsize}
+          \end{center} 
+          \begin{center}
+            \begin{footnotesize}
+              \ostTitleSubTitle%
+            \end{footnotesize} 
+          \end{center}      
+      \ostTitleRule%
+    \vspace*{\stretch{2}}
+  \end{titlepage}
 }
-
-
-
-%% Defines the abstract %%
-\RequirePackage{abstract}
-\renewcommand{\abstractnamefont}{\color{ostColor@AbstractHeader}\normalfont\sffamily\large\bfseries}
-\renewcommand{\abstracttextfont}{\normalfont} 
 
 %%%-------------------------------------------------%%%
 %%% Typographical options of the headings %%%
