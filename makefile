@@ -54,6 +54,13 @@ $(DOCUMENT).pdf: $(DEPENDENCIES)
 	$(BIBTEX) $(DOCUMENT)
 	$(PDFLATEX) $(DOCUMENT).tex
 
+uselua: $(DEPENDENCIES)  
+	$(KNITR) $(DOCUMENT).Rnw $(DOCUMENT).tex --no-convert
+	$(LUALATEX) $(DOCUMENT).tex
+	$(LUALATEX) $(DOCUMENT).tex
+	$(BIBTEX) $(DOCUMENT)
+	$(LUALATEX) $(DOCUMENT).tex 
+
 gloss:	
 	$(KNITR) $(DOCUMENT).Rnw $(DOCUMENT).tex --no-convert
 	$(PDFLATEX) $(DOCUMENT).tex

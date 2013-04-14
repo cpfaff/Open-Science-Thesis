@@ -104,6 +104,7 @@
 
 \RequirePackage{calc}
 \RequirePackage{xifthen} 
+\RequirePackage{ifluatex}
 \RequirePackage{datatool} 
 \RequirePackage{expl3} 
 
@@ -592,6 +593,7 @@
 
 \newcommand{\ostTitleRule}{\textcolor{ostColor@TitleRule}{\noindent\rule{\linewidth}{1.7pt}}}
 
+
 \newcommand{\ostMakeTitle}{%
   \begin{titlepage}
     %\CenterBackgroundPic{Bilder/yourpic.png}
@@ -666,15 +668,24 @@
 \hfuzz = 0.3pt
 
 %% Microtype for fine-tuning of typesetting %%
-\RequirePackage[protrusion=true,%
-expansion=true,%
-babel=true,%
-tracking=true,% 
-spacing=false]{microtype}     
 
-\DeclareMicrotypeSet*[tracking]{my}% 
-       {font = */*/*/sc/*}% 
-\SetTracking{encoding = *, shape = sc}{40}
+\ifluatex% 
+   \RequirePackage[protrusion=true,%
+   expansion=true,%
+   babel=true,%
+   spacing=false]{microtype}     
+\else%
+   %% Microtype for fine-tuning of typesetting %%
+   \RequirePackage[protrusion=true,%
+   expansion=true,%
+   babel=true,%
+   tracking=true,% 
+   spacing=false]{microtype}     
+
+   \DeclareMicrotypeSet*[tracking]{my}% 
+          {font = */*/*/sc/*}% 
+   \SetTracking{encoding = *, shape = sc}{40}
+\fi%
 
 %%%-------------------------------------------------%%%
 %%% PDF Options %%%
