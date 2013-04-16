@@ -51,15 +51,15 @@
 \else% 
    \ifost@autolayout  
       \ifost@twosidelayout%
-         \LoadClass[pagesize=auto, DIV=calc, BCOR=5mm, fontsize=12pt, headings=small, captions=tableheading, twoside, final]{scrreprt}   
+         \LoadClass[12pt, pagesize=auto, DIV=calc, BCOR=5mm, fontsize=12pt, headings=small, captions=tableheading, twoside, final]{scrreprt}   
       \else%
-         \LoadClass[pagesize=auto, DIV=calc, BCOR=5mm, fontsize=12pt, headings=small, captions=tableheading, oneside, final]{scrreprt}   
+         \LoadClass[12pt, pagesize=auto, DIV=calc, BCOR=5mm, fontsize=12pt, headings=small, captions=tableheading, oneside, final]{scrreprt}   
       \fi%
    \else%
       \ifost@twosidelayout%
-         \LoadClass[pagesize=auto, fontsize=12pt, headings=small, captions=tableheading, twoside, final]{scrreprt}
+         \LoadClass[12pt, pagesize=auto, fontsize=12pt, headings=small, captions=tableheading, twoside, final]{scrreprt}
       \else%
-         \LoadClass[pagesize=auto, fontsize=12pt, headings=small, captions=tableheading, oneside, final]{scrartcl}
+         \LoadClass[12pt, pagesize=auto, fontsize=12pt, headings=small, captions=tableheading, oneside, final]{scrartcl}
       \fi%
       \RequirePackage{geometry}
    \fi% 
@@ -296,32 +296,27 @@
 %%% Control big starting letters (Lettrine) %%%
 %%%-------------------------------------------------%%%
 
-\usepackage{lettrine} 
+\usepackage{lettrine}
 
-\ExplSyntaxOn%
-\newcommand{\ostSet@LettrineOptions}[1]{%  
-   \prg_case_str:nnn {#1}
-   {%
-      {A}{%
-         \setlength{\DefaultFindent}{-0.2em}
-         \setlength{\DefaultNindent}{0.5em}
-      }
-      {T}{%
-         \setlength{\DefaultFindent}{0.27em}
-         \setlength{\DefaultNindent}{0.02em}
-      }
-   }
-   {%
-      \setlength{\DefaultFindent}{0.2em}
+% set defaults
+\setlength{\DefaultFindent}{0.2em}
+\setlength{\DefaultNindent}{0.02em}
+
+\newcommand{\ostSet@LettrineOptions}[1]{%
+  \ifstrequal{#1}{A}{%
+      \setlength{\DefaultFindent}{-0.2em}
+      \setlength{\DefaultNindent}{0.5em}
+   }{\relax}
+   \ifstrequal{#1}{T}{%
+      \setlength{\DefaultFindent}{0.27em}
       \setlength{\DefaultNindent}{0.02em}
-   }
-} 
-\ExplSyntaxOff%
+   }{\relax}
+}
 
 \newcommand{\capital}[1]{%
    \ostSet@LettrineOptions{#1}
    \lettrine{\textcolor{ostColor@Lettrine}{#1}}
-}    
+} 
 
 %%%-------------------------------------------------%%%
 %%% Enable linenumbers %%%
