@@ -10,7 +10,7 @@
 DOCUMENT = open_science_thesis
 
 # Dependencies maindocument
-DEPENDENCIES = $(DOCUMENT).Rnw ost/subdocuments/open_science_thesis.* usr/subdocuments/open_science_thesis.* usr/subdocuments/*.Rnw ost/data/*.csv
+DEPENDENCIES = $(DOCUMENT).Rnw ost/subdocuments/*.cls usr/subdocuments/chapters/*.Rnw usr/subdocuments/bibliography/* ost/data/*.csv
 
 # Used Programs
 KNITR = knit

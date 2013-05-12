@@ -39,13 +39,13 @@
 %%% Load user options %%%
 %%%------------------------------------------------------------------------------%%%
 
-\input{usr/subdocuments/open_science_thesis.sty} 
+\input{usr/subdocuments/options/open_science_thesis.sty} 
 
 %%%------------------------------------------------------------------------------%%%
 %%% Load glossary definitions %%%
 %%%------------------------------------------------------------------------------%%%
 
-<<glossary_definitions, child='usr/subdocuments/open_science_glossary.Rnw', eval=TRUE>>=
+<<glossary_definitions, child='usr/subdocuments/options/open_science_glossary.Rnw', eval=TRUE>>=
 @
 
 %%%------------------------------------------------------------------------------%%%
@@ -64,7 +64,7 @@
 %%% Preferences for Knitr %%%
 %%%-------------------------------------------------%%%
 
-<<global_knitr_options, child='usr/subdocuments/ost_global_knitr_options.Rnw', eval=TRUE>>=
+<<global_knitr_options, child='usr/subdocuments/options/ost_global_knitr_options.Rnw', eval=TRUE>>=
 @
 
 %%%--------------------------------------------------------------%%%
@@ -83,7 +83,7 @@
 %%% Include title %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_titlepage, child='usr/subdocuments/ost_titlepage.Rnw', eval=T>>=
+<<subdoc_content_titlepage, child='usr/subdocuments/chapters/ost_titlepage.Rnw', eval=T>>=
 @
 
 %%%-------------------------------------------------%%%
@@ -98,14 +98,14 @@
 %%% Include introduction %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_introduction, child='usr/subdocuments/ost_introduction_section.Rnw', eval=T>>=
+<<subdoc_content_introduction, child='usr/subdocuments/chapters/ost_introduction_section.Rnw', eval=T>>=
 @
 
 %%%-------------------------------------------------%%%
 %%% Affidavit %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_introduction, child='usr/subdocuments/ost_affidavit_section.Rnw', eval=T>>=
+<<subdoc_content_introduction, child='usr/subdocuments/chapters/ost_affidavit_section.Rnw', eval=T>>=
 @
 
 %%%-------------------------------------------------------%%%
@@ -118,21 +118,21 @@
 %%% Include material and methods %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_material_methods, child='usr/subdocuments/ost_material_methods_section.Rnw', eval=T>>=
+<<subdoc_content_material_methods, child='usr/subdocuments/chapters/ost_material_methods_section.Rnw', eval=T>>=
 @
 
 %%%-------------------------------------------------%%%
 %%% Include results %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_results, child='usr/subdocuments/ost_results_section.Rnw', eval=T>>=
+<<subdoc_content_results, child='usr/subdocuments/chapters/ost_results_section.Rnw', eval=T>>=
 @
 
 %%%-------------------------------------------------%%%
 %%% Include discussion %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_discussion, child='usr/subdocuments/ost_discussion_section.Rnw', eval=T>>=
+<<subdoc_content_discussion, child='usr/subdocuments/chapters/ost_discussion_section.Rnw', eval=T>>=
 @
 
 %%%-------------------------------------------------------%%%
@@ -145,28 +145,28 @@
 %%% Include acknowledgements %%%
 %%%-------------------------------------------------%%%
 
-<<subdoc_content_acknowledgement, child='usr/subdocuments/ost_acknowledgements_section.Rnw', eval=T>>=
+<<subdoc_content_acknowledgement, child='usr/subdocuments/chapters/ost_acknowledgements_section.Rnw', eval=T>>=
 @
 
 %%%-------------------------------------------------%%%
 %%% Appendix %%%
 %%%-------------------------------------------------%%%
 
-<<body_mainmatter_chapter_one, child='usr/subdocuments/ost_appendix_section.Rnw', eval=TRUE>>=
+<<body_mainmatter_chapter_one, child='usr/subdocuments/chapters/ost_appendix_section.Rnw', eval=TRUE>>=
 @
 
 %%%-------------------------------------------------%%%
 %%% Glossary %%%
 %%%-------------------------------------------------%%%
 
-<<body_mainmatter_chapter_one, child='usr/subdocuments/ost_glossaries_section.Rnw', eval=TRUE>>=
+<<body_mainmatter_chapter_one, child='usr/subdocuments/chapters/ost_glossaries_section.Rnw', eval=TRUE>>=
 @
 
 %%%-------------------------------------------------%%%
 %%% Include the bibliography %%%
 %%%-------------------------------------------------%%%
 
-<<options_bibliography, child='usr/subdocuments/ost_bibliography_section.Rnw', eval=T>>=
+<<options_bibliography, child='usr/subdocuments/chapters/ost_bibliography_section.Rnw', eval=T>>=
 @
 
 %%%------------------------------------------------------------------------------%%%
