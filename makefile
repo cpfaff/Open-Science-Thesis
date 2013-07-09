@@ -1,22 +1,22 @@
 ##------------------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------------##
-## Content: Open-Science-Paper LaTeX-Makefile
-## Usage: Compile Open-Science-Papers  
+## Content: Open-Science-Thesis LaTeX-Makefile
+## Usage: Compile Open-Science-Theses  
 ## Author: Claas-Thido Pfaff
 ##------------------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------------##
 
 # Maindocument
-DOCUMENT = open_science_paper
+DOCUMENT = open_science_thesis
 
 # Dependencies maindocument
-DEPENDENCIES = $(DOCUMENT).Rnw osp/subdocuments/*.cls usr/subdocuments/bibliography/*.bib usr/subdocuments/chapters/* usr/subdocuments/options/* osp/data/*.csv
+DEPENDENCIES = $(DOCUMENT).Rnw ost/subdocuments/*.cls usr/subdocuments/bibliography/*.bib usr/subdocuments/chapters/* usr/subdocuments/options/* ost/data/*.csv
 
 # Programs used 
 KNITR = knit
 BIBTEX = biber 
 COMPILER = pdflatex -interaction=nonstopmode
-# The Open-Science-Paper is prepared for Lua-LaTeX if you prefer it. Just comment out pdflatex and comment in lualatex as compiler
+# The Open-Science-Thesis is prepared for Lua-LaTeX if you prefer it. Just comment out pdflatex and comment in lualatex as compiler
 # COMPILER = lualatex 
 PACKER= tar -czf
 REMOVER = @-rm -r
@@ -29,23 +29,23 @@ DATE = $(shell date +%y%m%d)
 
 # Example and Empty files  
 SUBDOCFOLDER = usr/subdocuments/
-EXMPLDOCS = osp/subdocuments/exmpl/bibliography/  osp/subdocuments/exmpl/chapters/ osp/subdocuments/exmpl/options/
-TEMPDOCS =  osp/subdocuments/temp/bibliography/  osp/subdocuments/temp/chapters/ osp/subdocuments/temp/options/
+EXMPLDOCS = ost/subdocuments/exmpl/bibliography/  ost/subdocuments/exmpl/chapters/ ost/subdocuments/exmpl/options/
+TEMPDOCS =  ost/subdocuments/temp/bibliography/  ost/subdocuments/temp/chapters/ ost/subdocuments/temp/options/
 
-TEMPREADME = osp/subdocuments/temp/README.md
-EXMPLREADME = osp/subdocuments/exmpl/README.md  
+TEMPREADME = ost/subdocuments/temp/README.md
+EXMPLREADME = ost/subdocuments/exmpl/README.md  
 
 # Base folder 
 BASEFOLDER = `pwd` 
 
 # Git hooks 
-HOOKSOURCE = osp/data/ospGitHook
+HOOKSOURCE = ost/data/ostGitHook
 GITHOOKPATH = .git/hooks
 HOOKRIGHTS = 744
 
 # Archive document
 ARCHNAME = $(DOCUMENT)_$(DATE).tar.gz
-ARCHFILES = $(DOCUMENT).pdf $(DOCUMENT).Rnw osp/ usr/ makefile
+ARCHFILES = $(DOCUMENT).pdf $(DOCUMENT).Rnw ost/ usr/ makefile
 
 # Clean up the document folder
 CLEANFILES = usr/graphics/dynamic/* *.gin usr/cache/* *.xdy *tikzDictionary *.idx *.mtc* *.glo *.maf *.ptc *.tikz *.lot *.dpth *.figlist *.dep *.log *.makefile *.out *.map *.tex *.toc *.aux *.tmp *.bbl *.blg *.lof *.acn *.acr *.alg *.glg *.gls *.ilg *.ind *.ist *.slg *.syg *.syi *.acn *.dvi *.ist *.syg *.synctex.gz *.bcf *.run.xml *-blx.bib  
@@ -74,13 +74,13 @@ initrproject:
 
 # Buildserver 
 
-# It is a continous integration service for your Open-Science-Paper document. 
+# It is a continous integration service for your Open-Science-Thesis document. 
 # You can start it by issuing the task below. It starts a server that tracks 
 # changes in the directory and rebuilds your document to pdf. 
 
 buildserver:  
 	# needs ruby and gem fssm
-	ruby osp/server/buildserver.rb 
+	ruby ost/server/buildserver.rb 
 
 # Showpdf 
 
@@ -135,7 +135,7 @@ archive:
 # Example and Temps content
 
 # The tasks for example and temp content can be used switch between an empty
-# and a document with examples. This is useful as the Open-Science-Paper comes
+# and a document with examples. This is useful as the Open-Science-Thesis comes
 # usually filled with example content to show you how things work. If you are
 # already familiar with LaTeX and onyly want to have an empty document to start
 # with you can just issue eht "tmpdoc" task below. If you like to remove the
@@ -180,9 +180,9 @@ rmgithooks:
 
 prep: 
 	# This is a development only task
-	$(COPY) usr/subdocuments/* osp/subdocuments/exmpl/
-	$(COPY) README.md osp/subdocuments/exmpl/
-	$(COPY) usr/subdocuments/options/ osp/subdocuments/temp/  
+	$(COPY) usr/subdocuments/* ost/subdocuments/exmpl/
+	$(COPY) README.md ost/subdocuments/exmpl/
+	$(COPY) usr/subdocuments/options/ ost/subdocuments/temp/  
 
 # Installers (this package is not maintained at the moment but works well so far)
 installtikzdev:  
