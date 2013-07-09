@@ -662,6 +662,9 @@
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2}, \ldots} 
 \newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
 
+\newcommand{\ostInsitution}{University of XY, Department Z} 
+\newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
+
 \newcommand{\ostTitleKeywordContactName}{Corresponding:} 
 \newcommand{\ostSetTitleKeywordContactName}[1]{\gdef\ostTitleKeywordContactName{#1}}  
 
@@ -743,23 +746,43 @@
          \end{tabular}\par\vspace{\ostLengtTitleSpaceBelow}
       }
 \else%
-   \newcommand{\ostMakeTitle}{%
-      \ostTitleRule\par\vspace{\ostLengtTitleSpaceAbove}
-         \begin{tabular}{p{\ostLengtTitleLogoColwidth}p{\ostLengtTitleTitleColwidth}}
-            \begin{minipage}{0.25\textwidth}
-               \ostTitleLogo%
-            \end{minipage}&	
-            \begin{minipage}{0.7\textwidth} 
-               \vspace{\baselineskip}
-                  {\color{ostColorTitle}{{\ostFontTitle\ostTitle}}}\par
-                  \ifdefempty{\ostAuthors}{}{\begin{normalsize}\textbf{\ostAuthors}\end{normalsize}\par}
-                  \ifdefempty{\ostContacts}{}{\begin{normalsize}\textbf{\ostTitleKeywordContactName} \ostContacts\end{normalsize}\par}
-                  \ifdefempty{\ostAffiliations}{}{\begin{normalsize}\textbf{\ostTitleKeywordAffiliationName} \ostAffiliations\end{normalsize}\par}
-                  \ifdefempty{\ostKeywords}{}{\begin{normalsize}\textbf{\ostTitleKeywordName} \ostKeywords\end{normalsize}\par}
-                  \ostGitInfoLine%
-            \end{minipage}
-         \end{tabular}\par\vspace{\ostLengtTitleSpaceBelow}
-      }
+   \newcommand{\ostMakeTitle}{% 
+      \begin{titlepage}
+      %\CenterBackgroundPic{Bilder/PowerPlant.png}
+        \vspace*{\stretch{1}}
+          \ostTitleRule\par
+          \vspace{1em}
+          \begin{center}
+            \begin{LARGE}
+              {\color{ostColorTitle}{{\ostFontTitle\ostTitle}}}\par
+            \end{LARGE} 
+        \end{center}
+        \begin{center}
+          \ifdefempty{\ostAuthors}{}{\begin{normalsize}\textbf{\ostAuthors}\end{normalsize}\par}
+       \end{center} 
+       \begin{center}
+        \begin{footnotesize} 
+          \ifdefempty{\ostInsitution}{}{\begin{normalsize}\ostInsitution\end{normalsize}\par}
+      \end{footnotesize} 
+       \end{center}      
+          \ostTitleRule\par
+        \vspace*{\stretch{2}}
+      \end{titlepage}
+
+      % \ostTitleRule\par\vspace{\ostLengtTitleSpaceAbove}
+         % \begin{tabular}{p{\ostLengtTitleLogoColwidth}p{\ostLengtTitleTitleColwidth}}
+            % \begin{minipage}{0.25\textwidth}
+               % \ostTitleLogo%
+            % \end{minipage}&	
+            % \begin{minipage}{0.7\textwidth} 
+               % \vspace{\baselineskip}
+                  % \ifdefempty{\ostContacts}{}{\begin{normalsize}\textbf{\ostTitleKeywordContactName} \ostContacts\end{normalsize}\par}
+                  % \ifdefempty{\ostAffiliations}{}{\begin{normalsize}\textbf{\ostTitleKeywordAffiliationName} \ostAffiliations\end{normalsize}\par}
+                  % \ifdefempty{\ostKeywords}{}{\begin{normalsize}\textbf{\ostTitleKeywordName} \ostKeywords\end{normalsize}\par}
+                  % \ostGitInfoLine%
+            % \end{minipage}
+         % \end{tabular}\par\vspace{\ostLengtTitleSpaceBelow}
+      } 
 \fi% 
 
 %% Defines the abstract %%
@@ -1061,7 +1084,22 @@
    {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{\theparagraph}{0.5em}{}
    \titlespacing*{\paragraph}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
-\else% 
+\else%  
+
+\titleformat{\part}[display]%
+{\normalfont\sffamily\Large}
+{%\Huge\textsc{\chaptertitlename}
+\hfill\fontsize{110}{70}\selectfont\color{lightgray}\textbf\thepart}
+{-2ex}
+{\filleft\fontsize{50}{70}\selectfont\textbf}
+[\vspace*{4pc}\thispagestyle{empty}]
+
+  \titleformat{\chapter}
+  {\normalfont\sffamily\Large}{\textbf\thechapter}{0.5em}{\textbf}
+  \titlespacing*{\chapter}
+  {0pt}{35pt}{20pt}
+
+
    \titleformat{\section}
    {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{}{0em}{}
    \titlespacing*{\section}
