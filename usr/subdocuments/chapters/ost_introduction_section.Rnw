@@ -2,11 +2,9 @@
 %%% Sub document introduction %%%
 %%%-------------------------------------------------%%%
 
-\part{Main matter}
+\part{First chapter}
 
 \chapter{Introduction}
-
-\section{Introduction}
 
 % Remove the lipsum and the list example and fill in your introduction text here
 

@@ -1074,11 +1074,11 @@
 
 \ifost@sectionnumbers%  
   \titleformat{\part}[display]%
-  {\normalfont\sffamily\Large}
-  {%\Huge\textsc{\chaptertitlename}
-  \hfill\fontsize{110}{70}\selectfont\color{LightGray}\textbf}
-  {-2ex}
-  {\filleft\fontsize{50}{70}\selectfont\textbf}
+     {\normalfont\sffamily\Large}
+       {%\Huge\textsc{\chaptertitlename}
+         \hfill\fontsize{110}{70}\selectfont\color{lightgray}\textbf\thepart}
+           {-2ex}
+             {\filleft\fontsize{50}{70}\selectfont\textbf}
   [\vspace*{4pc}\thispagestyle{empty}]
 
   \titleformat{\chapter}[display]
@@ -1108,11 +1108,11 @@
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
   \titleformat{\part}[display]%
-  {\normalfont\sffamily\Large}
-  {%\Huge\textsc{\chaptertitlename}
-  \hfill\fontsize{110}{70}\selectfont\color{LightGray}\textbf}
-  {-2ex}
-  {\filleft\fontsize{50}{70}\selectfont\textbf}
+     {\normalfont\sffamily\Large}
+       {%\Huge\textsc{\chaptertitlename}
+         \hfill\fontsize{110}{70}\selectfont\color{lightgray}\textbf\thepart}
+           {-2ex}
+             {\filleft\fontsize{50}{70}\selectfont\textbf}
   [\vspace*{4pc}\thispagestyle{empty}]
 
   \titleformat{\chapter}[display]

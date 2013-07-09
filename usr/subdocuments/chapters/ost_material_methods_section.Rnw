@@ -2,7 +2,7 @@
 %%% Sub document for material and methods %%%
 %%%-------------------------------------------------%%%
 
-\section{Material And Methods}
+\chapter{Material And Methods}
 
 % Remove the lipsum and example table fill in your material and methods text here
 
