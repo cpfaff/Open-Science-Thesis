@@ -2,8 +2,8 @@
 
 ###------------------------------------------------------------------------------------%%
 ###------------------------------------------------------------------------------------%%
-### Content: Open-Science-Paper ruby build server
-### Usage: Continous build your Open-Science-Paper on changes
+### Content: Open-Science-Thesis ruby build server
+### Usage: Continous build your Open-Science-Thesis on changes
 ### Author: Claas-Thido Pfaff
 ###------------------------------------------------------------------------------------%%
 ###------------------------------------------------------------------------------------%%

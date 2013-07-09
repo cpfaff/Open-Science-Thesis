@@ -159,10 +159,18 @@
 \ifost@color% 
    \colorlet{ostColorTitleRule}{LightGray}
    \colorlet{ostColorTitle}{DarkRed}
-   \colorlet{ostColorAbstractHeader}{DarkGray}   
-   \colorlet{ostColorSubsectionHeader}{DarkOrange}
-   \colorlet{ostColorParagraphHeader}{DarkGray}
-   \colorlet{ostColorSectionHeader}{DarkOrange}
+   \colorlet{ostColorAbstractHeader}{DarkGray}     
+
+   \colorlet{ostColorPartHeader}{black} 
+   \colorlet{ostColorPartHeaderNumber}{LightGray}  
+
+   \colorlet{ostColorChapterHeader}{black} 
+   % \colorlet{ostColorSectionHeader}{DarkOrange}  
+   \xdefinecolor{ostColorSectionHeader}{RGB}{217,95,14} 
+   % \colorlet{ostColorSubsectionHeader}{DarkOrange}
+   \xdefinecolor{ostColorSubsectionHeader}{RGB}{254,196,79} 
+   % \colorlet{ostColorParagraphHeader}{DarkGray}
+   \xdefinecolor{ostColorParagraphHeader}{RGB}{255,247,188} 
 
    \colorlet{ostColorLettrine}{DarkGray}  
 
@@ -196,10 +204,12 @@
    \colorlet{ostColorTitleRule}{black}
    \colorlet{ostColorTitle}{black} 
 
-   \colorlet{ostColorAbstractHeader}{black}  
+   \colorlet{ostColorPartHeader}{black}
+   \colorlet{ostColorPartHeaderNumber}{black}
+   \colorlet{ostColorChapterHeader}{black}
+   \colorlet{ostColorSectionHeader}{black}
    \colorlet{ostColorSubsectionHeader}{black}
    \colorlet{ostColorParagraphHeader}{black}
-   \colorlet{ostColorSectionHeader}{black}
 
    \colorlet{ostColorLettrine}{black}
    
@@ -252,67 +262,67 @@
 %%% Define header and footer %%%
 %%%-------------------------------------------------%%%
 
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
+% \usepackage{fancyhdr}
+% \pagestyle{fancy}
+% \fancyhf{}
 
 %% Set the footer contents
-\newcommand{\ostFooterTextLeftOfSeparator}{Open-Science-Theses} 
-\newcommand{\ostSetFooterTextLeftOfSeparator}[1]{\def\ostFooterTextLeftOfSeparator{#1}}
+% \newcommand{\ostFooterTextLeftOfSeparator}{Open-Science-Theses} 
+% \newcommand{\ostSetFooterTextLeftOfSeparator}[1]{\def\ostFooterTextLeftOfSeparator{#1}}
 
-\newcommand{\ostFooterTextRightOfSeparator}{Compiled on \today} 
-\newcommand{\ostSetFooterTextRightOfSeparator}[1]{\def\ostFooterTextRightOfSeparator{#1}}
+% \newcommand{\ostFooterTextRightOfSeparator}{Compiled on \today} 
+% \newcommand{\ostSetFooterTextRightOfSeparator}[1]{\def\ostFooterTextRightOfSeparator{#1}}
 
-\newcommand{\ostFooterLogo}{\relax}
-\newcommand{\ostSetFooterLogo}[1]{\gdef\ostFooterLogo{#1}}
+% \newcommand{\ostFooterLogo}{\relax}
+% \newcommand{\ostSetFooterLogo}[1]{\gdef\ostFooterLogo{#1}}
 
-\ifost@color%
-   \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-theses-footer-logo-gray.pdf}}}
-\else% 
-   \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-theses-footer-logo-black.pdf}}}
-\fi%
+% \ifost@color%
+   % \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-theses-footer-logo-gray.pdf}}}
+% \else% 
+   % \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-theses-footer-logo-black.pdf}}}
+% \fi%
 
-\newcommand{\ostFooterTextSeparator}{\textcolor{ostColorFooterTextSeparator}{$\circ$}} 
-\newcommand{\ostSetFooterTextSeparator}[1]{\gdef\ostFooterTextSeparator{#1}}
+% \newcommand{\ostFooterTextSeparator}{\textcolor{ostColorFooterTextSeparator}{$\circ$}} 
+% \newcommand{\ostSetFooterTextSeparator}[1]{\gdef\ostFooterTextSeparator{#1}}
 
-\newcommand{\ostFullLeftFooter}{\ostFooterLogo\xspace~ \textcolor{ostColorFullLeftFooter}{{\normalsize \ostFooterTextLeftOfSeparator\xspace \ostFooterTextSeparator\xspace \ostFooterTextRightOfSeparator}}} 
-\newcommand{\ostSetFullLeftFooter}[1]{\gdef\ostFullLeftFooter{#1}}
+% \newcommand{\ostFullLeftFooter}{\ostFooterLogo\xspace~ \textcolor{ostColorFullLeftFooter}{{\normalsize \ostFooterTextLeftOfSeparator\xspace \ostFooterTextSeparator\xspace \ostFooterTextRightOfSeparator}}} 
+% \newcommand{\ostSetFullLeftFooter}[1]{\gdef\ostFullLeftFooter{#1}}
 
-%% Style the footer and header elements 
-\newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
-\newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
+% %% Style the footer and header elements 
+% \newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
+% \newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
 
-\newlength{\ostLengthHeaderRuleWidth} 
-\setlength{\ostLengthHeaderRuleWidth}{0pt} 
-\renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
+% \newlength{\ostLengthHeaderRuleWidth} 
+% \setlength{\ostLengthHeaderRuleWidth}{0pt} 
+% \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
 
-\newlength{\ostLengthFooterRuleWidth} 
-\setlength{\ostLengthFooterRuleWidth}{0.4pt} 
-\renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
+% \newlength{\ostLengthFooterRuleWidth} 
+% \setlength{\ostLengthFooterRuleWidth}{0.4pt} 
+% \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
 
-\patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
+% \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
 
-\newcommand{\ostFooterPageNumberingColor}{ostColorFooterPageNumber} 
-\newcommand{\ostSetFooterPageNumberingColor}[1]{\gdef\ostFooterPageNumberingColor{#1}} 
+% \newcommand{\ostFooterPageNumberingColor}{ostColorFooterPageNumber} 
+% \newcommand{\ostSetFooterPageNumberingColor}[1]{\gdef\ostFooterPageNumberingColor{#1}} 
 
-\newcommand{\ostFooterPageNumberingStyle}{\normalsize\textbf} 
-\newcommand{\ostSetFooterPageNumberingStyle}[1]{\gdef\ostFooterPageNumberingStyle{#1}} 
+% \newcommand{\ostFooterPageNumberingStyle}{\normalsize\textbf} 
+% \newcommand{\ostSetFooterPageNumberingStyle}[1]{\gdef\ostFooterPageNumberingStyle{#1}} 
 
-\newcommand{\ostFullRightFooter}{{\ostFooterPageNumberingStyle{\textcolor{\ostFooterPageNumberingColor}{{\thepage}}}}} 
-\newcommand{\ostSetFullRightFooter}[1]{\gdef\ostFullRightFooter{#1}}
+% \newcommand{\ostFullRightFooter}{{\ostFooterPageNumberingStyle{\textcolor{\ostFooterPageNumberingColor}{{\thepage}}}}} 
+% \newcommand{\ostSetFullRightFooter}[1]{\gdef\ostFullRightFooter{#1}}
 
-\ifost@twosidelayout% 
-   \ifost@reversepagelayout%
-      \fancyfoot[LO, RE]{\ostFullLeftFooter}
-      \fancyfoot[RO, LE]{\ostFullRightFooter} 
-   \else%
-      \fancyfoot[RO, LE]{\ostFullLeftFooter}
-      \fancyfoot[LO, RE]{\ostFullRightFooter} 
-   \fi%
-\else%
-   \fancyfoot[L]{\ostFullLeftFooter}
-   \fancyfoot[R]{\ostFullRightFooter} 
-\fi%
+% \ifost@twosidelayout% 
+   % \ifost@reversepagelayout%
+      % \fancyfoot[LO, RE]{\ostFullLeftFooter}
+      % \fancyfoot[RO, LE]{\ostFullRightFooter} 
+   % \else%
+      % \fancyfoot[RO, LE]{\ostFullLeftFooter}
+      % \fancyfoot[LO, RE]{\ostFullRightFooter} 
+   % \fi%
+% \else%
+   % \fancyfoot[L]{\ostFullLeftFooter}
+   % \fancyfoot[R]{\ostFullRightFooter} 
+% \fi%
 
 %%%-------------------------------------------------%%%
 %%% Control big starting letters (Lettrine) %%%
@@ -665,8 +675,8 @@
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
 
-\newcommand{\ostTitleKeywordContactName}{Corresponding:} 
-\newcommand{\ostSetTitleKeywordContactName}[1]{\gdef\ostTitleKeywordContactName{#1}}  
+% \newcommand{\ostTitleKeywordContactName}{Corresponding:} 
+% \newcommand{\ostSetTitleKeywordContactName}[1]{\gdef\ostTitleKeywordContactName{#1}}  
 
 \newcommand{\ostContacts}{foo@bar.com\textsuperscript{a}} 
 \newcommand{\ostSetContacts}[1]{\def\ostContacts{#1}}
@@ -679,14 +689,14 @@
 
 \newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{1.7pt}}}
 
-\newcommand{\ostTitleLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-theses-title-header-logo.pdf}} 
-\newcommand{\ostSetTitleLogo}[1]{\gdef\ostTitleLogo{#1}} 
+% \newcommand{\ostTitleLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-theses-title-header-logo.pdf}} 
+% \newcommand{\ostSetTitleLogo}[1]{\gdef\ostTitleLogo{#1}} 
 
-\newcommand{\ostTitleKeywordAffiliationName}{Affiliation:} 
-\newcommand{\ostSetTitleKeywordAffiliationName}[1]{\gdef\ostTitleKeywordAffiliationName{#1}} 
+% \newcommand{\ostTitleKeywordAffiliationName}{Affiliation:} 
+% \newcommand{\ostSetTitleKeywordAffiliationName}[1]{\gdef\ostTitleKeywordAffiliationName{#1}} 
 
-\newcommand{\ostTitleKeywordName}{Keywords:} 
-\newcommand{\ostSetTitleKeywordName}[1]{\gdef\ostTitleKeywordName{#1}}  
+% \newcommand{\ostTitleKeywordName}{Keywords:} 
+% \newcommand{\ostSetTitleKeywordName}[1]{\gdef\ostTitleKeywordName{#1}}  
 
 \newcommand{\ostHeaderInfoFilePath}{ost/data/ostHeaderTable.csv} 
 \newcommand{\ostSetHeaderInfoFilePath}[1]{\gdef\ostHeaderInfoFilePath{#1}}  
@@ -1062,8 +1072,20 @@
 
 \RequirePackage[noindentafter,calcwidth]{titlesec}  
 
-\ifost@sectionnumbers%
-   \titleformat{\section}
+\ifost@sectionnumbers%  
+  \titleformat{\part}[display]%
+  {\normalfont\sffamily\Large}
+  {%\Huge\textsc{\chaptertitlename}
+  \hfill\fontsize{110}{70}\selectfont\color{LightGray}\textbf}
+  {-2ex}
+  {\filleft\fontsize{50}{70}\selectfont\textbf}
+  [\vspace*{4pc}\thispagestyle{empty}]
+
+  \titleformat{\chapter}[display]
+  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\thechapter}{20pt}{\Huge}
+  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+
+  \titleformat{\section}
    {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{\thesection}{0.5em}{}
    \titlespacing*{\section}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
@@ -1085,42 +1107,39 @@
    \titlespacing*{\paragraph}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
+  \titleformat{\part}[display]%
+  {\normalfont\sffamily\Large}
+  {%\Huge\textsc{\chaptertitlename}
+  \hfill\fontsize{110}{70}\selectfont\color{LightGray}\textbf}
+  {-2ex}
+  {\filleft\fontsize{50}{70}\selectfont\textbf}
+  [\vspace*{4pc}\thispagestyle{empty}]
 
-\titleformat{\part}[display]%
-{\normalfont\sffamily\Large}
-{%\Huge\textsc{\chaptertitlename}
-\hfill\fontsize{110}{70}\selectfont\color{lightgray}\textbf\thepart}
-{-2ex}
-{\filleft\fontsize{50}{70}\selectfont\textbf}
-[\vspace*{4pc}\thispagestyle{empty}]
+  \titleformat{\chapter}[display]
+  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{20pt}{\Huge}
+  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
 
-  \titleformat{\chapter}
-  {\normalfont\sffamily\Large}{\textbf\thechapter}{0.5em}{\textbf}
-  \titlespacing*{\chapter}
-  {0pt}{35pt}{20pt}
+  \titleformat{\section}
+  {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{}{0em}{}
+  \titlespacing*{\section}
+  {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
+  \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
 
-   \titleformat{\section}
-   {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{}{0em}{}
-   \titlespacing*{\section}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+  \titleformat{\subsection}
+  {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
+  \titlespacing*{\subsection}
+  {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
+  \titleformat{\subsubsection}[runin]
+  {\color{ostColorSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
+  \titlespacing*{\subsection}
+  {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \titleformat{\subsection}
-   {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
-   \titlespacing*{\subsection}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
-
-   \titleformat{\subsubsection}[runin]
-   {\color{ostColorSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
-   \titlespacing*{\subsection}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
-
-   \titleformat{\paragraph}[runin]
-   {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
-   \titlespacing*{\paragraph}
-    {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
+  \titleformat{\paragraph}[runin]
+  {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
+  \titlespacing*{\paragraph}
+  {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \fi%
 
 % Note: This are the defaults
@@ -1148,7 +1167,12 @@
 % \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
 
 % try to get a nice appendix section for graphics and tables 
-\newenvironment{ostAppendix}{
+\newenvironment{ostAppendix}{ 
+  \titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{}{20pt}{\Huge}
+  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+
+
 \titleformat{\section}
   {\FloatBarrier\color{ostColorSectionHeader}\normalfont\sffamily\large\bfseries}{\thesection}{0.5em}{}
 \titlespacing*{\section}
