@@ -58,6 +58,7 @@
 
 \begin{document}
 
+\frontmatter
 %%%--------------------------------------------------------------%%%
 %%% Document preparations %%%
 %%%--------------------------------------------------------------%%%
@@ -81,8 +82,6 @@
 %%% Include header %%%
 %%%-------------------------------------------------%%%
 
-% \begin{ostHeader} 
-
 <<subdoc_content_header, child='usr/subdocuments/chapters/ost_header.Rnw', eval=T>>=
 @
 
@@ -97,7 +96,7 @@
 %%%-------------------------------------------------%%%
 %%% Affidavit %%%
 %%%-------------------------------------------------%%%
-
+\mainmatter
 <<subdoc_content_introduction, child='usr/subdocuments/chapters/ost_affidavit_section.Rnw', eval=T>>=
 @
 
@@ -107,8 +106,6 @@
 
 <<subdoc_content_abstract, child='usr/subdocuments/chapters/ost_abstract_section.Rnw', eval=T>>=
 @
-
-% \end{ostHeader}
 
 %%%-------------------------------------------------%%%
 %%% Include introduction %%%
@@ -149,11 +146,11 @@
 %%% Include the appendix %%%
 %%%-------------------------------------------------%%%
 
-\begin{ostAppendix} 
+% \begin{ostAppendix} 
 <<subdoc_content_appendix, child='usr/subdocuments/chapters/ost_appendix_section.Rnw', eval=T>>=
 @ 
-\end{ostAppendix} 
-
+% \end{ostAppendix} 
+\backmatter
 %%%-------------------------------------------------%%%
 %%% Glossary %%%
 %%%-------------------------------------------------%%%

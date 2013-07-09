@@ -32,11 +32,11 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{resetdefaultclassoptions}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
 
-\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrreprt}}
+\DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
    linenumbers=false, 
-   color=false, 
+   color=true, 
    print=false, 
    gitinfo=false, 
    csvdata=false,
@@ -51,21 +51,22 @@
 \ProcessOptionsX[KV]<open-science-thesis>
 
 % BCOR=5mm 
+% [12pt, headings=small, DIV=calc, twoside, BCOR=5mm] 
 
 \ifost@resetdefaultclassoptions%
-   \LoadClass{scrreprt}   
+   \LoadClass{scrbook}   
 \else% 
    \ifost@autolayout  
       \ifost@twosidelayout%
-         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, twoside, final]{scrreprt}   
+         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, twoside, final, BCOR=5mm]{scrbook}   
       \else%
-         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, oneside, final]{scrreprt}   
+         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, oneside, final]{scrbook}   
       \fi%
    \else%
       \ifost@twosidelayout%
-         \LoadClass[12pt, headings=small, captions=tableheading, twoside, final]{scrreprt}
+         \LoadClass[12pt, headings=small, captions=tableheading, twoside, final, BCOR=5mm]{scrbook}
       \else%
-         \LoadClass[12pt, headings=small, captions=tableheading, oneside, final]{scrreprt}
+         \LoadClass[12pt, headings=small, captions=tableheading, oneside, final]{scrbook}
       \fi%
       \RequirePackage{geometry}
    \fi% 
@@ -182,24 +183,24 @@
    \colorlet{ostColorFullRightFooter}{DarkGray} 
    \colorlet{ostColorFooterPageNumber}{DarkGray}
 
-   \xdefinecolor{ostColor@Links}{rgb}{0,0,0.4} 
-   \xdefinecolor{ostColor@ListingBackground}{gray}{.90} 
-   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
-   \xdefinecolor{ostColor@ListingBase01}{HTML}{586e75}
-   \xdefinecolor{ostColor@ListingBase02}{HTML}{073642}
-   \xdefinecolor{ostColor@ListingBase03}{HTML}{002B36}
-   \xdefinecolor{ostColor@ListingBase0}{HTML}{839496}
-   \xdefinecolor{ostColor@ListingBase1}{HTML}{93a1a1}
-   \xdefinecolor{ostColor@ListingBase2}{HTML}{EEE8D5}
-   \xdefinecolor{ostColor@ListingBase3}{HTML}{FDF6E3}
-   \xdefinecolor{ostColor@ListingYellow}{HTML}{B58900}
-   \xdefinecolor{ostColor@ListingOrange}{HTML}{CB4B16}
-   \xdefinecolor{ostColor@ListingRed}{HTML}{DC322F}
-   \xdefinecolor{ostColor@ListingMagenta}{HTML}{D33682}
-   \xdefinecolor{ostColor@ListingViolet}{HTML}{6C71C4}
-   \xdefinecolor{ostColor@ListingBlue}{HTML}{268BD2}
-   \xdefinecolor{ostColor@ListingCyan}{HTML}{2AA198}
-   \xdefinecolor{ostColor@ListingGreen}{HTML}{859900}
+  \xdefinecolor{ostColor@Links}{rgb}{0,0,0.4} 
+  \xdefinecolor{ostColor@ListingBackground}{gray}{.90} 
+  \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
+  \xdefinecolor{ostColor@ListingBase01}{HTML}{586e75}
+  \xdefinecolor{ostColor@ListingBase02}{HTML}{073642}
+  \xdefinecolor{ostColor@ListingBase03}{HTML}{002B36}
+  \xdefinecolor{ostColor@ListingBase0}{HTML}{839496}
+  \xdefinecolor{ostColor@ListingBase1}{HTML}{93a1a1}
+  \xdefinecolor{ostColor@ListingBase2}{HTML}{EEE8D5}
+  \xdefinecolor{ostColor@ListingBase3}{HTML}{FDF6E3}
+  \xdefinecolor{ostColor@ListingYellow}{HTML}{B58900}
+  \xdefinecolor{ostColor@ListingOrange}{HTML}{CB4B16}
+  \xdefinecolor{ostColor@ListingRed}{HTML}{DC322F}
+  \xdefinecolor{ostColor@ListingMagenta}{HTML}{D33682}
+  \xdefinecolor{ostColor@ListingViolet}{HTML}{6C71C4}
+  \xdefinecolor{ostColor@ListingBlue}{HTML}{268BD2}
+  \xdefinecolor{ostColor@ListingCyan}{HTML}{2AA198}
+  \xdefinecolor{ostColor@ListingGreen}{HTML}{859900}
 \else%
    \colorlet{ostColorTitleRule}{black}
    \colorlet{ostColorTitle}{black} 
@@ -292,8 +293,8 @@
 % \newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
 % \newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
 
-% \newlength{\ostLengthHeaderRuleWidth} 
-% \setlength{\ostLengthHeaderRuleWidth}{0pt} 
+\newlength{\ostLengthHeaderRuleWidth} 
+\setlength{\ostLengthHeaderRuleWidth}{0pt} 
 % \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
 
 % \newlength{\ostLengthFooterRuleWidth} 
@@ -311,6 +312,7 @@
 % \newcommand{\ostFullRightFooter}{{\ostFooterPageNumberingStyle{\textcolor{\ostFooterPageNumberingColor}{{\thepage}}}}} 
 % \newcommand{\ostSetFullRightFooter}[1]{\gdef\ostFullRightFooter{#1}}
 
+% \fancyfoot[C]{\ostFullRightFooter}
 % \ifost@twosidelayout% 
    % \ifost@reversepagelayout%
       % \fancyfoot[LO, RE]{\ostFullLeftFooter}
@@ -642,7 +644,6 @@
 
 %% Title header defaults %%
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
-% \newcommand{\ostSetFontTitle}[1]{\gdef\ostFontTitle{#1}} 
 
 \newlength{\ostLengthOfTitleBeforeReduceFontSize} 
 \setlength{\ostLengthOfTitleBeforeReduceFontSize}{0.6\textwidth} 
@@ -652,22 +653,12 @@
   \def\ostTitle{#1} 
   \newlength{\ost@LenghtTitle} 
   \settowidth{\ost@LenghtTitle}{#1}   
-
   \ifdim\ost@LenghtTitle>\ostLengthOfTitleBeforeReduceFontSize
-    % \ostSetFontTitle{\normalfont\sffamily\LARGE\bfseries} 
     \ostSetFont{\ostFontTitle}{\normalfont\sffamily\LARGE\bfseries}
   \else 
-    % \ostSetFontTitle{\normalfont\sffamily\Huge\bfseries}
     \ostSetFont{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}
   \fi 
 } 
-
-% wrapper for the header content in root file
-\newenvironment{ostHeader}{
-  \relax
-}{
-  \ostTitleRule
-}
 
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2}, \ldots} 
 \newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
@@ -675,41 +666,16 @@
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
 
-% \newcommand{\ostTitleKeywordContactName}{Corresponding:} 
-% \newcommand{\ostSetTitleKeywordContactName}[1]{\gdef\ostTitleKeywordContactName{#1}}  
-
 \newcommand{\ostContacts}{foo@bar.com\textsuperscript{a}} 
 \newcommand{\ostSetContacts}[1]{\def\ostContacts{#1}}
 
-\newcommand{\ostAffiliations}{University of XY departement of Z\textsuperscript{1}, \ldots} 
-\newcommand{\ostSetAffiliations}[1]{\def\ostAffiliations{#1}}
-
-\newcommand{\ostKeywords}{Open Science, Git, R, Knitr, ggplot2, tikz}
-\newcommand{\ostSetKeywords}[1]{\def\ostKeywords{#1}}
-
 \newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{1.7pt}}}
 
-% \newcommand{\ostTitleLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-theses-title-header-logo.pdf}} 
-% \newcommand{\ostSetTitleLogo}[1]{\gdef\ostTitleLogo{#1}} 
-
-% \newcommand{\ostTitleKeywordAffiliationName}{Affiliation:} 
-% \newcommand{\ostSetTitleKeywordAffiliationName}[1]{\gdef\ostTitleKeywordAffiliationName{#1}} 
-
-% \newcommand{\ostTitleKeywordName}{Keywords:} 
-% \newcommand{\ostSetTitleKeywordName}[1]{\gdef\ostTitleKeywordName{#1}}  
-
-\newcommand{\ostHeaderInfoFilePath}{ost/data/ostHeaderTable.csv} 
-\newcommand{\ostSetHeaderInfoFilePath}[1]{\gdef\ostHeaderInfoFilePath{#1}}  
+\newcommand{\ostInstitutionLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-theses-title-header-logo.pdf}} 
+\newcommand{\ostSetInstitutionLogo}[1]{\gdef\ostInstitutionLogo{#1}} 
 
 \newcommand{\ostFontAuthors}{\normalfont\sffamily\normalsize} 
-% \newcommand{\ostSetFontAuthors}[1]{\gdef\ostFontAuthors{#1}} 
-\ostSetFont{\ostFontAuthors}{\normalfont\sffamily\normalsize}
-
-\newlength{\ostLengtTitleLogoColwidth} 
-\setlength{\ostLengtTitleLogoColwidth}{0.23\textwidth} 
-
-\newlength{\ostLengtTitleTitleColwidth} 
-\setlength{\ostLengtTitleTitleColwidth}{0.55\textwidth} 
+\newcommand{\ostSetFontAuthors}[1]{\gdef\ostFontAuthors{#1}} 
 
 \newlength{\ostLengtTitleSpaceAbove}
 \setlength{\ostLengtTitleSpaceAbove}{0.5\baselineskip} 
@@ -717,87 +683,33 @@
 \newlength{\ostLengtTitleSpaceBelow} 
 \setlength{\ostLengtTitleSpaceBelow}{0\baselineskip}  
 
-\ifost@csvdata
-   \DTLloaddb{ostHeaderInfoFromTable}{\ostHeaderInfoFilePath}
-   \DTLgetvalue{\ostTitleCsv}{ostHeaderInfoFromTable}{1}{\dtlcolumnindex{ostHeaderInfoFromTable}{ostTitle}}\par%
-    \newcommand{\ostMakeTitle}{% 
-      \ostTitleRule\par\vspace{\ostLengtTitleSpaceAbove}
-         \begin{tabular}{p{\ostLengtTitleLogoColwidth}p{\ostLengtTitleTitleColwidth}}
-            \begin{minipage}{0.25\textwidth}
-               \ostTitleLogo%
-            \end{minipage}&%
-            \begin{minipage}{0.7\textwidth} 
-               \vspace{\baselineskip}
-                  {\color{ostColorTitle}{{\ostFontTitle\ostTitleCsv}}}\par%
-                     \begin{normalsize}\textbf{%
-                        \DTLsort{ostAuthorPriorityToAppear,ostAuthorFirstName}{ostHeaderInfoFromTable} 
-                        \DTLforeach{ostHeaderInfoFromTable}{%
-                           \firstName=ostAuthorFirstNameShort,% 
-                           \lastName=ostAuthorLastName,%
-                           \id=ostAuthorAffiliationIDs}{\ifdefempty{\firstName}{}{\DTLiflastrow{\firstName\xspace\lastName\textsuperscript{\id}}{\firstName\xspace\lastName\textsuperscript{\id},~}}}
-                     }\end{normalsize}\par 
-                  \begin{normalsize}\textbf{\ostTitleKeywordContactName}  
-                     \DTLsort{ostAuthorEmailID}{ostHeaderInfoFromTable} 
-                     \DTLforeach{ostHeaderInfoFromTable}{%
-                        \email=ostAuthorEmail,%
-                        \id=ostAuthorEmailID}{\ifdefempty{\email}{}{\DTLiflastrow{\href{mailto:\email}{\email}\textsuperscript{\id}}{\href{mailto:\email}{\email}\textsuperscript{\id},~}}}
-                  \end{normalsize}\par%
-                  \begin{normalsize}\textbf{\ostTitleKeywordAffiliationName}  
-                     \DTLsort{ostAffiliationIDs}{ostHeaderInfoFromTable} 
-                     \DTLforeach{ostHeaderInfoFromTable}{%
-                        \affiliation=ostAffiliations,%
-                        \id=ostAffiliationIDs}{\ifdefempty{\affiliation}{}{\DTLiflastrow{\affiliation\textsuperscript{\id}}{\affiliation\textsuperscript{\id},~}}}
-                  \end{normalsize}\par%
-                  \begin{normalsize}\textbf{\ostTitleKeywordName}% 
-                     \DTLsort{ostKeywords}{ostHeaderInfoFromTable} 
-                     \DTLforeach{ostHeaderInfoFromTable}{\keyword=ostKeywords}{\ifdefempty{\keyword}{}{\DTLiflastrow{\keyword}{\keyword,~}}} \end{normalsize}\par%
-                  \ostGitInfoLine%
-            \end{minipage}
-         \end{tabular}\par\vspace{\ostLengtTitleSpaceBelow}
-      }
-\else%
-   \newcommand{\ostMakeTitle}{% 
-      \begin{titlepage}
-      %\CenterBackgroundPic{Bilder/PowerPlant.png}
-        \vspace*{\stretch{1}}
-          \ostTitleRule\par
-          \vspace{1em}
-          \begin{center}
-            \begin{LARGE}
-              {\color{ostColorTitle}{{\ostFontTitle\ostTitle}}}\par
-            \end{LARGE} 
-        \end{center}
-        \begin{center}
-          \ifdefempty{\ostAuthors}{}{\begin{normalsize}\textbf{\ostAuthors}\end{normalsize}\par}
-       \end{center} 
-       \begin{center}
+\newcommand{\ostMakeTitle}{% 
+  \begin{titlepage}
+  %\CenterBackgroundPic{Bilder/PowerPlant.png}
+  \vspace*{\stretch{1}}
+  \ostTitleRule\par
+    \vspace{1em}
+    \begin{center}
+      \begin{LARGE}
+        {\color{ostColorTitle}{{\ostFontTitle\ostTitle}}}\par
+      \end{LARGE} 
+    \end{center}
+    \begin{center}
+      \ifdefempty{\ostAuthors}{}{\begin{normalsize}\textbf{\ostAuthors}\end{normalsize}\par}
+      \end{center} 
+      \begin{center}
         \begin{footnotesize} 
           \ifdefempty{\ostInsitution}{}{\begin{normalsize}\ostInsitution\end{normalsize}\par}
-      \end{footnotesize} 
-       \end{center}      
-          \ostTitleRule\par
+          \end{footnotesize} 
+        \end{center}      
+        \ostTitleRule\par
         \vspace*{\stretch{2}}
       \end{titlepage}
-
-      % \ostTitleRule\par\vspace{\ostLengtTitleSpaceAbove}
-         % \begin{tabular}{p{\ostLengtTitleLogoColwidth}p{\ostLengtTitleTitleColwidth}}
-            % \begin{minipage}{0.25\textwidth}
-               % \ostTitleLogo%
-            % \end{minipage}&	
-            % \begin{minipage}{0.7\textwidth} 
-               % \vspace{\baselineskip}
-                  % \ifdefempty{\ostContacts}{}{\begin{normalsize}\textbf{\ostTitleKeywordContactName} \ostContacts\end{normalsize}\par}
-                  % \ifdefempty{\ostAffiliations}{}{\begin{normalsize}\textbf{\ostTitleKeywordAffiliationName} \ostAffiliations\end{normalsize}\par}
-                  % \ifdefempty{\ostKeywords}{}{\begin{normalsize}\textbf{\ostTitleKeywordName} \ostKeywords\end{normalsize}\par}
-                  % \ostGitInfoLine%
-            % \end{minipage}
-         % \end{tabular}\par\vspace{\ostLengtTitleSpaceBelow}
-      } 
-\fi% 
+}
 
 %% Defines the abstract %%
-\RequirePackage{abstract}
-\renewcommand{\abstractnamefont}{\color{ostColorAbstractHeader}\normalfont\sffamily\large\bfseries}
+% \RequirePackage{abstract}
+% \renewcommand{\abstractnamefont}{\color{ostColorAbstractHeader}\normalfont\sffamily\large\bfseries}
 
 %Set the Environments for Textsizes etc
 \newenvironment{smallpar}{\par\small}{\par}
@@ -1167,19 +1079,7 @@
 % \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
 
 % try to get a nice appendix section for graphics and tables 
-\newenvironment{ostAppendix}{ 
-  \titleformat{\chapter}[display]
-  {\normalfont\huge\bfseries}{}{20pt}{\Huge}
-  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
-
-
-\titleformat{\section}
-  {\FloatBarrier\color{ostColorSectionHeader}\normalfont\sffamily\large\bfseries}{\thesection}{0.5em}{}
-\titlespacing*{\section}
-  {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}   
-  \newpage 
-  \appendix  
-}{\relax}
+% \newenvironment{ostAppendix}{\relax}{\relax}
  
 %%%-------------------------------------------------%%%
 %%% Typographical fine-tuning %%%
