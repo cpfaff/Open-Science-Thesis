@@ -1,0 +1,157 @@
+%%%------------------------------------------------------------------------------------%%
+%%%------------------------------------------------------------------------------------%%
+%%% Content: Open-Science-Paper LaTeX Scaffold 
+%%% Usage: Collaborative scientific paper writing 
+%%% Author: Claas-Thido Pfaff
+%%%------------------------------------------------------------------------------------%%
+%%%------------------------------------------------------------------------------------%%
+
+%%%------------------------------------------------------------------------------%%%
+%%% Document class: open_science_paper (Based on Koma-Script: article) %%%
+%%%------------------------------------------------------------------------------%%%
+%%
+%
+
+\documentclass[color=false, csvdata=false]{osp/subdocuments/open_science_paper} 
+
+%% Available class options [defaults]
+% - color true/[false]: Changes between colored output and a black and white theme 
+% - csvdata true/[false]: With csv data enabled you can use the csv file under
+%   the data folder to insert title header information into the document.
+% - gitinfo true/[false]: Include git information into the title header of the 
+%   document. This requires the setup of git hooks which you can do by issuing 
+%   the make task (make githooks). After that you need to specify the url of the 
+%   git repository inside of the style file and you are done.
+% - print true/[false] switches between the color model rgb which is optimal for displays 
+%   and the cmyk color model which is required for professional printing. 
+% - linenumbers true/[false]: Switch on/off line numbers for the whole document.
+% - sectionnumbers true/[false]: Switch between numbered and numberless sections 
+% - autolayout [true]/false: Switch between the nice automatic calculated typearea layout 
+%   (Koma script) and a fixed geometry page layout (geometry package). You need to set the 
+%   geometry inside of the style file if you choose false. 
+% - twosidelayout true/[false]: Switch between two and one side page layout.
+% - reversepagelayout [false]/true reverse the order of odd and even side margins. This 
+%   option can be used to start the paper on a left or right page. 
+% - resetdefaultclassoptions true/[false] resets the default options the open science paper 
+%   loads the scrartcl class. After that you can modify every option via the open science 
+%   paper class call. For example to change the calculated typearea you can use 
+%   \documentclass[resetdefaultclassoptions=true, DIV=7]{osp/subdocuments/open_science_paper}  
+% - parindent true/[false] Switch paragraph indent on or off.
+
+%%%------------------------------------------------------------------------------%%%
+%%% Load user options %%%
+%%%------------------------------------------------------------------------------%%%
+
+\input{usr/subdocuments/options/osp_document_options.sty} 
+
+%%%------------------------------------------------------------------------------%%%
+%%% Load glossary definitions %%%
+%%%------------------------------------------------------------------------------%%%
+
+% <<glossary_definitions, child='usr/subdocuments/options/open_science_glossary.Rnw', eval=TRUE>>=
+% @
+
+%%%------------------------------------------------------------------------------%%%
+%%% Begin the document %%%
+%%%------------------------------------------------------------------------------%%%
+
+
+\begin{document}
+
+%%%--------------------------------------------------------------%%%
+%%% Document preparations %%%
+%%%--------------------------------------------------------------%%%
+%%
+%
+
+%%%-------------------------------------------------%%%
+%%% Preferences for Knitr %%%
+%%%-------------------------------------------------%%%
+
+<<chunk_global_r_options, child='usr/subdocuments/options/osp_global_r_options.Rnw', eval=TRUE>>=
+@ 
+
+%%%--------------------------------------------------------------%%%
+%%% Document content %%%
+%%%--------------------------------------------------------------%%%
+%%
+%
+
+%%%-------------------------------------------------%%%
+%%% Include header %%%
+%%%-------------------------------------------------%%%
+
+\begin{ospHeader}
+
+<<subdoc_content_header, child='usr/subdocuments/chapters/osp_header.Rnw', eval=T>>=
+@
+
+%%%-------------------------------------------------%%%
+%%% Include abstract %%%
+%%%-------------------------------------------------%%%
+
+<<subdoc_content_abstract, child='usr/subdocuments/chapters/osp_abstract_section.Rnw', eval=T>>=
+@
+
+\end{ospHeader}
+
+% Start column layout %
+% \begin{ospColumLayout}
+
+%%%-------------------------------------------------%%%
+%%% Include introduction %%%
+%%%-------------------------------------------------%%%
+
+<<subdoc_content_introduction, child='usr/subdocuments/chapters/osp_introduction_section.Rnw', eval=T>>=
+@
+
+%%%-------------------------------------------------%%%
+%%% Include material and methods %%%
+%%%-------------------------------------------------%%%
+
+<<subdoc_content_material_methods, child='usr/subdocuments/chapters/osp_material_methods_section.Rnw', eval=T>>=
+@
+
+%%%-------------------------------------------------%%%
+%%% Include results %%%
+%%%-------------------------------------------------%%%
+
+<<subdoc_content_results, child='usr/subdocuments/chapters/osp_results_section.Rnw', eval=T>>=
+@
+
+%%%-------------------------------------------------%%%
+%%% Include discussion %%%
+%%%-------------------------------------------------%%%
+
+<<subdoc_content_discussion, child='usr/subdocuments/chapters/osp_discussion_section.Rnw', eval=T>>=
+@
+
+%%%-------------------------------------------------%%%
+%%% Include acknowledgements %%%
+%%%-------------------------------------------------%%%
+
+<<subdoc_content_acknowledgement, child='usr/subdocuments/chapters/osp_acknowledgements_section.Rnw', eval=T>>=
+@
+
+%%%-------------------------------------------------%%%
+%%% Include the bibliography %%%
+%%%-------------------------------------------------%%%
+
+<<options_bibliography, child='usr/subdocuments/chapters/osp_bibliography_section.Rnw', eval=T>>=
+@
+
+% End column layout %
+% \end{ospColumLayout}
+
+% uncomment the following lines to get an appendix section.
+
+\begin{ospAppendix} 
+<<subdoc_content_appendix, child='usr/subdocuments/chapters/osp_appendix_section.Rnw', eval=T>>=
+@ 
+\end{ospAppendix} 
+
+%%%------------------------------------------------------------------------------%%%
+%%% End of document %%%
+%%%------------------------------------------------------------------------------%%%
+
+\end{document}
