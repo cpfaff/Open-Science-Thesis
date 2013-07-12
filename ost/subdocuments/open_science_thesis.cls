@@ -16,7 +16,7 @@
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
 
-\ProvidesClass{open-science-thesis}[2013/03/03 version 0.9.2 LaTeX class of the Open-Science-Thesis]
+\ProvidesClass{open-science-thesis}[2013/03/03 version 0.1 LaTeX class of the Open-Science-Thesis]
 
 \RequirePackage{xkeyval} 
 
@@ -24,7 +24,6 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{color}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{print}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{csvdata}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{twosidelayout}[false]{}
@@ -39,7 +38,6 @@
    color=true, 
    print=false, 
    gitinfo=false, 
-   csvdata=false,
    sectionnumbers=false,
    autolayout=true,
    twosidelayout=false,
@@ -81,7 +79,7 @@
 \RequirePackage[utf8]{luainputenc}
 
 %% Fonts and math symbols %%
-\RequirePackage{libertine}
+% \RequirePackage{libertine}
 \RequirePackage{amsfonts}
 \RequirePackage{amsmath}
 \RequirePackage[libertine]{newtxmath}
@@ -160,6 +158,10 @@
 \ifost@color% 
    \colorlet{ostColorTitleRule}{LightGray}
    \colorlet{ostColorTitle}{DarkRed}
+   \colorlet{ostColorSubtitle}{black}
+   \colorlet{ostColorAuthors}{black}
+   \colorlet{ostColorInstitution}{black} 
+
    \colorlet{ostColorAbstractHeader}{DarkGray}     
 
    \colorlet{ostColorPartHeader}{black} 
@@ -204,6 +206,10 @@
 \else%
    \colorlet{ostColorTitleRule}{black}
    \colorlet{ostColorTitle}{black} 
+
+   \colorlet{ostColorSubtitle}{black}
+   \colorlet{ostColorAuthors}{black}
+   \colorlet{ostColorInstitution}{black} 
 
    \colorlet{ostColorPartHeader}{black}
    \colorlet{ostColorPartHeaderNumber}{black}
@@ -293,8 +299,6 @@
 % \newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
 % \newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
 
-\newlength{\ostLengthHeaderRuleWidth} 
-\setlength{\ostLengthHeaderRuleWidth}{0pt} 
 % \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
 
 % \newlength{\ostLengthFooterRuleWidth} 
@@ -393,6 +397,7 @@
 
 %% Use and create graphics %%
 \RequirePackage{graphicx}
+\RequirePackage{eso-pic} 
 \RequirePackage{overpic}
 \RequirePackage{tikz}
 
@@ -642,11 +647,36 @@
 %%% Definition of environments %%%
 %%%-------------------------------------------------%%%
 
-%% Title header defaults %%
+%% Title header defaults %% 
+
+% Define all fonts
+
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
+\newcommand{\ostFontSubtitle}{\normalfont\sffamily\normalsize\bfseries}  
+\newcommand{\ostFontAuthors}{\normalfont\sffamily\normalsize}   
+\newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
+% \newcommand{\ostFontDate}{\normalfont\sffamily\normalsize}    
+
+% Define all lengths
 
 \newlength{\ostLengthOfTitleBeforeReduceFontSize} 
 \setlength{\ostLengthOfTitleBeforeReduceFontSize}{0.6\textwidth} 
+
+% Define aesthetics 
+
+\newcommand{\ostInstitutionLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-theses-title-header-logo.pdf}} 
+\newcommand{\ostSetInstitutionLogo}[1]{\gdef\ostInstitutionLogo{#1}} 
+
+\newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{1.7pt}}\par}
+
+\newcommand{\ostTitlePageBackgroundPic}[1]{
+  \AddToShipoutPicture*{\AtPageCenter{%
+    \makebox(0,0){\includegraphics[width=0.5\paperwidth]{#1}
+}}}}
+% \ostTitlePageBackgroundPic{ost/graphics/open-science-theses-title-header-logo.pdf}
+
+
+% Define all fields that are available
 
 \newcommand{\ostTitle}{The open science thesis title} 
 \newcommand{\ostSetTitle}[1]{%
@@ -660,58 +690,32 @@
   \fi 
 } 
 
+\newcommand{\ostSubtitle}{This is a subtitle} 
+\newcommand{\ostSetSubtitle}[1]{\def\ostSubtitle{#1}}
+
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2}, \ldots} 
 \newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
 
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
 
-\newcommand{\ostContacts}{foo@bar.com\textsuperscript{a}} 
-\newcommand{\ostSetContacts}[1]{\def\ostContacts{#1}}
-
-\newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{1.7pt}}}
-
-\newcommand{\ostInstitutionLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-theses-title-header-logo.pdf}} 
-\newcommand{\ostSetInstitutionLogo}[1]{\gdef\ostInstitutionLogo{#1}} 
-
-\newcommand{\ostFontAuthors}{\normalfont\sffamily\normalsize} 
-\newcommand{\ostSetFontAuthors}[1]{\gdef\ostFontAuthors{#1}} 
-
-\newlength{\ostLengtTitleSpaceAbove}
-\setlength{\ostLengtTitleSpaceAbove}{0.5\baselineskip} 
-
-\newlength{\ostLengtTitleSpaceBelow} 
-\setlength{\ostLengtTitleSpaceBelow}{0\baselineskip}  
-
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
-  %\CenterBackgroundPic{Bilder/PowerPlant.png}
-  \vspace*{\stretch{1}}
-  \ostTitleRule\par
-    \vspace{1em}
-    \begin{center}
-      \begin{LARGE}
-        {\color{ostColorTitle}{{\ostFontTitle\ostTitle}}}\par
-      \end{LARGE} 
-    \end{center}
-    \begin{center}
-      \ifdefempty{\ostAuthors}{}{\begin{normalsize}\textbf{\ostAuthors}\end{normalsize}\par}
-      \end{center} 
-      \begin{center}
-        \begin{footnotesize} 
-          \ifdefempty{\ostInsitution}{}{\begin{normalsize}\ostInsitution\end{normalsize}\par}
-          \end{footnotesize} 
+    \vspace*{\stretch{1}}
+      \ostTitleRule
+        \begin{center} 
+          {\ifdefempty{\ospTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
+          {\ifdefempty{\ospSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+          {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+          {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         \end{center}      
-        \ostTitleRule\par
-        \vspace*{\stretch{2}}
-      \end{titlepage}
+      \ostTitleRule
+    \vspace*{\stretch{2}}
+\end{titlepage}
 }
 
-%% Defines the abstract %%
-% \RequirePackage{abstract}
-% \renewcommand{\abstractnamefont}{\color{ostColorAbstractHeader}\normalfont\sffamily\large\bfseries}
-
 %Set the Environments for Textsizes etc
+
 \newenvironment{smallpar}{\par\small}{\par}
 \newenvironment{centerpar}{\par\center}{\par}
 \newenvironment{hugepar}{\par\huge}{\par}
