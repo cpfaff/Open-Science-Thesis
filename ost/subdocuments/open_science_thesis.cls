@@ -79,7 +79,7 @@
 \RequirePackage[utf8]{luainputenc}
 
 %% Fonts and math symbols %%
-% \RequirePackage{libertine}
+\RequirePackage{libertine}
 \RequirePackage{amsfonts}
 \RequirePackage{amsmath}
 \RequirePackage[libertine]{newtxmath}
@@ -161,6 +161,7 @@
    \colorlet{ostColorSubtitle}{black}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
+   \colorlet{ostColorDate}{black} 
 
    \colorlet{ostColorAbstractHeader}{DarkGray}     
 
@@ -210,6 +211,7 @@
    \colorlet{ostColorSubtitle}{black}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
+   \colorlet{ostColorDate}{black}  
 
    \colorlet{ostColorPartHeader}{black}
    \colorlet{ostColorPartHeaderNumber}{black}
@@ -655,28 +657,41 @@
 \newcommand{\ostFontSubtitle}{\normalfont\sffamily\normalsize\bfseries}  
 \newcommand{\ostFontAuthors}{\normalfont\sffamily\normalsize}   
 \newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
-% \newcommand{\ostFontDate}{\normalfont\sffamily\normalsize}    
+\newcommand{\ostFontDate}{\normalfont\sffamily\small}    
 
 % Define all lengths
 
 \newlength{\ostLengthOfTitleBeforeReduceFontSize} 
 \setlength{\ostLengthOfTitleBeforeReduceFontSize}{0.6\textwidth} 
 
+\newlength{\ostLengthTitleSpacerTitleRuleUpper} 
+\setlength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
+
+\newlength{\ostLengthTitleSpacerTitleRuleLower} 
+\setlength{\ostLengthTitleSpacerTitleRuleLower}{2em} 
+
+\newlength{\ostLengthTitleRuleWidth}
+\setlength{\ostLengthTitleRuleWidth}{1.7pt}
+
+\newcommand{\ostTitleStretchAbove}{\vspace*{\stretch{1}}}  
+\newcommand{\ostSetTitleStretchAbove}[1]{\def\ostTitleStretchAbove{#1}} 
+
+\newcommand{\ostTitleStretchBelow}{\vspace*{\stretch{2}}} 
+\newcommand{\ostSetTitleStretchBelow}[1]{\def\ostTitleStretchBelow{#1}} 
+
+\newcommand{\ostTitleSpacerTitleRuleUpper}{\vspace{\ostLengthTitleSpacerTitleRuleUpper}}
+\newcommand{\ostTitleSpacerTitleRuleLower}{\vspace{\ostLengthTitleSpacerTitleRuleLower}}
+
 % Define aesthetics 
-
-\newcommand{\ostInstitutionLogo}{\includegraphics[scale=0.3]{ost/graphics/open-science-theses-title-header-logo.pdf}} 
-\newcommand{\ostSetInstitutionLogo}[1]{\gdef\ostInstitutionLogo{#1}} 
-
-\newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{1.7pt}}\par}
 
 \newcommand{\ostTitlePageBackgroundPic}[1]{
   \AddToShipoutPicture*{\AtPageCenter{%
-    \makebox(0,0){\includegraphics[width=0.5\paperwidth]{#1}
+    \makebox(0,0){\includegraphics[width=\paperwidth]{#1}
 }}}}
-% \ostTitlePageBackgroundPic{ost/graphics/open-science-theses-title-header-logo.pdf}
 
+\newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{\ostLengthTitleRuleWidth}}}
 
-% Define all fields that are available
+% Define all fields that are available and their default values
 
 \newcommand{\ostTitle}{The open science thesis title} 
 \newcommand{\ostSetTitle}[1]{%
@@ -699,20 +714,28 @@
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
 
+\newcommand{\ostDate}{\today} 
+\newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
+
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
-    \vspace*{\stretch{1}}
-      \ostTitleRule
-        \begin{center} 
-          {\ifdefempty{\ospTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
-          {\ifdefempty{\ospSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
-          {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-          {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-        \end{center}      
-      \ostTitleRule
-    \vspace*{\stretch{2}}
+    \ostTitleStretchAbove{}
+      \ostTitleRule%
+        \ostTitleSpacerTitleRuleUpper{}
+          {\centering 
+            {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
+            {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+            {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+            {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
+            {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+            \vspace{-1\baselineskip}
+          }      
+        \ostTitleSpacerTitleRuleLower{} 
+      \ostTitleRule%
+    \ostTitleStretchBelow{}
 \end{titlepage}
 }
+
 
 %Set the Environments for Textsizes etc
 

@@ -23,4 +23,24 @@
   \item Three
 \end{itemize}
 
-\lipsum[1-2]
+\lipsum[1-2] 
+
+\chapter{Another chapter} 
+
+\lipsum[1]  
+
+\section{Section} 
+
+\lipsum[1]  
+
+\subsection{Subsection} 
+
+\lipsum[1]  
+
+\subsubsection{SubSub-Section} 
+
+\lipsum[1]  
+
+\paragraph{Testparagraph}
+
+\lipsum[1]  

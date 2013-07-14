@@ -7,7 +7,7 @@
 %%%------------------------------------------------------------------------------------%%
 
 %%%-------------------------------------------------%%%
-%%% Define your geometry %%%
+%%% Set your geometry %%%
 %%%-------------------------------------------------%%%
 
 %% Note: 
@@ -23,68 +23,51 @@
 % Find all available options in the geometry package documentation.
 
 %%%-------------------------------------------------%%%
-%%% Define own colors %%%
+%%% Set own colors %%%
 %%%-------------------------------------------------%%%
 
 % Use any command for color defintion you like or the 
-% open science thesis wrapper "ospDefineColor".
+% open science thesis wrapper "ostDefineColor".
 
 % usage: 
 
-% \ospDefineColor{new color name}{model: HTML, rgb, cmyk}{colordefinition according the model}
+% \ostDefineColor{new color name}{model: HTML, rgb, cmyk}{colordefinition according the model}
 
 % example:
 
-% \ospDefineColor{YourColor}{rgb}{0,0,0.7}
+% \ostDefineColor{YourColor}{rgb}{0,0,0.7}
 
 %%%-------------------------------------------------%%%
-%%% Define your color schema %%%
+%%% Set your color schema %%%
 %%%-------------------------------------------------%%%
 
 % usage: 
 
-% \ospSetColor{internam color name}{your color name}
+% \ostSetColor{internam color name}{your color name}
 
 % example (uses color defined in section above):
 
-% \ospSetColor{ospColorTitle}{YourColor}
+% \ostSetColor{ostColorTitle}{YourColor}
 
 % Full color scheme example:
 
-% \ospSetColor{ospColorTitle}{SteelBlue}
-% \ospSetColor{ospColorSectionHeader}{SteelBlue}
-% \ospSetColor{ospColorSubsectionHeader}{SteelBlue}
-% \ospSetColor{ospColorParagraphHeader}{SteelBlue}
-% \ospSetColor{ospColorLettrine}{DarkGray}  
-% \ospSetColor{ospColorLineNumbers}{DarkGray} 
-% \ospSetColor{ospColorFooterTextSeparator}{DarkGray}
-% \ospSetColor{ospColorFooterRule}{LightGray}
-% \ospSetColor{ospColorFullLeftFooter}{DarkGray} 
-% \ospSetColor{ospColorFooterPageNumber}{DarkGray}
+% \ostSetColor{ostColorTitle}{SteelBlue}
+% \ostSetColor{ostColorSectionHeader}{SteelBlue}
+% \ostSetColor{ostColorSubsectionHeader}{SteelBlue}
+% \ostSetColor{ostColorParagraphHeader}{SteelBlue}
+% \ostSetColor{ostColorLettrine}{DarkGray}  
+% \ostSetColor{ostColorLineNumbers}{DarkGray} 
+% \ostSetColor{ostColorFooterTextSeparator}{DarkGray}
+% \ostSetColor{ostColorFooterRule}{LightGray}
+% \ostSetColor{ostColorFullLeftFooter}{DarkGray} 
+% \ostSetColor{ostColorFooterPageNumber}{DarkGray}
 
 %%%-------------------------------------------------%%%
 %%% Set lengths %%%
 %%%-------------------------------------------------%%%
 
-%% Examples: 
-
-% \ospSetLength{\ospLengtTitleLogoColwidth}{0.2\textwidth} %[0.23\textwidth]
-% \ospSetLength{\ospLengtTitleTitleColwidth}{0.5\textwidth} %[0.55\textwidth] 
-% \ospSetLength{\ospLengtTitleSpaceAbove}{2\baselineskip} %[0.01\baselineskip] 
-% \ospSetLength{\ospLengtTitleSpaceBelow}{-1\baselineskip} %[0.01\baselineskip] 
-% \ospSetLength{\ospLengthOfTitleBeforeReduceFontSize}{0.6\textwidth} 
-% \ospSetLength{\ospLengthColumnSeparator}{20pt} 
-% \ospSetLength{\ospLengthFooterRuleWidth}{5pt} %[0.3pt]
-% \ospSetLength{\ospLengthHeaderRuleWidth}{0pt} %[0pt] 
-
 %%%-------------------------------------------------%%%
-%%% Define document column count %%%
-%%%-------------------------------------------------%%%
-
-% \ospSetColumnCount{2}
-
-%%%-------------------------------------------------%%%
-%%% Define own commands %%%
+%%% Set own commands %%%
 %%%-------------------------------------------------%%%
 
 %% Example:
@@ -92,7 +75,7 @@
 % \newcommand{name}[number of parameters]{things to do}
 
 %%%-------------------------------------------------%%%
-%%% Define own environments %%%
+%%% Set own environments %%%
 %%%-------------------------------------------------%%%
 
 %% Example:
@@ -100,30 +83,46 @@
 % \newenvironment{name}[number of parameters]{definition begin}{definition end}
 
 %%%-------------------------------------------------%%%
-%%% Set header contents %%%
+%%% Set title page contents %%%
 %%%-------------------------------------------------%%%
 
-%% Note: You can set them empty to remove the line
+% Set all fonts
 
-% \ospSetTitle{This is the title of the thesis} 
-% \ospSetAuthors{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2,b}}  
-% \ospSetContacts{foo@bar.com\textsuperscript{a}, bar@foo.com\textsuperscript{b}}
-% \ospSetAffiliations{University of XY departement of Z\textsuperscript{1}, University of \ldots}
-% \ospSetKeywords{Open Science, Git, R, Knitr, ggplot2, tikz}
+% \ostSetFont{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}
+% \ostSetFont{\ostFontSubtitle}{\normalfont\sffamily\normalsize\bfseries}  
+% \ostSetFont{\ostFontAuthors}{\normalfont\sffamily\normalsize}   
+% \ostSetFont{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
+% \ostSetFont{\ostFontDate}{\normalfont\sffamily\small}    
 
-% \ospSetTitleKeywordContactName{Cont:}
-% \ospSetTitleKeywordAffiliationName{Affi:}
-% \ospSetTitleKeywordName{Keys:}
+% Set all lengths:
+
+% \ostSetTitleStretchAbove{\vspace*{\stretch{1}}}
+% \ostSetTitleStretchBelow{\vspace*{\stretch{1}}}
+
+% \ostSetLength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
+% \ostSetLength{\ostLengthTitleSpacerTitleRuleLower}{2em}  
+% \ostSetLength{\ostLengthTitleRuleWidth}{10pt}  
+
+% Set aesthetics  
+
+% \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
+
+% Set all contents
+
+% \ostSetTitle{This is my completely unique title} 
+% \ostSetAuthors{Test Best}  
+% \ostSetInstitution{University of Test}
+% \ostSetDate{\today}
 
 %%%-------------------------------------------------%%%
-%%% Define footer contents %%%
+%%% Set footer contents %%%
 %%%-------------------------------------------------%%%
 
-% \ospSetFooterTextRightOfSeparator{DOI 123456abcd} 
-% \ospSetFooterTextSeparator{xx} 
-% \ospSetFooterTextLeftOfSeparator{Left of separator} 
-% \ospSetFullLeftFooter{I am the full left footer}
-% \ospSetFullRightFooter{\textbf{\thepage}}
+% \ostSetFooterTextRightOfSeparator{DOI 123456abcd} 
+% \ostSetFooterTextSeparator{xx} 
+% \ostSetFooterTextLeftOfSeparator{Left of separator} 
+% \ostSetFullLeftFooter{I am the full left footer}
+% \ostSetFullRightFooter{\textbf{\thepage}}
 
 %%%-------------------------------------------------%%%
 %%% Change fonts %%%
@@ -131,7 +130,7 @@
 
 %% Examples:
 
-% \ospSetFont{\ospFontTitle}{\normalfont\sffamily\tiny\bfseries}  
+% \ostSetFont{\ostFontTitle}{\normalfont\sffamily\tiny\bfseries}  
 
 
 %%%-------------------------------------------------%%%
@@ -142,8 +141,8 @@
 % This features need the gitinfo class option set 
 % inside the root file.
 
-% \ospSetGitUrl{\url{www.....}}
-% \ospSetGitInfoLine{}
+% \ostSetGitUrl{\url{www.....}}
+% \ostSetGitInfoLine{}
 
 %%%-------------------------------------------------%%%
 %%% Set PDF options %%%
