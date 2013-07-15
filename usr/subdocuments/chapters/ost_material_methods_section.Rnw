@@ -12,7 +12,7 @@
 
 % {{{ table: tab:test_table_one
 \ostTableEnv[label = tab:test_table_one]{%
-  \begin{tabular}{p{0.055\columnwidth}p{0.055\columnwidth}p{0.055\columnwidth}p{0.055\columnwidth}p{0.055\columnwidth}p{0.055\columnwidth}p{0.055\columnwidth}p{0.055\columnwidth}p{0.055\columnwidth}}
+  \begin{tabular}{p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}}
     \toprule
     A & B & C & D & E & F & G & H & I\\ 
     \midrule
@@ -38,8 +38,12 @@ pellentesque eu, pretium quis, sem.
 <<distmap_two, fig.width=10, fig.height=5, echo=FALSE, message=FALSE>>=   
   ost_distmap(species=c('Accipiter erythronemius', 'Junco hyemalis', 'Aix sponsa'))
 @  
-}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-  commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-  dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-  pellentesque eu, pretium quis, sem.}
-% }}} 
+}{% 
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula
+eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
+montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+eu, pretium quis, sem. 
+}
+% }}}  
+
+\lipsum[1] 

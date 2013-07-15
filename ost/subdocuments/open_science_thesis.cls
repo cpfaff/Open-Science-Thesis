@@ -56,15 +56,15 @@
 \else% 
    \ifost@autolayout  
       \ifost@twosidelayout%
-         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, twoside, final, BCOR=5mm]{scrbook}   
+         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, twoside, BCOR=5mm]{scrbook}   
       \else%
-         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, oneside, final]{scrbook}   
+         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, oneside]{scrbook}   
       \fi%
    \else%
       \ifost@twosidelayout%
-         \LoadClass[12pt, headings=small, captions=tableheading, twoside, final, BCOR=5mm]{scrbook}
+         \LoadClass[12pt, headings=small, captions=tableheading, twoside, BCOR=5mm]{scrbook}
       \else%
-         \LoadClass[12pt, headings=small, captions=tableheading, oneside, final]{scrbook}
+         \LoadClass[12pt, headings=small, captions=tableheading, oneside]{scrbook}
       \fi%
       \RequirePackage{geometry}
    \fi% 
