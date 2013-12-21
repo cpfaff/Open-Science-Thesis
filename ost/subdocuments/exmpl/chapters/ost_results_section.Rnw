@@ -2,20 +2,20 @@
 %%% Sub document results %%%
 %%%-------------------------------------------------%%%
 
-\section{Results}
+\chapter{Results}
 
 % Remove the lipsum and the example plots and tables to fill in your abstract text here
 
-\subsection{Subheading}
+\section{Subheading}
 
 \lipsum[1-2]
 
 % {{{ plot: fig:test_plot_one 
-\ospFramedEnv[label = fig:test_plot_one]{ 
+\ostFramedEnv[label = fig:test_plot_one]{ 
 <<test_plot, fig.width=3.27, fig.height=2.5, echo=FALSE>>= 
    ggplot(cars, aes(x=dist, y=speed)) +
    geom_point(shape=1) + geom_smooth(method = "lm", size = 1) +
-   theme_osp() 
+   theme_ost() 
 @
 }{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
   commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
@@ -40,15 +40,15 @@
 \end{multline}
 
 % {{{ plot fig:test_plot_two 
-\ospFramedEnv*[label = fig:test_plot_two]{ 
+\ostFramedEnv*[label = fig:test_plot_two]{ 
 <<test_plot_two, fig.width=3.415, fig.height=2.5, echo=FALSE>>=
    ggplot(movies, aes(x=rating)) +
    geom_density() +
-   theme_osp() 
+   theme_ost() 
 
    ggplot(mtcars, aes(factor(cyl), mpg)) +
    geom_boxplot() +
-   theme_osp() 
+   theme_ost() 
 @
 }{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
   commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
@@ -59,7 +59,7 @@
 \lipsum[1-5]
 
 % code listing: example {{{
-\begin{ospCodeEnv}[language=Ruby]
+\begin{ostCodeEnv}[language=Ruby]
 #!/usr/bin/ruby
 
 $i = 0
@@ -69,7 +69,7 @@ while $i < $num  do
  puts("Text inside the loop: i = #$i")
  $i +=1
 end
-\end{ospCodeEnv} 
+\end{ostCodeEnv} 
 % }}}
 
 \lipsum[1-5]
@@ -77,7 +77,7 @@ end
 % example for a two column table %
 
 % {{{ table: tab:test_table_two
-\ospTableEnv*[label = tab:test_table_two]{
+\ostTableEnv*[label = tab:test_table_two]{
   \begin{tabular}{p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}}
     \toprule
       \multicolumn{4}{c}{A-D}   & \multicolumn{5}{c}{E-I}\\
