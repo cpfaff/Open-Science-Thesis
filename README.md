@@ -17,7 +17,7 @@ It comes with a makefile that helps you to compile, clean and archive the
 document. For an example see the PDF file inside of the repository or have a
 look into the impressions section below.
 
-### Note
+### Development Note
 
 This repository is still in development and the commands, environments and the
 layout provided by the LaTeX class are subject to change. You might also find
