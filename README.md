@@ -17,6 +17,12 @@ It comes with a makefile that helps you to compile, clean and archive the
 document. For an example see the PDF file inside of the repository or have a
 look into the impressions section below.
 
+### Note
+
+This repository is still in development and the commands as well as the layout
+provided by the latex class are subject to change. You might also find the
+current version in master branch in unstable state!
+
 ## See also
 
 The Open-Science-Thesis is one of a series of document classes. You might also
