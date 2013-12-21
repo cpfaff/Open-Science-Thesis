@@ -13,7 +13,7 @@ be interested in one of the following repositories.
 
 ## Self-promotion
 
-Do you like the Open-Science-Paper repository? You are welcome to follow me on
+Do you like the Open-Science-Thesis repository? You are welcome to follow me on
 [GitHub](https://github.com/cpfaff) and or
 [Twitter](http://twitter.com/ctpfaff).
 
