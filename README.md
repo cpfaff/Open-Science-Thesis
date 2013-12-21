@@ -29,7 +29,7 @@ is not possible!
 The Open-Science-Thesis is one of a series of document classes. You might also
 be interested in one of the following repositories.
 
-- [Open-Science-Thesis](https://github.com/cpfaff/Open-Science-Paper)
+- [Open-Science-Paper](https://github.com/cpfaff/Open-Science-Paper)
 - [Open-Science-Poster](https://github.com/cpfaff/Open-Science-Poster)
 
 ## Self-promotion
