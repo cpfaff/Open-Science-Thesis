@@ -90,13 +90,11 @@
     # todo: Implement a check if package is installed otherwise install it
   }
 
-  ost_distmap <- function(species=NULL){
-    library(ggplot2) 
-    library(plyr) 
-    library(rgbif)  
-    out <- llply(species, function(x) occurrencelist(x, coordinatestatus = T, maxresults = 100)) 
-    custom <- function(){list(theme_ost_distmap(), labs(colour = "Species"))}
-    gbifmap(out, customize=custom()) 
+  ost_distmap <- function(species = NULL, kingdom = NULL){
+    keys <- sapply(species, function(x) name_backbone(name=x, kingdom = kingdom)$speciesKey, USE.NAMES=FALSE)
+    dat <- occ_search(taxonKey=keys, limit=100, return='data', georeferenced=TRUE)
+    datdf <- ldply(dat)
+    gbifmap(datdf)
   } 
 
 @  
