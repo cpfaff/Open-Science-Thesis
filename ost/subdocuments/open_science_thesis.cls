@@ -271,66 +271,54 @@
 %%% Define header and footer %%%
 %%%-------------------------------------------------%%%
 
-% \usepackage{fancyhdr}
-% \pagestyle{fancy}
-% \fancyhf{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
 
-%% Set the footer contents
-% \newcommand{\ostFooterTextLeftOfSeparator}{Open-Science-Theses} 
-% \newcommand{\ostSetFooterTextLeftOfSeparator}[1]{\def\ostFooterTextLeftOfSeparator{#1}}
+%% Set the footer commands
+\newcommand{\ostFooterTextLeft}{links} 
+\newcommand{\ostSetFooterTextLeft}[1]{\def\ostFooterTextLeft{#1}}
 
-% \newcommand{\ostFooterTextRightOfSeparator}{Compiled on \today} 
-% \newcommand{\ostSetFooterTextRightOfSeparator}[1]{\def\ostFooterTextRightOfSeparator{#1}}
+\newcommand{\ostFooterTextRight}{rechts} 
+\newcommand{\ostSetFooterTextRight}[1]{\def\ostFooterTextRight{#1}}
 
-% \newcommand{\ostFooterLogo}{\relax}
-% \newcommand{\ostSetFooterLogo}[1]{\gdef\ostFooterLogo{#1}}
+\newcommand{\ostFooterTextCenter}{\thepage} 
+\newcommand{\ostSetFooterTextCenter}[1]{\def\ostFooterTextCenter{#1}}
 
-% \ifost@color%
-   % \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-theses-footer-logo-gray.pdf}}}
-% \else% 
-   % \ostSetFooterLogo{\raisebox{-0.9ex}{\includegraphics[scale=0.15]{ost/graphics/open-science-theses-footer-logo-black.pdf}}}
-% \fi%
+% \fancyhead[L]{Titel} 
+% \fancyhead[C]{Testcenter} 
+% \fancyhead[R]{Name}  
+% \fancyfoot[L]{Titel} 
+% \fancyfoot[C]{Testcenter} 
+% \fancyfoot[R]{Name}  
 
-% \newcommand{\ostFooterTextSeparator}{\textcolor{ostColorFooterTextSeparator}{$\circ$}} 
-% \newcommand{\ostSetFooterTextSeparator}[1]{\gdef\ostFooterTextSeparator{#1}}
+%% Set the footer contents 
+\ifost@twosidelayout% 
+   \ifost@reversepagelayout%
+      \fancyfoot[LO, RE]{\ostFooterTextLeft}
+      \fancyfoot[RO, LE]{\ostFooterTextRight} 
+   \else%
+      \fancyfoot[RO, LE]{\ostFooterTextLeft}
+      \fancyfoot[LO, RE]{\ostFooterTextRight} 
+   \fi%
+\else%
+      \fancyfoot[C]{\ostFooterTextCenter}
+\fi%
 
-% \newcommand{\ostFullLeftFooter}{\ostFooterLogo\xspace~ \textcolor{ostColorFullLeftFooter}{{\normalsize \ostFooterTextLeftOfSeparator\xspace \ostFooterTextSeparator\xspace \ostFooterTextRightOfSeparator}}} 
-% \newcommand{\ostSetFullLeftFooter}[1]{\gdef\ostFullLeftFooter{#1}}
+%% Set the footer rules 
+\newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
+\newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
 
-% %% Style the footer and header elements 
-% \newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
-% \newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
+\newlength{\ostLengthHeaderRuleWidth} 
+\setlength{\ostLengthHeaderRuleWidth}{0pt} 
+\renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
 
-% \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
+\newlength{\ostLengthFooterRuleWidth}
+\setlength{\ostLengthFooterRuleWidth}{0.0pt} 
+\renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
 
-% \newlength{\ostLengthFooterRuleWidth} 
-% \setlength{\ostLengthFooterRuleWidth}{0.4pt} 
-% \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
+\patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
 
-% \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
-
-% \newcommand{\ostFooterPageNumberingColor}{ostColorFooterPageNumber} 
-% \newcommand{\ostSetFooterPageNumberingColor}[1]{\gdef\ostFooterPageNumberingColor{#1}} 
-
-% \newcommand{\ostFooterPageNumberingStyle}{\normalsize\textbf} 
-% \newcommand{\ostSetFooterPageNumberingStyle}[1]{\gdef\ostFooterPageNumberingStyle{#1}} 
-
-% \newcommand{\ostFullRightFooter}{{\ostFooterPageNumberingStyle{\textcolor{\ostFooterPageNumberingColor}{{\thepage}}}}} 
-% \newcommand{\ostSetFullRightFooter}[1]{\gdef\ostFullRightFooter{#1}}
-
-% \fancyfoot[C]{\ostFullRightFooter}
-% \ifost@twosidelayout% 
-   % \ifost@reversepagelayout%
-      % \fancyfoot[LO, RE]{\ostFullLeftFooter}
-      % \fancyfoot[RO, LE]{\ostFullRightFooter} 
-   % \else%
-      % \fancyfoot[RO, LE]{\ostFullLeftFooter}
-      % \fancyfoot[LO, RE]{\ostFullRightFooter} 
-   % \fi%
-% \else%
-   % \fancyfoot[L]{\ostFullLeftFooter}
-   % \fancyfoot[R]{\ostFullRightFooter} 
-% \fi%
 
 %%%-------------------------------------------------%%%
 %%% Control big starting letters (Lettrine) %%%
@@ -380,7 +368,7 @@
 
 \RequirePackage[neverdecrease]{paralist}
 
-% override item lists 
+% override lists environment definitions with more compact versions
 \let\itemize\compactitem%
 \let\enditemize\endcompactitem%
 \let\enumerate\compactenum%
@@ -735,7 +723,6 @@
     \ostTitleStretchBelow{}
 \end{titlepage}
 }
-
 
 %Set the Environments for Textsizes etc
 

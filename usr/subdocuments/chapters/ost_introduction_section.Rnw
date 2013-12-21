@@ -2,7 +2,7 @@
 %%% Sub document introduction %%%
 %%%-------------------------------------------------%%%
 
-\part{First chapter}
+\part{First part}
 
 \chapter{Introduction}
 

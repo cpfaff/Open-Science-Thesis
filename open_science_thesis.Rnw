@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[color = false, autolayout = false, DIV=10]{ost/subdocuments/open_science_thesis} 
+\documentclass[color = true, autolayout = false, DIV=15]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 % - color true/[false]: Changes between colored output and a black and white theme (needs some work to setup all the headers with their right colors)
@@ -64,7 +64,9 @@
 
 \begin{document}
 
+% start front matter
 \frontmatter
+
 %%%--------------------------------------------------------------%%%
 %%% Document preparations %%%
 %%%--------------------------------------------------------------%%%
@@ -102,7 +104,10 @@
 %%%-------------------------------------------------%%%
 %%% Affidavit %%%
 %%%-------------------------------------------------%%%
-\mainmatter
+
+% start main matter
+\frontmatter
+
 <<subdoc_content_introduction, child='usr/subdocuments/chapters/ost_affidavit_section.Rnw', eval=T>>=
 @
 
@@ -156,7 +161,11 @@
 <<subdoc_content_appendix, child='usr/subdocuments/chapters/ost_appendix_section.Rnw', eval=T>>=
 @ 
 % \end{ostAppendix} 
+
+
+% start back matter
 \backmatter
+
 %%%-------------------------------------------------%%%
 %%% Glossary %%%
 %%%-------------------------------------------------%%%

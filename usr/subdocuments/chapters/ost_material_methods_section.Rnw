@@ -2,11 +2,17 @@
 %%% Sub document for material and methods %%%
 %%%-------------------------------------------------%%%
 
+\part{Second part}
+
 \chapter{Material And Methods}
 
 % Remove the lipsum and example table fill in your material and methods text here
 
 \lipsum[1] 
+
+\section{A section} 
+
+\lipsum[1]
 
 % example for a one column table %
 
@@ -32,16 +38,5 @@ pellentesque eu, pretium quis, sem.
 \lipsum[1] 
 
 % example for a distribution map
-
-% {{{ plot fig:distmap
-\ostFramedEnv*[label=fig:distmap]{   
-<<distmap_two, fig.width=10, fig.height=5, echo=FALSE, message=FALSE, cache=FALSE>>=   
-  ost_distmap(species = c("Plantago lanceolata","Lolium perenne", "Betula pendula"))
-@
-}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-  commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-  dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
-  pellentesque eu, pretium quis, sem.}
-% }}} 
 
 \lipsum[1] 
