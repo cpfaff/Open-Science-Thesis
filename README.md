@@ -19,9 +19,10 @@ look into the impressions section below.
 
 ### Note
 
-This repository is still in development and the commands as well as the layout
-provided by the latex class are subject to change. You might also find the
-current version in master branch in unstable state!
+This repository is still in development and the commands, environments and the
+layout provided by the LaTeX class are subject to change. You might also find
+the current version in master branch in unstable state so a compilation to PDF
+is not possible!
 
 ## See also
 
