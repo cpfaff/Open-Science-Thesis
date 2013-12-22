@@ -29,9 +29,7 @@ is not possible!
 
 Title-page with background image
 
-```
 ![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
-```
 
 Nice formatted `\part` sectioning
 
