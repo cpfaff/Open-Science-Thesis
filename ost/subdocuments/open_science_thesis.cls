@@ -26,7 +26,6 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{twosidelayout}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{resetdefaultclassoptions}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
@@ -35,12 +34,11 @@
 
 \presetkeys{open-science-thesis}{%
    linenumbers=false, 
-   color=true, 
+   color=false, 
    print=false, 
    gitinfo=false, 
-   sectionnumbers=false,
+   sectionnumbers=true,
    autolayout=true,
-   twosidelayout=false,
    reversepagelayout=false, 
    resetdefaultclassoptions=false, 
    parindent=false,
@@ -48,26 +46,16 @@
 
 \ProcessOptionsX[KV]<open-science-thesis>
 
-% BCOR=5mm 
-% [12pt, headings=small, DIV=calc, twoside, BCOR=5mm] 
 
 \ifost@resetdefaultclassoptions%
-   \LoadClass{scrbook}   
+  \LoadClass{scrbook}   
 \else% 
-   \ifost@autolayout  
-      \ifost@twosidelayout%
-         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, twoside, BCOR=5mm]{scrbook}   
-      \else%
-         \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc, oneside]{scrbook}   
-      \fi%
-   \else%
-      \ifost@twosidelayout%
-         \LoadClass[12pt, headings=small, captions=tableheading, twoside, BCOR=5mm]{scrbook}
-      \else%
-         \LoadClass[12pt, headings=small, captions=tableheading, oneside]{scrbook}
-      \fi%
-      \RequirePackage{geometry}
-   \fi% 
+  \ifost@autolayout  
+    \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
+  \else%
+    \LoadClass[12pt, headings=small, captions=tableheading, DIV=17]{scrbook}
+    \RequirePackage{geometry}
+  \fi% 
 \fi%
 
 %%%-------------------------------------------------%%%
@@ -273,36 +261,17 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
+\renewcommand{\chapterpagestyle}{fancy}
 \fancyhf{}
 
 %% Set the footer commands
-\newcommand{\ostFooterTextLeft}{links} 
-\newcommand{\ostSetFooterTextLeft}[1]{\def\ostFooterTextLeft{#1}}
+\newcommand{\osPageNumbering}{\thepage} 
+\newcommand{\ostSetPageNumbering}[1]{\def\osPageNumbering{#1}}
 
-\newcommand{\ostFooterTextRight}{rechts} 
-\newcommand{\ostSetFooterTextRight}[1]{\def\ostFooterTextRight{#1}}
-
-\newcommand{\ostFooterTextCenter}{\thepage} 
-\newcommand{\ostSetFooterTextCenter}[1]{\def\ostFooterTextCenter{#1}}
-
-% \fancyhead[L]{Titel} 
-% \fancyhead[C]{Testcenter} 
-% \fancyhead[R]{Name}  
-% \fancyfoot[L]{Titel} 
-% \fancyfoot[C]{Testcenter} 
-% \fancyfoot[R]{Name}  
-
-%% Set the footer contents 
-\ifost@twosidelayout% 
-   \ifost@reversepagelayout%
-      \fancyfoot[LO, RE]{\ostFooterTextLeft}
-      \fancyfoot[RO, LE]{\ostFooterTextRight} 
-   \else%
-      \fancyfoot[RO, LE]{\ostFooterTextLeft}
-      \fancyfoot[LO, RE]{\ostFooterTextRight} 
-   \fi%
+\if@twoside% 
+  \fancyfoot[LO, RE]{\osPageNumbering}
 \else%
-      \fancyfoot[C]{\ostFooterTextCenter}
+  \fancyfoot[C]{\osPageNumbering}
 \fi%
 
 %% Set the footer rules 
@@ -1007,8 +976,8 @@
              {\filleft\fontsize{50}{70}\selectfont\textbf}
   [\vspace*{4pc}\thispagestyle{empty}]
 
-  \titleformat{\chapter}[display]
-  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\thechapter}{20pt}{\Huge}
+  \titleformat{\chapter}
+  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\thechapter}{0.5em}{\Huge}
   \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
 
   \titleformat{\section}
@@ -1023,7 +992,7 @@
    \titlespacing*{\subsection}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \titleformat{\subsubsection}[runin]
+   \titleformat{\subsubsection}
    {\color{ostColorSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{\thesubsubsection}{0.5em}{}
    \titlespacing*{\subsubsection}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
@@ -1041,8 +1010,8 @@
              {\filleft\fontsize{50}{70}\selectfont\textbf}
   [\vspace*{4pc}\thispagestyle{empty}]
 
-  \titleformat{\chapter}[display]
-  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{20pt}{\Huge}
+  \titleformat{\chapter}
+  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}
   \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
 
   \titleformat{\section}
@@ -1057,7 +1026,7 @@
   \titlespacing*{\subsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-  \titleformat{\subsubsection}[runin]
+  \titleformat{\subsubsection}
   {\color{ostColorSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
   \titlespacing*{\subsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
@@ -1173,19 +1142,19 @@
 %%%-------------------------------------------------%%%
 
 %% Set typesetting area with last chosen options %%
-\ifost@autolayout%
-   \AtBeginDocument{\KOMAoptions{DIV=last}}
-\else% 
-   \relax
-\fi% 
+% \ifost@autolayout%
+   % \AtBeginDocument{\KOMAoptions{DIV=last}}
+% \else% 
+   % \relax
+% \fi% 
 
-\ifost@reversepagelayout%
-   \AtBeginDocument{
-      \let\tmp\evensidemargin%
-      \let\evensidemargin\oddsidemargin%
-      \let\oddsidemargin\tmp%
-      \reversemarginpar%
-   }
-\else% 
-   \relax
-\fi%
+% \ifost@reversepagelayout%
+   % \AtBeginDocument{
+      % \let\tmp\evensidemargin%
+      % \let\evensidemargin\oddsidemargin%
+      % \let\oddsidemargin\tmp%
+      % \reversemarginpar%
+   % }
+% \else% 
+   % \relax
+% \fi%
