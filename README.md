@@ -27,27 +27,25 @@ is not possible!
 
 ## Appetizer
 
-Title-page with background image
+### Title-page with background image
 
 ![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
 
-Nice formatted `\part` sectioning
+### Nice formatted `\part` sectioning
 
 ![part](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_part_heading.png)
 
-Bullet lists
+### Bullet lists
 
 ![bulletlist](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_bulletlist.png)
 
-Lettrines
+### Lettrines + coloring (here orange)
 
 ![lettrines](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_chapter_lettrine_link.png)
 
-Code Listings (solarized theme)
+### Code Listings (follow solarized theme)
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
-
-
 
 ## See also
 
