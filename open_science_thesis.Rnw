@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[twoside, color = false]{ost/subdocuments/open_science_thesis} 
+\documentclass[oneside, color = true, orange = true]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
@@ -105,9 +105,11 @@
 %%% Tables of content %%%
 %%%-------------------------------------------------%%%
 
-\tableofcontents
-\listoffigures 
-\listoftables 
+\begin{ostContentTables}
+  \tableofcontents
+  \listoffigures 
+  \listoftables 
+\end{ostContentTables}
 
 %%%-------------------------------------------------%%%
 %%% Affidavit %%%

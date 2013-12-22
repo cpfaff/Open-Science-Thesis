@@ -22,7 +22,10 @@
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{linenumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{color}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{blue}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{orange}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{print}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
@@ -35,7 +38,10 @@
 \presetkeys{open-science-thesis}{%
    linenumbers=false, 
    color=false, 
+   blue=false,
+   orange=true,
    print=false, 
+   backroundimage=true,
    gitinfo=false, 
    sectionnumbers=true,
    autolayout=true,
@@ -143,39 +149,56 @@
    \RequirePackage[svgnames,rgb]{xcolor} 
 \fi%
 
-\ifost@color% 
+\ifost@color%  
    \colorlet{ostColorTitleRule}{LightGray}
-   \colorlet{ostColorTitle}{DarkRed}
    \colorlet{ostColorSubtitle}{black}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
    \colorlet{ostColorDate}{black} 
-
-   \colorlet{ostColorAbstractHeader}{DarkGray}     
+   \colorlet{ostColorTitle}{black}
 
    \colorlet{ostColorPartHeader}{black} 
    \colorlet{ostColorPartHeaderNumber}{LightGray}  
 
-   \colorlet{ostColorChapterHeader}{black} 
-   % \colorlet{ostColorSectionHeader}{DarkOrange}  
-   \xdefinecolor{ostColorSectionHeader}{RGB}{217,95,14} 
-   % \colorlet{ostColorSubsectionHeader}{DarkOrange}
-   \xdefinecolor{ostColorSubsectionHeader}{RGB}{254,196,79} 
-   % \colorlet{ostColorParagraphHeader}{DarkGray}
-   \xdefinecolor{ostColorParagraphHeader}{RGB}{255,247,188} 
+   \ifost@orange% 
+
+     \colorlet{ostColorChapterHeader}{DarkOrange} 
+     \colorlet{ostColorSectionHeader}{DarkOrange}  
+     \colorlet{ostColorSubsectionHeader}{DarkOrange}
+     \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
+     \colorlet{ostColorParagraphHeader}{DarkGrey}
+   \else
+     \relax
+   \fi
+
+  \ifost@blue  
+     % \xdefinecolor{ostColorTitle}{RGB}{8,81,156} 
+
+     \xdefinecolor{ostColorChapterHeader}{RGB}{8,81,156} 
+     \xdefinecolor{ostColorSectionHeader}{RGB}{49,130,189} 
+     \xdefinecolor{ostColorSubsectionHeader}{RGB}{107,174,214} 
+     \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{107,174,214} 
+     \colorlet{ostColorParagraphHeader}{DarkGrey}
+  \else
+    \relax
+  \fi
+
+  \colorlet{ostColorChapterHeaderNumber}{gray}
+  \colorlet{ostColorSectionHeaderNumber}{gray}
+  \colorlet{ostColorSubsectionHeaderNumber}{gray}
+  \colorlet{ostColorSubSubsectionHeaderNumber}{gray}
+  \colorlet{ostColorParagraphHeaderNumber}{gray}
 
    \colorlet{ostColorLettrine}{DarkGray}  
 
    \colorlet{ostColorLineNumbers}{DarkGray} 
 
-   \colorlet{ostColorFooterTextSeparator}{DarkGray}
    \colorlet{ostColorFooterRule}{LightGray}
-   \colorlet{ostColorFullLeftFooter}{DarkGray} 
-   \colorlet{ostColorFullRightFooter}{DarkGray} 
-   \colorlet{ostColorFooterPageNumber}{DarkGray}
+   \colorlet{ostColorPageNumbering}{DarkGray}
+    
+   \colorlet{ostColorLinks}{gray}
 
-  \xdefinecolor{ostColor@Links}{rgb}{0,0,0.4} 
-  \xdefinecolor{ostColor@ListingBackground}{gray}{.90} 
+  \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
   \xdefinecolor{ostColor@ListingBase01}{HTML}{586e75}
   \xdefinecolor{ostColor@ListingBase02}{HTML}{073642}
@@ -203,10 +226,21 @@
 
    \colorlet{ostColorPartHeader}{black}
    \colorlet{ostColorPartHeaderNumber}{black}
+
    \colorlet{ostColorChapterHeader}{black}
+   \colorlet{ostColorChapterHeaderNumber}{black}
+
    \colorlet{ostColorSectionHeader}{black}
+   \colorlet{ostColorSectionHeaderNumber}{black}
+
    \colorlet{ostColorSubsectionHeader}{black}
+   \colorlet{ostColorSubsectionHeaderNumber}{black}
+   
+   \colorlet{ostColorSubSubsectionHeader}{black}
+   \colorlet{ostColorSubSubsectionHeaderNumber}{black}
+
    \colorlet{ostColorParagraphHeader}{black}
+   \colorlet{ostColorParagraphHeaderNumber}{black}
 
    \colorlet{ostColorLettrine}{black}
    
@@ -214,12 +248,11 @@
    
    \colorlet{ostColorFooterRule}{black}
    \colorlet{ostColorFullLeftFooter}{black}   
-   \colorlet{ostColorFullRightFooter}{black} 
-   \colorlet{ostColorFooterPageNumber}{black} 
-   \colorlet{ostColorFooterTextSeparator}{black}
+   \colorlet{ostColorPageNumbering}{black} 
 
-   \xdefinecolor{ostColor@Links}{rgb}{0,0,0.4} 
-   \xdefinecolor{ostColor@ListingBackground}{gray}{.90} 
+   \colorlet{ostColorLinks}{black}
+
+   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
    \colorlet{ostColor@ListingBase00}{black}
    \colorlet{ostColor@ListingBase01}{black}
    \colorlet{ostColor@ListingBase02}{black}
@@ -237,6 +270,7 @@
    \colorlet{ostColor@ListingCyan}{black}
    \colorlet{ostColor@ListingGreen}{black}
 \fi%
+
 
 %%%-------------------------------------------------%%%
 %%% Include Git information %%%
@@ -265,13 +299,13 @@
 \fancyhf{}
 
 %% Set the footer commands
-\newcommand{\osPageNumbering}{\thepage} 
-\newcommand{\ostSetPageNumbering}[1]{\def\osPageNumbering{#1}}
+\newcommand{\ostPageNumbering}{\color{ostColorPageNumbering}{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}
+\newcommand{\ostSetPageNumbering}[1]{\def\ostPageNumbering{#1}}
 
 \if@twoside% 
-  \fancyfoot[LO, RE]{\osPageNumbering}
+  \fancyfoot[LO, RE]{\ostPageNumbering}
 \else%
-  \fancyfoot[C]{\osPageNumbering}
+  \fancyfoot[C]{\ostPageNumbering}
 \fi%
 
 %% Set the footer rules 
@@ -606,6 +640,13 @@
 %%% Definition of environments %%%
 %%%-------------------------------------------------%%%
 
+%% the table of contents 
+\newenvironment{ostContentTables}{%
+  \hypersetup{linkcolor=black}
+}{%
+  \hypersetup{linkcolor=ostColorLinks}
+}
+
 %% Title header defaults %% 
 
 % Define all fonts
@@ -674,24 +715,53 @@
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
 
-\newcommand{\ostMakeTitle}{% 
-  \begin{titlepage}
-    \ostTitleStretchAbove{}
-      \ostTitleRule%
-        \ostTitleSpacerTitleRuleUpper{}
-          {\centering 
-            {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
-            {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
-            {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-            {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-            {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
-            \vspace{-1\baselineskip}
-          }      
-        \ostTitleSpacerTitleRuleLower{} 
-      \ostTitleRule%
-    \ostTitleStretchBelow{}
-\end{titlepage}
-}
+\ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
+
+
+\ifost@backroundimage%
+  \newcommand{\ostMakeTitle}{% 
+    \begin{titlepage}
+      \vspace*{\stretch{1}}
+      % \ostTitleStretchAbove{}
+        % \ostTitleRule%
+          % \ostTitleSpacerTitleRuleUpper{}
+            {\centering%
+               \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
+              {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
+              {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+              {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+              {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
+              {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+              \vspace{-1\baselineskip}
+            }      
+          % \ostTitleSpacerTitleRuleLower{} 
+        % \ostTitleRule%
+      % \ostTitleStretchBelow{}
+      \vspace*{\stretch{1}}
+  \end{titlepage}
+  }
+\else%
+  \newcommand{\ostMakeTitle}{% 
+    \begin{titlepage}
+      \ostTitleStretchAbove{}
+        \ostTitleRule%
+          \ostTitleSpacerTitleRuleUpper{}
+            {\centering%
+              {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
+              {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+              {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+              {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
+              {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+              \vspace{-1\baselineskip}
+            }      
+          \ostTitleSpacerTitleRuleLower{} 
+        \ostTitleRule%
+      \ostTitleStretchBelow{}
+  \end{titlepage}
+  }
+\fi%
+
+
 
 %Set the Environments for Textsizes etc
 
@@ -971,41 +1041,41 @@
   \titleformat{\part}[display]%
      {\normalfont\sffamily\Large}
        {%\Huge\textsc{\chaptertitlename}
-         \hfill\fontsize{110}{70}\selectfont\color{lightgray}\textbf\thepart}
+         \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
            {-2ex}
              {\filleft\fontsize{50}{70}\selectfont\textbf}
   [\vspace*{4pc}\thispagestyle{empty}]
 
   \titleformat{\chapter}
-  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\thechapter}{0.5em}{\Huge}
+  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
   \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
 
   \titleformat{\section}
-   {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{\thesection}{0.5em}{}
+  {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{\color{ostColorSectionHeaderNumber}\thesection}{0.5em}{}
    \titlespacing*{\section}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
    \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
 
    \titleformat{\subsection}
-   {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}{\thesubsection}{0.5em}{}
+   {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}{\color{ostColorSubsectionHeaderNumber}\thesubsection}{0.5em}{}
    \titlespacing*{\subsection}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
    \titleformat{\subsubsection}
-   {\color{ostColorSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{\thesubsubsection}{0.5em}{}
+   {\color{ostColorSubSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{\color{ostColorSubSubsectionHeaderNumber}\thesubsubsection}{0.5em}{}
    \titlespacing*{\subsubsection}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
    \titleformat{\paragraph}[runin]
-   {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{\theparagraph}{0.5em}{}
+   {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{\color{ostColorParagraphHeaderNumber}\theparagraph}{0.5em}{}
    \titlespacing*{\paragraph}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
   \titleformat{\part}[display]%
      {\normalfont\sffamily\Large}
        {%\Huge\textsc{\chaptertitlename}
-         \hfill\fontsize{110}{70}\selectfont\color{lightgray}\textbf\thepart}
+         \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
            {-2ex}
              {\filleft\fontsize{50}{70}\selectfont\textbf}
   [\vspace*{4pc}\thispagestyle{empty}]
@@ -1118,12 +1188,12 @@
    bookmarksopen=true,%
    pdfborder={0 0 0},%
    pdfpagemode=UseNone,%
-   colorlinks=false,%
-   linkcolor=ostColor@Links,
-   citecolor=ostColor@Links,%
-   filecolor=ostColor@Links,%
-   menucolor=ostColor@Links,%	
-   urlcolor=ostColor@Links,%
+   colorlinks=true,%
+   linkcolor=ostColorLinks,
+   citecolor=ostColorLinks,%
+   filecolor=ostColorLinks,%
+   menucolor=ostColorLinks,%	
+   urlcolor=ostColorLinks,%
    breaklinks=true,%
    raiselinks=true,%
    pdfauthor={Open-Science-Thesis},%
