@@ -24,6 +24,31 @@ layout provided by the LaTeX class are subject to change. You might also find
 the current version in master branch in unstable state so a compilation to PDF
 is not possible!
 
+
+## Appetizer
+
+Title-page with background image
+
+![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
+
+Nice formatted `\part` sectioning
+
+![part](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_part_heading.png)
+
+Bullet lists
+
+![bulletlist](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_bulletlist.png)
+
+Lettrines
+
+![lettrines](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_chapter_lettrine_link.png)
+
+Code Listings (solarized theme)
+
+![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
+
+
+
 ## See also
 
 The Open-Science-Thesis is one of a series of document classes. You might also
