@@ -41,7 +41,7 @@
    blue=false,
    orange=true,
    print=false, 
-   backroundimage=true,
+   backroundimage=false,
    gitinfo=false, 
    sectionnumbers=true,
    autolayout=true,
@@ -714,9 +714,6 @@
 
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
-
-\ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
-
 
 \ifost@backroundimage%
   \newcommand{\ostMakeTitle}{% 

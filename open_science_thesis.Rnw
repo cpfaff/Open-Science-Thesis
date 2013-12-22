@@ -16,6 +16,12 @@
 
 %% Available class options [defaults]
 
+% color=false, 
+% blue=false,
+% orange=true,
+% print=false, 
+% backroundimage=true,
+
 % - sectionnumbers [true]/false: Switch between numbered and numberless sections  (needs some work)
 
 % - color true/[false]: Changes between colored output and a black and white theme (needs some 
