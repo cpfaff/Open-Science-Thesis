@@ -27,6 +27,7 @@
 
 \section{Section} 
 
+This is a test citation \citep{renwick_chemical_2002}.
 \lipsum[1]  
 
 \subsection{Subsection} 
@@ -35,7 +36,7 @@
 
 \subsubsection{SubSub-Section} 
 
-\lipsum[1]  
+\lipsum[2]  
 
 \paragraph{Testparagraph:}
 

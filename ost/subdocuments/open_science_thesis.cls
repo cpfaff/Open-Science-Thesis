@@ -654,6 +654,12 @@
   \hypersetup{linkcolor=ostColorLinks}
 }
 
+\newenvironment{ostContentTablesPartials}{%
+  \hypersetup{linkcolor=black}
+}{%
+  \hypersetup{linkcolor=ostColorLinks}
+}
+
 %% Title header defaults %% 
 
 % Define all fonts
@@ -1045,7 +1051,7 @@
     \titleformat{\part}[display]
     {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
     {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}{\normalfont\large \startcontents\printcontents{p-}{0}{}}\thispagestyle{empty}]
+    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
   \else%
     \titleformat{\part}[display]%
     {\normalfont\sffamily\Large}
@@ -1087,7 +1093,7 @@
     \titleformat{\part}[display]
     {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
     {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}{\normalfont\large \startcontents\printcontents{p-}{0}{}}\thispagestyle{empty}]
+    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
   \else%
     \titleformat{\part}[display]%
     {\normalfont\sffamily\Large}
@@ -1097,7 +1103,6 @@
     {\filleft\fontsize{50}{70}\selectfont\textbf}
     [\vspace*{4pc}\thispagestyle{empty}]
   \fi%
-
 
   \titleformat{\chapter}
   {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}
