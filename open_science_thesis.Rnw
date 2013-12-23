@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[color = true, blue = true, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
+\documentclass[color = true, orange = true, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
@@ -20,8 +20,9 @@
 % blue=false,
 % orange=true,
 % print=false, 
-% backroundimage=false,
-% fancytocs=true/false
+% backroundimage=false, enable background image for title page. use with onside only 
+% fancytocs=true/false get a nice layout for your table of contents or use default
+% parttocs=true, table of content partials on part page
 
 % - sectionnumbers [true]/false: Switch between numbered and numberless sections  (needs some work)
 

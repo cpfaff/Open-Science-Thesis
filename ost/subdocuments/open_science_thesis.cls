@@ -26,6 +26,7 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{orange}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{print}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{fancytocs}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{parttocs}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
@@ -43,6 +44,7 @@
    orange=true,
    print=false, 
    fancytocs=true,
+   parttocs=true,
    backroundimage=false,
    gitinfo=false, 
    sectionnumbers=true,
@@ -1037,14 +1039,22 @@
 
 \RequirePackage[noindentafter,calcwidth]{titlesec}  
 
-\ifost@sectionnumbers%  
-  \titleformat{\part}[display]%
-     {\normalfont\sffamily\Large}
-       {%\Huge\textsc{\chaptertitlename}
-         \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
-           {-2ex}
-             {\filleft\fontsize{50}{70}\selectfont\textbf}
-  [\vspace*{4pc}\thispagestyle{empty}]
+\ifost@sectionnumbers% 
+
+  \ifost@parttocs%
+    \titleformat{\part}[display]
+    {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
+    {\filleft\fontsize{50}{70}\selectfont\textbf}
+    [{\normalfont\large \startcontents\printcontents{p-}{0}{}} \vspace*{4pc}\thispagestyle{empty}]
+  \else%
+    \titleformat{\part}[display]%
+    {\normalfont\sffamily\Large}
+    {%\Huge\textsc{\chaptertitlename}
+    \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
+    {-2ex}
+    {\filleft\fontsize{50}{70}\selectfont\textbf}
+    [\vspace*{4pc}\thispagestyle{empty}]
+  \fi%
 
   \titleformat{\chapter}
   {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
@@ -1072,13 +1082,21 @@
    \titlespacing*{\paragraph}
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
-  \titleformat{\part}[display]%
-     {\normalfont\sffamily\Large}
-       {%\Huge\textsc{\chaptertitlename}
-         \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
-           {-2ex}
-             {\filleft\fontsize{50}{70}\selectfont\textbf}
-  [\vspace*{4pc}\thispagestyle{empty}]
+
+  \ifost@parttocs%
+    \titleformat{\part}[display]
+    {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
+    {\filleft\fontsize{50}{70}\selectfont\textbf}
+    [{\normalfont\large \startcontents\printcontents{p-}{0}{}} \vspace*{4pc}\thispagestyle{empty}]
+  \else%
+    \titleformat{\part}[display]%
+    {\normalfont\sffamily\Large}
+    {%\Huge\textsc{\chaptertitlename}
+    \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
+    {-2ex}
+    {\filleft\fontsize{50}{70}\selectfont\textbf}
+    [\vspace*{4pc}\thispagestyle{empty}]
+  \fi%
 
   \titleformat{\chapter}
   {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}
@@ -1148,10 +1166,19 @@
   \titlecontents{chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
   {\hspace*{-1.5em}}{\titlerule*{}\contentspage}
 
+  \titlecontents{p-chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
+  {\hspace*{-1.5em}}{\titlerule*[0.7em]{.}\contentspage}
+
   \titlecontents{section}[3em]{}{\contentslabel{1.6em}}{}
+  {\titlerule*[0.7em]{.}\contentspage}
+  
+  \titlecontents{p-section}[3em]{}{\contentslabel{1.6em}}{}
   {\titlerule*[0.7em]{.}\contentspage}
 
   \titlecontents{subsection}[5em]{}{\contentslabel{2.3em}}{}
+  {\titlerule*[0.7em]{.}\contentspage}
+
+  \titlecontents{p-subsection}[5em]{}{\contentslabel{2.3em}}{}
   {\titlerule*[0.7em]{.}\contentspage}
 
   \titlecontents{figure}[2em]{\addvspace{1pc}}{\contentslabel{2em}}{}
