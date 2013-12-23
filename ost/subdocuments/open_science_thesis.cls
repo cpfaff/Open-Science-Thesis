@@ -1045,7 +1045,7 @@
     \titleformat{\part}[display]
     {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
     {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [{\normalfont\large \startcontents\printcontents{p-}{0}{}} \vspace*{4pc}\thispagestyle{empty}]
+    [\vspace*{4pc}{\normalfont\large \startcontents\printcontents{p-}{0}{}}\thispagestyle{empty}]
   \else%
     \titleformat{\part}[display]%
     {\normalfont\sffamily\Large}
@@ -1087,7 +1087,7 @@
     \titleformat{\part}[display]
     {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
     {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [{\normalfont\large \startcontents\printcontents{p-}{0}{}} \vspace*{4pc}\thispagestyle{empty}]
+    [\vspace*{4pc}{\normalfont\large \startcontents\printcontents{p-}{0}{}}\thispagestyle{empty}]
   \else%
     \titleformat{\part}[display]%
     {\normalfont\sffamily\Large}
@@ -1097,6 +1097,7 @@
     {\filleft\fontsize{50}{70}\selectfont\textbf}
     [\vspace*{4pc}\thispagestyle{empty}]
   \fi%
+
 
   \titleformat{\chapter}
   {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}
