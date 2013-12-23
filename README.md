@@ -27,9 +27,17 @@ is not possible!
 
 ## Appetizer
 
-### Title-page with background image
+### Title-page
 
-![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
+- default
+
+![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage.png)
+
+- with background image
+
+![titlepage two](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
+
+
 
 ### Nice content tables
 
