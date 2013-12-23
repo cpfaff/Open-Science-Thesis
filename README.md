@@ -31,6 +31,11 @@ is not possible!
 
 ![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
 
+### Nice content tables
+
+![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_fancytoc.png)
+
+
 ### Nice formatted `\part` sectioning
 
 ![part](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_part_heading.png)
