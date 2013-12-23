@@ -25,6 +25,7 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{blue}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{orange}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{print}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{fancytocs}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
@@ -41,6 +42,7 @@
    blue=false,
    orange=true,
    print=false, 
+   fancytocs=true,
    backroundimage=false,
    gitinfo=false, 
    sectionnumbers=true,
@@ -151,6 +153,7 @@
 
 \ifost@color%  
    \colorlet{ostColorTitleRule}{LightGray}
+   \colorlet{ostColorTocRule}{LightGray}
    \colorlet{ostColorSubtitle}{black}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
@@ -217,6 +220,7 @@
   \xdefinecolor{ostColor@ListingGreen}{HTML}{859900}
 \else%
    \colorlet{ostColorTitleRule}{black}
+   \colorlet{ostColorTocRule}{black}
    \colorlet{ostColorTitle}{black} 
 
    \colorlet{ostColorSubtitle}{black}
@@ -758,8 +762,6 @@
   }
 \fi%
 
-
-
 %Set the Environments for Textsizes etc
 
 \newenvironment{smallpar}{\par\small}{\par}
@@ -1130,7 +1132,37 @@
 
 % try to get a nice appendix section for graphics and tables 
 % \newenvironment{ostAppendix}{\relax}{\relax}
- 
+
+\ifost@fancytocs%
+  \RequirePackage{titletoc}  
+
+  \contentsmargin{1.8em} 
+
+  \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}
+  {\ostLengthTitleRuleWidth}}}
+
+  \titlecontents{part}[0em]{\addvspace{2pc}}{\contentslabel{0em}}
+  {\Large\bfseries}{\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule]
+
+  \titlecontents{chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
+  {\hspace*{-1.5em}}{\titlerule*{}\contentspage}
+
+  \titlecontents{section}[3em]{}{\contentslabel{1.6em}}{}
+  {\titlerule*[0.7em]{.}\contentspage}
+
+  \titlecontents{subsection}[5em]{}{\contentslabel{2.3em}}{}
+  {\titlerule*[0.7em]{.}\contentspage}
+
+  \titlecontents{figure}[2em]{\addvspace{1pc}}{\contentslabel{2em}}{}
+  {~\titlerule*[0.7em]{.}\contentspage}[]
+
+  \titlecontents{table}[2em]{\addvspace{1pc}}{\contentslabel{2em}}{}
+  {\titlerule*[0.7em]{.}\contentspage}[]
+\else%
+  \relax%
+\fi%
+
+
 %%%-------------------------------------------------%%%
 %%% Typographical fine-tuning %%%
 %%%-------------------------------------------------%%%

@@ -23,10 +23,6 @@
   \item Three
 \end{itemize}
 
-\lipsum[1-2] 
-
-\chapter{Another chapter} 
-
 \lipsum[1]  
 
 \section{Section} 

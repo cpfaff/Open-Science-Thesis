@@ -2,6 +2,8 @@
 %%% Sub document affidavit %%%
 %%%-------------------------------------------------%%% 
 
+\part{Preface}
+
 \chapter{Affidavit} 
 
 I hereby declare that this document has been written only by the undersigned
