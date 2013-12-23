@@ -7,19 +7,29 @@
 %%%------------------------------------------------------------------------------------%%
 
 %%%------------------------------------------------------------------------------%%%
-%%% Document class: open_science_thesis (Based on Koma-Script: article) %%%
+%%% Document class: open_science_thesis (Based on Koma-Script: scrbook) %%%
 %%%------------------------------------------------------------------------------%%%
 %%
 %
 
-\documentclass[color = true, orange = true, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
+\documentclass[color = true, orange = true]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
-% color=false, 
+% linenumbers=false, 
+% color=true, 
 % blue=false,
 % orange=true,
 % print=false, 
+% fancytocs=true,
+% parttocs=true,
+% backroundimage=false,
+% gitinfo=false, 
+% sectionnumbers=true,
+% autolayout=true,
+% resetdefaultclassoptions=false, 
+% parindent=false,
+
 % backroundimage=false, enable background image for title page. use with onside only 
 % fancytocs=true/false get a nice layout for your table of contents or use default
 % parttocs=true, table of content partials on part page
@@ -42,18 +52,12 @@
 %   and the cmyk color model which is required for professional printing. 
 % - linenumbers true/[false]: Switch on/off line numbers for the whole document. 
 
-
-
-% - reversepagelayout [false]/true reverse the order of odd and even side margins. This 
-%   option can be used to start the thesis on a left or right page.  (remove?) 
-
 % - resetdefaultclassoptions true/[false] resets the default options the open science thesis 
 %   loads the scrartcl class. After that you can modify every option via the open science 
 %   thesis class call. For example to change the calculated typearea you can use 
 %   \documentclass[resetdefaultclassoptions=true, DIV=7]{ost/subdocuments/open_science_thesis}   
 
 % - parindent true/[false] Switch paragraph indent on or off.
-
 
 %% scrbook class options 
 % - oneside/[twoside] enables oneside or twoside layout with twoside layout as 

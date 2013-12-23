@@ -31,7 +31,7 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
+% \define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{resetdefaultclassoptions}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
 
@@ -39,7 +39,7 @@
 
 \presetkeys{open-science-thesis}{%
    linenumbers=false, 
-   color=false, 
+   color=true, 
    blue=false,
    orange=true,
    print=false, 
@@ -49,7 +49,7 @@
    gitinfo=false, 
    sectionnumbers=true,
    autolayout=true,
-   reversepagelayout=false, 
+   % reversepagelayout=false, 
    resetdefaultclassoptions=false, 
    parindent=false,
 }{} 
@@ -1165,11 +1165,14 @@
 \ifost@fancytocs%
   \contentsmargin{1.8em} 
 
+  \newlength{\ostLengthTocRuleWidth}
+  \setlength{\ostLengthTocRuleWidth}{1.8pt}
+
   \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}
-  {\ostLengthTitleRuleWidth}}}
+  {\ostLengthTocRuleWidth}}}
 
   \titlecontents{part}[0em]{\addvspace{2pc}}{\contentslabel{0em}}
-  {\Large\bfseries}{\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule]
+  {\Large\bfseries\textsf}{\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule]
 
   \titlecontents{chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
   {\hspace*{-1.5em}}{\titlerule*{}\contentspage}
@@ -1277,11 +1280,11 @@
 %%%-------------------------------------------------%%%
 
 %% Set typesetting area with last chosen options %%
-\ifost@autolayout%
-   \AtBeginDocument{\KOMAoptions{DIV=last}}
-\else% 
-   \relax
-\fi% 
+% \ifost@autolayout%
+   % \AtBeginDocument{\KOMAoptions{DIV=last}}
+% \else% 
+   % \relax
+% \fi% 
 
 % \ifost@reversepagelayout%
    % \AtBeginDocument{
