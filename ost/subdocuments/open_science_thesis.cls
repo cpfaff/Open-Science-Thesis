@@ -16,7 +16,7 @@
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
 
-\ProvidesClass{open-science-thesis}[2013/03/03 version 0.1 LaTeX class of the Open-Science-Thesis]
+\ProvidesClass{open-science-thesis}[2013/12/23 version 0.2 LaTeX class of the Open-Science-Thesis]
 
 \RequirePackage{xkeyval} 
 
