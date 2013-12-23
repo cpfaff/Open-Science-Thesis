@@ -8,7 +8,7 @@
 
 % Remove the lipsum and the list example and fill in your introduction text here
 
-\capital{T} his is just an introduction text snippet to show how drop caps look in this document.
+\capital{T} his is just an introduction  \href{http://www.test.de}{testlink} text snippet to show how drop caps look in this document.
 \lipsum[1]
 
 \begin{itemize}
@@ -23,14 +23,11 @@
   \item Three
 \end{itemize}
 
-\lipsum[1-2] 
-
-\chapter{Another chapter} 
-
 \lipsum[1]  
 
 \section{Section} 
 
+This is a test citation \citep{renwick_chemical_2002}.
 \lipsum[1]  
 
 \subsection{Subsection} 
@@ -39,8 +36,8 @@
 
 \subsubsection{SubSub-Section} 
 
-\lipsum[1]  
+\lipsum[2]  
 
-\paragraph{Testparagraph}
+\paragraph{Testparagraph:}
 
 \lipsum[1]  

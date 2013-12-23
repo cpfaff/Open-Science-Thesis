@@ -2,4 +2,8 @@
 %%% Sub document for appendix %%%
 %%%-------------------------------------------------%%%
 
-\chapter{Appendix}
+\part{Appendix}
+
+\chapter{Figures}
+
+\chapter{Tables}
