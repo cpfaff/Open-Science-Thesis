@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[oneside, color = false, blue = true]{ost/subdocuments/open_science_thesis} 
+\documentclass[color = true, blue = true, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
@@ -20,7 +20,7 @@
 % blue=false,
 % orange=true,
 % print=false, 
-% backroundimage=true,
+% backroundimage=false,
 % fancytocs=true/false
 
 % - sectionnumbers [true]/false: Switch between numbered and numberless sections  (needs some work)

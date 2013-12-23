@@ -304,10 +304,11 @@
 
 %% Set the footer commands
 \newcommand{\ostPageNumbering}{\color{ostColorPageNumbering}{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}
+
 \newcommand{\ostSetPageNumbering}[1]{\def\ostPageNumbering{#1}}
 
 \if@twoside% 
-  \fancyfoot[LO, RE]{\ostPageNumbering}
+  \fancyfoot[RO, LE]{\ostPageNumbering}
 \else%
   \fancyfoot[C]{\ostPageNumbering}
 \fi%
