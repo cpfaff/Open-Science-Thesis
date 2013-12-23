@@ -1,8 +1,0 @@
-%%%-------------------------------------------------%%%
-%%% Sub document for discussion %%%
-%%%-------------------------------------------------%%%
-
-\chapter{Discussion}
-
-% Remove the lipsum and fill in your discussion text here
-\lipsum[1-4]

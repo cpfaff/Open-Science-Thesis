@@ -1,8 +1,0 @@
-%%%-------------------------------------------------%%%
-%%% Sub document bibliography inclusion %%%
-%%%-------------------------------------------------%%%
-
-% \chapter{References}
-
-\nocite{*}
-\printbibliography
