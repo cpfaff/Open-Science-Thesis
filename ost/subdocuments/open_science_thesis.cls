@@ -63,7 +63,7 @@
   \ifost@autolayout  
     \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
   \else%
-    \LoadClass[12pt, headings=small, captions=tableheading, DIV=17]{scrbook}
+    \LoadClass[12pt, headings=small, captions=tableheading]{scrbook}
     \RequirePackage{geometry}
   \fi% 
 \fi%
@@ -741,8 +741,9 @@
               {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
               {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
               {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-              {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
-              \vspace{-1\baselineskip}
+              {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
+              \ostGitInfoLine{}
+              \vspace{-1\baselineskip} 
             }      
           % \ostTitleSpacerTitleRuleLower{} 
         % \ostTitleRule%
@@ -762,6 +763,7 @@
               {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
               {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
               {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+              \ostGitInfoLine{}
               \vspace{-1\baselineskip}
             }      
           \ostTitleSpacerTitleRuleLower{} 
@@ -1158,9 +1160,9 @@
 % try to get a nice appendix section for graphics and tables 
 % \newenvironment{ostAppendix}{\relax}{\relax}
 
-\ifost@fancytocs%
-  \RequirePackage{titletoc}  
+\RequirePackage{titletoc}  
 
+\ifost@fancytocs%
   \contentsmargin{1.8em} 
 
   \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}
@@ -1275,11 +1277,11 @@
 %%%-------------------------------------------------%%%
 
 %% Set typesetting area with last chosen options %%
-% \ifost@autolayout%
-   % \AtBeginDocument{\KOMAoptions{DIV=last}}
-% \else% 
-   % \relax
-% \fi% 
+\ifost@autolayout%
+   \AtBeginDocument{\KOMAoptions{DIV=last}}
+\else% 
+   \relax
+\fi% 
 
 % \ifost@reversepagelayout%
    % \AtBeginDocument{
