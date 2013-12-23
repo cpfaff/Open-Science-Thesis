@@ -39,9 +39,17 @@ is not possible!
 
 ![bulletlist](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_bulletlist.png)
 
-### Lettrines + coloring (here orange)
+### Lettrines + coloring
+
+* orange theme
 
 ![lettrines](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_chapter_lettrine_link.png)
+
+
+* blue theme
+
+![blue](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_blue_scheme.png)
+
 
 ### Code Listings (follow solarized theme)
 
