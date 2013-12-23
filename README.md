@@ -37,12 +37,15 @@ is not possible!
 
 ![titlepage two](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
 
-
-
 ### Nice content tables
 
-![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_fancytoc.png)
+- main toc
 
+![fancytoc](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_fancytoc.png)
+
+- partial tocs on part page
+
+![parttitle](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/twoside_color_orange_parttocs.png)
 
 ### Nice formatted `\part` sectioning
 
