@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[color=true, colormode=rgb, colortheme=blue]{ost/subdocuments/open_science_thesis} 
+\documentclass[color=true, colormode=cmyk, colortheme=red]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 

@@ -22,13 +22,14 @@
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{linenumbers}[false]{}
 
-\newif\ifost@print% 
+\newif\ifost@cmyk% 
+\newif\ifost@rgb% 
 
 \define@choicekey*[KV]{open-science-thesis}{colormode}[\val\nr]{cmyk, rgb}{%
   \ifcase\nr\relax%
-    \ost@printtrue%
+    \ost@cmyktrue%
   \or%
-    \ost@printfalse%
+    \ost@rgbtrue%
   \fi%
 }
 
@@ -59,12 +60,18 @@
 
 \newif\ifost@orange% 
 \newif\ifost@blue%
+\newif\ifost@green%
+\newif\ifost@red%
 
-\define@choicekey*[KV]{open-science-thesis}{colortheme}[\val\nr]{orange, blue}{%
+\define@choicekey*[KV]{open-science-thesis}{colortheme}[\val\nr]{orange, blue, green, red}{%
   \ifcase\nr\relax%
     \ost@orangetrue%
   \or%
     \ost@bluetrue%
+  \or%
+    \ost@greentrue%
+  \or%
+    \ost@redtrue%
   \fi%
 }
 
@@ -81,7 +88,6 @@
    gitinfo=false, 
    sectionnumbers=true,
    autolayout=true,
-   % reversepagelayout=false, 
    resetdefaultclassoptions=false, 
    parindent=false,
 }{} 
@@ -179,11 +185,13 @@
 %%% Color options %%%
 %%%-------------------------------------------------%%%
 
-\ifost@print%
-   \RequirePackage[svgnames,cmyk, pdftex]{xcolor}  
-\else%
-   \RequirePackage[svgnames,rgb, pdftex]{xcolor} 
+\ifost@cmyk%
+  \RequirePackage[svgnames,cmyk, pdftex]{xcolor}  
 \fi%
+
+\ifost@rgb%
+  \RequirePackage[svgnames,rgb, pdftex]{xcolor} 
+\fi% 
 
 \ifost@color%  
    \colorlet{ostColorTitleRule}{LightGray}
@@ -202,15 +210,31 @@
      \colorlet{ostColorSectionHeader}{DarkOrange}  
      \colorlet{ostColorSubsectionHeader}{DarkOrange}
      \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
-     \colorlet{ostColorParagraphHeader}{DarkGrey}
+     \colorlet{ostColorParagraphHeader}{DarkOrange}
   \fi
 
   \ifost@blue
      \xdefinecolor{ostColorChapterHeader}{RGB}{8,81,156} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{49,130,189} 
-     \xdefinecolor{ostColorSubsectionHeader}{RGB}{107,174,214} 
-     \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{107,174,214} 
-     \colorlet{ostColorParagraphHeader}{DarkGrey}
+     \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,130,189} 
+     \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{49,130,189} 
+     \xdefinecolor{ostColorParagraphHeader}{RGB}{49,130,189} 
+  \fi
+
+  \ifost@green
+     \xdefinecolor{ostColorChapterHeader}{RGB}{0,109,44} 
+     \xdefinecolor{ostColorSectionHeader}{RGB}{49,163,84} 
+     \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,163,84} 
+     \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{49,163,84} 
+     \xdefinecolor{ostColorParagraphHeader}{RGB}{49,163,84} 
+  \fi
+
+  \ifost@red
+     \xdefinecolor{ostColorChapterHeader}{RGB}{165,15,21} 
+     \xdefinecolor{ostColorSectionHeader}{RGB}{222,45,38} 
+     \xdefinecolor{ostColorSubsectionHeader}{RGB}{222,45,38} 
+     \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{222,45,38} 
+     \xdefinecolor{ostColorParagraphHeader}{RGB}{222,45,38} 
   \fi
 
   \colorlet{ostColorChapterHeaderNumber}{gray}
@@ -224,6 +248,7 @@
    \colorlet{ostColorLineNumbers}{DarkGray} 
 
    \colorlet{ostColorFooterRule}{LightGray}
+   \colorlet{ostColorHeaderRule}{LightGray}
    \colorlet{ostColorPageNumbering}{DarkGray}
     
    \colorlet{ostColorLinks}{gray}
@@ -277,8 +302,8 @@
    
    \colorlet{ostColorLineNumbers}{black} 
    
+   \colorlet{ostColorHeaderRule}{black}
    \colorlet{ostColorFooterRule}{black}
-   \colorlet{ostColorFullLeftFooter}{black}   
    \colorlet{ostColorPageNumbering}{black} 
 
    \colorlet{ostColorLinks}{black}
@@ -329,30 +354,44 @@
 \renewcommand{\chapterpagestyle}{fancy}
 \fancyhf{}
 
-%% Set the footer commands
-\newcommand{\ostPageNumbering}{\textcolor{ostColorPageNumbering}{{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}}
-
+% Set the footer contents 
+\newcommand{\ostPageNumbering}{\relax}
 \newcommand{\ostSetPageNumbering}[1]{\def\ostPageNumbering{#1}}
 
-\if@twoside% 
-  \fancyfoot[RO, LE]{\ostPageNumbering}
-\else%
-  \fancyfoot[C]{\ostPageNumbering}
-\fi%
-
-%% Set the footer rules 
+% create setter commands for color
 \newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
 \newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
 
+\newcommand{\ostHeaderRuleColor}{ostColorHeaderRule} 
+\newcommand{\ostSetHeaderRuleColor}[1]{\gdef\ostHeaderRuleColor{#1}}
+
+% create lengths
 \newlength{\ostLengthHeaderRuleWidth} 
-\setlength{\ostLengthHeaderRuleWidth}{0pt} 
+\setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
 \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
 
 \newlength{\ostLengthFooterRuleWidth}
 \setlength{\ostLengthFooterRuleWidth}{0.0pt} 
 \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
 
+% patch rule commands with color
 \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
+\patchcmd{\headrule}{\hrule}{\color{\ostHeaderRuleColor}\hrule}{}{}
+
+% \ifost@fancyfooter% 
+   % \colorlet{ostColorPageNumbering}{DarkGray}
+% \fi%
+
+% distinguish between one and twoside layout
+\if@twoside%  
+  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize\textbf\thepage}}}
+  \fancyfoot[RO, LE]{\ostPageNumbering}   
+  % \fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
+  % \fancyhead[LO]{\textit{\nouppercase{\rightmark}}}
+\else%
+  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}}
+  \fancyfoot[C]{\ostPageNumbering}
+\fi%
 
 
 %%%-------------------------------------------------%%%
