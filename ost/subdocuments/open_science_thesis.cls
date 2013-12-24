@@ -21,28 +21,46 @@
 \RequirePackage{xkeyval} 
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{linenumbers}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{color}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{blue}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{orange}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{print}[false]{}
+
+\newif\ifost@print% 
+
+\define@choicekey*[KV]{open-science-thesis}{colormode}[\val\nr]{cmyk, rgb}{%
+  \ifcase\nr\relax%
+    \ost@printtrue%
+  \or%
+    \ost@printfalse%
+  \fi%
+}
+
 \define@boolkey[KV]{open-science-thesis}[ost@]{fancytocs}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{parttocs}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
-% \define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{resetdefaultclassoptions}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
+
+\define@boolkey[KV]{open-science-thesis}[ost@]{color}[false]{}
+
+\newif\ifost@orange% 
+\newif\ifost@blue%
+
+\define@choicekey*[KV]{open-science-thesis}{colortheme}[\val\nr]{orange, blue}{%
+  \ifcase\nr\relax%
+    \ost@orangetrue%
+  \or%
+    \ost@bluetrue%
+  \fi%
+}
 
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
    linenumbers=false, 
    color=true, 
-   blue=false,
-   orange=true,
-   print=false, 
+   colortheme=orange,
+   colormode=rgb, 
    fancytocs=true,
    parttocs=true,
    backroundimage=false,
@@ -148,9 +166,9 @@
 %%%-------------------------------------------------%%%
 
 \ifost@print%
-   \RequirePackage[svgnames,cmyk]{xcolor}  
+   \RequirePackage[svgnames,cmyk, pdftex]{xcolor}  
 \else%
-   \RequirePackage[svgnames,rgb]{xcolor} 
+   \RequirePackage[svgnames,rgb, pdftex]{xcolor} 
 \fi%
 
 \ifost@color%  
@@ -165,27 +183,20 @@
    \colorlet{ostColorPartHeader}{black} 
    \colorlet{ostColorPartHeaderNumber}{LightGray}  
 
-   \ifost@orange% 
-
+  \ifost@orange%
      \colorlet{ostColorChapterHeader}{DarkOrange} 
      \colorlet{ostColorSectionHeader}{DarkOrange}  
      \colorlet{ostColorSubsectionHeader}{DarkOrange}
      \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
      \colorlet{ostColorParagraphHeader}{DarkGrey}
-   \else
-     \relax
-   \fi
+  \fi
 
-  \ifost@blue  
-     % \xdefinecolor{ostColorTitle}{RGB}{8,81,156} 
-
+  \ifost@blue
      \xdefinecolor{ostColorChapterHeader}{RGB}{8,81,156} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{49,130,189} 
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{107,174,214} 
      \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{107,174,214} 
      \colorlet{ostColorParagraphHeader}{DarkGrey}
-  \else
-    \relax
   \fi
 
   \colorlet{ostColorChapterHeaderNumber}{gray}
@@ -305,7 +316,7 @@
 \fancyhf{}
 
 %% Set the footer commands
-\newcommand{\ostPageNumbering}{\color{ostColorPageNumbering}{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}
+\newcommand{\ostPageNumbering}{\textcolor{ostColorPageNumbering}{{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}}
 
 \newcommand{\ostSetPageNumbering}[1]{\def\ostPageNumbering{#1}}
 
@@ -1286,6 +1297,7 @@
    % \relax
 % \fi% 
 
+% \define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
 % \ifost@reversepagelayout%
    % \AtBeginDocument{
       % \let\tmp\evensidemargin%

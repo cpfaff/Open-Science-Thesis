@@ -12,15 +12,14 @@
 %%
 %
 
-\documentclass[color = true, orange = true]{ost/subdocuments/open_science_thesis} 
+\documentclass{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
 % linenumbers=false, 
 % color=true, 
-% blue=false,
-% orange=true,
-% print=false, 
+% colortheme=[orange, blue], 
+% colormode=[rgb, cmyk]
 % fancytocs=true,
 % parttocs=true,
 % backroundimage=false,
