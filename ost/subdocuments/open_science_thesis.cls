@@ -33,7 +33,21 @@
 }
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{fancytocs}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{parttocs}[false]{}
+
+\newif\ifost@parttocs% 
+\newif\ifost@chapttocs% 
+
+\define@choicekey*[KV]{open-science-thesis}{toctosection}[\val\nr]{part, chapter, false}{%
+  \ifcase\nr\relax%
+    \ost@parttocstrue%
+  \or%
+    \ost@chapttocstrue%
+  \or%
+    \ost@parttocsfalse%
+    \ost@chapttocsfalse%
+  \fi%
+}
+
 \define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
@@ -62,7 +76,7 @@
    colortheme=orange,
    colormode=rgb, 
    fancytocs=true,
-   parttocs=true,
+   toctosection=part,
    backroundimage=false,
    gitinfo=false, 
    sectionnumbers=true,
@@ -1075,10 +1089,17 @@
     [\vspace*{4pc}\thispagestyle{empty}]
   \fi%
 
-  \titleformat{\chapter}
-  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
-  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
-
+  \ifost@chapttocs%
+    \titleformat{\chapter}
+    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
+    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+    \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+  \else%
+    \titleformat{\chapter}
+    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
+    \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+  \fi%
+  
   \titleformat{\section}
   {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{\color{ostColorSectionHeaderNumber}\thesection}{0.5em}{}
    \titlespacing*{\section}
@@ -1117,9 +1138,16 @@
     [\vspace*{4pc}\thispagestyle{empty}]
   \fi%
 
-  \titleformat{\chapter}
-  {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}
-  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+  \ifost@chapttocs%
+    \titleformat{\chapter}
+    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}}{0.5em}{\Huge}
+    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+    \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+  \else%
+    \titleformat{\chapter}
+    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}
+    \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+  \fi%
 
   \titleformat{\section}
   {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{}{0em}{}

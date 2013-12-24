@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass{ost/subdocuments/open_science_thesis} 
+\documentclass[toctosection=chapter]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
@@ -21,7 +21,7 @@
 % colortheme=[orange, blue], 
 % colormode=[rgb, cmyk]
 % fancytocs=true,
-% parttocs=true,
+% toctosection=[part, chapter, false]
 % backroundimage=false,
 % gitinfo=false, 
 % sectionnumbers=true,
