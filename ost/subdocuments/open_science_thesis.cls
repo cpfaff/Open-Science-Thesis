@@ -55,6 +55,7 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{resetdefaultclassoptions}[false]{}  
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{fancyhf}[false]{}
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{color}[false]{}
 
@@ -80,16 +81,17 @@
 \presetkeys{open-science-thesis}{%
    linenumbers=false, 
    color=true, 
-   colortheme=orange,
+   colortheme=red,
    colormode=rgb, 
-   fancytocs=true,
+   fancytocs=true, 
+   fancyhf=true,
    toctosection=part,
    backroundimage=false,
    gitinfo=false, 
    sectionnumbers=true,
    autolayout=true,
    resetdefaultclassoptions=false, 
-   parindent=false,
+   parindent=true,
 }{} 
 
 \ProcessOptionsX[KV]<open-science-thesis>
@@ -247,9 +249,9 @@
 
    \colorlet{ostColorLineNumbers}{DarkGray} 
 
-   \colorlet{ostColorFooterRule}{LightGray}
-   \colorlet{ostColorHeaderRule}{LightGray}
-   \colorlet{ostColorPageNumbering}{DarkGray}
+   \colorlet{ostColorFooterRule}{LightGray!30}
+   \colorlet{ostColorHeaderRule}{LightGray!30}
+   \colorlet{ostColorPageNumbering}{gray}
     
    \colorlet{ostColorLinks}{gray}
 
@@ -351,7 +353,6 @@
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\renewcommand{\chapterpagestyle}{fancy}
 \fancyhf{}
 
 % Set the footer contents 
@@ -378,19 +379,44 @@
 \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
 \patchcmd{\headrule}{\hrule}{\color{\ostHeaderRuleColor}\hrule}{}{}
 
-% \ifost@fancyfooter% 
-   % \colorlet{ostColorPageNumbering}{DarkGray}
-% \fi%
+% fancy footer style
+% TODO: fancy header and footer need to be separated  
+
+\ifost@fancyhf
+  \fancypagestyle{pageStyleChapter}{%
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{3pt}
+  } 
+  \renewcommand{\headrulewidth}{3pt}
+  \renewcommand{\footrulewidth}{3pt}
+  \fancypagestyle{pageStyleToc}{%
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyhead{}
+  }
+\else%
+  \fancypagestyle{pageStyleChapter}{%
+    \renewcommand{\chapterpagestyle}{fancy}
+    \setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
+  } 
+  \fancypagestyle{pageStyleToc}{%
+    \renewcommand{\chapterpagestyle}{fancy}
+    \setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
+  }
+\fi%
 
 % distinguish between one and twoside layout
 \if@twoside%  
   \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize\textbf\thepage}}}
-  \fancyfoot[RO, LE]{\ostPageNumbering}   
-  % \fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
-  % \fancyhead[LO]{\textit{\nouppercase{\rightmark}}}
+  \fancyfoot[RO, LE]{\ostPageNumbering}     
+  % TODO: fancy header and footer need to be separated 
+  \ifost@fancyhf
+    \fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
+    \fancyhead[LO]{\textit{\nouppercase{\rightmark}}} 
+  \fi
 \else%
-  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}}
-  \fancyfoot[C]{\ostPageNumbering}
+  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}} 
+  \fancyfoot[C]{\ostPageNumbering} 
 \fi%
 
 
@@ -524,6 +550,10 @@
 
 %% Control caption layout %%
 \RequirePackage[format=plain, margin=7pt, font={small,it}, labelformat=default, labelfont=bf]{caption}
+
+%% where to put this?
+\RequirePackage{marginnote}
+
 
 %%%-------------------------------------------------%%%
 %%% Table related options %%%
@@ -715,7 +745,7 @@
 \newenvironment{ostContentTables}{%
   \hypersetup{linkcolor=black}
 }{%
-  \hypersetup{linkcolor=ostColorLinks}
+  \hypersetup{linkcolor=ostColorLinks} 
 }
 
 \newenvironment{ostContentTablesPartials}{%
@@ -1131,11 +1161,11 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
-    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
-    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
+    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}[\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \fi%
   
@@ -1180,11 +1210,11 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}}{0.5em}{\Huge}
-    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
-    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}
+    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{}{0em}{\Huge}[\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \fi%
 
@@ -1250,31 +1280,31 @@
   {\ostLengthTocRuleWidth}}}
 
   \titlecontents{part}[0em]{\addvspace{2pc}}{\contentslabel{0em}}
-  {\Large\bfseries\textsf}{\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule]
+  {\Large\bfseries\textsf}{\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
 
   \titlecontents{chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
-  {\hspace*{-1.5em}}{\titlerule*{}\contentspage}
+  {\hspace*{-1.5em}}{\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{p-chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
-  {\hspace*{-1.5em}}{\titlerule*[0.7em]{.}\contentspage}
+  {\hspace*{-1.5em}}{\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{section}[3em]{}{\contentslabel{1.6em}}{}
-  {\titlerule*[0.7em]{.}\contentspage}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
   
   \titlecontents{p-section}[3em]{}{\contentslabel{1.6em}}{}
-  {\titlerule*[0.7em]{.}\contentspage}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{subsection}[5em]{}{\contentslabel{2.3em}}{}
-  {\titlerule*[0.7em]{.}\contentspage}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{p-subsection}[5em]{}{\contentslabel{2.3em}}{}
-  {\titlerule*[0.7em]{.}\contentspage}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{figure}[2em]{\addvspace{1pc}}{\contentslabel{2em}}{}
-  {~\titlerule*[0.7em]{.}\contentspage}[]
+  {~\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{table}[2em]{\addvspace{1pc}}{\contentslabel{2em}}{}
-  {\titlerule*[0.7em]{.}\contentspage}[]
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 \else%
   \relax%
 \fi%

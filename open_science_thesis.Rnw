@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[color=true, colormode=cmyk, colortheme=red]{ost/subdocuments/open_science_thesis} 
+\documentclass[color=true, colormode=rgb, colortheme=green, fancyhf=true, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
@@ -116,7 +116,7 @@
 %%% Tables of content %%%
 %%%-------------------------------------------------%%%
 
-\begin{ostContentTables}
+\begin{ostContentTables} 
   \tableofcontents
   \listoffigures 
   \listoftables 
