@@ -49,7 +49,8 @@
   \fi%
 }
 
-\define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{} 
+
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
@@ -145,6 +146,7 @@
 % \RequirePackage{expl3}  
 % \RequirePackage{xstring} 
 \RequirePackage{suffix}
+% \RequirePackage{pdftexcmds}
 
 %%%-------------------------------------------------%%%
 %%% Helpers (unify commands to use in style file) %%%
@@ -203,6 +205,7 @@
    \colorlet{ostColorInstitution}{black} 
    \colorlet{ostColorDate}{black} 
    \colorlet{ostColorTitle}{black}
+   \colorlet{ostColorMarginNote}{DarkGray}
 
    \colorlet{ostColorPartHeader}{black} 
    \colorlet{ostColorPartHeaderNumber}{LightGray}  
@@ -281,6 +284,7 @@
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
    \colorlet{ostColorDate}{black}  
+   \colorlet{ostColorMarginNote}{black}
 
    \colorlet{ostColorPartHeader}{black}
    \colorlet{ostColorPartHeaderNumber}{black}
@@ -386,6 +390,7 @@
   \fancypagestyle{pageStyleChapter}{%
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{3pt}
+    \fancyhead{}
   } 
   \renewcommand{\headrulewidth}{3pt}
   \renewcommand{\footrulewidth}{3pt}
@@ -406,10 +411,10 @@
 \fi%
 
 % distinguish between one and twoside layout
+% TODO: fancy header and footer need to be separated 
 \if@twoside%  
   \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize\textbf\thepage}}}
   \fancyfoot[RO, LE]{\ostPageNumbering}     
-  % TODO: fancy header and footer need to be separated 
   \ifost@fancyhf
     \fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
     \fancyhead[LO]{\textit{\nouppercase{\rightmark}}} 
@@ -417,6 +422,10 @@
 \else%
   \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}} 
   \fancyfoot[C]{\ostPageNumbering} 
+  \ifost@fancyhf
+    \fancyhead[LO, LE]{\textit{\nouppercase{\leftmark}}}
+    \fancyhead[RO, RE]{\textit{\nouppercase{\rightmark}}} 
+  \fi
 \fi%
 
 
@@ -554,6 +563,7 @@
 %% where to put this?
 \RequirePackage{marginnote}
 
+\renewcommand*{\marginfont}{\color{ostColorMarginNote}\small}
 
 %%%-------------------------------------------------%%%
 %%% Table related options %%%
@@ -741,9 +751,14 @@
 %%% Definition of environments %%%
 %%%-------------------------------------------------%%%
 
-%% the table of contents 
+%% the table of contents  
+
+\newcommand{\ostAddContentHeaderOrNot}{\raggedright{\textbf\contentsname}\hfill\\}  
+
 \newenvironment{ostContentTables}{%
-  \hypersetup{linkcolor=black}
+  \hypersetup{linkcolor=black} 
+  \renewcommand{\ostAddContentHeaderOrNot}{\relax}   
+  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
 }{%
   \hypersetup{linkcolor=ostColorLinks} 
 }
@@ -798,7 +813,7 @@
 
 % Define all fields that are available and their default values
 
-\newcommand{\ostTitle}{The open science thesis title} 
+\newcommand{\ostTitle}{The open science thesis} 
 \newcommand{\ostSetTitle}[1]{%
   \def\ostTitle{#1} 
   \newlength{\ost@LenghtTitle} 
@@ -821,51 +836,74 @@
 
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
+  
+\newif\ifost@titlepagesimple
+\newif\ifost@titlepagevertical%
+\newif\ifost@backroundimage%
 
 \ifost@backroundimage%
-  \newcommand{\ostMakeTitle}{% 
-    \begin{titlepage}
-      \vspace*{\stretch{1}}
-      % \ostTitleStretchAbove{}
-        % \ostTitleRule%
-          % \ostTitleSpacerTitleRuleUpper{}
-            {\centering%
-               \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
-              {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
-              {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
-              {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-              {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-              {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
-              \ostGitInfoLine{}
-              \vspace{-1\baselineskip} 
-            }      
-          % \ostTitleSpacerTitleRuleLower{} 
-        % \ostTitleRule%
-      % \ostTitleStretchBelow{}
-      \vspace*{\stretch{1}}
+\newcommand{\ostMakeTitle}{% 
+  \begin{titlepage}
+    \vspace*{\stretch{1}}
+    {\centering%
+      \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
+      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
+      \ostGitInfoLine{}
+      \vspace{-1\baselineskip} 
+    }      
+    \vspace*{\stretch{1}}
   \end{titlepage}
-  }
-\else%
-  \newcommand{\ostMakeTitle}{% 
-    \begin{titlepage}
-      \ostTitleStretchAbove{}
-        \ostTitleRule%
-          \ostTitleSpacerTitleRuleUpper{}
-            {\centering%
-              {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
-              {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
-              {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-              {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-              {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
-              \ostGitInfoLine{}
-              \vspace{-1\baselineskip}
-            }      
-          \ostTitleSpacerTitleRuleLower{} 
-        \ostTitleRule%
-      \ostTitleStretchBelow{}
-  \end{titlepage}
-  }
+}
 \fi%
+
+\ifost@titlepagesimple
+\newcommand{\ostMakeTitle}{% 
+  \begin{titlepage}
+    \ostTitleStretchAbove{}
+    \ostTitleRule%
+    \ostTitleSpacerTitleRuleUpper{}
+    {\centering%
+      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+      \ostGitInfoLine{}
+      \vspace{-1\baselineskip}
+    }      
+    \ostTitleSpacerTitleRuleLower{} 
+    \ostTitleRule%
+    \ostTitleStretchBelow{}  
+    % \vspace*{\stretch{1}}
+  \end{titlepage}
+\fi
+
+
+% \ifost@titlepagevertical
+\newcommand{\ostMakeTitle}{% 
+  \begin{titlepage}
+    \hbox{ 
+      \hspace*{0.2\textwidth}
+      \textcolor{LightGray}{\rule{3pt}{\textheight}}  
+      \hspace*{0.05\textwidth} 
+      \parbox[b]{0.75\textwidth}{ 
+        \ostTitleStretchAbove{}
+        {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
+        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+        {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+        {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
+        {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
+        \ostGitInfoLine{}
+        \ostTitleStretchBelow{}  
+      }
+    }
+  \end{titlepage}
+}
+% \fi%
 
 %Set the Environments for Textsizes etc
 
@@ -1147,7 +1185,7 @@
     \titleformat{\part}[display]
     {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
     {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
   \else%
     \titleformat{\part}[display]%
     {\normalfont\sffamily\Large}
@@ -1161,7 +1199,7 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
-    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
+    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot{}\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
@@ -1196,7 +1234,7 @@
     \titleformat{\part}[display]
     {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
     {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\raggedright{\textbf\contentsname}\hfill\\\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
   \else%
     \titleformat{\part}[display]%
     {\normalfont\sffamily\Large}
@@ -1210,7 +1248,7 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}}{0.5em}{\Huge}
-    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
+    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\raggedright{\textbf\contentsname}\hfill\\\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}

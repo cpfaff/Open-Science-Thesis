@@ -9,7 +9,7 @@
 % Remove the lipsum and the list example and fill in your introduction text here
 
 \capital{T} his is just an introduction  \href{http://www.test.de}{testlink} text snippet to show how drop caps look in this document.
-\lipsum[1] And a margin note \marginnote{\textcolor{gray}{\small\normalfont This is a margin note at 5cm vertical offset to the first line it is typeset.}}[5cm]
+\lipsum[1] And a margin note \marginnote{This is a margin note at 5cm vertical offset to the first line it is typeset.}
 
 \begin{itemize}
   \item One

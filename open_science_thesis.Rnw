@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[color=true, colormode=rgb, colortheme=green, fancyhf=true, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
+\documentclass[twoside, color=true, colormode=rgb, colortheme=green, fancyhf=true, toctosection=chapter, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
