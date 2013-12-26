@@ -774,9 +774,11 @@
 
 \newcommand{\ostAddContentHeaderOrNot}{\raggedright{\textbf\contentsname}\hfill\\}  
 
+% FIXME: There is to much space below chapter in toc when chapter tocs anre so remove it with 
+% changed title spacing?
 \newenvironment{ostContentTables}{%
   \hypersetup{linkcolor=black} 
-  \renewcommand{\ostAddContentHeaderOrNot}{\relax} 
+  \renewcommand{\ostAddContentHeaderOrNot}{\relax}  
 }{%
   \hypersetup{linkcolor=ostColorLinks} 
 }
@@ -860,6 +862,9 @@
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
 
+\newcommand{\ostTextOnBar}{\huge\textcolor{LightGray}{Open~-~}\textcolor{gray}{Science}\textcolor{LightGray}{~-~Thesis}} 
+\newcommand{\ostSetTextOnBar}[1]{\def\ostTextOnBar{#1}}
+
 \ifost@backroundimage%
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
@@ -905,21 +910,27 @@
 \ifost@titlepagevertical%
 
 \renewcommand{\ostFontSubtitle}{\normalfont\textit\normalsize\bfseries}  
+\renewcommand{\ostFontAuthors}{\normalfont\normalsize}   
+\renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
+\renewcommand{\ostFontDate}{\normalfont\small}    
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
     \hbox{ 
-      \hspace*{0.2\textwidth}
+      \hspace*{0.2\textwidth} 
+      \rotatebox{90}{\ostTextOnBar}
       \textcolor{LightGray}{\rule{3pt}{\textheight}}  
       \hspace*{0.05\textwidth} 
       \parbox[b]{0.75\textwidth}{ 
-        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{2\baselineskip}
+        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\huge\ostTitle}}\par}}\vspace{2\baselineskip}
         {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\textit\ostSubtitle}}\par}}\vspace{4\baselineskip}
         {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
         \ostGitInfoLine{}
-        \vspace{0.5\textheight} 
+        \vspace{0.5\textheight}  
+        % {\color{gray}Gutachter:\\ Prof. Dr. Christian Wirth\\Tel.: 0341 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: cwirth@uni-leipzig.de}\vspace{\baselineskip}
+        % {\color{gray}PD Dr. Martin Freiberg\\Tel.: 0341 97 36 86 9\\Fax: 0341 97 38 54 9\\E-Mail: freiberg@uni-leipzig.de}
       }
     }
   \end{titlepage}
