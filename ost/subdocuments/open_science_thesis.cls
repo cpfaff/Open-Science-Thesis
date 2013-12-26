@@ -49,7 +49,19 @@
   \fi%
 }
 
-\define@boolkey[KV]{open-science-thesis}[ost@]{backroundimage}[false]{} 
+\newif\ifost@backroundimage%
+\newif\ifost@titlepagesimple%
+\newif\ifost@titlepagevertical%
+
+\define@choicekey*[KV]{open-science-thesis}{titlepagestyle}[\val\nr]{image, simple, vertical}{%
+  \ifcase\nr\relax%
+    \ost@backroundimagetrue
+  \or% 
+    \ost@titlepagesimpletrue
+  \or%
+    \ost@titlepageverticaltrue
+  \fi%
+}
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
@@ -87,7 +99,7 @@
    fancytocs=true, 
    fancyhf=true,
    toctosection=part,
-   backroundimage=false,
+   titlepagestyle=vertical,
    gitinfo=false, 
    sectionnumbers=true,
    autolayout=true,
@@ -200,17 +212,18 @@
 \ifost@color%  
    \colorlet{ostColorTitleRule}{LightGray}
    \colorlet{ostColorTocRule}{LightGray}
-   \colorlet{ostColorSubtitle}{black}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
    \colorlet{ostColorDate}{black} 
-   \colorlet{ostColorTitle}{black}
+   % \colorlet{ostColorTitle}{black}
    \colorlet{ostColorMarginNote}{DarkGray}
 
    \colorlet{ostColorPartHeader}{black} 
    \colorlet{ostColorPartHeaderNumber}{LightGray}  
 
   \ifost@orange%
+     \colorlet{ostColorTitle}{DarkOrange}
+     \colorlet{ostColorSubtitle}{DarkOrange}
      \colorlet{ostColorChapterHeader}{DarkOrange} 
      \colorlet{ostColorSectionHeader}{DarkOrange}  
      \colorlet{ostColorSubsectionHeader}{DarkOrange}
@@ -219,6 +232,8 @@
   \fi
 
   \ifost@blue
+     \xdefinecolor{ostColorTitle}{RGB}{8,81,156}
+     \xdefinecolor{ostColorSubtitle}{RGB}{49,130,189}
      \xdefinecolor{ostColorChapterHeader}{RGB}{8,81,156} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{49,130,189} 
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,130,189} 
@@ -227,6 +242,8 @@
   \fi
 
   \ifost@green
+     \xdefinecolor{ostColorTitle}{RGB}{0,109,44}
+     \xdefinecolor{ostColorSubtitle}{RGB}{49,163,84}
      \xdefinecolor{ostColorChapterHeader}{RGB}{0,109,44} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{49,163,84} 
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,163,84} 
@@ -235,6 +252,8 @@
   \fi
 
   \ifost@red
+     \xdefinecolor{ostColorTitle}{RGB}{165,15,21}
+     \xdefinecolor{ostColorSubtitle}{RGB}{222,45,38}
      \xdefinecolor{ostColorChapterHeader}{RGB}{165,15,21} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{222,45,38} 
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{222,45,38} 
@@ -611,7 +630,7 @@
 \newcommand{\ostSetColumnCount}[1]{\def\ostColumnCount{#1}} 
 
 \newcommand{\ostColumnLayoutControlBegin}{
-  \ifnum\ostColumnCount=1 
+  \ifnum\ostColumnCount\le1 
     \relax 
   \else 
     \begin{multicols}{\ostColumnCount{}}
@@ -757,8 +776,7 @@
 
 \newenvironment{ostContentTables}{%
   \hypersetup{linkcolor=black} 
-  \renewcommand{\ostAddContentHeaderOrNot}{\relax}   
-  \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
+  \renewcommand{\ostAddContentHeaderOrNot}{\relax} 
 }{%
   \hypersetup{linkcolor=ostColorLinks} 
 }
@@ -767,6 +785,11 @@
   \hypersetup{linkcolor=black}
 }{%
   \hypersetup{linkcolor=ostColorLinks}
+}
+
+\newenvironment{ostAffidavit}{%
+  \renewcommand{\ostAddContentHeaderOrNot}{\relax}  
+}{%
 }
 
 %% Title header defaults %% 
@@ -836,10 +859,6 @@
 
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
-  
-\newif\ifost@titlepagesimple
-\newif\ifost@titlepagevertical%
-\newif\ifost@backroundimage%
 
 \ifost@backroundimage%
 \newcommand{\ostMakeTitle}{% 
@@ -883,7 +902,10 @@
 \fi
 
 
-% \ifost@titlepagevertical
+\ifost@titlepagevertical%
+
+\renewcommand{\ostFontSubtitle}{\normalfont\textit\normalsize\bfseries}  
+
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
     \hbox{ 
@@ -891,22 +913,20 @@
       \textcolor{LightGray}{\rule{3pt}{\textheight}}  
       \hspace*{0.05\textwidth} 
       \parbox[b]{0.75\textwidth}{ 
-        \ostTitleStretchAbove{}
-        {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
-        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{2\baselineskip}
+        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\textit\ostSubtitle}}\par}}\vspace{4\baselineskip}
         {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
         \ostGitInfoLine{}
-        \ostTitleStretchBelow{}  
+        \vspace{0.5\textheight} 
       }
     }
   \end{titlepage}
 }
-% \fi%
+\fi%
 
 %Set the Environments for Textsizes etc
-
 \newenvironment{smallpar}{\par\small}{\par}
 \newenvironment{centerpar}{\par\center}{\par}
 \newenvironment{hugepar}{\par\huge}{\par}
