@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[oneside, color=true, colormode=rgb, colortheme=red, fancyhf=true, toctosection=chapter, titlepagestyle=image ,BCOR=5mm]{ost/subdocuments/open_science_thesis} 
+\documentclass{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
@@ -182,13 +182,19 @@
 %%% Include the appendix %%%
 %%%-------------------------------------------------%%%
 
+% start back matter
+\appendix
+\makeatletter
+\ost@chapterwithtocfalse
+\makeatother
+\stopcontents
+
 % \begin{ostAppendix} 
 <<subdoc_content_appendix, child='usr/subdocuments/chapters/ost_appendix_section.Rnw', eval=T>>=
 @ 
 % \end{ostAppendix} 
 
 
-% start back matter
 \backmatter
 
 %%%-------------------------------------------------%%%

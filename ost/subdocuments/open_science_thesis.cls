@@ -121,6 +121,11 @@
   \fi% 
 \fi%
 
+\newif\ifost@chapterwithtoc%
+\newif\ifost@chapterwithtoc%
+\ost@chapterwithtoctrue
+
+
 %%%-------------------------------------------------%%%
 %%% Input encodings fonts and symbols %%%
 %%%-------------------------------------------------%%% 
@@ -777,17 +782,14 @@
 
 %% the table of contents  
 
-\newcommand{\ostAddContentHeaderOrNot}{\raggedright{\textbf\contentsname}\hfill\\}  
+\newcommand{\ostAddContentHeaderOrNot}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
 
 \newenvironment{ostContentTables}{%
   \hypersetup{linkcolor=black} 
-  \renewcommand{\ostAddContentHeaderOrNot}{\relax}    
-  \ifost@chapttocs
-    \titlespacing*{\chapter}{0pt}{50pt}{-3\baselineskip}  
-  \fi 
-  
+  \ost@chapterwithtocfalse
 }{%
   \hypersetup{linkcolor=ostColorLinks} 
+  \ost@chapterwithtoctrue
 }
 
 \newenvironment{ostContentTablesPartials}{%
@@ -797,8 +799,9 @@
 }
 
 \newenvironment{ostAffidavit}{%
-  \renewcommand{\ostAddContentHeaderOrNot}{\relax}  
+  \ost@chapterwithtocfalse
 }{%
+  \ost@chapterwithtoctrue
 }
 
 %% Title header defaults %% 
@@ -939,7 +942,6 @@
 \renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
 \renewcommand{\ostFontDate}{\normalfont\small}    
 
-
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
     \hbox{ 
@@ -954,7 +956,8 @@
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
         \ostGitInfoLine{}
-        \vspace{0.5\textheight} 
+        \vspace{0.4\textheight} 
+        \vfill
         {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}\vspace{\baselineskip}
         {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
       }
@@ -1236,6 +1239,8 @@
 
 \RequirePackage[noindentafter,calcwidth]{titlesec}  
 
+\newcommand\partialtoccontentsname{\contentsname}
+
 \ifost@sectionnumbers% 
 
   \ifost@parttocs%
@@ -1256,7 +1261,7 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
-    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot{}\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
@@ -1291,7 +1296,7 @@
     \titleformat{\part}[display]
     {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
     {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\raggedright{\textbf\contentsname}\hfill\\\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
   \else%
     \titleformat{\part}[display]%
     {\normalfont\sffamily\Large}
@@ -1305,7 +1310,7 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}}{0.5em}{\Huge}
-    [\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\raggedright{\textbf\contentsname}\hfill\\\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{1}{}\end{ostContentTablesPartials}} \fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
