@@ -774,11 +774,13 @@
 
 \newcommand{\ostAddContentHeaderOrNot}{\raggedright{\textbf\contentsname}\hfill\\}  
 
-% FIXME: There is to much space below chapter in toc when chapter tocs anre so remove it with 
-% changed title spacing?
 \newenvironment{ostContentTables}{%
   \hypersetup{linkcolor=black} 
-  \renewcommand{\ostAddContentHeaderOrNot}{\relax}  
+  \renewcommand{\ostAddContentHeaderOrNot}{\relax}    
+  \ifost@chapttocs
+    \titlespacing*{\chapter}{0pt}{50pt}{-3\baselineskip}  
+  \fi 
+  
 }{%
   \hypersetup{linkcolor=ostColorLinks} 
 }
