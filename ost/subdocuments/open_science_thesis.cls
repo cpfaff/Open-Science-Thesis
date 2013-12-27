@@ -16,7 +16,7 @@
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
 
-\ProvidesClass{open-science-thesis}[2013/12/23 version 0.2 LaTeX class of the Open-Science-Thesis]
+\ProvidesClass{open-science-thesis}[2013/12/23 version 0.3 LaTeX class of the Open-Science-Thesis]
 
 \RequirePackage{xkeyval} 
 
@@ -210,12 +210,14 @@
 \fi% 
 
 \ifost@color%  
-   \colorlet{ostColorTitleRule}{LightGray}
+   \colorlet{ostColorTitleRule}{LightGray} 
+   \colorlet{ostColorTitleRuleVertical}{LightGray} 
+
    \colorlet{ostColorTocRule}{LightGray}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
+   \colorlet{ostColorAdvisor}{black} 
    \colorlet{ostColorDate}{black} 
-   % \colorlet{ostColorTitle}{black}
    \colorlet{ostColorMarginNote}{DarkGray}
 
    \colorlet{ostColorPartHeader}{black} 
@@ -296,12 +298,14 @@
   \xdefinecolor{ostColor@ListingGreen}{HTML}{859900}
 \else%
    \colorlet{ostColorTitleRule}{black}
+   \colorlet{ostColorTitleRuleVertical}{black} 
    \colorlet{ostColorTocRule}{black}
    \colorlet{ostColorTitle}{black} 
 
    \colorlet{ostColorSubtitle}{black}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
+   \colorlet{ostColorAdvisor}{black} 
    \colorlet{ostColorDate}{black}  
    \colorlet{ostColorMarginNote}{black}
 
@@ -599,6 +603,7 @@
 %% Extended table functions %%
 \RequirePackage{tabularx}
 
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 % usage:
@@ -804,6 +809,7 @@
 \newcommand{\ostFontSubtitle}{\normalfont\sffamily\normalsize\bfseries}  
 \newcommand{\ostFontAuthors}{\normalfont\sffamily\normalsize}   
 \newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
+\newcommand{\ostFontAdvisor}{\normalfont\sffamily\normalsize}  
 \newcommand{\ostFontDate}{\normalfont\sffamily\small}    
 
 % Define all lengths
@@ -818,7 +824,10 @@
 \setlength{\ostLengthTitleSpacerTitleRuleLower}{2em} 
 
 \newlength{\ostLengthTitleRuleWidth}
-\setlength{\ostLengthTitleRuleWidth}{1.7pt}
+\setlength{\ostLengthTitleRuleWidth}{3pt}
+
+\newlength{\ostLengthTitleRuleWidthVertical}
+\setlength{\ostLengthTitleRuleWidthVertical}{3pt}
 
 \newcommand{\ostTitleStretchAbove}{\vspace*{\stretch{1}}}  
 \newcommand{\ostSetTitleStretchAbove}[1]{\def\ostTitleStretchAbove{#1}} 
@@ -832,8 +841,8 @@
 % Define aesthetics 
 
 \newcommand{\ostTitlePageBackgroundPic}[1]{
-  \AddToShipoutPicture*{\AtPageCenter{%
-    \makebox(0,0){\includegraphics[width=\paperwidth]{#1}
+  \AddToShipoutPicture*{\AtTextCenter{%
+    \makebox(0,0){\includegraphics[width=\textwidth]{#1}
 }}}}
 
 \newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{\ostLengthTitleRuleWidth}}}
@@ -861,6 +870,12 @@
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
 
+\newcommand{\ostAdvisorOne}{\color{gray}Gutachter:\\ Prof. Dr. M. Sickel\\Tel.: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: sickel@uni-fubar.de} 
+\newcommand{\ostSetAdvisorOne}[1]{\def\ostAdvisorOne{#1}}
+
+\newcommand{\ostAdvisorTwo}{\color{gray}PD Dr. L. Dark\\Tel.: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: darkk@uni-baz.de} 
+\newcommand{\ostSetAdvisorTwo}[1]{\def\ostAdvisorTwo{#1}}
+
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
 
@@ -873,28 +888,36 @@
     \vspace*{\stretch{1}}
     {\centering%
       \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
-      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
-      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{0.5\baselineskip}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{}
       \vspace{-1\baselineskip} 
     }      
     \vspace*{\stretch{1}}
+    {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
+    {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par}
   \end{titlepage}
 }
 \fi%
 
-\ifost@titlepagesimple
+\ifost@titlepagesimple  
+
+\renewcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
+\renewcommand{\ostFontAuthors}{\normalfont\normalsize}   
+\renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
+\renewcommand{\ostFontDate}{\normalfont\small}    
+
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
     \ostTitleStretchAbove{}
     \ostTitleRule%
     \ostTitleSpacerTitleRuleUpper{}
     {\centering%
-      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}   
-      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}     
+      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{0.5\baselineskip}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
@@ -903,36 +926,37 @@
     }      
     \ostTitleSpacerTitleRuleLower{} 
     \ostTitleRule%
-    \ostTitleStretchBelow{}  
-    % \vspace*{\stretch{1}}
-  \end{titlepage}
+    \ostTitleStretchBelow{}   
+    {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
+    {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
+  \end{titlepage} 
+}
 \fi
 
-
 \ifost@titlepagevertical%
-
-\renewcommand{\ostFontSubtitle}{\normalfont\textit\normalsize\bfseries}  
+\renewcommand{\ostFontSubtitle}{\normalfont\normalsize\bfseries\textit}  
 \renewcommand{\ostFontAuthors}{\normalfont\normalsize}   
 \renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
 \renewcommand{\ostFontDate}{\normalfont\small}    
+
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
     \hbox{ 
       \hspace*{0.2\textwidth} 
       \rotatebox{90}{\ostTextOnBar}
-      \textcolor{LightGray}{\rule{3pt}{\textheight}}  
+      \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\textheight}}  
       \hspace*{0.05\textwidth} 
       \parbox[b]{0.75\textwidth}{ 
-        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\huge\ostTitle}}\par}}\vspace{2\baselineskip}
-        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\textit\ostSubtitle}}\par}}\vspace{4\baselineskip}
+        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{2\baselineskip}
+        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{4\baselineskip}
         {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
         \ostGitInfoLine{}
-        \vspace{0.5\textheight}  
-        % {\color{gray}Gutachter:\\ Prof. Dr. Christian Wirth\\Tel.: 0341 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: cwirth@uni-leipzig.de}\vspace{\baselineskip}
-        % {\color{gray}PD Dr. Martin Freiberg\\Tel.: 0341 97 36 86 9\\Fax: 0341 97 38 54 9\\E-Mail: freiberg@uni-leipzig.de}
+        \vspace{0.5\textheight} 
+        {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}\vspace{\baselineskip}
+        {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
       }
     }
   \end{titlepage}

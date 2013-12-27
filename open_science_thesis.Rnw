@@ -12,13 +12,16 @@
 %%
 %
 
-\documentclass[twoside, color=true, colormode=rgb, colortheme=blue, fancyhf=true, toctosection=part, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
+\documentclass[oneside, color=true, colormode=rgb, colortheme=red, fancyhf=true, toctosection=chapter, titlepagestyle=image ,BCOR=5mm]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
+% titlepagestyle = [simple, image, vertical]
+% toctosection = [part, chapter]
+
 % linenumbers=false, 
 % color=true, 
-% colortheme=[orange, blue], 
+% colortheme=[orange, blue, green, red], 
 % colormode=[rgb, cmyk]
 % fancytocs=true,
 % toctosection=[part, chapter, false]
