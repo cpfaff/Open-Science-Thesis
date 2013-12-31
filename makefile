@@ -26,6 +26,7 @@ RIGHTSETTER = @-chmod
 COPY = @-cp -r
 PDFVIEWER = okular
 DATE = $(shell date +%y%m%d)
+GLOSSARYINDEXER = makeglossaries
 
 # Example and Empty files  
 SUBDOCFOLDER = usr/subdocuments/
@@ -58,6 +59,11 @@ $(DOCUMENT).pdf: $(DEPENDENCIES)
 	$(COMPILER) $(DOCUMENT).tex
 	$(COMPILER) $(DOCUMENT).tex
 	$(BIBTEX) $(DOCUMENT)
+	$(COMPILER) $(DOCUMENT).tex
+
+gloss:	
+	$(COMPILER) $(DOCUMENT).tex
+	$(GLOSSARYINDEXER) $(DOCUMENT)
 	$(COMPILER) $(DOCUMENT).tex
 
 # Initproject 

@@ -78,13 +78,17 @@
 \newif\ifost@red%
 
 \define@choicekey*[KV]{open-science-thesis}{colortheme}[\val\nr]{orange, blue, green, red}{%
-  \ifcase\nr\relax%
+  \ifcase\nr\relax% 
+    \ost@colortrue
     \ost@orangetrue%
   \or%
+    \ost@colortrue
     \ost@bluetrue%
   \or%
+    \ost@colortrue
     \ost@greentrue%
   \or%
+    \ost@colortrue
     \ost@redtrue%
   \fi%
 }
@@ -122,7 +126,6 @@
 \fi%
 
 \newif\ifost@chapterwithtoc%
-\newif\ifost@chapterwithtoc%
 \ost@chapterwithtoctrue
 
 
@@ -139,7 +142,9 @@
 \RequirePackage{amsfonts}
 \RequirePackage{amsmath}
 \RequirePackage[libertine]{newtxmath}
-\RequirePackage{amssymb} 
+\RequirePackage{amssymb}
+\RequirePackage{wasysym}
+\RequirePackage{marvosym}
 \RequirePackage{textcomp}
 
 %%%-------------------------------------------------%%%
@@ -235,7 +240,8 @@
      \colorlet{ostColorSectionHeader}{DarkOrange}  
      \colorlet{ostColorSubsectionHeader}{DarkOrange}
      \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
-     \colorlet{ostColorParagraphHeader}{DarkOrange}
+     \colorlet{ostColorParagraphHeader}{DarkOrange} 
+     \colorlet{ostColorCaptionLabel}{DarkOrange}
   \fi
 
   \ifost@blue
@@ -246,16 +252,18 @@
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,130,189} 
      \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{49,130,189} 
      \xdefinecolor{ostColorParagraphHeader}{RGB}{49,130,189} 
+     \xdefinecolor{ostColorCaptionLabel}{RGB}{8,81,156}
   \fi
 
   \ifost@green
-     \xdefinecolor{ostColorTitle}{RGB}{0,109,44}
+     \xdefinecolor{ostColorTitle}{RGB}{,109,44}
      \xdefinecolor{ostColorSubtitle}{RGB}{49,163,84}
      \xdefinecolor{ostColorChapterHeader}{RGB}{0,109,44} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{49,163,84} 
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,163,84} 
      \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{49,163,84} 
      \xdefinecolor{ostColorParagraphHeader}{RGB}{49,163,84} 
+     \xdefinecolor{ostColorCaptionLabel}{RGB}{0,109,44}
   \fi
 
   \ifost@red
@@ -266,6 +274,7 @@
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{222,45,38} 
      \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{222,45,38} 
      \xdefinecolor{ostColorParagraphHeader}{RGB}{222,45,38} 
+     \xdefinecolor{ostColorCaptionLabel}{RGB}{165,15,21}
   \fi
 
   \colorlet{ostColorChapterHeaderNumber}{gray}
@@ -313,6 +322,8 @@
    \colorlet{ostColorAdvisor}{black} 
    \colorlet{ostColorDate}{black}  
    \colorlet{ostColorMarginNote}{black}
+
+   \colorlet{ostColorCaptionLabel}{black}
 
    \colorlet{ostColorPartHeader}{black}
    \colorlet{ostColorPartHeaderNumber}{black}
@@ -588,6 +599,10 @@
 %% Control caption layout %%
 \RequirePackage[format=plain, margin=7pt, font={small,it}, labelformat=default, labelfont=bf]{caption}
 
+\ifost@color
+  \captionsetup{labelfont={color=ostColorCaptionLabel,bf}}
+\fi
+
 %% where to put this?
 \RequirePackage{marginnote}
 
@@ -782,14 +797,69 @@
 
 %% the table of contents  
 
-\newcommand{\ostAddContentHeaderOrNot}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
+\newcommand{\ostPartialContentHeader}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
 
-\newenvironment{ostContentTables}{%
-  \hypersetup{linkcolor=black} 
+% \renewenvironment{quotation}{\list{}{\rightmargin\leftmargin}\item\relax}{\endlist}
+
+% \newdimen\myheight
+% \setbox0=\vbox{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id hendrerit 
+  % nunc. Sed scelerisque lacus vitae erat eleifend eleifend. Donec eros mi, placerat
+  % in porta eleifend, placerat a urna. Pellentesque venenatis neque non turpis
+  % convallis vehicula. Aliquam aliquet ultricies tincidunt.}
+% \myheight=\ht0  
+% \advance\myheight 4pt
+
+% \vspace{3em}
+% \begin{minipage}{0.04\textwidth}
+  % \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\myheight}}
+% \end{minipage}\begin{minipage}{0.99\textwidth}
+  % Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id hendrerit 
+  % nunc. Sed scelerisque lacus vitae erat eleifend eleifend. Donec eros mi, placerat
+  % in porta eleifend, placerat a urna. Pellentesque venenatis neque non turpis
+  % convallis vehicula. Aliquam aliquet ultricies tincidunt.
+% \end{minipage}
+% \vspace{3em}
+
+
+
+
+\g@addto@macro{\frontmatter}{
   \ost@chapterwithtocfalse
-}{%
-  \hypersetup{linkcolor=ostColorLinks} 
+}
+
+\g@addto@macro{\mainmatter}{
   \ost@chapterwithtoctrue
+}
+
+\g@addto@macro{\appendix}{
+  \ost@chapterwithtocfalse
+  \stopcontents
+}
+
+\g@addto@macro{\backmatter}{
+  \ost@chapterwithtocfalse
+}
+
+
+\preto{\tableofcontents}{
+  \hypersetup{linkcolor=black} 
+}  
+\g@addto@macro{\tableofcontents}{
+  \hypersetup{linkcolor=ostColorLinks} 
+}
+
+\preto{\listoffigures}{
+  \hypersetup{linkcolor=black} 
+} 
+\g@addto@macro{\listoffigures}{
+  \hypersetup{linkcolor=ostColorLinks} 
+}
+
+\preto{\listoftables}{
+  \hypersetup{linkcolor=black} 
+} 
+\g@addto@macro{\listoftables}{
+  \hypersetup{linkcolor=ostColorLinks} 
 }
 
 \newenvironment{ostContentTablesPartials}{%
@@ -798,11 +868,10 @@
   \hypersetup{linkcolor=ostColorLinks}
 }
 
-\newenvironment{ostAffidavit}{%
-  \ost@chapterwithtocfalse
-}{%
-  \ost@chapterwithtoctrue
-}
+\newcommand{\ostAffidavitSignatureLineDate}{19.11.2013}
+\newcommand{\ostAffidavitSignatureLineLocation}{Leipzig}
+\newcommand{\ostAffidavitSignatureLine}{\vspace{4\baselineskip}\noindent Date:\ifdefempty{\ostAffidavitSignatureLineDate}{\textcolor{gray}{\dotfill}}{~\ostAffidavitSignatureLineDate}, Location:\ifdefempty{\ostAffidavitSignatureLineLocation}{\textcolor{gray}{\dotfill}}{~\ostAffidavitSignatureLineLocation}, Signature:\textcolor{gray}{\dotfill}}
+
 
 %% Title header defaults %% 
 
@@ -873,10 +942,12 @@
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
 
-\newcommand{\ostAdvisorOne}{\color{gray}Gutachter:\\ Prof. Dr. M. Sickel\\Tel.: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: sickel@uni-fubar.de} 
+\newcommand{\ostEmail}[1]{\href{mailto:#1}{#1}} 
+
+\newcommand{\ostAdvisorOne}{\color{gray}Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}
 \newcommand{\ostSetAdvisorOne}[1]{\def\ostAdvisorOne{#1}}
 
-\newcommand{\ostAdvisorTwo}{\color{gray}PD Dr. L. Dark\\Tel.: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: darkk@uni-baz.de} 
+\newcommand{\ostAdvisorTwo}{\color{gray}\vspace{\baselineskip}PD Dr. L. Dark\\Phone: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: \ostEmail{dark@uni-baz.de}}
 \newcommand{\ostSetAdvisorTwo}[1]{\def\ostAdvisorTwo{#1}}
 
 \newcommand{\ostDate}{\today} 
@@ -886,6 +957,12 @@
 \newcommand{\ostSetTextOnBar}[1]{\def\ostTextOnBar{#1}}
 
 \ifost@backroundimage%
+
+\renewcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
+\renewcommand{\ostFontAuthors}{\normalfont\normalsize}   
+\renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
+\renewcommand{\ostFontDate}{\normalfont\small}    
+
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
     \vspace*{\stretch{1}}
@@ -899,9 +976,14 @@
       \ostGitInfoLine{}
       \vspace{-1\baselineskip} 
     }      
-    \vspace*{\stretch{1}}
-    {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
-    {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par}
+    \vspace*{\stretch{2}}
+    \begin{tabular}{cc}
+      \hspace{4em}\begin{minipage}[c]{0.4\textwidth}
+        {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
+      \end{minipage}&\begin{minipage}[c]{0.4\textwidth}
+        {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
+      \end{minipage}
+    \end{tabular}  
   \end{titlepage}
 }
 \fi%
@@ -915,6 +997,7 @@
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
+    % \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
     \ostTitleStretchAbove{}
     \ostTitleRule%
     \ostTitleSpacerTitleRuleUpper{}
@@ -929,9 +1012,14 @@
     }      
     \ostTitleSpacerTitleRuleLower{} 
     \ostTitleRule%
-    \ostTitleStretchBelow{}   
-    {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
-    {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
+    \ostTitleStretchBelow{}
+    \begin{tabular}{cc}
+      \hspace{4em}\begin{minipage}[c]{0.4\textwidth}
+        {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
+      \end{minipage}&\begin{minipage}[c]{0.4\textwidth}
+        {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
+      \end{minipage}
+    \end{tabular}  
   \end{titlepage} 
 }
 \fi
@@ -944,6 +1032,7 @@
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
+    % \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
     \hbox{ 
       \hspace*{0.2\textwidth} 
       \rotatebox{90}{\ostTextOnBar}
@@ -956,10 +1045,9 @@
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
         \ostGitInfoLine{}
-        \vspace{0.4\textheight} 
-        \vfill
-        {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}\vspace{\baselineskip}
-        {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
+        \vspace{0.2\textheight} 
+        {\ifdefempty{\ostAdvisorOne}{\vspace{4\baselineskip}}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}\vspace{\baselineskip}
+        {\ifdefempty{\ostAdvisorTwo}{\vspace{4\baselineskip}}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
       }
     }
   \end{titlepage}
@@ -1241,27 +1329,27 @@
 
 \newcommand\partialtoccontentsname{\contentsname}
 
-\ifost@sectionnumbers% 
+\ifost@parttocs%
+  \titleformat{\part}[display]
+  {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
+  {\filleft\fontsize{50}{70}\selectfont\textbf}
+  [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+\else%
+  \titleformat{\part}[display]%
+  {\normalfont\sffamily\Large}
+  {%\Huge\textsc{\chaptertitlename}
+  \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
+  {-2ex}
+  {\filleft\fontsize{50}{70}\selectfont\textbf}
+  [\vspace*{4pc}\thispagestyle{empty}]
+\fi%
 
-  \ifost@parttocs%
-    \titleformat{\part}[display]
-    {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
-    {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
-  \else%
-    \titleformat{\part}[display]%
-    {\normalfont\sffamily\Large}
-    {%\Huge\textsc{\chaptertitlename}
-    \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
-    {-2ex}
-    {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}\thispagestyle{empty}]
-  \fi%
+\ifost@sectionnumbers% 
 
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
-    [\ifost@chapterwithtoc\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\fi \thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc {\contentsfinish{}} \vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
@@ -1292,25 +1380,10 @@
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
 
-  \ifost@parttocs%
-    \titleformat{\part}[display]
-    {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
-    {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
-  \else%
-    \titleformat{\part}[display]%
-    {\normalfont\sffamily\Large}
-    {%\Huge\textsc{\chaptertitlename}
-    \hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}
-    {-2ex}
-    {\filleft\fontsize{50}{70}\selectfont\textbf}
-    [\vspace*{4pc}\thispagestyle{empty}]
-  \fi%
-
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}}{0.5em}{\Huge}
-    [\ifost@chapterwithtoc\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\ostAddContentHeaderOrNot\printcontents{p-}{1}{}\end{ostContentTablesPartials}} \fi \thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}} \fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
@@ -1364,9 +1437,6 @@
 % \titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 % \titlespacing*{\paragraph} {0pt}{3.25ex plus 1ex minus .2ex}{1em}
 % \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
-
-% try to get a nice appendix section for graphics and tables 
-% \newenvironment{ostAppendix}{\relax}{\relax}
 
 \RequirePackage{titletoc}  
 

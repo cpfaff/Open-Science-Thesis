@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass{ost/subdocuments/open_science_thesis} 
+\documentclass[titlepagestyle=vertical, toctosection=chapter, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
 
 %% Available class options [defaults]
 
@@ -118,23 +118,20 @@
 %%% Tables of content %%%
 %%%-------------------------------------------------%%%
 
-\begin{ostContentTables} 
-  \tableofcontents
-  \listoffigures 
-  \listoftables 
-\end{ostContentTables}
+\tableofcontents
+\listoffigures 
+\listoftables 
 
 %%%-------------------------------------------------%%%
 %%% Affidavit %%%
 %%%-------------------------------------------------%%%
 
 % start main matter
-\mainmatter
 
-\begin{ostAffidavit} 
 <<subdoc_content_introduction, child='usr/subdocuments/chapters/ost_affidavit_section.Rnw', eval=T>>=
 @
-\end{ostAffidavit} 
+
+\mainmatter
 
 %%%-------------------------------------------------%%%
 %%% Include abstract %%%
@@ -182,27 +179,14 @@
 %%% Include the appendix %%%
 %%%-------------------------------------------------%%%
 
-% start back matter
+% Appendix content 
 \appendix
-\makeatletter
-\ost@chapterwithtocfalse
-\makeatother
-\stopcontents
 
-% \begin{ostAppendix} 
 <<subdoc_content_appendix, child='usr/subdocuments/chapters/ost_appendix_section.Rnw', eval=T>>=
 @ 
-% \end{ostAppendix} 
 
-
+% Literature and Index
 \backmatter
-
-%%%-------------------------------------------------%%%
-%%% Glossary %%%
-%%%-------------------------------------------------%%%
-
-% <<body_mainmatter_chapter_one, child='usr/subdocuments/chapters/ost_glossaries_section.Rnw', eval=TRUE>>=
-% @
 
 %%%-------------------------------------------------%%%
 %%% Include the bibliography %%%
@@ -211,6 +195,12 @@
 <<options_bibliography, child='usr/subdocuments/chapters/ost_bibliography_section.Rnw', eval=T>>=
 @
 
+%%%-------------------------------------------------%%%
+%%% Glossary %%%
+%%%-------------------------------------------------%%%
+
+<<body_mainmatter_chapter_one, child='usr/subdocuments/chapters/ost_glossaries_section.Rnw', eval=TRUE>>=
+@
 
 %%%------------------------------------------------------------------------------%%%
 %%% End of document %%%
