@@ -799,29 +799,22 @@
 
 \newcommand{\ostPartialContentHeader}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
 
-% \renewenvironment{quotation}{\list{}{\rightmargin\leftmargin}\item\relax}{\endlist}
-
-% \newdimen\myheight
-% \setbox0=\vbox{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id hendrerit 
-  % nunc. Sed scelerisque lacus vitae erat eleifend eleifend. Donec eros mi, placerat
-  % in porta eleifend, placerat a urna. Pellentesque venenatis neque non turpis
-  % convallis vehicula. Aliquam aliquet ultricies tincidunt.}
-% \myheight=\ht0  
-% \advance\myheight 4pt
-
-% \vspace{3em}
-% \begin{minipage}{0.04\textwidth}
-  % \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\myheight}}
-% \end{minipage}\begin{minipage}{0.99\textwidth}
-  % Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id hendrerit 
-  % nunc. Sed scelerisque lacus vitae erat eleifend eleifend. Donec eros mi, placerat
-  % in porta eleifend, placerat a urna. Pellentesque venenatis neque non turpis
-  % convallis vehicula. Aliquam aliquet ultricies tincidunt.
-% \end{minipage}
-% \vspace{3em}
-
-
-
+\newcommand{\ostQuote}[1]{
+  \newdimen\quoteruleheight
+  \setbox0=\vbox{\small #1}
+  \quoteruleheight=\ht0 \advance\quoteruleheight by 1.5\baselineskip 
+  \newdimen\quoterulewidth 
+  \quoterulewidth=5pt
+  \colorlet{ostColorQuoteRule}{LightGray!30}
+  \newcommand{\quoterule}{\textcolor{ostColorQuoteRule}{\rule{\quoterulewidth}{\quoteruleheight}}}
+  \begin{center}
+    \begin{minipage}{0.1\textwidth}
+      \quoterule 
+    \end{minipage}\hspace{-1.5em}\begin{minipage}{0.8\textwidth}
+      {\small #1}
+    \end{minipage}
+  \end{center}
+}
 
 \g@addto@macro{\frontmatter}{
   \ost@chapterwithtocfalse
