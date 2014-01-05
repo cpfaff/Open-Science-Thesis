@@ -65,6 +65,8 @@ gloss:
 	$(COMPILER) $(DOCUMENT).tex
 	$(GLOSSARYINDEXER) $(DOCUMENT)
 	$(COMPILER) $(DOCUMENT).tex
+	$(GLOSSARYINDEXER) $(DOCUMENT)
+	$(COMPILER) $(DOCUMENT).tex
 
 # Initproject 
 
@@ -149,17 +151,17 @@ archive:
 # The original exmaple contens can be restored with the "exmpl*" tasks but
 # NOTE: This overwrites your files.
 
-exmpldoc:
-	$(COPY) $(EXMPLDOCS) $(SUBDOCFOLDER)  
+# exmpldoc:
+	# $(COPY) $(EXMPLDOCS) $(SUBDOCFOLDER)  
 
-exmplreadme:
-	$(COPY) $(EXMPLREADME) $(BASEFOLDER) 
+# exmplreadme:
+	# $(COPY) $(EXMPLREADME) $(BASEFOLDER) 
 
-tmpdoc:
-	$(COPY) $(TEMPDOCS) $(SUBDOCFOLDER) 
+# tmpdoc:
+	# $(COPY) $(TEMPDOCS) $(SUBDOCFOLDER) 
 
-tmpreadme:
-	$(COPY) $(TEMPREADME) $(BASEFOLDER) 
+# tmpreadme:
+	# $(COPY) $(TEMPREADME) $(BASEFOLDER) 
 
 # set-/rmgithooks 
 

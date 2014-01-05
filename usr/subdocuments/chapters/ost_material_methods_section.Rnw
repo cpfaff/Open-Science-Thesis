@@ -2,13 +2,12 @@
 %%% Sub document for material and methods %%%
 %%%-------------------------------------------------%%%
 
-\part{Second part}
-
 \chapter{Material And Methods}
 
 % Remove the lipsum and example table fill in your material and methods text here
 
-\lipsum[1] 
+\lipsum[1] And a glossary entry about \gls{eml}. If you use the entry again
+then it will be shortened to \gls{eml}.
 
 \section{A section} 
 

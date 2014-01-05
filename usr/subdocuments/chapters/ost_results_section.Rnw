@@ -42,7 +42,7 @@
 \end{multline}
 
 % {{{ plot fig:test_plot_two 
-\ostFramedEnv*[label = fig:test_plot_two]{ 
+\ostFramedEnv[label = fig:test_plot_two]{ 
 <<test_plot_two, fig.width=3.415, fig.height=2.5, echo=FALSE>>=
    ggplot(movies, aes(x=rating)) +
    geom_density() +
@@ -79,7 +79,7 @@ end
 % example for a two column table %
 
 % {{{ table: tab:test_table_two
-\ostTableEnv*[label = tab:test_table_two]{
+\ostTableEnv[label = tab:test_table_two]{
   \begin{tabular}{p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}p{0.08\textwidth}}
     \toprule
       \multicolumn{4}{c}{A-D}   & \multicolumn{5}{c}{E-I}\\

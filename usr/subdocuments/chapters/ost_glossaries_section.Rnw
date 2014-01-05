@@ -1,0 +1,11 @@
+%%%-------------------------------------------------%%%
+%%% Sub document for glossary and acronym output %%%
+%%%-------------------------------------------------%%%
+
+\part{Backmatter}
+
+% print the acronyms
+\printglossary[numberedsection, type=\acronymtype]
+
+% print the glossary
+\printglossary[numberedsection, type=main]

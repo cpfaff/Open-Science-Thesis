@@ -2,6 +2,8 @@
 %%% Sub document abstract %%%
 %%%-------------------------------------------------%%%
 
+\part{Preface}
+
 \chapter{Abstract}
 
 % Remove the lipsum and fill in your abstract text here
@@ -11,5 +13,4 @@
 \section{lipsum}
 
 \lipsum[2]
-
 \lipsum[2]

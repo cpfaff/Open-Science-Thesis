@@ -16,7 +16,7 @@
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
 
-\ProvidesClass{open-science-thesis}[2013/12/23 version 0.3 LaTeX class of the Open-Science-Thesis]
+\ProvidesClass{open-science-thesis}[2013/12/23 version 0.4 LaTeX class of the Open-Science-Thesis]
 
 \RequirePackage{xkeyval} 
 
@@ -37,6 +37,7 @@
 
 \newif\ifost@parttocs% 
 \newif\ifost@chapttocs% 
+\newif\ifost@secttocs% 
 
 \define@choicekey*[KV]{open-science-thesis}{toctosection}[\val\nr]{part, chapter, false}{%
   \ifcase\nr\relax%
@@ -46,18 +47,22 @@
   \or%
     \ost@parttocsfalse%
     \ost@chapttocsfalse%
+    \ost@secttocsfalse% 
   \fi%
 }
 
 \newif\ifost@backroundimage%
 \newif\ifost@titlepagesimple%
+\newif\ifost@titlepageplain%
 \newif\ifost@titlepagevertical%
 
-\define@choicekey*[KV]{open-science-thesis}{titlepagestyle}[\val\nr]{image, simple, vertical}{%
+\define@choicekey*[KV]{open-science-thesis}{titlepagestyle}[\val\nr]{image, simple, plain, vertical}{%
   \ifcase\nr\relax%
     \ost@backroundimagetrue
   \or% 
     \ost@titlepagesimpletrue
+  \or% 
+    \ost@titlepageplaintrue
   \or%
     \ost@titlepageverticaltrue
   \fi%
@@ -79,16 +84,16 @@
 
 \define@choicekey*[KV]{open-science-thesis}{colortheme}[\val\nr]{orange, blue, green, red}{%
   \ifcase\nr\relax% 
-    \ost@colortrue
+    \ost@colortrue%
     \ost@orangetrue%
   \or%
-    \ost@colortrue
+    \ost@colortrue%
     \ost@bluetrue%
   \or%
-    \ost@colortrue
+    \ost@colortrue%
     \ost@greentrue%
   \or%
-    \ost@colortrue
+    \ost@colortrue%
     \ost@redtrue%
   \fi%
 }
@@ -96,23 +101,22 @@
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
-   linenumbers=false, 
-   color=true, 
-   colortheme=red,
-   colormode=rgb, 
-   fancytocs=true, 
-   fancyhf=true,
-   toctosection=part,
-   titlepagestyle=vertical,
-   gitinfo=false, 
-   sectionnumbers=true,
-   autolayout=true,
-   resetdefaultclassoptions=false, 
-   parindent=true,
+  linenumbers=false, 
+  color=true, 
+  colortheme=red,
+  colormode=rgb, 
+  fancytocs=true, 
+  fancyhf=true,
+  toctosection=part,
+  titlepagestyle=vertical,
+  gitinfo=false, 
+  sectionnumbers=true,
+  autolayout=true,
+  resetdefaultclassoptions=false, 
+  parindent=true,
 }{} 
 
 \ProcessOptionsX[KV]<open-science-thesis>
-
 
 \ifost@resetdefaultclassoptions%
   \LoadClass{scrbook}   
@@ -125,9 +129,10 @@
   \fi% 
 \fi%
 
+% enable and disable chaptertocs as it is not required 
+% to have them everywhere even if chapter toc is enabled
 \newif\ifost@chapterwithtoc%
 \ost@chapterwithtoctrue
-
 
 %%%-------------------------------------------------%%%
 %%% Input encodings fonts and symbols %%%
@@ -148,7 +153,7 @@
 \RequirePackage{textcomp}
 
 %%%-------------------------------------------------%%%
-%%% Patch some LaTeX shortcommings %%%
+%%% Patches and tools %%%
 %%%-------------------------------------------------%%%
 
 \RequirePackage{fixltx2e}
@@ -156,11 +161,6 @@
 \RequirePackage{etex} 
 \RequirePackage{etoolbox} 
 \reserveinserts{30}
-
-%%%-------------------------------------------------%%%
-%%% Useful tools %%%
-%%%-------------------------------------------------%%%
-
 \RequirePackage{calc}
 \RequirePackage{xifthen}  
 \RequirePackage{ifluatex} 
@@ -212,27 +212,33 @@
 %%%-------------------------------------------------%%%
 
 \ifost@cmyk%
-  \RequirePackage[svgnames,cmyk, pdftex]{xcolor}  
+  \RequirePackage[svgnames,cmyk, pdftex, tables]{xcolor}  
 \fi%
 
 \ifost@rgb%
-  \RequirePackage[svgnames,rgb, pdftex]{xcolor} 
+  \RequirePackage[svgnames,rgb, pdftex, tables]{xcolor} 
 \fi% 
+
+\colorlet{ostColorGlsLinkColor}{black}
 
 \ifost@color%  
    \colorlet{ostColorTitleRule}{LightGray} 
    \colorlet{ostColorTitleRuleVertical}{LightGray} 
+   \colorlet{ostColorTitleOverlay}{white} 
+   \colorlet{ostColorImageFrame}{LightGray} 
 
    \colorlet{ostColorTocRule}{LightGray}
+   \colorlet{ostColorPartialToc}{black} 
+
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
    \colorlet{ostColorAdvisor}{black} 
    \colorlet{ostColorDate}{black} 
    \colorlet{ostColorMarginNote}{DarkGray}
-
+   \colorlet{ostColorAdvisor}{gray}
+   
    \colorlet{ostColorPartHeader}{black} 
    \colorlet{ostColorPartHeaderNumber}{LightGray}  
-
   \ifost@orange%
      \colorlet{ostColorTitle}{DarkOrange}
      \colorlet{ostColorSubtitle}{DarkOrange}
@@ -256,7 +262,7 @@
   \fi
 
   \ifost@green
-     \xdefinecolor{ostColorTitle}{RGB}{,109,44}
+     \xdefinecolor{ostColorTitle}{RGB}{0,109,44}
      \xdefinecolor{ostColorSubtitle}{RGB}{49,163,84}
      \xdefinecolor{ostColorChapterHeader}{RGB}{0,109,44} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{49,163,84} 
@@ -313,7 +319,11 @@
 \else%
    \colorlet{ostColorTitleRule}{black}
    \colorlet{ostColorTitleRuleVertical}{black} 
-   \colorlet{ostColorTocRule}{black}
+   \colorlet{ostColorTocRule}{black} 
+   \colorlet{ostColorPartialToc}{black} 
+   \colorlet{ostColorTitleOverlay}{white} 
+   \colorlet{ostColorImageFrame}{black} 
+
    \colorlet{ostColorTitle}{black} 
 
    \colorlet{ostColorSubtitle}{black}
@@ -322,6 +332,7 @@
    \colorlet{ostColorAdvisor}{black} 
    \colorlet{ostColorDate}{black}  
    \colorlet{ostColorMarginNote}{black}
+   \colorlet{ostColorAdvisor}{black}
 
    \colorlet{ostColorCaptionLabel}{black}
 
@@ -411,12 +422,24 @@
 
 % create lengths
 \newlength{\ostLengthHeaderRuleWidth} 
-\setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
+\ifost@color
+  \setlength{\ostLengthHeaderRuleWidth}{3.0pt} 
+\else
+  \setlength{\ostLengthHeaderRuleWidth}{1.0pt} 
+\fi
+
 \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
 
 \newlength{\ostLengthFooterRuleWidth}
-\setlength{\ostLengthFooterRuleWidth}{0.0pt} 
-\renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
+
+\ifost@color
+  \setlength{\ostLengthFooterRuleWidth}{3.0pt} 
+\else
+  \setlength{\ostLengthFooterRuleWidth}{1.0pt} 
+\fi
+
+% \setlength{\ostLengthFooterRuleWidth}{3.0pt} 
+% \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
 
 % patch rule commands with color
 \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
@@ -428,11 +451,11 @@
 \ifost@fancyhf
   \fancypagestyle{pageStyleChapter}{%
     \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{3pt}
+    \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth}
     \fancyhead{}
   } 
-  \renewcommand{\headrulewidth}{3pt}
-  \renewcommand{\footrulewidth}{3pt}
+  \renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
+  \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth}
   \fancypagestyle{pageStyleToc}{%
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
@@ -441,11 +464,13 @@
 \else%
   \fancypagestyle{pageStyleChapter}{%
     \renewcommand{\chapterpagestyle}{fancy}
-    \setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
+    \renewcommand{\headrulewidth}{0pt}
+    % \setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
   } 
   \fancypagestyle{pageStyleToc}{%
     \renewcommand{\chapterpagestyle}{fancy}
-    \setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
+    \renewcommand{\headrulewidth}{0pt}
+    % \setlength{\ostLengthHeaderRuleWidth}{0.0pt} 
   }
 \fi%
 
@@ -546,14 +571,19 @@
 \pgfsetlayers{background,main,foreground}
 
 %% Define tikz styles %% 
+
 \ifost@color
-   % \tikzstyle{pictureframe} = [rectangle, rounded corners, draw=LightGray, fill=white, blur shadow={shadow blur steps=5, shadow blur extra rounding=1.3pt}] 
-   \tikzstyle{pictureframe} = [rectangle, rounded corners, draw=LightGray, thick, fill=white] 
+   % \tikzstyle{imageframe} = [rectangle, rounded corners, draw=LightGray, fill=white, blur shadow={shadow blur steps=5, shadow blur extra rounding=1.3pt}] 
+   \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, thick, fill=white] 
 \else%
-   \tikzstyle{pictureframe} = [rectangle, rounded corners, draw=black, fill=white]
+   \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, fill=white]
 \fi
 
-\tikzstyle{signbackground} = [rectangle, fill=gray!3, rounded corners, draw=gray, very thin]
+\tikzstyle{signbackground} = [rectangle, fill=white, fill opacity=0.7, text opacity=1, rounded corners]
+
+\newcommand{\ostTitleOverlayOpacity}{0.7}
+\newcommand{\ostSetTitleOverlayOpacity}[1]{\def\ostTitleOverlayOpacity{#1}}
+\tikzstyle{titlepageoverlay} = [rectangle, fill=ostColorTitleOverlay, fill opacity=\ostTitleOverlayOpacity, text opacity=1, rounded corners]
 
 \RequirePackage{subcaption} 
 
@@ -641,6 +671,18 @@
 %% Tables spanning multiple pages %%
 \RequirePackage{longtable}
 
+% \definecolor{DarkKhaki}{rgb}{0.74,0.72,0.42}
+% \colorlet{tableheadcolor}{DarkKhaki}
+% \newcommand{\theader}{\rowcolor{tableheadcolor}}
+% \colorlet{tablerowcolor}{DarkKhaki!50} 
+% \newcommand{\trow}{\rowcolor{tablerowcolor}}
+% \newenvironment{tabledata}[1][1]{%
+  % \renewcommand*{\extrarowheight}{0.1cm}%
+  % \tabular%
+% }{%
+  % \endtabular
+% }
+
 %%%-------------------------------------------------%%%
 %%% Multi column documents %%%
 %%%-------------------------------------------------%%%
@@ -684,7 +726,7 @@
 
 %% citation management %%
 \RequirePackage[backend = biber, bibstyle = authoryear, style = authoryear, natbib = true]{biblatex}
- 
+\defbibheading{bibempty}{}
 % usage:
 %  \citet{jon90} ⇒ Jones et al. (1990)
 %  \citet[chap.~2]{jon90} ⇒ Jones et al. (1990, chap. 2)
@@ -795,23 +837,40 @@
 %%% Definition of environments %%%
 %%%-------------------------------------------------%%%
 
-%% the table of contents  
+% nice formatted quotation environment
 
-\newcommand{\ostPartialContentHeader}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
+\providecommand*{\ostQuoteAuthor}{}
+\define@key{ostQuote}{author}{\renewcommand*\ostQuoteAuthor{#1}}
+\presetkeys{ostQuote}{author=}{}%
 
-\newcommand{\ostQuote}[1]{
-  \newdimen\quoteruleheight
-  \setbox0=\vbox{\small #1}
-  \quoteruleheight=\ht0 \advance\quoteruleheight by 1.5\baselineskip 
-  \newdimen\quoterulewidth 
-  \quoterulewidth=5pt
+\newdimen\quoteruleheight
+\newdimen\quoterulewidth 
+\newdimen\quoterulesep 
+\quoterulesep=-2.3em
+
+\ifost@color%
   \colorlet{ostColorQuoteRule}{LightGray!30}
-  \newcommand{\quoterule}{\textcolor{ostColorQuoteRule}{\rule{\quoterulewidth}{\quoteruleheight}}}
+  \quoterulewidth=5pt
+\else%
+  \colorlet{ostColorQuoteRule}{black}
+  \quoterulewidth=2pt 
+\fi%
+
+\newcommand{\ostQuoteRule}{\textcolor{ostColorQuoteRule}{\rule{\quoterulewidth}{\quoteruleheight}}}
+
+\newcommand{\ostQuote}[2][]{
+  \setkeys{ostQuote}{#1}
+  \setbox0=\vbox{\small #2}
+  \ifdefempty{\ostQuoteAuthor}{
+      \quoteruleheight=\ht0 \advance\quoteruleheight by 1.5\baselineskip  
+    }{
+      \quoteruleheight=\ht0 \advance\quoteruleheight by 2.7\baselineskip  
+  }
   \begin{center}
     \begin{minipage}{0.1\textwidth}
-      \quoterule 
-    \end{minipage}\hspace{-1.5em}\begin{minipage}{0.8\textwidth}
-      {\small #1}
+      \ostQuoteRule{}
+    \end{minipage}\hspace{\quoterulesep}\begin{minipage}{0.8\textwidth}
+      {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
     \end{minipage}
   \end{center}
 }
@@ -826,23 +885,27 @@
 
 \g@addto@macro{\appendix}{
   \ost@chapterwithtocfalse
-  \stopcontents
+  \ifost@secttocs% 
+    \stopcontents
+  \fi
 }
 
 \g@addto@macro{\backmatter}{
   \ost@chapterwithtocfalse
 }
 
-
 \preto{\tableofcontents}{
   \hypersetup{linkcolor=black} 
+  \ost@chapterwithtocfalse
 }  
 \g@addto@macro{\tableofcontents}{
   \hypersetup{linkcolor=ostColorLinks} 
+  \ost@chapterwithtocfalse
 }
 
 \preto{\listoffigures}{
   \hypersetup{linkcolor=black} 
+  \ost@chapterwithtocfalse
 } 
 \g@addto@macro{\listoffigures}{
   \hypersetup{linkcolor=ostColorLinks} 
@@ -855,27 +918,52 @@
   \hypersetup{linkcolor=ostColorLinks} 
 }
 
-\newenvironment{ostContentTablesPartials}{%
+\newenvironment{ostPartialToc}{%
   \hypersetup{linkcolor=black}
 }{%
   \hypersetup{linkcolor=ostColorLinks}
 }
 
-\newcommand{\ostAffidavitSignatureLineDate}{19.11.2013}
-\newcommand{\ostAffidavitSignatureLineLocation}{Leipzig}
-\newcommand{\ostAffidavitSignatureLine}{\vspace{4\baselineskip}\noindent Date:\ifdefempty{\ostAffidavitSignatureLineDate}{\textcolor{gray}{\dotfill}}{~\ostAffidavitSignatureLineDate}, Location:\ifdefempty{\ostAffidavitSignatureLineLocation}{\textcolor{gray}{\dotfill}}{~\ostAffidavitSignatureLineLocation}, Signature:\textcolor{gray}{\dotfill}}
+% affidavit
 
+\newcommand{\ostAffidavitDeclaration}{
+  I hereby declare that this document has been written only by the undersigned
+  and without any assistance from third parties. Furthermore, I confirm that no
+  sources have been used in the preparation of this document other than those
+  indicated in the thesis itself. 
+}
+\newcommand{\ostSetAffidavitDeclaration}[1]{\def\ostAffidavitDeclaration{#1}}
+
+\newcommand{\ostAffidavitDate}{}
+\newcommand{\ostSetAffidavitDate}[1]{\def\ostAffidavitDate{#1}}
+
+\newcommand{\ostAffidavitLocation}{}
+\newcommand{\ostSetAffidavitLocation}[1]{\def\ostAffidavitLocation{#1}}
+
+\newcommand{\ostAffidavitSignatureLine}{\noindent Date:\ifdefempty{\ostAffidavitDate}{\textcolor{gray}{\dotfill}}{~\ostAffidavitDate}, Location:\ifdefempty{\ostAffidavitLocation}{\textcolor{gray}{\dotfill}}{~\ostAffidavitLocation}, Signature:\textcolor{gray}{\dotfill}}
+\newcommand{\ostSetAffidavitSignatureLine}[1]{\def\ostAffidavitSignatureLine{#1}}
+
+\newcommand{\ostAffidavitName}{Affidavit}
+\newcommand{\ostSetAffidavitName}[1]{\def\ostAffidavitName{#1}}
+
+\newcommand{\makeaffidavit}{
+  \chapter{\ostAffidavitName} 
+  \ostAffidavitDeclaration{} 
+
+  \vspace{4\baselineskip}
+  \ostAffidavitSignatureLine{}
+}
 
 %% Title header defaults %% 
 
 % Define all fonts
 
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
-\newcommand{\ostFontSubtitle}{\normalfont\sffamily\normalsize\bfseries}  
-\newcommand{\ostFontAuthors}{\normalfont\sffamily\normalsize}   
+\newcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
+\newcommand{\ostFontAuthors}{\normalfont\normalsize}   
 \newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
-\newcommand{\ostFontAdvisor}{\normalfont\sffamily\normalsize}  
 \newcommand{\ostFontDate}{\normalfont\sffamily\small}    
+\newcommand{\ostFontAdvisor}{\normalfont\sffamily\normalsize}  
 
 % Define all lengths
 
@@ -904,11 +992,70 @@
 \newcommand{\ostTitleSpacerTitleRuleLower}{\vspace{\ostLengthTitleSpacerTitleRuleLower}}
 
 % Define aesthetics 
+\newsavebox\pictureinput
 
+\newcommand{\ostSetBackgroundPic}[1]{%
+  \savebox{\pictureinput}{\IfFileExists{#1}{\includegraphics[width=\textwidth]{#1}}{\scalebox{2}{\color{red}The file is not available!}}
+}}
+ 
 \newcommand{\ostTitlePageBackgroundPic}[1]{
   \AddToShipoutPicture*{\AtTextCenter{%
-    \makebox(0,0){\includegraphics[width=\textwidth]{#1}
-}}}}
+    \raisebox{0\baselineskip}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\pictureinput\ostTitleStretchBelow{}
+  }}}}}
+
+
+\ostSetBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
+
+% \begin{tikzpicture}[remember picture, overlay]
+% \node at (current page.north west){%
+% \begin{tikzpicture}[overlay]
+% \node[draw,anchor=west] at (0mm,0mm) {Some text};
+% \end{tikzpicture}
+% };
+% \end{tikzpicture}
+
+% \def\@oddhead{%
+% \setlength\unitlength{1mm}%
+% \begin{picture}(0,0)%
+% \put(120,20){\fbox{A LOGO HERE}}%
+% \put(-10,-200){\framebox(150,200)[tl]{}}%
+% \end{picture}\hfill}
+
+% \AtBeginShipout{%
+  % \ifthenelse{\isodd{\value{page}}}%
+    % { 
+  % \AddToShipoutPicture*{%
+    % \AtPageLowerLeft{%
+      % \rotatebox{90}{%
+          % \begin{minipage}{\paperheight}
+            % \colorbox{black!05}{\parbox{\paperheight-2\fboxsep-2\fboxrule}{
+              % \vspace{5pt}
+                % \ostTextOnBar
+              % \vspace{5pt}
+            % }
+          % }
+          % \end{minipage} %
+        % }
+      % } %
+  % }
+    % }%
+    % {
+  % \AddToShipoutPicture*{%
+    % \AtPageLowerLeft{%
+      % \makebox[41cm]{\rotatebox{90}{%
+          % \begin{minipage}{\paperheight}
+            % \colorbox{black!05}{\parbox{\paperheight-2\fboxsep-2\fboxrule}{
+              % \vspace{5pt}
+                % \ostTextOnBar
+              % \vspace{5pt}
+            % }
+          % }
+          % \end{minipage} %
+        % }}
+      % } %
+  % }
+% }%
+% }
 
 \newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{\ostLengthTitleRuleWidth}}}
 
@@ -926,7 +1073,7 @@
   \fi 
 } 
 
-\newcommand{\ostSubtitle}{This is a subtitle} 
+\newcommand{\ostSubtitle}{This is a subtitle}
 \newcommand{\ostSetSubtitle}[1]{\def\ostSubtitle{#1}}
 
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2}, \ldots} 
@@ -937,10 +1084,10 @@
 
 \newcommand{\ostEmail}[1]{\href{mailto:#1}{#1}} 
 
-\newcommand{\ostAdvisorOne}{\color{gray}Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}
+\newcommand{\ostAdvisorOne}{Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}
 \newcommand{\ostSetAdvisorOne}[1]{\def\ostAdvisorOne{#1}}
 
-\newcommand{\ostAdvisorTwo}{\color{gray}\vspace{\baselineskip}PD Dr. L. Dark\\Phone: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: \ostEmail{dark@uni-baz.de}}
+\newcommand{\ostAdvisorTwo}{PD Dr. L. Dark\\Phone: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: \ostEmail{dark@uni-baz.de}}
 \newcommand{\ostSetAdvisorTwo}[1]{\def\ostAdvisorTwo{#1}}
 
 \newcommand{\ostDate}{\today} 
@@ -951,89 +1098,87 @@
 
 \ifost@backroundimage%
 
-\renewcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
-\renewcommand{\ostFontAuthors}{\normalfont\normalsize}   
-\renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
-\renewcommand{\ostFontDate}{\normalfont\small}    
-
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
-    \vspace*{\stretch{1}}
-    {\centering%
-      \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
-      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{0.5\baselineskip}   
+    \ostTitlePageBackgroundPic{}
+    {\centering% 
+      \ostTitleStretchAbove{} 
+      {\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth}\begin{center} 
+      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
-      \ostGitInfoLine{}
-      \vspace{-1\baselineskip} 
+      \ostGitInfoLine{} 
+      \end{center}\end{minipage}};\end{tikzpicture}}\\
+      \ostTitleStretchBelow{} 
+      {\ifdefempty{\ostAdvisorOne}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisor}\ostFontAdvisor\ostAdvisorOne}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
+      \vspace{\baselineskip}
+      {\ifdefempty{\ostAdvisorTwo}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisor}\ostFontAdvisor\ostAdvisorTwo}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
     }      
-    \vspace*{\stretch{2}}
-    \begin{tabular}{cc}
-      \hspace{4em}\begin{minipage}[c]{0.4\textwidth}
-        {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
-      \end{minipage}&\begin{minipage}[c]{0.4\textwidth}
-        {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
-      \end{minipage}
-    \end{tabular}  
   \end{titlepage}
 }
 \fi%
 
 \ifost@titlepagesimple  
 
-\renewcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
-\renewcommand{\ostFontAuthors}{\normalfont\normalsize}   
-\renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
-\renewcommand{\ostFontDate}{\normalfont\small}    
-
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
-    % \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
-    \ostTitleStretchAbove{}
-    \ostTitleRule%
-    \ostTitleSpacerTitleRuleUpper{}
-    {\centering%
-      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{0.5\baselineskip}   
+    {\centering% 
+      \ostTitleStretchAbove{}
+      \ostTitleRule%
+      \ostTitleSpacerTitleRuleUpper{}
+      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{}
       \vspace{-1\baselineskip}
+      \ostTitleSpacerTitleRuleLower{} 
+      \ostTitleRule%
+      \ostTitleStretchBelow{}
+      {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par} 
+      \vspace{\baselineskip}
+      {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
     }      
-    \ostTitleSpacerTitleRuleLower{} 
-    \ostTitleRule%
-    \ostTitleStretchBelow{}
-    \begin{tabular}{cc}
-      \hspace{4em}\begin{minipage}[c]{0.4\textwidth}
-        {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par}
-      \end{minipage}&\begin{minipage}[c]{0.4\textwidth}
-        {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
-      \end{minipage}
-    \end{tabular}  
+  \end{titlepage} 
+}
+\fi
+
+\ifost@titlepageplain
+
+\newcommand{\ostMakeTitle}{% 
+  \begin{titlepage}
+    {\centering% 
+      \ostTitleStretchAbove{}
+      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+      \ostGitInfoLine{}
+      \ostTitleStretchBelow{}
+      {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorOne}}}\par} 
+      \vspace{\baselineskip}
+      {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisor}{{\ostFontAdvisor\ostAdvisorTwo}}}\par} 
+    }      
   \end{titlepage} 
 }
 \fi
 
 \ifost@titlepagevertical%
-\renewcommand{\ostFontSubtitle}{\normalfont\normalsize\bfseries\textit}  
-\renewcommand{\ostFontAuthors}{\normalfont\normalsize}   
-\renewcommand{\ostFontInstitution}{\normalfont\normalsize}    
-\renewcommand{\ostFontDate}{\normalfont\small}    
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
-    % \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
     \hbox{ 
       \hspace*{0.2\textwidth} 
       \rotatebox{90}{\ostTextOnBar}
       \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\textheight}}  
       \hspace*{0.05\textwidth} 
       \parbox[b]{0.75\textwidth}{ 
-        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{2\baselineskip}
-        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{4\baselineskip}
+        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\begin{flushleft}\ostFontTitle\ostTitle\end{flushleft}}}\par}}\vspace{2\baselineskip}
+        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\begin{flushleft}\ostFontSubtitle\ostSubtitle\end{flushleft}}}\par}}\vspace{4\baselineskip}
         {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
@@ -1045,7 +1190,10 @@
     }
   \end{titlepage}
 }
-\fi%
+\fi% 
+
+% new definition old macro
+\let\maketitle\ostMakeTitle
 
 %Set the Environments for Textsizes etc
 \newenvironment{smallpar}{\par\small}{\par}
@@ -1075,7 +1223,7 @@
   \begin{figure}[H]
     \centering
     \begin{tikzpicture}
-      \node[pictureframe]{%
+      \node[imageframe]{%
         \begin{minipage}{0.47\textwidth}%
           \begin{centerpar}
             \begin{overpic}[keepaspectratio, keepaspectratio, trim=1.2cm 5.2cm 1.2cm 5.2cm, clip, width=\textwidth]{\mappath}
@@ -1105,7 +1253,7 @@
   \begin{figure*}
     \centering
     \begin{tikzpicture}
-      \node[pictureframe]{%
+      \node[imageframe]{%
         \begin{minipage}{\textwidth}%
           \begin{centerpar}
             \begin{overpic}[keepaspectratio, keepaspectratio, trim=1.2cm 5.2cm 1.2cm 5.2cm, clip, width=\textwidth]{\mappath}
@@ -1158,7 +1306,7 @@
   \begin{figure}[H]
     \centering
     \begin{tikzpicture}
-      \node[pictureframe]{%
+      \node[imageframe]{%
         % \begin{minipage}{0.47\textwidth}
         \begin{minipage}{0.97\columnwidth}
           \begin{center} 
@@ -1172,68 +1320,12 @@
   \end{figure}
 } 
 
-% \RequirePackage{environ} 
-% \RequirePackage{newenviron} 
-
-% \NewEnviron{ostFramedEn}[1][]{%
-% \setkeys{ostFramedEnv}{#1}
-  % \begin{figure}[H]
-    % \centering
-    % \begin{tikzpicture}
-      % \node[pictureframe]{%
-        % \begin{minipage}{0.97\columnwidth}
-          % \begin{center}  
-            % \BODY
-          % \end{center}
-        % \end{minipage}
-      % };
-    % \end{tikzpicture}
-    % \captionbelow{\envcaption}
-    % \label{\envlabel}
-  % \end{figure}
-% }
-
-% \NewEnviron{ostFramedEn*}[1][]{%
-% \setkeys{ostFramedEnv}{#1}
-  % \begin{figure*}[\placement]
-    % \centering
-    % \begin{tikzpicture}
-      % \node[pictureframe]{%
-        % \begin{minipage}{0.98\textwidth} 
-          % \centering
-            % \BODY
-        % \end{minipage}
-      % };
-    % \end{tikzpicture}
-    % \captionbelow{\envcaption}
-    % \label{\envlabel}
-  % \end{figure*}
-% }
-
-% \newenviron{ostFramedEnv*}[1][]{%
-% \setkeys{ostFramedEnv}{#1}
-  % \begin{figure}[H]
-    % \centering
-    % \begin{tikzpicture}
-      % \node[pictureframe]{%
-        % \begin{minipage}{0.97\columnwidth}
-          % \begin{center}  
-            % \ostFramedEnvNbody
-          % \end{center}
-        % \end{minipage}
-      % };
-    % \end{tikzpicture}
-    % \captionbelow{\envcaption}
-    % \label{\envlabel}
-  % \end{figure}
-% }
-
 \WithSuffix\providecommand\ostFramedEnv*[3][]{%
 \setkeys{ostFramedEnv}{#1}
   \begin{figure*}[\placement]
     \centering
     \begin{tikzpicture}
-      \node[pictureframe]{%
+      \node[imageframe]{%
         \begin{minipage}{0.98\textwidth}
           \begin{center} 
             #2
@@ -1270,7 +1362,6 @@
 \providecommand\ostTableEnv[3][]{
 \setkeys{ostTableEnv}{#1}
 \begin{table}[H]
-% Label tab:test_plot_two 
   \centering
   \label{\envlabel}
   \caption{#3}
@@ -1283,7 +1374,6 @@
 \WithSuffix\providecommand\ostTableEnv*[3][]{
 \setkeys{ostTableEnv}{#1}
 \begin{table*}
-% Label tab:test_plot_two 
   \centering
   \label{\envlabel}
   \caption{#3}
@@ -1293,12 +1383,11 @@
 \end{table*} 
 } 
 
-% \lstnewenvironment{\ostCodeEnv}{\noindent\minipage{\columnwidth}}{\endminipage} 
-
 \lstnewenvironment{ostCodeEnv}[1][]{
+  \vspace{.5em}
   \lstset{#1}
 }{
-  \relax
+  \vspace{.5em}
 } 
 
 % usage: 
@@ -1320,13 +1409,16 @@
 
 \RequirePackage[noindentafter,calcwidth]{titlesec}  
 
+%% the table of contents  
+
 \newcommand\partialtoccontentsname{\contentsname}
+\newcommand{\ostPartialContentHeader}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
 
 \ifost@parttocs%
   \titleformat{\part}[display]
   {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
   {\filleft\fontsize{50}{70}\selectfont\textbf}
-  [\vspace*{4pc}{\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{0}{}\end{ostContentTablesPartials}}\thispagestyle{empty}]
+  [\vspace*{4pc}{\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
 \else%
   \titleformat{\part}[display]%
   {\normalfont\sffamily\Large}
@@ -1342,7 +1434,7 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
-    [\ifost@chapterwithtoc {\contentsfinish{}} \vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}}\fi \thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}}\fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
@@ -1376,7 +1468,7 @@
   \ifost@chapttocs%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}}{0.5em}{\Huge}
-    [\ifost@chapterwithtoc\vspace*{4pc}{\color{black}\normalfont\large \begin{ostContentTablesPartials}\startcontents\printcontents{p-}{1}{}\end{ostContentTablesPartials}} \fi \thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}} \fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt} 
   \else%
     \titleformat{\chapter}
@@ -1433,6 +1525,10 @@
 
 \RequirePackage{titletoc}  
 
+% \titlecontents{ <section> }[ <left> ]{ <above-code> }
+              % { <numbered-entry-format> }{ <numberless-entry-format> }
+              % { <filler-page-format> }[ <below-code> ]
+
 \ifost@fancytocs%
   \contentsmargin{1.8em} 
 
@@ -1445,14 +1541,28 @@
   \titlecontents{part}[0em]{\addvspace{2pc}}{\contentslabel{0em}}
   {\Large\bfseries\textsf}{\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
 
-  \titlecontents{chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
-  {\hspace*{-1.5em}}{\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
+  \titlecontents{chapter}
+  [1.5em]
+  {\addvspace{0.7pc}}
+  {\bfseries\contentslabel{1em}}
+  {\bfseries\hspace*{-1em}}
+  {\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \titlecontents{p-chapter}[1.5em]{\addvspace{0.7pc}}{\bfseries\contentslabel{1em}}
-  {\hspace*{-1.5em}}{\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
+  \titlecontents{p-chapter}
+  [1.5em]
+  {\addvspace{0.7pc}}
+  {\bfseries\contentslabel{1em}}
+  {\hspace*{-1.5em}}
+  {\titlerule*[0.7em]{.}\contentspage}
+  [\thispagestyle{pageStyleToc}]
 
-  \titlecontents{section}[3em]{}{\contentslabel{1.6em}}{}
-  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
+  \titlecontents{section}
+  [3em]
+  {}
+  {\contentslabel{1.6em}}
+  {}
+  {\titlerule*[0.7em]{.}\contentspage}
+  [\thispagestyle{pageStyleToc}]
   
   \titlecontents{p-section}[3em]{}{\contentslabel{1.6em}}{}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
@@ -1546,16 +1656,41 @@
 %  \url{URL}
 %  \nolinkurl{URL}
 
+% Note: load glossaries after hyperref!
+\usepackage[xindy, acronym, toc]{glossaries} 
+\usepackage{glossaries-babel}
+
+%package options
+
+% xindy        = use xindy indexer instead of mkindex
+% acronym      = make separate list for acronyms
+% toc          = entry to table of contents
+% nonumberlist = no page numbers in glossary
+
+% modify the gls link color
+\renewcommand*{\glstextformat}[1]{\textcolor{ostColorGlsLinkColor}{#1}}
+\setglossarysection{chapter}
+
+%print out abbreviations
+% \deftranslation[to=German]{Acronyms}{Abkürzungsverzeichnis}
+
+%print out symbols
+%\printglossary[type=symbolslist,style=long]
+
+%\cleardoublepage{}
+
+% \cleardoublepage
+% \setlength{\columnsep}{0.75cm}
+% \addcontentsline{toc}{chapter}{\textcolor{ocre}{Index}}
+% \printindex
+
+% create an index
+% \usepackage{makeidx}
+% \makeindex
+
 %%%-------------------------------------------------%%%
 %%% Do before the document starts %%%
 %%%-------------------------------------------------%%%
-
-%% Set typesetting area with last chosen options %%
-% \ifost@autolayout%
-   % \AtBeginDocument{\KOMAoptions{DIV=last}}
-% \else% 
-   % \relax
-% \fi% 
 
 % \define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
 % \ifost@reversepagelayout%

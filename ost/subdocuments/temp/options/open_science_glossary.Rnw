@@ -3,10 +3,19 @@
 %%%-------------------------------------------------%%%
 
 %load package (!after hyperref)
-% \usepackage[xindy, acronym, toc]{glossaries} 
-\usepackage[acronym, toc]{glossaries} 
+\usepackage[xindy, acronym, toc]{glossaries} 
+% \usepackage[acronym, toc]{glossaries} 
 
-\setglossarysection{section}
+% \renewcommand*{\glstextformat}{\color{black}}
+\renewcommand*{\glstextformat}[1]{\textcolor{red}{#1}}
+% \preto{\gls}{
+  % \hypersetup{linkcolor=black} 
+% }  
+% \g@addto@macro{\gls}{
+  % \hypersetup{linkcolor=ostColorLinks} 
+% }
+
+\setglossarysection{chapter}
 
 %package options
 

@@ -12,19 +12,21 @@
 %%
 %
 
-\documentclass[titlepagestyle=vertical, toctosection=chapter, BCOR=5mm]{ost/subdocuments/open_science_thesis} 
+\documentclass[BCOR=5mm, toctosection=chapter, titlepagestyle=image]{ost/subdocuments/open_science_thesis} 
+
+% linenumbers = true/[false] Enable or disable line numbering. This can be handy on revisions.
+% colormode = [rgb]/cmyk The colormode can be switched between rgb which is optima for displays 
+%			 and cmyk which is useful for professional printing.
+% fancytocs = [true]/false Enable or disable fancy styled TOC.
+% toctosection= [part]/chapter/false Add a partial toc to part, chapter or disable it completely.
 
 %% Available class options [defaults]
 
-% titlepagestyle = [simple, image, vertical]
+% titlepagestyle = [simple, plain, image, vertical]
 % toctosection = [part, chapter]
 
 % linenumbers=false, 
-% color=true, 
 % colortheme=[orange, blue, green, red], 
-% colormode=[rgb, cmyk]
-% fancytocs=true,
-% toctosection=[part, chapter, false]
 % gitinfo=false, 
 % sectionnumbers=true,
 % autolayout=true,
@@ -32,13 +34,7 @@
 % parindent=false,
 
 % backroundimage=false, enable background image for title page. use with onside only 
-% fancytocs=true/false get a nice layout for your table of contents or use default
-% parttocs=true, table of content partials on part page
 
-% - sectionnumbers [true]/false: Switch between numbered and numberless sections  (needs some work)
-
-% - color true/[false]: Changes between colored output and a black and white theme (needs some 
-%   work to setup all the headers with their right colors)
 
 % - autolayout [true]/false: Switch between the nice automatic calculated typearea layout 
 %   (Koma script) and a fixed geometry page layout (geometry package). You need to set the 
@@ -75,7 +71,7 @@
 %%% Load glossary definitions %%%
 %%%------------------------------------------------------------------------------%%%
 
-<<glossary_definitions, child='usr/subdocuments/options/open_science_glossary.Rnw', eval=TRUE>>=
+<<glossary_definitions, child='usr/subdocuments/options/open_science_glossary.Rnw', eval=T>>=
 @
 
 %%%------------------------------------------------------------------------------%%%
@@ -98,7 +94,7 @@
 %%% Preferences for Knitr %%%
 %%%-------------------------------------------------%%%
 
-<<chunk_global_r_options, child='usr/subdocuments/options/ost_global_r_options.Rnw', eval=TRUE>>=
+<<chunk_global_r_options, child='usr/subdocuments/options/ost_global_r_options.Rnw', eval=T>>=
 @ 
 
 %%%--------------------------------------------------------------%%%
@@ -121,15 +117,6 @@
 \tableofcontents
 \listoffigures 
 \listoftables 
-
-%%%-------------------------------------------------%%%
-%%% Affidavit %%%
-%%%-------------------------------------------------%%%
-
-% start main matter
-
-<<subdoc_content_introduction, child='usr/subdocuments/chapters/ost_affidavit_section.Rnw', eval=T>>=
-@
 
 \mainmatter
 
@@ -185,8 +172,14 @@
 <<subdoc_content_appendix, child='usr/subdocuments/chapters/ost_appendix_section.Rnw', eval=T>>=
 @ 
 
-% Literature and Index
-\backmatter
+%%%-------------------------------------------------%%%
+%%% Affidavit %%%
+%%%-------------------------------------------------%%%
+
+% start main matter
+
+<<subdoc_content_introduction, child='usr/subdocuments/chapters/ost_affidavit_section.Rnw', eval=T>>=
+@
 
 %%%-------------------------------------------------%%%
 %%% Include the bibliography %%%
@@ -195,11 +188,14 @@
 <<options_bibliography, child='usr/subdocuments/chapters/ost_bibliography_section.Rnw', eval=T>>=
 @
 
+% Literature and Index
+\backmatter
+
 %%%-------------------------------------------------%%%
 %%% Glossary %%%
 %%%-------------------------------------------------%%%
 
-<<body_mainmatter_chapter_one, child='usr/subdocuments/chapters/ost_glossaries_section.Rnw', eval=TRUE>>=
+<<body_mainmatter_chapter_one, child='usr/subdocuments/chapters/ost_glossaries_section.Rnw', eval=T>>=
 @
 
 %%%------------------------------------------------------------------------------%%%

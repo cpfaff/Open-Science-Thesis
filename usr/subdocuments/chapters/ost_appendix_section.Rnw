@@ -6,4 +6,36 @@
 
 \chapter{Figures}
 
+% {{{ plot fig:test_plot_two 
+\ostFramedEnv[label = fig:test_plot_two_appendix]{ 
+<<test_plot_one_appendix, fig.width=3.415, fig.height=2.5, echo=FALSE>>=
+   ggplot(movies, aes(x=rating)) +
+   geom_density() +
+   theme_ost() 
+@
+}{Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+  commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+  dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
+  pellentesque eu, pretium quis, sem.}
+% }}}
+
 \chapter{Tables}
+
+% {{{ table: tab:test_table_one
+\ostTableEnv[label = tab:test_table_one_appendix]{%
+  \begin{tabular}{p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}p{0.055\textwidth}}
+    \toprule
+    A & B & C & D & E & F & G & H & I\\ 
+    \midrule
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\ 
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\ 
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\ 
+    \bottomrule
+  \end{tabular}
+}{%
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec,
+pellentesque eu, pretium quis, sem.
+}
+% }}}
