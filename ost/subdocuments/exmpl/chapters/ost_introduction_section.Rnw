@@ -2,14 +2,16 @@
 %%% Sub document introduction %%%
 %%%-------------------------------------------------%%%
 
-\part{First part}
+\part{The Thesis}
 
-\chapter{Introduction}
+\chapter{Introduction}\index{capital letters}
 
 % Remove the lipsum and the list example and fill in your introduction text here
 
-\capital{T} his is just an introduction  \href{http://www.test.de}{testlink} text snippet to show how drop caps look in this document.
-\lipsum[1] And a margin note \marginnote{\textcolor{gray}{\small\normalfont This is a margin note at 5cm vertical offset to the first line it is typeset.}}[5cm]
+\capital{T} his is just an introduction  \href{http://www.test.de}{testlink}
+text snippet to show how drop caps look in this document.  \lipsum[1] And a
+nice margin note \marginnote[1cm]{This is a margin note at 1cm vertical offset
+to the first line it is typeset.}
 
 \begin{itemize}
   \item One
@@ -27,7 +29,7 @@
 
 \section{Section} 
 
-This is a test citation \citep{renwick_chemical_2002}.
+This is just a test citation \citep{renwick_chemical_2002}.
 \lipsum[1]  
 
 \subsection{Subsection} 
@@ -38,6 +40,15 @@ This is a test citation \citep{renwick_chemical_2002}.
 
 \lipsum[2]  
 
-\paragraph{Testparagraph:}
+\paragraph{Testparagraph:}\index{paragraph format}
 
 \lipsum[1]  
+
+\ostQuote[author = John Doe]{Lorem ipsum dolor sit amet, consectetur adipiscing
+elit. Morbi id hendrerit nunc. Sed scelerisque lacus vitae erat eleifend
+eleifend. Donec eros mi, placerat
+
+in porta eleifend, placerat a urna. Pellentesque venenatis neque non turpis
+convallis vehicula. Aliquam aliquet ultricies tincidunt.}
+
+\lipsum[1-2]  

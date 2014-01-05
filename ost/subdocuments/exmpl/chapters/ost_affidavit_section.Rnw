@@ -2,7 +2,7 @@
 %%% Sub document affidavit %%%
 %%%-------------------------------------------------%%% 
 
-\part{Preface}
+% \part{Preface}
 
 \chapter{Affidavit} 
 
@@ -11,4 +11,4 @@ and without any assistance from third parties. Furthermore, I confirm that no
 sources have been used in the preparation of this document other than those
 indicated in the thesis itself. 
 
-Date, Location, Signature
+\ostAffidavitSignatureLine{}

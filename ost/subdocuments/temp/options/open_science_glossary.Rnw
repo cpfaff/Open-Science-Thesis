@@ -2,38 +2,12 @@
 %%% Glossary definitions %%%
 %%%-------------------------------------------------%%%
 
-%load package (!after hyperref)
-\usepackage[xindy, acronym, toc]{glossaries} 
-% \usepackage[acronym, toc]{glossaries} 
+% from the documentation
 
-% \renewcommand*{\glstextformat}{\color{black}}
-\renewcommand*{\glstextformat}[1]{\textcolor{red}{#1}}
-% \preto{\gls}{
-  % \hypersetup{linkcolor=black} 
-% }  
-% \g@addto@macro{\gls}{
-  % \hypersetup{linkcolor=ostColorLinks} 
-% }
-
-\setglossarysection{chapter}
-
-%package options
-
-% xindy        = use xindy indexer instead of mkindex
-% acronym      = make separate list for acronyms
-% toc          = entry to table of contents
-% nonumberlist = no pagenumbers in glossary
-
-
-%following babel naming conventions
-
-\usepackage{glossaries-babel}
-
-%scaffold from documentation
-
-% %from documentation
 % \newacronym[⟨key-val list⟩]{⟨label ⟩}{⟨abbrv ⟩}{⟨long⟩}
-% %above is short version of this
+
+% above is short version of this
+
 % \newglossaryentry{⟨label ⟩}{type=\acronymtype,
 %  name={⟨abbrv ⟩},
 %  description={⟨long⟩},
@@ -43,23 +17,23 @@
 %  firstplural={⟨long⟩\glspluralsuffix\space (⟨abbrv ⟩\glspluralsuffix)},
 %  ⟨key-val list⟩}
 
-%working example with glslinks
+% example with glslinks
 
-%\newglossaryentry{API}{
-%type=\acronymtype,
-%name=API,
-%first=Application Programming Interface (API),
-%firstplural={Application Programming Interfaces (API's)},
-%see=[Glossary:]{\gls{APIG}},
-%description=\glslink{APIG}{Application Programming Interfaces}}
+% \newglossaryentry{API}{
+%  type=\acronymtype,
+%  name=API,
+%  first=Application Programming Interface (API),
+%  firstplural={Application Programming Interfaces (API's)},
+%  see=[Glossary:]{\gls{APIG}},
+%  description=\glslink{APIG}{Application Programming Interfaces}}
 
-%\newglossaryentry{APIG}{
-%name=\glslink{API}{Application Programming Interface (\gls{API})},
-%description={
-%Application Programming Interface Desc}
-%}
+% \newglossaryentry{APIG}{
+%  name=\glslink{API}{Application Programming Interface (\gls{API})},
+%  description={
+%  Application Programming Interface Desc}
+%  }
 
-%start your declarations
+% start your declarations
 
 \newglossaryentry{eml}{
 	type        = \acronymtype,
@@ -105,5 +79,5 @@
 	}
 }
 
-%make the glossary files
+% create the glossary files
 \makeglossaries

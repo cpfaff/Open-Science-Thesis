@@ -2,4 +2,4 @@
 %%% Sub document header %%%
 %%%-------------------------------------------------%%% 
 
-\ostMakeTitle
+\maketitle
