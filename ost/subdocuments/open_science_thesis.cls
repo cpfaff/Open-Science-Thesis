@@ -859,13 +859,12 @@
 \newcommand{\ostQuoteRule}{\textcolor{ostColorQuoteRule}{\rule{\quoterulewidth}{\quoteruleheight}}}
 
 \newcommand{\ostQuote}[2][]{
-  \setkeys{ostQuote}{#1}
-  \setbox0=\vbox{\small #2}
-  \ifdefempty{\ostQuoteAuthor}{
-      \quoteruleheight=\ht0 \advance\quoteruleheight by 1.5\baselineskip  
-    }{
-      \quoteruleheight=\ht0 \advance\quoteruleheight by 2.7\baselineskip  
-  }
+  \setkeys{ostQuote}{#1} 
+  \def\@tempa{\begin{minipage}{0.8\textwidth}%
+      {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
+    \end{minipage}
+  }%
+  \settototalheight\quoteruleheight\@tempa
   \begin{center}
     \begin{minipage}{0.1\textwidth}
       \ostQuoteRule{}
