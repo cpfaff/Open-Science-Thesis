@@ -68,6 +68,17 @@ gloss:
 	$(GLOSSARYINDEXER) $(DOCUMENT)
 	$(COMPILER) $(DOCUMENT).tex
 
+allgloss:	 
+	$(KNITR) $(DOCUMENT).Rnw $(DOCUMENT).tex --no-convert
+	$(COMPILER) $(DOCUMENT).tex
+	$(COMPILER) $(DOCUMENT).tex
+	$(BIBTEX) $(DOCUMENT)
+	$(COMPILER) $(DOCUMENT).tex
+	$(GLOSSARYINDEXER) $(DOCUMENT)
+	$(COMPILER) $(DOCUMENT).tex
+	$(GLOSSARYINDEXER) $(DOCUMENT)
+	$(COMPILER) $(DOCUMENT).tex
+
 # Initproject 
 
 # It usese the R package ProjectTemplate to create a Project inside the

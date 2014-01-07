@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[BCOR=5mm, toctosection=chapter, titlepagestyle=image]{ost/subdocuments/open_science_thesis} 
+\documentclass[BCOR=5mm]{ost/subdocuments/open_science_thesis} 
 
 % linenumbers = true/[false] Enable or disable line numbering. This can be handy on revisions.
 % colormode = [rgb]/cmyk The colormode can be switched between rgb which is optima for displays 
@@ -114,9 +114,10 @@
 %%% Tables of content %%%
 %%%-------------------------------------------------%%%
 
-\tableofcontents
-\listoffigures 
-\listoftables 
+\makealltables
+% \tableofcontents
+% \listoffigures 
+% \listoftables 
 
 \mainmatter
 

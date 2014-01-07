@@ -16,7 +16,7 @@
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
 
-\ProvidesClass{open-science-thesis}[2013/12/23 version 0.4 LaTeX class of the Open-Science-Thesis]
+\ProvidesClass{open-science-thesis}[2014/01/06 version 0.5 LaTeX class of the Open-Science-Thesis]
 
 \RequirePackage{xkeyval} 
 
@@ -35,32 +35,34 @@
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{fancytocs}[false]{}
 
-\newif\ifost@parttocs% 
-\newif\ifost@chapttocs% 
-\newif\ifost@secttocs% 
+\newif\ifost@addtoctopart% 
+\newif\ifost@addtoctochapter% 
+\newif\ifost@addstopcontenttoappendix% 
 
 \define@choicekey*[KV]{open-science-thesis}{toctosection}[\val\nr]{part, chapter, false}{%
   \ifcase\nr\relax%
-    \ost@parttocstrue%
+    \ost@addtoctoparttrue%
+    \ost@addstopcontenttoappendixfalse% 
   \or%
-    \ost@chapttocstrue%
+    \ost@addtoctochaptertrue%
+    \ost@addstopcontenttoappendixtrue% 
   \or%
-    \ost@parttocsfalse%
-    \ost@chapttocsfalse%
-    \ost@secttocsfalse% 
+    \ost@addtoctopartfalse%
+    \ost@addtoctochapterfalse%
+    \ost@addstopcontenttoappendixfalse% 
   \fi%
 }
 
-\newif\ifost@backroundimage%
-\newif\ifost@titlepagesimple%
+\newif\ifost@titlepagebackgroundimage%
+\newif\ifost@titlepagehorizontal%
 \newif\ifost@titlepageplain%
 \newif\ifost@titlepagevertical%
 
-\define@choicekey*[KV]{open-science-thesis}{titlepagestyle}[\val\nr]{image, simple, plain, vertical}{%
+\define@choicekey*[KV]{open-science-thesis}{titlepagestyle}[\val\nr]{image, horizontal, plain, vertical}{%
   \ifcase\nr\relax%
-    \ost@backroundimagetrue
+    \ost@titlepagebackgroundimagetrue
   \or% 
-    \ost@titlepagesimpletrue
+    \ost@titlepagehorizontaltrue
   \or% 
     \ost@titlepageplaintrue
   \or%
@@ -103,11 +105,11 @@
 \presetkeys{open-science-thesis}{%
   linenumbers=false, 
   color=true, 
-  colortheme=red,
+  colortheme=blue,
   colormode=rgb, 
   fancytocs=true, 
   fancyhf=true,
-  toctosection=part,
+  toctosection=false,
   titlepagestyle=vertical,
   gitinfo=false, 
   sectionnumbers=true,
@@ -133,6 +135,19 @@
 % to have them everywhere even if chapter toc is enabled
 \newif\ifost@chapterwithtoc%
 \ost@chapterwithtoctrue
+
+
+% ecample to add babel string support
+% \providecommand*{\conclusionsname}{Final conclusions}
+
+% \AtBeginDocument{
+  % \@ifpackagewith{babel}{spanish}{%
+    % \addto\captionsspanish{\renewcommand*\conclusionsname{Conclusiones finales}}%
+  % }{}
+  % \@ifpackagewith{babel}{english}{%
+    % \addto\captionsenglish{\renewcommand*\conclusionsname{Final conclusions}}%
+  % }{}
+% }
 
 %%%-------------------------------------------------%%%
 %%% Input encodings fonts and symbols %%%
@@ -176,9 +191,12 @@
 
 \newcommand{\ostSetLength}[2]{\setlength{#1}{#2}}
 \newcommand{\ostSetColor}[2]{\colorlet{#1}{#2}} 
+\newcommand{\ostSaveColor}[1]{\colorlet{ostColor@savecolor}{#1}} 
+\newcommand{\ostSaveColorTo}[2]{\colorlet{#1}{#2}} 
+\newcommand{\ostRestoreColor}[1]{\colorlet{#1}{ostColor@savecolor}} 
 \newcommand{\ostDefineColor}[3]{\xdefinecolor{#1}{#2}{#3}}
 
-\newcommand{\ostSetFont}[2]{
+\newcommand{\ostSetFont}[2]{ 
   \def#1{#2} 
 }  
 
@@ -446,7 +464,7 @@
 \patchcmd{\headrule}{\hrule}{\color{\ostHeaderRuleColor}\hrule}{}{}
 
 % fancy footer style
-% TODO: fancy header and footer need to be separated  
+% TODO: fancy header and footer need to be separated
 
 \ifost@fancyhf
   \fancypagestyle{pageStyleChapter}{%
@@ -474,21 +492,30 @@
   }
 \fi%
 
-% distinguish between one and twoside layout
-% TODO: fancy header and footer need to be separated 
+\newcommand\ostFontPageNumbering{\normalsize\textbf}
+\newcommand\ostSetFontPageNumbering[1]{\def\ostFontPageNumbering{#1}}
+
+\newcommand\ostPageNumberingEnviron{\textendash}
+\newcommand\ostSetPageNumberingEnviron[1]{\def\ostPageNumberingEnviron{#1}}
+
+\newlength\ostPageNumberingEnvironSep
+\setlength{\ostPageNumberingEnvironSep}{{1mm}} 
+
 \if@twoside%  
-  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize\textbf\thepage}}}
+  \setlength{\ostPageNumberingEnvironSep}{{0mm}} 
+  \renewcommand\ostPageNumberingEnviron{\relax}
+  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\ostFontPageNumbering{\ostPageNumberingEnviron\hspace{\ostPageNumberingEnvironSep}{\thepage}\hspace{\ostPageNumberingEnvironSep}\ostPageNumberingEnviron}}}} 
   \fancyfoot[RO, LE]{\ostPageNumbering}     
   \ifost@fancyhf
     \fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
     \fancyhead[LO]{\textit{\nouppercase{\rightmark}}} 
   \fi
 \else%
-  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\normalsize{\textbf{\textendash\hspace{1mm}{\thepage}\hspace{1mm}\textendash}}}}} 
+  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\ostFontPageNumbering{\ostPageNumberingEnviron\hspace{\ostPageNumberingEnvironSep}{\thepage}\hspace{\ostPageNumberingEnvironSep}\ostPageNumberingEnviron}}}} 
   \fancyfoot[C]{\ostPageNumbering} 
   \ifost@fancyhf
-    \fancyhead[LO, LE]{\textit{\nouppercase{\leftmark}}}
-    \fancyhead[RO, RE]{\textit{\nouppercase{\rightmark}}} 
+    \fancyhead[L]{\textit{\nouppercase{\leftmark}}}
+    \fancyhead[R]{\textit{\nouppercase{\rightmark}}} 
   \fi
 \fi%
 
@@ -525,11 +552,13 @@
 %%% Enable linenumbers %%%
 %%%-------------------------------------------------%%%
 
+\newcommand{\ostFontLineNumbers}{\normalfont\tiny\sffamily}
+
 \ifost@linenumbers%
    \RequirePackage[pagewise]{lineno}
    \RequirePackage{lineno}
    \setlength\linenumbersep{2pt}
-   \renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{ostColorLineNumbers}}
+   \renewcommand\linenumberfont{\color{ostColorLineNumbers}\ostFontLineNumbers}
    \AtBeginDocument{\linenumbers} 
 \else% 
    \RequirePackage[pagewise]{lineno}
@@ -860,11 +889,11 @@
 
 \newcommand{\ostQuote}[2][]{
   \setkeys{ostQuote}{#1} 
-  \def\@tempa{\begin{minipage}{0.8\textwidth}%
+  \def\ost@temp{\begin{minipage}{0.8\textwidth}%
       {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
     \end{minipage}
   }%
-  \settototalheight\quoteruleheight\@tempa
+  \settototalheight\quoteruleheight\ost@temp
   \begin{center}
     \begin{minipage}{0.1\textwidth}
       \ostQuoteRule{}
@@ -884,7 +913,7 @@
 
 \g@addto@macro{\appendix}{
   \ost@chapterwithtocfalse
-  \ifost@secttocs% 
+  \ifost@addstopcontenttoappendix% 
     \stopcontents
   \fi
 }
@@ -966,8 +995,8 @@
 
 % Define all lengths
 
-\newlength{\ostLengthOfTitleBeforeReduceFontSize} 
-\setlength{\ostLengthOfTitleBeforeReduceFontSize}{0.6\textwidth} 
+\newlength{\ostHeightOfTitleBeforeReduceSize} 
+\setlength{\ostHeightOfTitleBeforeReduceSize}{2\baselineskip} 
 
 \newlength{\ostLengthTitleSpacerTitleRuleUpper} 
 \setlength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
@@ -991,18 +1020,24 @@
 \newcommand{\ostTitleSpacerTitleRuleLower}{\vspace{\ostLengthTitleSpacerTitleRuleLower}}
 
 % Define aesthetics 
-\newsavebox\pictureinput
+\newsavebox\@pictureinput
 
 \newcommand{\ostSetBackgroundPic}[1]{%
-  \savebox{\pictureinput}{\IfFileExists{#1}{\includegraphics[width=\textwidth]{#1}}{\scalebox{2}{\color{red}The file is not available!}}
+  \savebox{\@pictureinput}{\IfFileExists{#1}{\includegraphics[width=\textwidth]{#1}}{\scalebox{2}{\color{red}Image file not found or set!}}
 }}
- 
+
+\newlength{\ostLenghtBackgroundPicVoffset} 
+\setlength\ostLenghtBackgroundPicVoffset{0pt}
+
+\newlength{\ostLenghtBackgroundPicHoffset} 
+\setlength\ostLenghtBackgroundPicHoffset{0pt}
+
 \newcommand{\ostTitlePageBackgroundPic}[1]{
   \AddToShipoutPicture*{\AtTextCenter{%
-    \raisebox{0\baselineskip}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\pictureinput\ostTitleStretchBelow{}
-  }}}}}
+    \vspace{\ostLenghtBackgroundPicHoffset}\raisebox{\ostLenghtBackgroundPicVoffset}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\@pictureinput\ostTitleStretchBelow{}
+}}}}}
 
-
+% the default background pic
 \ostSetBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
 
 % \begin{tikzpicture}[remember picture, overlay]
@@ -1056,20 +1091,28 @@
 % }%
 % }
 
+
 \newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{\ostLengthTitleRuleWidth}}}
+\newcommand{\ostSetTitleRule}[1]{\def\ostTitleRule{#1}}
 
 % Define all fields that are available and their default values
-
+% TODO: implement this properly? Or better remove?
 \newcommand{\ostTitle}{The open science thesis} 
+
+\newdimen\ost@HeightTitle
 \newcommand{\ostSetTitle}[1]{%
-  \def\ostTitle{#1} 
-  \newlength{\ost@LenghtTitle} 
-  \settowidth{\ost@LenghtTitle}{#1}   
-  \ifdim\ost@LenghtTitle>\ostLengthOfTitleBeforeReduceFontSize
+  \def\ost@temp{\normalfont\sffamily\Huge\bfseries #1}  
+  \ifost@titlepagevertical%
+    \settototalheight\ost@HeightTitle{\parbox{0.75\textwidth}{\ost@temp}}
+  \else
+    \settototalheight\ost@HeightTitle{\parbox{\textwidth}{\ost@temp}}
+  \fi
+  \ifdim\ost@HeightTitle>\ostHeightOfTitleBeforeReduceSize
     \ostSetFont{\ostFontTitle}{\normalfont\sffamily\LARGE\bfseries}
   \else 
     \ostSetFont{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}
   \fi 
+  \def\ostTitle{#1} 
 } 
 
 \newcommand{\ostSubtitle}{This is a subtitle}
@@ -1095,7 +1138,7 @@
 \newcommand{\ostTextOnBar}{\huge\textcolor{LightGray}{Open~-~}\textcolor{gray}{Science}\textcolor{LightGray}{~-~Thesis}} 
 \newcommand{\ostSetTextOnBar}[1]{\def\ostTextOnBar{#1}}
 
-\ifost@backroundimage%
+\ifost@titlepagebackgroundimage%
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
@@ -1119,7 +1162,7 @@
 }
 \fi%
 
-\ifost@titlepagesimple  
+\ifost@titlepagehorizontal  
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
@@ -1306,7 +1349,6 @@
     \centering
     \begin{tikzpicture}
       \node[imageframe]{%
-        % \begin{minipage}{0.47\textwidth}
         \begin{minipage}{0.97\columnwidth}
           \begin{center} 
             #2
@@ -1325,7 +1367,7 @@
     \centering
     \begin{tikzpicture}
       \node[imageframe]{%
-        \begin{minipage}{0.98\textwidth}
+        \begin{minipage}{0.97\textwidth}
           \begin{center} 
             #2
           \end{center}
@@ -1410,10 +1452,17 @@
 
 %% the table of contents  
 
+% convenient for all default content tables
+\def\makealltables{
+	\tableofcontents
+	\listoffigures 
+	\listoftables 
+}
+
 \newcommand\partialtoccontentsname{\contentsname}
 \newcommand{\ostPartialContentHeader}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
 
-\ifost@parttocs%
+\ifost@addtoctopart%
   \titleformat{\part}[display]
   {\normalfont\sffamily\Large}{\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}{\textbf\thepart}}}{-2ex}
   {\filleft\fontsize{50}{70}\selectfont\textbf}
@@ -1430,7 +1479,7 @@
 
 \ifost@sectionnumbers% 
 
-  \ifost@chapttocs%
+  \ifost@addtoctochapter%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}\thechapter}{0.5em}{\Huge}
     [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}}\fi \thispagestyle{pageStyleChapter}]
@@ -1464,7 +1513,7 @@
     {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
 
-  \ifost@chapttocs%
+  \ifost@addtoctochapter%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}{\color{ostColorChapterHeaderNumber}}{0.5em}{\Huge}
     [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}} \fi \thispagestyle{pageStyleChapter}]
