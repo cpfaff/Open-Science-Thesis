@@ -2,7 +2,7 @@
 %%% Sub document for glossary and acronym output %%%
 %%%-------------------------------------------------%%%
 
-\part{Backmatter}
+% \part{Backmatter}
 
 % print the acronyms
 \printglossary[numberedsection, type=\acronymtype]

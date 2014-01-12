@@ -25,6 +25,7 @@ to the first line it is typeset.}
   \item Three
 \end{itemize}
 
+\claas{This command is generated from ostSetRevisor!}
 \lipsum[1]  
 
 \section{Section} 
@@ -38,6 +39,7 @@ This is just a test citation \citep{renwick_chemical_2002}.
 
 \subsubsection{SubSub-Section} 
 
+\claas{This command is generated from ostSetRevisor!}
 \lipsum[2]  
 
 \paragraph{Testparagraph:}\index{paragraph format}

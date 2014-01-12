@@ -11,7 +11,10 @@ then it will be shortened to \gls{eml}.
 
 \section{A section} 
 
+\chris{This is nice! But correct the typo!}
+
 \lipsum[1]
+
 
 % example for a one column table %
 

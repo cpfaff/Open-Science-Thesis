@@ -103,9 +103,12 @@
 % \ostSetLength{\ostLengthTitleSpacerTitleRuleLower}{2em}  
 % \ostSetLength{\ostLengthTitleRuleWidth}{10pt}  
 
-% Set aesthetics  
-
+% Set aesthetics
+% \ostSetTitleOverlayOpacity{0.2}
+% \ostSetColor{ostColorTitleOverlay}{LightGray}
 % \ostTitlePageBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
+% \ostSetLength{\ostLenghtBackgroundPicVoffset}{5\baselineskip}
+% \ostSetLength{\ostLenghtBackgroundPicHoffset}{\baselineskip}
 
 % Set all contents
 
@@ -113,6 +116,8 @@
 % \ostSetAuthors{Test Best}  
 % \ostSetInstitution{University of Test}
 % \ostSetDate{\today}
+% \ostSetAdvisorOne{Advisor: Test\\ The Best\\ Telephone}
+% \ostSetAdvisorTwo{Test\\ The Best\\ Telephone}
 
 %%%-------------------------------------------------%%%
 %%% Set footer contents %%%
@@ -158,6 +163,18 @@
 
 %% Note: 
 % See the hyperref package documentation for more options
+
+%%%-------------------------------------------------%%%
+%%% Set revisors for the document  %%%
+%%%-------------------------------------------------%%%
+
+\ostSetRevisor{claas}
+\ostSetRevisor{chris}
+
+%% Note: 
+% This generates the commands \claas{} and \chris{} which
+% can be used inline to create notes. They get visible only
+% when you use  the class option revision=true
 
 %%%-------------------------------------------------%%%
 %%% Bibliography options %%%

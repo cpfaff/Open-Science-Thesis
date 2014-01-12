@@ -5,8 +5,3 @@
 % <<osp_results_section, tidy=FALSE, highlight=FALSE, include=FALSE, cache=FALSE, eval=TRUE>>= 
 %   # Save the results chapter statistics here 
 % @  
-
-
-
-
-

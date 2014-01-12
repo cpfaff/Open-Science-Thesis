@@ -12,15 +12,19 @@
 %%
 %
 
-\documentclass[BCOR=5mm]{ost/subdocuments/open_science_thesis} 
+\documentclass[BCOR=5mm, colortheme=green, titlepagestyle=image]{ost/subdocuments/open_science_thesis} 
 
 % linenumbers = true/[false] Enable or disable line numbering. This can be handy on revisions.
 % colormode = [rgb]/cmyk The colormode can be switched between rgb which is optima for displays 
 %			 and cmyk which is useful for professional printing.
 % fancytocs = [true]/false Enable or disable fancy styled TOC.
 % toctosection= [part]/chapter/false Add a partial toc to part, chapter or disable it completely.
+% revision = true/[false] enables line numbers, extends paper size and allows to use the command \ostSetRevisor{name} to set
+%		          up revisors for the document. Comments of revisors in the margin of the page. If you set up a revisor 
+%                         for example with \ostSetRevisor{chris} the revisor can use the command \chris{Some note} in your text to
+%			  place a note. If you set this option to true the notes get visible
 
-%% Available class options [defaults]
+% Available class options [defaults]
 
 % titlepagestyle = [simple, plain, image, vertical]
 % toctosection = [part, chapter]
@@ -49,6 +53,8 @@
 %   and the cmyk color model which is required for professional printing. 
 % - linenumbers true/[false]: Switch on/off line numbers for the whole document. 
 
+
+
 % - resetdefaultclassoptions true/[false] resets the default options the open science thesis 
 %   loads the scrartcl class. After that you can modify every option via the open science 
 %   thesis class call. For example to change the calculated typearea you can use 
@@ -59,7 +65,6 @@
 %% scrbook class options 
 % - oneside/[twoside] enables oneside or twoside layout with twoside layout as 
 %   default.
-
 
 %%%------------------------------------------------------------------------------%%%
 %%% Load user options %%%
@@ -114,10 +119,11 @@
 %%% Tables of content %%%
 %%%-------------------------------------------------%%%
 
-\makealltables
 % \tableofcontents
 % \listoffigures 
 % \listoftables 
+\makealltables
+\listofrevisions
 
 \mainmatter
 

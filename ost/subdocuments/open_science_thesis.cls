@@ -58,7 +58,7 @@
 \newif\ifost@titlepageplain%
 \newif\ifost@titlepagevertical%
 
-\define@choicekey*[KV]{open-science-thesis}{titlepagestyle}[\val\nr]{image, horizontal, plain, vertical}{%
+\define@choicekey*[KV]{open-science-thesis}{titlepagetheme}[\val\nr]{image, horizontal, plain, vertical}{%
   \ifcase\nr\relax%
     \ost@titlepagebackgroundimagetrue
   \or% 
@@ -100,6 +100,14 @@
   \fi%
 }
 
+\newif\ifost@revision
+\define@choicekey*[KV]{open-science-thesis}{revision}[\val\nr]{true, false}{%
+  \ifcase\nr\relax% 
+    \ost@revisiontrue
+    \ost@linenumberstrue
+  \fi
+}
+
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
@@ -110,26 +118,31 @@
   fancytocs=true, 
   fancyhf=true,
   toctosection=false,
-  titlepagestyle=vertical,
+  titlepagetheme=vertical,
   gitinfo=false, 
   sectionnumbers=true,
   autolayout=true,
   resetdefaultclassoptions=false, 
   parindent=true,
+  revision=false,
 }{} 
 
 \ProcessOptionsX[KV]<open-science-thesis>
 
-\ifost@resetdefaultclassoptions%
-  \LoadClass{scrbook}   
-\else% 
-  \ifost@autolayout  
-    \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
-  \else%
-    \LoadClass[12pt, headings=small, captions=tableheading]{scrbook}
-    \RequirePackage{geometry}
-  \fi% 
-\fi%
+\ifost@revision
+    \LoadClass[oneside, 12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
+\else
+  \ifost@resetdefaultclassoptions%
+    \LoadClass{scrbook}   
+  \else% 
+    \ifost@autolayout  
+      \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
+    \else%
+      \LoadClass[12pt, headings=small, captions=tableheading]{scrbook}
+      \RequirePackage{geometry}
+    \fi% 
+  \fi%
+\fi% 
 
 % enable and disable chaptertocs as it is not required 
 % to have them everywhere even if chapter toc is enabled
@@ -176,6 +189,7 @@
 \RequirePackage{etex} 
 \RequirePackage{etoolbox} 
 \reserveinserts{30}
+\RequirePackage{morewrites}
 \RequirePackage{calc}
 \RequirePackage{xifthen}  
 \RequirePackage{ifluatex} 
@@ -1022,8 +1036,8 @@
 % Define aesthetics 
 \newsavebox\@pictureinput
 
-\newcommand{\ostSetBackgroundPic}[1]{%
-  \savebox{\@pictureinput}{\IfFileExists{#1}{\includegraphics[width=\textwidth]{#1}}{\scalebox{2}{\color{red}Image file not found or set!}}
+\newcommand{\ostSetBackgroundPic}[2][\textwidth]{%
+  \savebox{\@pictureinput}{\IfFileExists{#2}{\includegraphics[width=#1]{#2}}{\scalebox{2}{\color{red}Image file not found or set!}}
 }}
 
 \newlength{\ostLenghtBackgroundPicVoffset} 
@@ -1034,7 +1048,7 @@
 
 \newcommand{\ostTitlePageBackgroundPic}[1]{
   \AddToShipoutPicture*{\AtTextCenter{%
-    \vspace{\ostLenghtBackgroundPicHoffset}\raisebox{\ostLenghtBackgroundPicVoffset}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\@pictureinput\ostTitleStretchBelow{}
+    \hspace*{\ostLenghtBackgroundPicHoffset}\raisebox{\ostLenghtBackgroundPicVoffset}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\@pictureinput\ostTitleStretchBelow{}
 }}}}}
 
 % the default background pic
@@ -1630,6 +1644,80 @@
   \relax%
 \fi%
 
+
+%%%-------------------------------------------------%%%
+%%% Typographical fine-tuning %%%
+%%%-------------------------------------------------%%%
+
+\newcounter{ostCounter@Revisor}
+
+\ifost@revision 
+
+  \RequirePackage[colorinlistoftodos, textwidth=7cm, shadow]{todonotes}
+  \RequirePackage[a3,center]{crop}
+
+  \newenvironment{formattodo}
+		 {\list{}{\leftmargin2em \rightmargin0em}%
+		  \item\relax}
+		 {\endlist}
+
+  \def\todoname{Notes of Revisors}
+  \def\todosectioning{\section{\todoname}}
+  \renewcommand{\todosectioning}{\chapter{\todoname}}
+
+  \renewcommand{\listoftodos}{{\todosectioning \begin{formattodo} \@starttoc{tdo} \end{formattodo} \vspace{\baselineskip}}}
+
+  \let\revision\todo
+  \let\listofrevisions\listoftodos
+
+  \def\ostSetRevisor#1{
+    \ifcase\value{ostCounter@Revisor}\relax
+	  \definecolor{ostColorRevisor0}{RGB}{153,216,201} 
+	  \expandafter\def\csname#1\endcsname##1{\todo[color=ostColorRevisor0]{{\sc#1}: ##1}}%
+	  \stepcounter{ostCounter@Revisor}%
+    \or%
+	  \definecolor{ostColorRevisor1}{RGB}{188,189,220}
+	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor1]{{\sc#1}: ##1}}%
+	  \stepcounter{ostCounter@Revisor}%
+    \or%
+	  \definecolor{ostColorRevisor2}{RGB}{254,232,200}
+	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor2]{{\sc#1}: ##1}}%
+	  \stepcounter{ostCounter@Revisor}%
+    \or%
+	  \definecolor{ostColorRevisor3}{RGB}{253,224,221}
+	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor3]{{\sc#1}: ##1}}%
+	  \stepcounter{ostCounter@Revisor}%
+    \else%
+	  \definecolor{ostColorRevisor4}{RGB}{247,252,185}
+	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor4]{{\sc#1}: ##1}}%
+	  \stepcounter{ostCounter@Revisor}%
+    \fi%
+  }
+
+\else
+  % \def\revision#1{\relax}
+  % \def\listofrevisions#1{\relax}
+  \let\revision\relax
+  \let\listofrevisions\relax
+  \def\ostSetRevisor#1{
+    \ifcase\value{ostCounter@Revisor}\relax
+	  \expandafter\def\csname#1\endcsname##1{\relax}%
+	  \stepcounter{ostCounter@Revisor}%
+    \or%
+	  \expandafter\def\csname#1\endcsname##1{\relax}%
+	  \stepcounter{ostCounter@Revisor}%
+    \or%
+	  \expandafter\def\csname#1\endcsname##1{\relax}%
+	  \stepcounter{ostCounter@Revisor}%
+    \or%
+	  \expandafter\def\csname#1\endcsname##1{\relax}%
+	  \stepcounter{ostCounter@Revisor}%
+    \else%
+	  \expandafter\def\csname#1\endcsname##1{\relax}%
+	  \stepcounter{ostCounter@Revisor}%
+    \fi%
+  }
+\fi
 
 %%%-------------------------------------------------%%%
 %%% Typographical fine-tuning %%%
