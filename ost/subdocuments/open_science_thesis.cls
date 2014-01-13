@@ -1227,7 +1227,7 @@
 
 \newcommand{\ostMakeTitle}{% 
   \begin{titlepage}
-    \hbox{ 
+    \mbox{ 
       \hspace*{0.2\textwidth} 
       \rotatebox{90}{\ostTextOnBar}
       \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\textheight}}  
