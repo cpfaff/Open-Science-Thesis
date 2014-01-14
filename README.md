@@ -5,17 +5,26 @@
 The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
 document which is thought to be forked and used for scientific thesis writing
-via GitHub. The document combines the typesetting capabilities of LaTeX with
-the R programming language for statistics, using the
+on GitHub. The document combines the typesetting capabilities of LaTeX with the
+R programming language for statistics, using the
 [Knitr](http://yihui.name/knitr/) package. This combination allows for the
 creation of executable documents that enhance the reproducibility of your
-research.
+research documents.
 
 The Open-Science-Thesis offers a clean and logical folder structure and lots of
 examples of typical typesetting requirements to help you typeset your thesis.
 It comes with a makefile that helps you to compile, clean and archive the
 document. For an example see the PDF file inside of the repository or have a
 look into the impressions section below.
+
+The LaTeX-Class of course can be used seprately from the document structure
+presented here. Just download it and include it and load it in your preamble
+with:
+
+```
+\documentclass[options]{open-science-thesis}
+...
+```
 
 ### Development Note
 
