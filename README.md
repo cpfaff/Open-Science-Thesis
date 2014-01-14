@@ -17,6 +17,13 @@ It comes with a makefile that helps you to compile, clean and archive the
 document. For an example see the PDF file inside of the repository or have a
 look into the impressions section below.
 
+### Development Note
+
+This repository is still in development and the commands, environments and the
+layout provided by the LaTeX class are subject to change. You might also find
+the current version in master branch in unstable state so a compilation to PDF
+is not possible!
+
 ### Use LaTeX-Class only
 
 If you do not like to use the the document scaffold presented here you can also
@@ -29,33 +36,34 @@ the class and include it and load it in your preamble with:
 ...
 ```
 
-### Development Note
-
-This repository is still in development and the commands, environments and the
-layout provided by the LaTeX class are subject to change. You might also find
-the current version in master branch in unstable state so a compilation to PDF
-is not possible!
-
 
 ## Appetizer
 
-### Title-page
+### Titlepages
 
-- default
+- vertical
 
-![titlepage one](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage.png)
+![vertical](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_vertical_blue.png)
 
-- with background image
+- horizontal
 
-![titlepage two](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_titlepage_backgroundimage.png)
+![horizontal](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_horizontal_blue.png)
 
-### Nice content tables
+- image
 
-- main toc
+![image](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_image_blue.png)
 
-![fancytoc](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_fancytoc.png)
+- plain
 
-- partial tocs on part page
+![plain](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_plain_blue.png)
+
+### Table of Contents
+
+- fancy main tocs
+
+![fancytoc](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/toc_fancy_blue.png)
+
+- partial tocs either on part or chapter sections
 
 ![parttitle](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/twoside_color_orange_parttocs.png)
 
@@ -63,23 +71,39 @@ is not possible!
 
 ![part](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_part_heading.png)
 
-### Bullet lists
-
-![bulletlist](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_bulletlist.png)
-
 ### Lettrines + coloring
 
 * orange theme
 
-![lettrines](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_chapter_lettrine_link.png)
-
+![orange](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_orange.png)
 
 * blue theme
 
-![blue](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_blue_scheme.png)
+![blue](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_blue.png)
+
+* green theme
+
+![green](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_green.png)
+
+* red theme
+
+![red](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_red.png)
+
+### Quotations
+
+![quotations](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_quotation_orange.png)
 
 
-### Code Listings (follow solarized theme)
+### Frames for images
+
+![imageframed](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_image_framed_orange.png)
+
+### Tables (booktabs)
+
+![table](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_table_orange.png)
+
+
+### Code Listings (in solarized color theme)
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
 
