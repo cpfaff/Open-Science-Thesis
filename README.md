@@ -17,9 +17,12 @@ It comes with a makefile that helps you to compile, clean and archive the
 document. For an example see the PDF file inside of the repository or have a
 look into the impressions section below.
 
-The LaTeX-Class of course can be used seprately from the document structure
-presented here. Just download it and include it and load it in your preamble
-with:
+### Use LaTeX-Class only
+
+If you do not like to use the the document scaffold presented here you can also
+use the LaTeX-Class with your own documents. Just
+[download](https://github.com/cpfaff/Open-Science-Thesis/blob/master/ost/subdocuments/open_science_thesis.cls)
+the class and include it and load it in your preamble with:
 
 ```
 \documentclass[options]{open-science-thesis}
