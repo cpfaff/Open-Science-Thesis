@@ -203,8 +203,7 @@
 %%% Helpers (unify commands to use in style file) %%%
 %%%-------------------------------------------------%%%
 
-\newcommand{\ostSetContent}[2]{\expandafter\def\csname ost#1\endcsname{#2}} 
-
+\newcommand{\ostSetContent}[2]{\expandafter\def\csname ost#1\endcsname{#2}}
 \newcommand{\ostSetLength}[2]{\setlength{#1}{#2}}
 \newcommand{\ostSetColor}[2]{\colorlet{#1}{#2}} 
 \newcommand{\ostSaveColor}[1]{\colorlet{ostColor@savecolor}{#1}} 

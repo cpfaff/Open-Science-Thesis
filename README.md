@@ -63,13 +63,13 @@ the class and include it and load it in your preamble with:
 
 ![fancytoc](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/toc_fancy_blue.png)
 
-- partial tocs either on part or chapter sections
+- Nice formatted parts and partial tocs either on part
 
-![parttitle](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/twoside_color_orange_parttocs.png)
+![parttocs](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_parttoc.png)
 
-### Nice formatted `\part` sectioning
+- or chapter sections
 
-![part](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_part_heading.png)
+![chaptertocs](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_chaptertoc.png)
 
 ### Lettrines + coloring
 
