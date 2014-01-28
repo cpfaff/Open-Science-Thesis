@@ -144,21 +144,45 @@ You can set the font shapes sizes and colors on the title page:
 
 ### Lettrines + coloring
 
-* orange theme
+The class comes with four predefined color schemes. You can choose by class option:
+
+```
+\documentclass[colortheme=orange]{open_science_thesis}
+```
+
+* orange
 
 ![orange](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_orange.png)
 
-* blue theme
+* blue
 
 ![blue](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_blue.png)
 
-* green theme
+* green
 
 ![green](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_green.png)
 
-* red theme
+* red
 
 ![red](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_colortheme_red.png)
+
+#### Own color theme
+
+You can set the color of almost any element in the document. The most prominent
+elements that follow the color theme are the title page elements, sections the
+label for the captions. You can set your own colortheme by setting the
+following elements colors in your preamble:
+
+```
+\ostSetColor{ostColorTitle}{DarkOrange}
+\ostSetColor{ostColorSubtitle}{DarkOrange}
+\ostSetColor{ostColorChapterHeader}{DarkOrange}
+\ostSetColor{ostColorSectionHeader}{DarkOrange}
+\ostSetColor{ostColorSubsectionHeader}{DarkOrange}
+\ostSetColor{ostColorSubSubsectionHeader}{DarkOrange}
+\ostSetColor{ostColorParagraphHeader}{DarkOrange}
+\ostSetColor{ostColorCaptionLabel}{DarkOrange}
+```
 
 ### Quotations
 
