@@ -169,8 +169,8 @@ The class comes with four predefined color schemes. You can choose by class opti
 #### Own color theme
 
 You can set the color of almost any element in the document. The most prominent
-elements that follow the color theme are the title page elements, sections the
-label for the captions. You can set your own colortheme by setting the
+elements that follow the color theme are the title page elements, sections and
+the label for the captions. You can set your own colortheme by setting the
 following elements colors in your preamble:
 
 ```
