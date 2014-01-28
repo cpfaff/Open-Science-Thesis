@@ -236,6 +236,30 @@ remove the option again then the comments of revisors are ignored.
 
 This mechanism is picking colors automatically for 5 different revisors.
 
+
+### Affidavit
+
+You can set up a predefined affidavit using one signel command.
+
+```
+\makeaffidavit
+```
+
+![revision](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/affidavit_page.png)
+
+The contents can be changed
+
+```
+\ostSetAffidavitName{Declaration}
+\ostSetAffidavitDeclaration{This work has been done by me and nobody else!}
+\ostSetAffidavitDate{19.11.1981}
+\ostSetAffidavitLocation{Stuttgart}
+```
+
+
+
+
+
 ## See also
 
 The Open-Science-Thesis is one of a series of document classes. You might also
