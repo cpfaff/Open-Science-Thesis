@@ -129,7 +129,7 @@ You can set the font shapes sizes and colors on the title page:
 - Nice formatted parts and partial tocs either on part
 
 ```
-\documentclass[toctosection=part)]{open_science_thesis}
+\documentclass[toctosection=part]{open_science_thesis}
 ```
 
 ![parttocs](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_parttoc.png)
@@ -137,7 +137,7 @@ You can set the font shapes sizes and colors on the title page:
 - or chapter sections
 
 ```
-\documentclass[toctosection=chapter)]{open_science_thesis}
+\documentclass[toctosection=chapter]{open_science_thesis}
 ```
 
 ![chaptertocs](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/overview_chaptertoc.png)
