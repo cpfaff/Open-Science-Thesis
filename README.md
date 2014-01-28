@@ -234,6 +234,8 @@ remove the option again then the comments of revisors are ignored.
 
 ![revision](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/revision_example_note.png)
 
+This mechanism is picking colors automatically for 5 different revisors.
+
 ## See also
 
 The Open-Science-Thesis is one of a series of document classes. You might also
