@@ -74,8 +74,8 @@ The content on the title pages is simply set via the commands:
 \ostSetAuthor{Author}
 \ostSetDate{10.10.1983}
 
-\ostSetAdvisorOne{freely set content here}
-\ostSetAdvisorTwo{create new lines with \\ in here}
+\ostSetAdvisorOne{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
+\ostSetAdvisorTwo{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
 ```
 
 #### Styling
