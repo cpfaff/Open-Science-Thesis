@@ -66,7 +66,7 @@ the class via:
 
 #### Contents
 
-The content on the title pages is simply set via the commands:
+* The content on the title pages is simply set via the commands:
 
 ```
 \ostSetTitle{My own title}
@@ -76,6 +76,29 @@ The content on the title pages is simply set via the commands:
 
 \ostSetAdvisorOne{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
 \ostSetAdvisorTwo{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
+```
+
+* Content for vertical page only:
+
+```
+\ostSetTextOnBar{Text on vertical bar}
+```
+
+* content and styling for image page only:
+
+```
+% set image
+\ostSetBackgroundPic{ostTitlePageBackground.pdf}
+
+% adjust image
+\ostSetLength{\ostLenghtBackgroundPicVoffset}{5\baselineskip}
+\ostSetLength{\ostLenghtBackgroundPicHoffset}{5mm}
+
+% set opacity of overlay for better reading of title content
+\ostSetTitleOverlayOpacity{0.7}
+
+% set color of overlay
+\ostSetColor{ostColorTitleOverlay}{gray}
 ```
 
 #### Styling
