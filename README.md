@@ -32,7 +32,7 @@ use the LaTeX-Class with your own documents. Just
 the class and include it and load it in your preamble with:
 
 ```
-\documentclass[options]{open-science-thesis}
+\documentclass[options]{open_science_thesis}
 ...
 ```
 
@@ -40,6 +40,13 @@ the class and include it and load it in your preamble with:
 ## Appetizer
 
 ### Titlepages
+
+You can change the titlepage layout to four predefined styles via a class option: You can load
+the class via:
+
+```
+\documentclass[titlepagetheme=vertical]{open_science_thesis}
+```
 
 - vertical
 
@@ -56,6 +63,18 @@ the class and include it and load it in your preamble with:
 - plain
 
 ![plain](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_plain_blue.png)
+
+The content on the title pages is simply set via the commands:
+
+```
+\ostSetTitle{My own title}
+\ostSetSubtitle{The subtitle}
+\ostSetAuthor{Author}
+\ostSetDate{10.10.1983}
+
+\ostSetAdvisorOne{freely set content here}
+\ostSetAdvisorTwo{create new lines with \\ in here}
+```
 
 ### Table of Contents
 
