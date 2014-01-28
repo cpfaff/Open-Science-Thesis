@@ -41,14 +41,30 @@ the class and include it and load it in your preamble with:
 
 ### Titlepages
 
-You can change the titlepage layout to four predefined styles via a class option: You can load
-the class via:
+You can change the titlepage layout to four predefined styles via a class
+option: You can load the class via:
 
 ```
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
+An set the contents for all titlepages with:
+
+```
+\ostSetTitle{My own title}
+\ostSetSubtitle{The subtitle}
+\ostSetAuthor{Author}
+\ostSetDate{10.10.1983}
+\ostSetAdvisorOne{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
+\ostSetAdvisorTwo{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
+```
+
 - vertical
+
+```
+% set the text on the bar
+\ostSetTextOnBar{Text on vertical bar}
+```
 
 ![vertical](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_vertical_blue.png)
 
@@ -58,50 +74,29 @@ the class via:
 
 - image
 
-![image](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_image_blue.png)
-
-- plain
-
-![plain](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_plain_blue.png)
-
-#### Contents
-
-* The content on the title pages is simply set via the commands:
-
-```
-\ostSetTitle{My own title}
-\ostSetSubtitle{The subtitle}
-\ostSetAuthor{Author}
-\ostSetDate{10.10.1983}
-
-\ostSetAdvisorOne{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
-\ostSetAdvisorTwo{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
-```
-
-* Content for vertical page only:
-
-```
-\ostSetTextOnBar{Text on vertical bar}
-```
-
-* content and styling for image page only:
-
 ```
 % set image
 \ostSetBackgroundPic{ostTitlePageBackground.pdf}
 
-% adjust image
+% adjust image horizontaly and vertically
 \ostSetLength{\ostLenghtBackgroundPicVoffset}{5\baselineskip}
 \ostSetLength{\ostLenghtBackgroundPicHoffset}{5mm}
 
 % set opacity of overlay for better reading of title content
+% set between 0-1
 \ostSetTitleOverlayOpacity{0.7}
 
 % set color of overlay
 \ostSetColor{ostColorTitleOverlay}{gray}
 ```
 
-#### Styling
+![image](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_image_blue.png)
+
+- plain
+
+![plain](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_plain_blue.png)
+
+#### Colors and fonts
 
 You can set the font shapes sizes and colors on the title page:
 
