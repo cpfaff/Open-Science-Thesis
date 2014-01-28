@@ -64,6 +64,8 @@ the class via:
 
 ![plain](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_plain_blue.png)
 
+#### Contents
+
 The content on the title pages is simply set via the commands:
 
 ```
@@ -74,6 +76,30 @@ The content on the title pages is simply set via the commands:
 
 \ostSetAdvisorOne{freely set content here}
 \ostSetAdvisorTwo{create new lines with \\ in here}
+```
+
+#### Styling
+
+You can set the font shapes sizes and colors on the title page:
+
+* colors
+
+```
+\ostSetColor{ostColorTitle}{SteelBlue}
+\ostSetColor{ostColorSubtitle}{SteelBlue}
+\ostSetColor{ostColorAuthor}{SteelBlue}
+\ostSetColor{ostColorDate}{SteelBlue}
+\ostSetColor{ostColorAdvisor}{SteelBlue}
+```
+
+* fonts
+
+```
+\ostSetFont{\ostFontTitle}{\Huge}
+\ostSetFont{\ostFontSubtitle}{\Large\textbf}
+\ostSetFont{\ostFontAuthor}{...}
+\ostSetFont{\ostFontDate}{...}
+\ostSetFont{\ostFontAdvisor}{...}
 ```
 
 ### Table of Contents
