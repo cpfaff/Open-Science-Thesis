@@ -213,7 +213,12 @@ Set up revisors:
 Then you can comment using revisor name in the document.
 
 ```
-Some text here \Claas{This is so nice}
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum \Claas{This is so nice}
 ```
 
 You can compile the document in revision mode. This will set up the page to be
@@ -224,6 +229,10 @@ remove the option again then the comments of revisors are ignored.
 ```
 \documentclass[revision=true]{open_science_thesis}
 ```
+
+* Displays
+
+![revision](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/revision_example_note.png)
 
 ## See also
 
