@@ -201,6 +201,30 @@ following elements colors in your preamble:
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
 
+
+### Revisions
+
+Set up revisors:
+
+```
+\ostSetRevisor{Claas}
+```
+
+Then you can comment using revisor name in the document.
+
+```
+Some text here \Claas{This is so nice}
+```
+
+You can compile the document in revision mode. This will set up the page to be
+larger but keeps the typesetting area the same. Additionally linenumbers are
+enabled and comments from revisors (see above) are shown as side notes. If you
+remove the option again then the comments of revisors are ignored.
+
+```
+\documentclass[revision=true]{open_science_thesis}
+```
+
 ## See also
 
 The Open-Science-Thesis is one of a series of document classes. You might also
