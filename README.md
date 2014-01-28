@@ -42,7 +42,7 @@ the class and include it and load it in your preamble with:
 ### Titlepages
 
 You can change the titlepage layout to four predefined styles via a class
-option: You can load the class via:
+option:
 
 ```
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
