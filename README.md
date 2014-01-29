@@ -219,7 +219,6 @@ You can change them for example using a style file. That you include into the
 preamble then. Or use the `\makeatletter .... \makeatother` combination in your
 preamble to allow the use of at to set them:
 
-
 ```
 \makeatletter
 \ostSetColor{ostColor@ListingBackground}{gray}
@@ -241,9 +240,6 @@ preamble to allow the use of at to set them:
 \ostSetColor{ostColor@ListingGreen}{gray}
 \makeatother
 ```
-
-
-
 
 ### Quotations
 
