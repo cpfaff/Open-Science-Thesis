@@ -184,6 +184,38 @@ following elements colors in your preamble:
 \ostSetColor{ostColorCaptionLabel}{DarkOrange}
 ```
 
+Other elements you can change directly:
+
+```
+\ostSetColor{ostColorTitleRule}{LightGray}
+\ostSetColor{ostColorTitleRuleVertical}{LightGray}
+\ostSetColor{ostColorTitleOverlay}{white}
+\ostSetColor{ostColorImageFrame}{LightGray}
+\ostSetColor{ostColorTocRule}{LightGray}
+\ostSetColor{ostColorPartialToc}{black}
+\ostSetColor{ostColorAuthors}{black}
+\ostSetColor{ostColorInstitution}{black}
+\ostSetColor{ostColorAdvisor}{black}
+\ostSetColor{ostColorDate}{black}
+\ostSetColor{ostColorMarginNote}{DarkGray}
+\ostSetColor{ostColorAdvisor}{gray}
+\ostSetColor{ostColorPartHeader}{black}
+\ostSetColor{ostColorPartHeaderNumber}{LightGray}
+\ostSetColor{ostColorChapterHeaderNumber}{gray}
+\ostSetColor{ostColorSectionHeaderNumber}{gray}
+\ostSetColor{ostColorSubsectionHeaderNumber}{gray}
+\ostSetColor{ostColorSubSubsectionHeaderNumber}{gray}
+\ostSetColor{ostColorParagraphHeaderNumber}{gray}
+\ostSetColor{ostColorLettrine}{DarkGray}
+\ostSetColor{ostColorLineNumbers}{DarkGray}
+\ostSetColor{ostColorFooterRule}{LightGray!30}
+\ostSetColor{ostColorHeaderRule}{LightGray!30}
+\ostSetColor{ostColorPageNumbering}{gray}
+\ostSetColor{ostColorLinks}{gray}
+```
+
+
+
 ### Quotations
 
 ![quotations](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_quotation_orange.png)
