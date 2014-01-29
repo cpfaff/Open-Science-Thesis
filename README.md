@@ -214,6 +214,35 @@ Other elements you can change directly:
 \ostSetColor{ostColorLinks}{gray}
 ```
 
+The colors for the solarize themed code listings are protected in the class.
+You can change them for example using a style file. That you include into the
+preamble then. Or use the `\makeatletter .... \makeatother` combination in your
+preamble to allow the use of at to set them:
+
+
+```
+\makeatletter
+\ostSetColor{ostColor@ListingBackground}{gray}
+\ostSetColor{ostColor@ListingBase00}{gray}
+\ostSetColor{ostColor@ListingBase01}{gray}
+\ostSetColor{ostColor@ListingBase02}{gray}
+\ostSetColor{ostColor@ListingBase03}{gray}
+\ostSetColor{ostColor@ListingBase0}{gray}
+\ostSetColor{ostColor@ListingBase1}{gray}
+\ostSetColor{ostColor@ListingBase2}{gray}
+\ostSetColor{ostColor@ListingBase3}{gray}
+\ostSetColor{ostColor@ListingYellow}{gray}
+\ostSetColor{ostColor@ListingOrange}{gray}
+\ostSetColor{ostColor@ListingRed}{gray}
+\ostSetColor{ostColor@ListingMagenta}{gray}
+\ostSetColor{ostColor@ListingViolet}{gray}
+\ostSetColor{ostColor@ListingBlue}{gray}
+\ostSetColor{ostColor@ListingCyan}{gray}
+\ostSetColor{ostColor@ListingGreen}{gray}
+\makeatother
+```
+
+
 
 
 ### Quotations
