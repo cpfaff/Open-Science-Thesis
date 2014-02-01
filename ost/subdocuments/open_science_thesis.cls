@@ -999,7 +999,7 @@
 
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
 \newcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
-\newcommand{\ostFontAuthors}{\normalfont\normalsize}   
+\newcommand{\ostFontAuthor}{\normalfont\normalsize}   
 \newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
 \newcommand{\ostFontDate}{\normalfont\sffamily\small}    
 \newcommand{\ostFontAdvisor}{\normalfont\sffamily\normalsize}  
@@ -1159,7 +1159,7 @@
       {\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth}\begin{center} 
       {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
-      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthor\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{} 
@@ -1183,7 +1183,7 @@
       \ostTitleSpacerTitleRuleUpper{}
       {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
-      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthor\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{}
@@ -1207,7 +1207,7 @@
       \ostTitleStretchAbove{}
       {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
-      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthor\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{}
@@ -1232,7 +1232,7 @@
       \parbox[b]{0.75\textwidth}{ 
         {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\begin{flushleft}\ostFontTitle\ostTitle\end{flushleft}}}\par}}\vspace{2\baselineskip}
         {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\begin{flushleft}\ostFontSubtitle\ostSubtitle\end{flushleft}}}\par}}\vspace{4\baselineskip}
-        {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthors\ostAuthors}}\par}}
+        {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthor}{{\ostFontAuthor\ostAuthors}}\par}}
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
         {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
         \ostGitInfoLine{}
