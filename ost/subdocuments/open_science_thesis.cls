@@ -323,7 +323,7 @@
 
    \colorlet{ostColorFooterRule}{LightGray!30}
    \colorlet{ostColorHeaderRule}{LightGray!30}
-   \colorlet{ostColorPageNumbering}{gray}
+   \colorlet{ostColorPageNumber}{gray}
     
    \colorlet{ostColorLinks}{gray}
 
@@ -388,7 +388,7 @@
    
    \colorlet{ostColorHeaderRule}{black}
    \colorlet{ostColorFooterRule}{black}
-   \colorlet{ostColorPageNumbering}{black} 
+   \colorlet{ostColorPageNumber}{black} 
 
    \colorlet{ostColorLinks}{black}
 
@@ -515,14 +515,14 @@
 \if@twoside%  
   \setlength{\ostPageNumberingEnvironSep}{{0mm}} 
   \renewcommand\ostPageNumberingEnviron{\relax}
-  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\ostFontPageNumbering{\ostPageNumberingEnviron\hspace{\ostPageNumberingEnvironSep}{\thepage}\hspace{\ostPageNumberingEnvironSep}\ostPageNumberingEnviron}}}} 
+  \ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostFontPageNumbering{\ostPageNumberingEnviron\hspace{\ostPageNumberingEnvironSep}{\thepage}\hspace{\ostPageNumberingEnvironSep}\ostPageNumberingEnviron}}}} 
   \fancyfoot[RO, LE]{\ostPageNumbering}     
   \ifost@fancyhf
     \fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
     \fancyhead[LO]{\textit{\nouppercase{\rightmark}}} 
   \fi
 \else%
-  \ostSetPageNumbering{\textcolor{ostColorPageNumbering}{{\ostFontPageNumbering{\ostPageNumberingEnviron\hspace{\ostPageNumberingEnvironSep}{\thepage}\hspace{\ostPageNumberingEnvironSep}\ostPageNumberingEnviron}}}} 
+  \ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostFontPageNumbering{\ostPageNumberingEnviron\hspace{\ostPageNumberingEnvironSep}{\thepage}\hspace{\ostPageNumberingEnvironSep}\ostPageNumberingEnviron}}}} 
   \fancyfoot[C]{\ostPageNumbering} 
   \ifost@fancyhf
     \fancyhead[L]{\textit{\nouppercase{\leftmark}}}
@@ -979,7 +979,7 @@
 \newcommand{\ostAffidavitLocation}{}
 \newcommand{\ostSetAffidavitLocation}[1]{\def\ostAffidavitLocation{#1}}
 
-\newcommand{\ostAffidavitSignatureLine}{\noindent Date:\ifdefempty{\ostAffidavitDate}{\textcolor{gray}{\dotfill}}{~\ostAffidavitDate}, Location:\ifdefempty{\ostAffidavitLocation}{\textcolor{gray}{\dotfill}}{~\ostAffidavitLocation}, Signature:\textcolor{gray}{\dotfill}}
+\newcommand{\ostAffidavitSignatureLine}{\noindent Date:\ifdefempty{\ostAffidavitDate}{\textcolor{gray}{\dotfill}}{~\ostAffidavitDate},\hspace{0.7em}Location:\ifdefempty{\ostAffidavitLocation}{\textcolor{gray}{\dotfill}}{~\ostAffidavitLocation},\hspace{0.7em}Signature:\textcolor{gray}{\dotfill}}
 \newcommand{\ostSetAffidavitSignatureLine}[1]{\def\ostAffidavitSignatureLine{#1}}
 
 \newcommand{\ostAffidavitName}{Affidavit}
