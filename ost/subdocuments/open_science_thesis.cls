@@ -130,7 +130,7 @@
 \ProcessOptionsX[KV]<open-science-thesis>
 
 \ifost@revision
-    \LoadClass[oneside, 12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
+  \LoadClass[oneside, 12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
 \else
   \ifost@resetdefaultclassoptions%
     \LoadClass{scrbook}   
@@ -172,9 +172,10 @@
 
 %% Fonts and math symbols %%
 \RequirePackage{libertine}
-\RequirePackage{amsfonts}
-\RequirePackage{amsmath}
 \RequirePackage[libertine]{newtxmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amsmath} 
+\RequirePackage{mathtools}
 \RequirePackage{amssymb}
 \RequirePackage{wasysym}
 \RequirePackage{marvosym}
@@ -433,7 +434,9 @@
 %%%-------------------------------------------------%%%
 
 \usepackage{fancyhdr}
-\pagestyle{fancy}
+\AtBeginDocument{
+  \pagestyle{fancy}
+}
 \fancyhf{}
 
 % Set the footer contents 
@@ -471,7 +474,6 @@
 % patch rule commands with color
 \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
 \patchcmd{\headrule}{\hrule}{\color{\ostHeaderRuleColor}\hrule}{}{}
-
 % fancy footer style
 % TODO: fancy header and footer need to be separated
 
