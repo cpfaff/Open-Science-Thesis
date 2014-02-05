@@ -51,12 +51,12 @@ option:
 An set the contents for all titlepages with:
 
 ```
-\ostSetTitle{My own title}
-\ostSetSubtitle{The subtitle}
-\ostSetAuthor{Author}
-\ostSetDate{10.10.1983}
-\ostSetAdvisorOne{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
-\ostSetAdvisorTwo{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
+\ostSetContent{Title}{My own title}
+\ostSetContent{Subtitle}{The subtitle}
+\ostSetContent{Authors}{Authors}
+\ostSetContent{Date}{10.10.1983}
+\ostSetContent{AdvisorOne}{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
+\ostSetContent{AdvisorTwo}{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
 ```
 
 - vertical
@@ -79,15 +79,15 @@ An set the contents for all titlepages with:
 \ostSetBackgroundPic{ostTitlePageBackground.pdf}
 
 % adjust image horizontaly and vertically
-\ostSetLength{\ostLenghtBackgroundPicVoffset}{5\baselineskip}
-\ostSetLength{\ostLenghtBackgroundPicHoffset}{5mm}
+\ostSetLength{BackgroundPicVoffset}{5\baselineskip}
+\ostSetLength{BackgroundPicHoffset}{5mm}
 
 % set opacity of overlay for better reading of title content
 % set between 0-1
 \ostSetTitleOverlayOpacity{0.7}
 
 % set color of overlay
-\ostSetColor{ostColorTitleOverlay}{gray}
+\ostSetColor{TitleOverlay}{gray}
 ```
 
 ![image](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_image_blue.png)
@@ -103,21 +103,21 @@ You can set the font shapes sizes and colors on the title page:
 * colors
 
 ```
-\ostSetColor{ostColorTitle}{SteelBlue}
-\ostSetColor{ostColorSubtitle}{SteelBlue}
-\ostSetColor{ostColorAuthor}{SteelBlue}
-\ostSetColor{ostColorDate}{SteelBlue}
-\ostSetColor{ostColorAdvisor}{SteelBlue}
+\ostSetColor{Title}{SteelBlue}
+\ostSetColor{Subtitle}{SteelBlue}
+\ostSetColor{Authors}{SteelBlue}
+\ostSetColor{Date}{SteelBlue}
+\ostSetColor{Advisor}{SteelBlue}
 ```
 
 * fonts
 
 ```
-\ostSetFont{\ostFontTitle}{\Huge}
-\ostSetFont{\ostFontSubtitle}{\Large\textbf}
-\ostSetFont{\ostFontAuthor}{...}
-\ostSetFont{\ostFontDate}{...}
-\ostSetFont{\ostFontAdvisor}{...}
+\ostSetFont{Title}{\Huge}
+\ostSetFont{Subtitle}{\Large\textbf}
+\ostSetFont{Authors}{...}
+\ostSetFont{Date}{...}
+\ostSetFont{Advisor}{...}
 ```
 
 ### Table of Contents
@@ -174,44 +174,44 @@ the label for the captions. You can set your own colortheme by setting the
 following elements colors in your preamble:
 
 ```
-\ostSetColor{ostColorTitle}{DarkOrange}
-\ostSetColor{ostColorSubtitle}{DarkOrange}
-\ostSetColor{ostColorChapterHeader}{DarkOrange}
-\ostSetColor{ostColorSectionHeader}{DarkOrange}
-\ostSetColor{ostColorSubsectionHeader}{DarkOrange}
-\ostSetColor{ostColorSubSubsectionHeader}{DarkOrange}
-\ostSetColor{ostColorParagraphHeader}{DarkOrange}
-\ostSetColor{ostColorCaptionLabel}{DarkOrange}
+\ostSetColor{Title}{DarkOrange}
+\ostSetColor{Subtitle}{DarkOrange}
+\ostSetColor{ChapterHeader}{DarkOrange}
+\ostSetColor{SectionHeader}{DarkOrange}
+\ostSetColor{SubsectionHeader}{DarkOrange}
+\ostSetColor{SubSubsectionHeader}{DarkOrange}
+\ostSetColor{ParagraphHeader}{DarkOrange}
+\ostSetColor{CaptionLabel}{DarkOrange}
 ```
 
 Other elements you can change directly:
 
 ```
-\ostSetColor{ostColorTitleRule}{LightGray}
-\ostSetColor{ostColorTitleRuleVertical}{LightGray}
-\ostSetColor{ostColorTitleOverlay}{white}
-\ostSetColor{ostColorImageFrame}{LightGray}
-\ostSetColor{ostColorTocRule}{LightGray}
-\ostSetColor{ostColorPartialToc}{black}
-\ostSetColor{ostColorAuthors}{black}
-\ostSetColor{ostColorInstitution}{black}
-\ostSetColor{ostColorAdvisor}{black}
-\ostSetColor{ostColorDate}{black}
-\ostSetColor{ostColorMarginNote}{DarkGray}
-\ostSetColor{ostColorAdvisor}{gray}
-\ostSetColor{ostColorPartHeader}{black}
-\ostSetColor{ostColorPartHeaderNumber}{LightGray}
-\ostSetColor{ostColorChapterHeaderNumber}{gray}
-\ostSetColor{ostColorSectionHeaderNumber}{gray}
-\ostSetColor{ostColorSubsectionHeaderNumber}{gray}
-\ostSetColor{ostColorSubSubsectionHeaderNumber}{gray}
-\ostSetColor{ostColorParagraphHeaderNumber}{gray}
-\ostSetColor{ostColorLettrine}{DarkGray}
-\ostSetColor{ostColorLineNumbers}{DarkGray}
-\ostSetColor{ostColorFooterRule}{LightGray!30}
-\ostSetColor{ostColorHeaderRule}{LightGray!30}
-\ostSetColor{ostColorPageNumbering}{gray}
-\ostSetColor{ostColorLinks}{gray}
+\ostSetColor{TitleRule}{LightGray}
+\ostSetColor{TitleRuleVertical}{LightGray}
+\ostSetColor{TitleOverlay}{white}
+\ostSetColor{ImageFrame}{LightGray}
+\ostSetColor{TocRule}{LightGray}
+\ostSetColor{PartialToc}{black}
+\ostSetColor{Authors}{black}
+\ostSetColor{Institution}{black}
+\ostSetColor{Advisor}{black}
+\ostSetColor{Date}{black}
+\ostSetColor{MarginNote}{DarkGray}
+\ostSetColor{Advisor}{gray}
+\ostSetColor{PartHeader}{black}
+\ostSetColor{PartHeaderNumber}{LightGray}
+\ostSetColor{ChapterHeaderNumber}{gray}
+\ostSetColor{SectionHeaderNumber}{gray}
+\ostSetColor{SubsectionHeaderNumber}{gray}
+\ostSetColor{SubSubsectionHeaderNumber}{gray}
+\ostSetColor{ParagraphHeaderNumber}{gray}
+\ostSetColor{Lettrine}{DarkGray}
+\ostSetColor{LineNumbers}{DarkGray}
+\ostSetColor{FooterRule}{LightGray!30}
+\ostSetColor{HeaderRule}{LightGray!30}
+\ostSetColor{PageNumbering}{gray}
+\ostSetColor{Links}{gray}
 ```
 
 The colors for the solarize themed code listings are protected in the class.
@@ -221,23 +221,23 @@ preamble to allow the use of at to set them:
 
 ```
 \makeatletter
-\ostSetColor{ostColor@ListingBackground}{gray}
-\ostSetColor{ostColor@ListingBase00}{gray}
-\ostSetColor{ostColor@ListingBase01}{gray}
-\ostSetColor{ostColor@ListingBase02}{gray}
-\ostSetColor{ostColor@ListingBase03}{gray}
-\ostSetColor{ostColor@ListingBase0}{gray}
-\ostSetColor{ostColor@ListingBase1}{gray}
-\ostSetColor{ostColor@ListingBase2}{gray}
-\ostSetColor{ostColor@ListingBase3}{gray}
-\ostSetColor{ostColor@ListingYellow}{gray}
-\ostSetColor{ostColor@ListingOrange}{gray}
-\ostSetColor{ostColor@ListingRed}{gray}
-\ostSetColor{ostColor@ListingMagenta}{gray}
-\ostSetColor{ostColor@ListingViolet}{gray}
-\ostSetColor{ostColor@ListingBlue}{gray}
-\ostSetColor{ostColor@ListingCyan}{gray}
-\ostSetColor{ostColor@ListingGreen}{gray}
+\ostSetColor{@ListingBackground}{gray}
+\ostSetColor{@ListingBase00}{gray}
+\ostSetColor{@ListingBase01}{gray}
+\ostSetColor{@ListingBase02}{gray}
+\ostSetColor{@ListingBase03}{gray}
+\ostSetColor{@ListingBase0}{gray}
+\ostSetColor{@ListingBase1}{gray}
+\ostSetColor{@ListingBase2}{gray}
+\ostSetColor{@ListingBase3}{gray}
+\ostSetColor{@ListingYellow}{gray}
+\ostSetColor{@ListingOrange}{gray}
+\ostSetColor{@ListingRed}{gray}
+\ostSetColor{@ListingMagenta}{gray}
+\ostSetColor{@ListingViolet}{gray}
+\ostSetColor{@ListingBlue}{gray}
+\ostSetColor{@ListingCyan}{gray}
+\ostSetColor{@ListingGreen}{gray}
 \makeatother
 ```
 
@@ -307,15 +307,11 @@ You can set up a predefined affidavit using one signel command.
 The contents can be changed
 
 ```
-\ostSetAffidavitName{Declaration}
-\ostSetAffidavitDeclaration{This work has been done by me and nobody else!}
-\ostSetAffidavitDate{19.11.1981}
-\ostSetAffidavitLocation{Stuttgart}
+\ostSetContent{AffidavitName}{Declaration}
+\ostSetContent{AffidavitDeclaration}{This work has been done by me and nobody else!}
+\ostSetContent{AffidavitDate}{19.11.1981}
+\ostSetContent{AffidavitLocation}{Stuttgart}
 ```
-
-
-
-
 
 ## See also
 
