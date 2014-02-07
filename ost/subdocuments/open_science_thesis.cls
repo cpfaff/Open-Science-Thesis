@@ -72,14 +72,26 @@
 
 \newif\ifost@libertine
 \newif\ifost@lmodern
+\newif\ifost@times
+\newif\ifost@palatino
+\newif\ifost@utopia
 
-\define@choicekey*[KV]{open-science-thesis}{fontchoice}[\val\nr]{libertine, lmodern}{%
+\define@choicekey*[KV]{open-science-thesis}{fontchoice}[\val\nr]{libertine, lmodern, times, palatino, utopia, false}{%
   \ifcase\nr\relax%
     \ost@libertinetrue%
   \or% 
     \ost@lmoderntrue%
+  \or% 
+    \ost@timestrue%
+  \or% 
+    \ost@palatinotrue%
+  \or% 
+    \ost@utopiatrue%
+  \or% 
+    \relax%
   \fi%
 }
+
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
@@ -186,6 +198,22 @@
   \RequirePackage{lmodern}
 \fi%
 
+\ifost@times%
+  \RequirePackage{mathptmx}
+  \RequirePackage[scaled=.90]{helvet}
+  \RequirePackage{courier}
+\fi%
+
+\ifost@palatino%
+  \RequirePackage{mathpazo}
+  \RequirePackage[scaled=.95]{helvet}
+  \RequirePackage{courier}
+\fi%
+
+\ifost@utopia%
+  \RequirePackage{fourier}
+\fi%
+
 \ifost@mathsupport
   \RequirePackage{amsmath} 
   \RequirePackage{amssymb}
@@ -222,15 +250,22 @@
 %%%-------------------------------------------------%%%
 
 \newcommand{\ostSetContent}[2]{\expandafter\def\csname ost#1\endcsname{#2}}
+\let\SetContent\ostSetContent
 
 \newcommand{\ostSetLength}[2]{\setlength{\csname ostLength#1\endcsname}{#2}}
+\let\SetLength\ostSetLength
+
+\newcommand{\ostSetHeight}[2]{\setlength{\csname ostHeight#1\endcsname}{#2}}
+\let\SetHeight\ostSetHeight
 
 \newcommand{\ostSetColor}[2]{\colorlet{ostColor#1}{#2}} 
+\let\SetColor\ostSetColor
 
 \newcommand{\ostSaveColor}[1]{\colorlet{ostColor@savecolor}{#1}} 
 \newcommand{\ostSaveColorTo}[2]{\colorlet{#1}{#2}} 
 \newcommand{\ostRestoreColor}[1]{\colorlet{#1}{ostColor@savecolor}} 
 \newcommand{\ostDefineColor}[3]{\xdefinecolor{#1}{#2}{#3}}
+
 \newcommand{\ostSetFont}[2]{ 
   \expandafter\def\csname ostFont#1\endcsname{#2} 
 }  
@@ -461,7 +496,7 @@
 %%% Define header and footer %%%
 %%%-------------------------------------------------%%%
 
-\usepackage{fancyhdr}
+\RequirePackage{fancyhdr}
 \AtBeginDocument{
   \pagestyle{fancy}
 }
@@ -564,10 +599,13 @@
 %%% Control big starting letters (Lettrine) %%%
 %%%-------------------------------------------------%%%
 
-\usepackage{lettrine}
+\RequirePackage{lettrine}
 
 % set defaults
+\newlength{\ostLengthDefaultFindent}
 \setlength{\ostLengthDefaultFindent}{0.2em}
+
+\newlength{\ostLengthDefaultNindent}
 \setlength{\ostLengthDefaultNindent}{0.02em}
 
 \newcommand{\ostSet@LettrineOptions}[1]{%
@@ -594,14 +632,19 @@
 
 \newcommand{\ostFontLineNumber}{\normalfont\tiny\sffamily}
 
+\newlength\ostLengthLineNumberSep
+\setlength\ostLengthLineNumberSep{0.2em}
+
+\RequirePackage[pagewise]{lineno}
+
 \ifost@linenumbers%
-   \RequirePackage[pagewise]{lineno}
-   \RequirePackage{lineno}
-   \setlength\linenumbersep{2pt}
    \renewcommand\linenumberfont{\color{ostColorLineNumber}\ostFontLineNumber}
-   \AtBeginDocument{\linenumbers} 
-\else% 
-   \RequirePackage[pagewise]{lineno}
+   \AtBeginDocument{
+     % set the separator
+     \setlength{\linenumbersep}{\ostLengthLineNumberSep}
+     % enable line numbers
+     \linenumbers 
+   }
 \fi% 
 
 %%%-------------------------------------------------%%%
@@ -609,8 +652,6 @@
 %%%-------------------------------------------------%%%
 
 \RequirePackage[neverdecrease]{paralist}
-
-% override lists environment definitions with more compact versions
 \let\itemize\compactitem%
 \let\enditemize\endcompactitem%
 \let\enumerate\compactenum%
@@ -650,9 +691,10 @@
 
 \tikzstyle{signbackground} = [rectangle, fill=white, fill opacity=0.7, text opacity=1, rounded corners]
 
-\newcommand{\ostTitleOverlayOpacity}{0.7}
-\newcommand{\ostSetTitleOverlayOpacity}[1]{\def\ostTitleOverlayOpacity{#1}}
-\tikzstyle{titlepageoverlay} = [rectangle, fill=ostColorTitleOverlay, fill opacity=\ostTitleOverlayOpacity, text opacity=1, rounded corners]
+\newcommand{\ostOpacityTitleOverlay}{0.7}
+\newcommand{\ostSetOpacity}[2]{\expandafter\def\csname ostOpacity#1\endcsname{#2}}
+
+\tikzstyle{titlepageoverlay} = [rectangle, fill=ostColorTitleOverlay, fill opacity=\ostOpacityTitleOverlay, text opacity=1, rounded corners]
 
 \RequirePackage{subcaption} 
 
@@ -927,7 +969,7 @@
 
 \newcommand{\ostQuoteRule}{\textcolor{ostColorQuoteRule}{\rule{\quoterulewidth}{\quoteruleheight}}}
 
-\newcommand{\ostQuote}[2][]{
+\newcommand{\ostquote}[2][]{
   \setkeys{ostQuote}{#1} 
   \def\ost@temp{\begin{minipage}{0.8\textwidth}%
       {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
@@ -1031,8 +1073,12 @@
 % \newcommand{\ostSetTableOfContentsName}[1]{\expandafter\renewcommand\expandafter\contentsname{#1}}
 % \ostSetTableOfContentsName{\ostTableOfContentsName}
 
-\newcommand{\makeaffidavit}{
-  \chapter{\ostAffidavitName} 
+\newcommand{\affidavitsectioning}{chapter}
+\define@key{ostAffidavit}{sectioning}{\def\affidavitsectioning{#1}}
+\presetkeys{ostAffidavit}{sectioning=chapter}{}%
+\newcommand{\makeaffidavit}[1][]{
+  \setkeys{ostAffidavit}{#1}
+  \csname\affidavitsectioning\endcsname{\ostAffidavitName} 
   \ostAffidavitDeclaration{} 
 
   \vspace{4\baselineskip}
@@ -1077,11 +1123,6 @@
 \newcommand{\ostTitleSpacerTitleRuleLower}{\vspace{\ostLengthTitleSpacerTitleRuleLower}}
 
 % Define aesthetics 
-\newsavebox\@pictureinput
-
-\newcommand{\ostSetBackgroundPic}[2][\textwidth]{%
-  \savebox{\@pictureinput}{\IfFileExists{#2}{\includegraphics[width=#1]{#2}}{\scalebox{2}{\color{red}Image file not found or set!}}
-}}
 
 \newlength{\ostLengthBackgroundPicVoffset} 
 \setlength\ostLengthBackgroundPicVoffset{0pt}
@@ -1089,13 +1130,26 @@
 \newlength{\ostLengthBackgroundPicHoffset} 
 \setlength\ostLengthBackgroundPicHoffset{0pt}
 
+\providecommand*{\widthOfTitlepageImage}{}
+\define@key{ostSetImage}{width}{\renewcommand*\widthOfTitlepageImage{#1}}
+\define@key{ostSetImage}{voffset}{\setlength\ostLengthBackgroundPicVoffset{#1}}
+\define@key{ostSetImage}{hoffset}{\setlength\ostLengthBackgroundPicHoffset{#1}}
+
+\presetkeys{ostSetImage}{width=\textwidth, voffset=0pt, hoffset=0pt}{}%
+
+\newsavebox\ostImageTitlepageBackground
+
+\newcommand{\ostSetImage}[3][]{%
+    \setkeys{ostSetImage}{#1}
+    \expandafter\savebox\csname ostImage#2\endcsname{\IfFileExists{#3}{\includegraphics[width=\widthOfTitlepageImage, keepaspectratio]{#3}}{\scalebox{2}{\color{red}Image file not found or set!}}}
+}
+
 \newcommand{\ostTitlePageBackgroundPic}[1]{
   \AddToShipoutPicture*{\AtTextCenter{%
-    \hspace*{\ostLengthBackgroundPicHoffset}\raisebox{\ostLengthBackgroundPicVoffset}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\@pictureinput\ostTitleStretchBelow{}
+    \hspace*{\ostLengthBackgroundPicHoffset}\raisebox{\ostLengthBackgroundPicVoffset}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\ostImageTitlepageBackground\ostTitleStretchBelow{}
 }}}}}
 
-% the default background pic
-\ostSetBackgroundPic{ost/graphics/ostTitlePageBackground.pdf}
+\ostSetImage{TitlepageBackground}{ost/graphics/ostTitlePageBackground.pdf}
 
 % \begin{tikzpicture}[remember picture, overlay]
 % \node at (current page.north west){%
@@ -1206,7 +1260,7 @@
     {\centering% 
       \ostTitleStretchAbove{} 
       {\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth}\begin{center} 
-      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
+      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
@@ -1230,7 +1284,7 @@
       \ostTitleStretchAbove{}
       \ostTitleRule%
       \ostTitleSpacerTitleRuleUpper{}
-      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
+      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
@@ -1254,7 +1308,7 @@
   \begin{titlepage}
     {\centering% 
       \ostTitleStretchAbove{}
-      {\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
+      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
       {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
@@ -1403,7 +1457,7 @@
 \define@key{ostFramedEnv}{caption}{\renewcommand*\envcaption{#1}}
 \presetkeys{ostFramedEnv}{placement = H, label = nolabel, caption = fillme}{}%
 
-\providecommand\ostFramedEnv[3][]{
+\providecommand\ostframedenv[3][]{
 \setkeys{ostFramedEnv}{#1}
   \begin{figure}[H]
     \centering
@@ -1421,7 +1475,7 @@
   \end{figure}
 } 
 
-\WithSuffix\providecommand\ostFramedEnv*[3][]{%
+\WithSuffix\providecommand\ostframedenv*[3][]{%
 \setkeys{ostFramedEnv}{#1}
   \begin{figure*}[\placement]
     \centering
@@ -1742,11 +1796,9 @@
     \ifcase\value{ostCounter@Revisor}\relax
 	  \definecolor{ostColorRevisor0}{RGB}{153,216,201} 
 	  \expandafter\def\csname#1\endcsname##1{\todo[color=ostColorRevisor0]{{\sc#1}: ##1}}%
-	  \stepcounter{ostCounter@Revisor}%
     \or%
 	  \definecolor{ostColorRevisor1}{RGB}{188,189,220}
 	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor1]{{\sc#1}: ##1}}%
-	  \stepcounter{ostCounter@Revisor}%
     \or%
 	  \definecolor{ostColorRevisor2}{RGB}{254,232,200}
 	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor2]{{\sc#1}: ##1}}%
@@ -1758,8 +1810,8 @@
     \else%
 	  \definecolor{ostColorRevisor4}{RGB}{247,252,185}
 	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor4]{{\sc#1}: ##1}}%
-	  \stepcounter{ostCounter@Revisor}%
     \fi%
+    \global\stepcounter{ostCounter@Revisor}%
   }
 
 \else
@@ -1768,20 +1820,16 @@
   \def\ostSetRevisor#1{
     \ifcase\value{ostCounter@Revisor}\relax
 	  \expandafter\def\csname#1\endcsname##1{\relax}%
-	  \stepcounter{ostCounter@Revisor}%
     \or%
 	  \expandafter\def\csname#1\endcsname##1{\relax}%
-	  \stepcounter{ostCounter@Revisor}%
     \or%
 	  \expandafter\def\csname#1\endcsname##1{\relax}%
-	  \stepcounter{ostCounter@Revisor}%
     \or%
 	  \expandafter\def\csname#1\endcsname##1{\relax}%
-	  \stepcounter{ostCounter@Revisor}%
     \else%
 	  \expandafter\def\csname#1\endcsname##1{\relax}%
-	  \stepcounter{ostCounter@Revisor}%
     \fi%
+    \global\stepcounter{ostCounter@Revisor}%
   }
 \fi
 
@@ -1859,8 +1907,8 @@
 %  \nolinkurl{URL}
 
 % Note: load glossaries after hyperref!
-\usepackage[xindy, acronym, toc]{glossaries} 
-\usepackage{glossaries-babel}
+\RequirePackage[xindy, acronym, toc]{glossaries} 
+\RequirePackage{glossaries-babel}
 
 %package options
 
@@ -1887,7 +1935,7 @@
 % \printindex
 
 % create an index
-% \usepackage{makeidx}
+% \RequirePackage{makeidx}
 % \makeindex
 
 %%%-------------------------------------------------%%%
