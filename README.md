@@ -244,7 +244,7 @@ preamble to allow the use of at to set them:
 You can modify fonts globally by class option.
 
 ```
-\documentclass[fontchoice=[lmodern, libertine, times, palatino, utopia]]{open_science_thesis}
+\documentclass[fontchoice={lmodern, libertine, times, palatino, utopia}]{open_science_thesis}
 % defaults to libertine fonts
 ```
 
