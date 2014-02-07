@@ -63,7 +63,7 @@ An set the contents for all titlepages with:
 
 ```
 % set the text on the bar
-\ostSetTextOnBar{Text on vertical bar}
+\ostSetContent{TextOnBar}{Text on vertical bar}
 ```
 
 ![vertical](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_vertical_blue.png)
