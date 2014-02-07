@@ -76,15 +76,13 @@ An set the contents for all titlepages with:
 
 ```
 % set image
-\ostSetBackgroundPic{ostTitlePageBackground.pdf}
-
-% adjust image horizontaly and vertically
-\ostSetLength{BackgroundPicVoffset}{5\baselineskip}
-\ostSetLength{BackgroundPicHoffset}{5mm}
+\ostSetImage{TitlepageBackground}{pathto/image.png}
+% or
+\ostSetImage[width=5cm, voffset=1cm, hoffset=1cm]{TitlepageBackground}{pathto/image.png}
 
 % set opacity of overlay for better reading of title content
 % set between 0-1
-\ostSetTitleOverlayOpacity{0.7}
+\ostSetOpacity{TitleOverlay}{0.7}
 
 % set color of overlay
 \ostSetColor{TitleOverlay}{gray}
@@ -241,11 +239,29 @@ preamble to allow the use of at to set them:
 \makeatother
 ```
 
+### Fonts
+
+You can modify fonts globally by class option.
+
+```
+\documentclass[fontchoice=[lmodern, libertine, times, palatino, utopia]]{open_science_thesis}
+% defaults to libertine fonts
+```
+
 ### Quotations
+
+```
+\ostquote[author=test]{You nice quote}
+% author is optional
+```
 
 ![quotations](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_quotation_orange.png)
 
 ### Frames for images
+
+```
+\ostframedenv{\includegraphics...}{caption}
+```
 
 ![imageframed](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_image_framed_orange.png)
 
