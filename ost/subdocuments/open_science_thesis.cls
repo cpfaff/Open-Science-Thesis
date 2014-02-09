@@ -20,6 +20,17 @@
 
 \RequirePackage{xkeyval} 
 
+\define@key[KV]{open-science-thesis}{language}{\PassOptionsToPackage{#1}{babel}}
+
+\define@key[KV]{open-science-thesis}{style}{\PassOptionsToPackage{style = #1}{biblatex}}
+\define@key[KV]{open-science-thesis}{bibstyle}{\PassOptionsToPackage{bibstyle = #1}{biblatex}}
+\define@key[KV]{open-science-thesis}{citestyle}{\PassOptionsToPackage{citestyle = #1}{biblatex}}
+\define@key[KV]{open-science-thesis}{natbib}{\PassOptionsToPackage{natbib = #1}{biblatex}}
+\define@key[KV]{open-science-thesis}{backend}{\PassOptionsToPackage{backend = #1}{biblatex}}
+
+\newif\ifost@setspacing% 
+\define@key[KV]{open-science-thesis}{linespacing}{\PassOptionsToPackage{#1}{setspace}\ost@setspacingtrue}
+
 \define@boolkey[KV]{open-science-thesis}[ost@]{linenumbers}[false]{}
 
 \newif\ifost@cmyk% 
@@ -92,7 +103,6 @@
   \fi%
 }
 
-
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
@@ -135,6 +145,9 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{mathsupport}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{symbolsupport}[false]{}
 
+\define@boolkey[KV]{open-science-thesis}[ost@]{compactlist}[false]{}
+\define@boolkey[KV]{open-science-thesis}[ost@]{fancylist}[false]{}
+
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
@@ -155,6 +168,12 @@
   revision=false,
   mathsupport=true,
   symbolsupport=true,
+  compactlist=true,
+  fancylist=true,
+  natbib=true,
+  backend=biber,
+  style=authoryear,
+  language=english,
 }{}
 
 \ProcessOptionsX[KV]<open-science-thesis>
@@ -174,6 +193,9 @@
   \fi%
 \fi% 
 
+\ifost@setspacing
+  \RequirePackage{setspace}
+\fi
 % enable and disable chaptertocs as it is not required 
 % to have them everywhere even if chapter toc is enabled
 \newif\ifost@chapterwithtoc%
@@ -240,35 +262,22 @@
 \RequirePackage{xifthen}  
 \RequirePackage{ifluatex} 
 \RequirePackage{datatool} 
-% \RequirePackage{expl3}  
-% \RequirePackage{xstring} 
 \RequirePackage{suffix}
-% \RequirePackage{pdftexcmds}
 
 %%%-------------------------------------------------%%%
 %%% Helpers (unify commands to use in style file) %%%
 %%%-------------------------------------------------%%%
 
 \newcommand{\ostSetContent}[2]{\expandafter\def\csname ost#1\endcsname{#2}}
-\let\SetContent\ostSetContent
-
 \newcommand{\ostSetLength}[2]{\setlength{\csname ostLength#1\endcsname}{#2}}
-\let\SetLength\ostSetLength
-
 \newcommand{\ostSetHeight}[2]{\setlength{\csname ostHeight#1\endcsname}{#2}}
-\let\SetHeight\ostSetHeight
-
 \newcommand{\ostSetColor}[2]{\colorlet{ostColor#1}{#2}} 
-\let\SetColor\ostSetColor
-
 \newcommand{\ostSaveColor}[1]{\colorlet{ostColor@savecolor}{#1}} 
 \newcommand{\ostSaveColorTo}[2]{\colorlet{#1}{#2}} 
 \newcommand{\ostRestoreColor}[1]{\colorlet{#1}{ostColor@savecolor}} 
 \newcommand{\ostDefineColor}[3]{\xdefinecolor{#1}{#2}{#3}}
-
-\newcommand{\ostSetFont}[2]{ 
-  \expandafter\def\csname ostFont#1\endcsname{#2} 
-}  
+\newcommand{\ostSetOpacity}[2]{\expandafter\def\csname ostOpacity#1\endcsname{#2}}
+\newcommand{\ostSetFont}[2]{\expandafter\def\csname ostFont#1\endcsname{#2}}  
 
 % usage:
 
@@ -276,7 +285,7 @@
 %%% Language adaption of the document %%%
 %%%-------------------------------------------------%%%
 
-\RequirePackage[ngerman, english]{babel} 
+\RequirePackage{babel} 
 \RequirePackage[autostyle]{csquotes}  
 
 % usage:
@@ -305,47 +314,41 @@
 \colorlet{ostColorGlsLinkColor}{black}
 
 \ifost@color%  
-   \colorlet{ostColorTitleRule}{LightGray} 
-   \colorlet{ostColorTitleRuleVertical}{LightGray}  
-   \colorlet{ostColorTextOnBar}{gray}  
-
-   \colorlet{ostColorTitleOverlay}{white} 
-   \colorlet{ostColorImageFrame}{LightGray} 
-
-   \colorlet{ostColorTocRule}{LightGray}
-   \colorlet{ostColorPartialToc}{black} 
-
-   \colorlet{ostColorAuthors}{black}
-   \colorlet{ostColorInstitution}{black} 
-   \colorlet{ostColorAdvisors}{black} 
-   \colorlet{ostColorDate}{black} 
-   \colorlet{ostColorMarginNote}{DarkGray}
-   \colorlet{ostColorAdvisors}{gray}
-   
-   \colorlet{ostColorPartHeader}{black} 
-   \colorlet{ostColorPartHeaderNumber}{LightGray}  
-  \ifost@orange%
-     \colorlet{ostColorTitle}{DarkOrange}
-     \colorlet{ostColorSubtitle}{DarkOrange}
-     \colorlet{ostColorChapterHeader}{DarkOrange} 
-     \colorlet{ostColorSectionHeader}{DarkOrange}  
-     \colorlet{ostColorSubsectionHeader}{DarkOrange}
-     \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
-     \colorlet{ostColorParagraphHeader}{DarkOrange} 
-     \colorlet{ostColorCaptionLabel}{DarkOrange}
-  \fi
-
+  \colorlet{ostColorTitleRule}{LightGray} 
+  \colorlet{ostColorTitleRuleVertical}{LightGray}  
+  \colorlet{ostColorTextOnBar}{gray}  
+  \colorlet{ostColorTitleOverlay}{white} 
+  \colorlet{ostColorImageFrame}{LightGray} 
+  \colorlet{ostColorTocRule}{LightGray}
+  \colorlet{ostColorPartialToc}{black} 
+  \colorlet{ostColorAuthors}{black}
+  \colorlet{ostColorInstitution}{black} 
+  \colorlet{ostColorAdvisors}{black} 
+  \colorlet{ostColorDate}{black} 
+  \colorlet{ostColorMarginNote}{DarkGray}
+  \colorlet{ostColorAdvisors}{gray}
+  \colorlet{ostColorPartHeader}{black} 
+  \colorlet{ostColorPartHeaderNumber}{LightGray}  
+    \ifost@orange%
+      \colorlet{ostColorTitle}{DarkOrange}
+      \colorlet{ostColorSubtitle}{DarkOrange}
+      \colorlet{ostColorChapterHeader}{DarkOrange} 
+      \colorlet{ostColorSectionHeader}{DarkOrange}  
+      \colorlet{ostColorSubsectionHeader}{DarkOrange}
+      \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
+      \colorlet{ostColorParagraphHeader}{DarkOrange} 
+      \colorlet{ostColorCaptionLabel}{DarkOrange}
+    \fi
   \ifost@blue
-     \xdefinecolor{ostColorTitle}{RGB}{8,81,156}
-     \xdefinecolor{ostColorSubtitle}{RGB}{49,130,189}
-     \xdefinecolor{ostColorChapterHeader}{RGB}{8,81,156} 
-     \xdefinecolor{ostColorSectionHeader}{RGB}{49,130,189} 
-     \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,130,189} 
-     \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{49,130,189} 
-     \xdefinecolor{ostColorParagraphHeader}{RGB}{49,130,189} 
-     \xdefinecolor{ostColorCaptionLabel}{RGB}{8,81,156}
+      \xdefinecolor{ostColorTitle}{RGB}{8,81,156}
+      \xdefinecolor{ostColorSubtitle}{RGB}{49,130,189}
+      \xdefinecolor{ostColorChapterHeader}{RGB}{8,81,156} 
+      \xdefinecolor{ostColorSectionHeader}{RGB}{49,130,189} 
+      \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,130,189} 
+      \xdefinecolor{ostColorSubSubsectionHeader}{RGB}{49,130,189} 
+      \xdefinecolor{ostColorParagraphHeader}{RGB}{49,130,189} 
+      \xdefinecolor{ostColorCaptionLabel}{RGB}{8,81,156}
   \fi
-
   \ifost@green
      \xdefinecolor{ostColorTitle}{RGB}{0,109,44}
      \xdefinecolor{ostColorSubtitle}{RGB}{49,163,84}
@@ -356,7 +359,6 @@
      \xdefinecolor{ostColorParagraphHeader}{RGB}{49,163,84} 
      \xdefinecolor{ostColorCaptionLabel}{RGB}{0,109,44}
   \fi
-
   \ifost@red
      \xdefinecolor{ostColorTitle}{RGB}{165,15,21}
      \xdefinecolor{ostColorSubtitle}{RGB}{222,45,38}
@@ -367,25 +369,21 @@
      \xdefinecolor{ostColorParagraphHeader}{RGB}{222,45,38} 
      \xdefinecolor{ostColorCaptionLabel}{RGB}{165,15,21}
   \fi
-
   \colorlet{ostColorChapterHeaderNumber}{gray}
   \colorlet{ostColorSectionHeaderNumber}{gray}
   \colorlet{ostColorSubsectionHeaderNumber}{gray}
   \colorlet{ostColorSubSubsectionHeaderNumber}{gray}
   \colorlet{ostColorParagraphHeaderNumber}{gray}
-
-   \colorlet{ostColorLettrine}{DarkGray}  
-
-   \colorlet{ostColorLineNumber}{DarkGray} 
-
-   \colorlet{ostColorFooterRule}{LightGray!30} 
-   \colorlet{ostColorHeaderMarks}{black}
-   \colorlet{ostColorHeaderRule}{LightGray!30}
-   \colorlet{ostColorPageNumber}{gray}
-   \colorlet{ostColorPageNumberSurrounding}{gray}
-
-   \colorlet{ostColorLinks}{gray}
-
+  \colorlet{ostColorLettrine}{DarkGray}  
+  \colorlet{ostColorLineNumber}{DarkGray} 
+  \colorlet{ostColorFooterRule}{LightGray!30} 
+  \colorlet{ostColorHeaderMarks}{black}
+  \colorlet{ostColorHeaderRule}{LightGray!30}
+  \colorlet{ostColorPageNumber}{gray}
+  \colorlet{ostColorPageNumberSurrounding}{gray}
+  \colorlet{ostColorLinks}{gray}
+  \colorlet{ostColorCitationLinks}{DarkGray}
+    
   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
   \xdefinecolor{ostColor@ListingBase01}{HTML}{586e75}
@@ -406,15 +404,12 @@
 \else%
    \colorlet{ostColorTitleRule}{black}
    \colorlet{ostColorTitleRuleVertical}{black} 
-
    \colorlet{ostColorTextOnBar}{black}  
    \colorlet{ostColorTocRule}{black} 
    \colorlet{ostColorPartialToc}{black} 
    \colorlet{ostColorTitleOverlay}{white} 
    \colorlet{ostColorImageFrame}{black} 
-
    \colorlet{ostColorTitle}{black} 
-
    \colorlet{ostColorSubtitle}{black}
    \colorlet{ostColorAuthors}{black}
    \colorlet{ostColorInstitution}{black} 
@@ -422,38 +417,28 @@
    \colorlet{ostColorDate}{black}  
    \colorlet{ostColorMarginNote}{black}
    \colorlet{ostColorAdvisors}{black}
-
    \colorlet{ostColorCaptionLabel}{black}
-
    \colorlet{ostColorPartHeader}{black}
    \colorlet{ostColorPartHeaderNumber}{black}
-
    \colorlet{ostColorChapterHeader}{black}
    \colorlet{ostColorChapterHeaderNumber}{black}
-
    \colorlet{ostColorSectionHeader}{black}
    \colorlet{ostColorSectionHeaderNumber}{black}
-
    \colorlet{ostColorSubsectionHeader}{black}
    \colorlet{ostColorSubsectionHeaderNumber}{black}
-   
    \colorlet{ostColorSubSubsectionHeader}{black}
    \colorlet{ostColorSubSubsectionHeaderNumber}{black}
-
    \colorlet{ostColorParagraphHeader}{black}
    \colorlet{ostColorParagraphHeaderNumber}{black}
-
    \colorlet{ostColorLettrine}{black}
-   
    \colorlet{ostColorLineNumber}{black} 
-   
    \colorlet{ostColorHeaderRule}{black}
    \colorlet{ostColorFooterRule}{black}
    \colorlet{ostColorHeaderMarks}{black}
    \colorlet{ostColorPageNumber}{black} 
    \colorlet{ostColorPageNumberSurrounding}{black}
-
    \colorlet{ostColorLinks}{black}
+   \colorlet{ostColorCitationLinks}{black}
 
    \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
    \colorlet{ostColor@ListingBase00}{black}
@@ -481,7 +466,7 @@
 
 \ifost@gitinfo%
    \RequirePackage{gitinfo} 
-
+   % TODO: make settable the font
    \newcommand{\ostGitUrl}{\tiny{\href{ostGitUrl}{https://github.com/cpfaff/Open-Science-Thesis}}}
    \newcommand{\ostSetGitUrl}[1]{\def\ostGitUrl{#1}}
 
@@ -515,30 +500,19 @@
 
 % create lengths
 \newlength{\ostLengthHeaderRuleWidth} 
-\ifost@color
-  \setlength{\ostLengthHeaderRuleWidth}{3.0pt} 
-\else
-  \setlength{\ostLengthHeaderRuleWidth}{1.0pt} 
-\fi
-
-\renewcommand{\headrulewidth}{\ostLengthHeaderRuleWidth}
-
 \newlength{\ostLengthFooterRuleWidth}
 
 \ifost@color
+  \setlength{\ostLengthHeaderRuleWidth}{3.0pt} 
   \setlength{\ostLengthFooterRuleWidth}{3.0pt} 
 \else
+  \setlength{\ostLengthHeaderRuleWidth}{1.0pt} 
   \setlength{\ostLengthFooterRuleWidth}{1.0pt} 
 \fi
-
-% \setlength{\ostLengthFooterRuleWidth}{3.0pt} 
-% \renewcommand{\footrulewidth}{\ostLengthFooterRuleWidth} 
 
 % patch rule commands with color
 \patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
 \patchcmd{\headrule}{\hrule}{\color{\ostHeaderRuleColor}\hrule}{}{}
-% fancy footer style
-% TODO: fancy header and footer need to be separated
 
 \ifost@fancyhf
   \fancypagestyle{pageStyleChapter}{%
@@ -565,16 +539,11 @@
 \fi%
 
 \newcommand\ostFontPageNumber{\normalsize\textbf}
-\newcommand\ostSetFontPageNumber[1]{\def\ostFontPageNumber{#1}}
-
-\newcommand\ostPageNumberSurrounding{\textendash}
-\newcommand\ostSetPageNumberSurrounding[1]{\def\ostPageNumberSurrounding{#1}}
-
 \newlength\ostLengthPageNumberSurroundingSep
 \setlength{\ostLengthPageNumberSurroundingSep}{{1mm}} 
 
+\newcommand\ostPageNumberSurrounding{\textendash}
 \newcommand\ostFontHeaderMarks{\textit}
-\newcommand\ostSetFontHeaderMarks[1]{\def\ostFontHeaderMarks{#1}}
 
 \if@twoside%  
   \setlength{\ostLengthPageNumberSurroundingSep}{{0mm}} 
@@ -613,7 +582,6 @@
       \setlength{\ostLengthDefaultFindent}{-0.2em}
       \setlength{\ostLengthDefaultNindent}{0.5em}
    }{\relax}
-
    \ifstrequal{#1}{T}{
       \setlength{\ostLengthDefaultFindent}{0.27em}
       \setlength{\ostLengthDefaultNindent}{0.02em}
@@ -622,8 +590,8 @@
 }
 
 \newcommand{\capital}[1]{%
-   \ostSet@LettrineOptions{#1}
-   \lettrine{\textcolor{ostColorLettrine}{#1}}
+  \ostSet@LettrineOptions{#1}
+  \lettrine{\textcolor{ostColorLettrine}{#1}}
 } 
 
 %%%-------------------------------------------------%%%
@@ -640,9 +608,7 @@
 \ifost@linenumbers%
    \renewcommand\linenumberfont{\color{ostColorLineNumber}\ostFontLineNumber}
    \AtBeginDocument{
-     % set the separator
      \setlength{\linenumbersep}{\ostLengthLineNumberSep}
-     % enable line numbers
      \linenumbers 
    }
 \fi% 
@@ -652,17 +618,52 @@
 %%%-------------------------------------------------%%%
 
 \RequirePackage[neverdecrease]{paralist}
-\let\itemize\compactitem%
-\let\enditemize\endcompactitem%
-\let\enumerate\compactenum%
-\let\endenumerate\endcompactenum%
-\let\description\compactdesc%
-\let\enddescription\endcompactdesc%
 
-\pltopsep=\medskipamount%
-\setdefaultenum{1.}{a)~}{i.~}{A)~}%
-\setdefaultleftmargin{1.5em}{1.2em}{1.2em}{1.2em}{1.2em}{1.2em}%
-\setdefaultitem{$\circ$}{\textbullet}{\textperiodcentered}{--}%
+\ifost@compactlist%
+  \let\itemize\compactitem%
+  \let\enditemize\endcompactitem%
+  % \ifost@setspacing
+    % \preto{\itemize}{
+      % \begin{singlespace}
+    % }  
+    % \g@addto@macro{\enditemize}{
+	% \end{singlespace}
+    % }
+  % \fi
+  \let\enumerate\compactenum%
+  \let\endenumerate\endcompactenum%
+  \let\description\compactdesc%
+  \let\enddescription\endcompactdesc%
+
+  \pltopsep=0.5\medskipamount%
+\fi%
+
+\ifost@fancylist%
+  \newlength{\ostLengthListIndenti} 
+  \setlength{\ostLengthListIndenti}{1.5em}
+  \newcommand{\ostSymbolItemizei}{$\circ$}
+  % \newcommand{\ostSymbolEnuneratei}{1.}
+  \newlength{\ostLengthListIndentii} 
+  \setlength{\ostLengthListIndentii}{1em}
+  \newcommand{\ostSymbolItemizeii}{\textbullet}
+  % \newcommand{\ostSymbolEnunerateii}{a)}
+  \newlength{\ostLengthListIndentiii} 
+  \setlength{\ostLengthListIndentiii}{0.9em}
+  \newcommand{\ostSymbolItemizeiii}{\textperiodcentered}
+  % \newcommand{\ostSymbolEnunerateii}{i.}
+  \newlength{\ostLengthListIndentiv}
+  \setlength{\ostLengthListIndentiv}{1.2em}
+  \newcommand{\ostSymbolItemizeiv}{--}
+  % \newcommand{\ostSymbolEnunerateii}{A)}
+  \newlength{\ostLengthListIndentv}
+  \setlength{\ostLengthListIndentv}{1em}
+  \newlength{\ostLengthListIndentvi}
+  \setlength{\ostLengthListIndentvi}{1em}
+
+  \setdefaultleftmargin{\ostLengthListIndenti}{\ostLengthListIndentii}{\ostLengthListIndentiii}{\ostLengthListIndentiv}{\ostLengthListIndentv}{\ostLengthListIndentvi}%
+  \setdefaultitem{\ostSymbolItemizei}{\ostSymbolItemizeii}{\ostSymbolItemizeiii}{\ostSymbolItemizeiv}%
+  \setdefaultenum{1.}{a)}{i.}{A)}%
+\fi
 
 %%%-------------------------------------------------%%%
 %%% Graphic options %%%
@@ -683,7 +684,6 @@
 %% Define tikz styles %% 
 
 \ifost@color
-   % \tikzstyle{imageframe} = [rectangle, rounded corners, draw=LightGray, fill=white, blur shadow={shadow blur steps=5, shadow blur extra rounding=1.3pt}] 
    \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, thick, fill=white] 
 \else%
    \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, fill=white]
@@ -692,7 +692,6 @@
 \tikzstyle{signbackground} = [rectangle, fill=white, fill opacity=0.7, text opacity=1, rounded corners]
 
 \newcommand{\ostOpacityTitleOverlay}{0.7}
-\newcommand{\ostSetOpacity}[2]{\expandafter\def\csname ostOpacity#1\endcsname{#2}}
 
 \tikzstyle{titlepageoverlay} = [rectangle, fill=ostColorTitleOverlay, fill opacity=\ostOpacityTitleOverlay, text opacity=1, rounded corners]
 
@@ -746,8 +745,8 @@
 
 %% where to put this?
 \RequirePackage{marginnote}
-
-\renewcommand*{\marginfont}{\color{ostColorMarginNote}\small}
+\newcommand{\ostFontMarginNote}{\small}  
+\renewcommand*{\marginfont}{\color{ostColorMarginNote}\ostFontMarginNote}
 
 %%%-------------------------------------------------%%%
 %%% Table related options %%%
@@ -835,8 +834,9 @@
 %%%-------------------------------------------------%%%
 
 %% citation management %% 
-\RequirePackage[backend = biber, style = authoryear, natbib = true]{biblatex}
-\defbibheading{bibempty}{}
+\RequirePackage{biblatex}
+% \defbibheading{bibempty}{}
+\let\ostAddBibliography\addbibresource
 
 % usage:
 %  \citet{jon90} ⇒ Jones et al. (1990)
@@ -954,20 +954,20 @@
 \define@key{ostQuote}{author}{\renewcommand*\ostQuoteAuthor{#1}}
 \presetkeys{ostQuote}{author=}{}%
 
-\newdimen\quoteruleheight
-\newdimen\quoterulewidth 
-\newdimen\quoterulesep 
-\quoterulesep=-2.3em
+\newdimen\ostLengthQuoteRuleHeight
+\newdimen\ostLengthQuoteRuleWidth 
+\newdimen\ostLengthQuoteRuleSep 
+\ostLengthQuoteRuleSep=-2.3em
 
 \ifost@color%
   \colorlet{ostColorQuoteRule}{LightGray!30}
-  \quoterulewidth=5pt
+  \ostLengthQuoteRuleWidth=5pt
 \else%
   \colorlet{ostColorQuoteRule}{black}
-  \quoterulewidth=2pt 
+  \ostLengthQuoteRuleWidth=2pt 
 \fi%
 
-\newcommand{\ostQuoteRule}{\textcolor{ostColorQuoteRule}{\rule{\quoterulewidth}{\quoteruleheight}}}
+\newcommand{\ostQuoteRule}{\textcolor{ostColorQuoteRule}{\rule{\ostLengthQuoteRuleWidth}{\ostLengthQuoteRuleHeight}}}
 
 \newcommand{\ostquote}[2][]{
   \setkeys{ostQuote}{#1} 
@@ -975,11 +975,13 @@
       {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
     \end{minipage}
   }%
-  \settototalheight\quoteruleheight\ost@temp
+  \settototalheight\ostLengthQuoteRuleHeight\ost@temp
   \begin{center}
     \begin{minipage}{0.1\textwidth}
       \ostQuoteRule{}
-    \end{minipage}\hspace{\quoterulesep}\begin{minipage}{0.8\textwidth}
+    \end{minipage}
+    \hspace{\ostLengthQuoteRuleSep}
+    \begin{minipage}{0.8\textwidth}
       {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
     \end{minipage}
   \end{center}
@@ -1005,33 +1007,57 @@
 }
 
 \preto{\tableofcontents}{
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \hypersetup{linkcolor=black} 
   \ost@chapterwithtocfalse
 }  
 \g@addto@macro{\tableofcontents}{
   \hypersetup{linkcolor=ostColorLinks} 
   \ost@chapterwithtocfalse
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 
 \preto{\listoffigures}{
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \hypersetup{linkcolor=black} 
   \ost@chapterwithtocfalse
 } 
 \g@addto@macro{\listoffigures}{
   \hypersetup{linkcolor=ostColorLinks} 
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 
 \preto{\listoftables}{
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \hypersetup{linkcolor=black} 
 } 
 \g@addto@macro{\listoftables}{
   \hypersetup{linkcolor=ostColorLinks} 
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 
 \newenvironment{ostPartialToc}{%
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \hypersetup{linkcolor=black}
 }{%
   \hypersetup{linkcolor=ostColorLinks}
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 
 % affidavit
@@ -1084,6 +1110,7 @@
   \vspace{4\baselineskip}
   \ostAffidavitSignatureLine{}
 }
+\let\printaffidavit\makeaffidavit
 
 %% Title header defaults %% 
 
@@ -1255,6 +1282,9 @@
 \ifost@titlepagebackgroundimage%
 
 \newcommand{\ostMakeTitle}{% 
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \begin{titlepage}
     \ostTitlePageBackgroundPic{}
     {\centering% 
@@ -1273,12 +1303,18 @@
       {\ifdefempty{\ostAdvisorTwo}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisors}\ostFontAdvisors\ostAdvisorTwo}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
     }      
   \end{titlepage}
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 \fi%
 
 \ifost@titlepagehorizontal  
 
 \newcommand{\ostMakeTitle}{% 
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \begin{titlepage}
     {\centering% 
       \ostTitleStretchAbove{}
@@ -1299,12 +1335,18 @@
       {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorTwo}}}\par} 
     }      
   \end{titlepage} 
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 \fi
 
 \ifost@titlepageplain
 
 \newcommand{\ostMakeTitle}{% 
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \begin{titlepage}
     {\centering% 
       \ostTitleStretchAbove{}
@@ -1320,12 +1362,18 @@
       {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorTwo}}}\par} 
     }      
   \end{titlepage} 
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 \fi
 
 \ifost@titlepagevertical%
 
 \newcommand{\ostMakeTitle}{% 
+  \ifost@setspacing
+    \begin{singlespace}
+  \fi
   \begin{titlepage}
     \mbox{ 
       \hspace*{0.2\textwidth} 
@@ -1345,11 +1393,15 @@
       }
     }
   \end{titlepage}
+  \ifost@setspacing
+    \end{singlespace}
+  \fi
 }
 \fi% 
 
 % new definition old macro
 \let\maketitle\ostMakeTitle
+\let\printtitle\ostMakeTitle
 
 %Set the Environments for Textsizes etc
 \newenvironment{smallpar}{\par\small}{\par}
@@ -1712,6 +1764,9 @@
   \tableofcontents
   \listoffigures 
   \listoftables 
+  \ifost@revision
+    \listofrevisions
+  \fi
 }
 
 \ifost@fancytocs%
@@ -1782,17 +1837,20 @@
 		 {\list{}{\leftmargin2em \rightmargin0em}%
 		  \item\relax}
 		 {\endlist}
-
-  \def\todoname{Notes of Revisors}
-  \def\todosectioning{\section{\todoname}}
-  \renewcommand{\todosectioning}{\chapter{\todoname}}
+  % FIXME: todoname needs to be settable by interface
+  \newcommand{\ostRevisionName}{Notes of Revisors}
+  \def\todosectioning{\section{\ostRevisionName}}
+  
+  % \def\ostSetContent
+  \renewcommand{\todosectioning}{\chapter{\ostRevisionName}}
 
   \renewcommand{\listoftodos}{{\todosectioning \begin{formattodo} \@starttoc{tdo} \end{formattodo} \vspace{\baselineskip}}}
 
   \let\revision\todo
   \let\listofrevisions\listoftodos
 
-  \def\ostSetRevisor#1{
+  \def\ostSetRevisor#1{ 
+    % \ifcsname#1\endcsname\relax\else\ClassWarning{open-science-thesis}{You cannot define \csname#1\endcsname as it is a command already!}\fi
     \ifcase\value{ostCounter@Revisor}\relax
 	  \definecolor{ostColorRevisor0}{RGB}{153,216,201} 
 	  \expandafter\def\csname#1\endcsname##1{\todo[color=ostColorRevisor0]{{\sc#1}: ##1}}%
@@ -1889,7 +1947,7 @@
    pdfpagemode=UseNone,%
    colorlinks=true,%
    linkcolor=ostColorLinks,
-   citecolor=ostColorLinks,%
+   citecolor=ostColorCitationLinks,%
    filecolor=ostColorLinks,%
    menucolor=ostColorLinks,%	
    urlcolor=ostColorLinks,%
