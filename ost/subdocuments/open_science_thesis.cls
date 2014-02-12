@@ -30,6 +30,7 @@
 
 \newif\ifost@setspacing% 
 \define@key[KV]{open-science-thesis}{linespacing}{\PassOptionsToPackage{#1}{setspace}\ost@setspacingtrue}
+\define@boolkey[KV]{open-science-thesis}[ost@]{sensitivespacing}[false]{}
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{linenumbers}[false]{}
 
@@ -148,6 +149,23 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{compactlist}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{fancylist}[false]{}
 
+\newif\ifost@raggedright%
+\newif\ifost@raggedleft%
+\newif\ifost@centered%
+
+\define@choicekey*[KV]{open-science-thesis}{justification}[\val\nr]{raggedright, raggedleft, centered}{%
+  \ifcase\nr\relax%
+    \ost@raggedrighttrue%
+  \or% 
+    \ost@raggedlefttrue%
+  \or
+    \ost@centeredtrue%
+  \fi%
+}
+
+
+
+
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
@@ -174,6 +192,7 @@
   backend=biber,
   style=authoryear,
   language=english,
+  sensitivespacing=true,
 }{}
 
 \ProcessOptionsX[KV]<open-science-thesis>
@@ -297,7 +316,23 @@
 
 \RequirePackage{lipsum}
 
-% usage:
+%%%-------------------------------------------------%%%
+%%% Improved ragged %%%
+%%%-------------------------------------------------%%%
+
+\RequirePackage{ragged2e}
+\let\raggedright\RaggedRight%
+\let\raggedleft\RaggedLeft%
+\ifost@raggedright%
+  \AtBeginDocument{%
+    \raggedright%
+  }
+\fi%
+\ifost@raggedleft%
+  \AtBeginDocument{%
+    \raggedleft%
+  }
+\fi%
 
 %%%-------------------------------------------------%%%
 %%% Color options %%%
@@ -382,7 +417,7 @@
   \colorlet{ostColorPageNumber}{gray}
   \colorlet{ostColorPageNumberSurrounding}{gray}
   \colorlet{ostColorLinks}{gray}
-  \colorlet{ostColorCitationLinks}{DarkGray}
+  \colorlet{ostColorCitationLinks}{black}
     
   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
@@ -622,20 +657,54 @@
 \ifost@compactlist%
   \let\itemize\compactitem%
   \let\enditemize\endcompactitem%
-  % \ifost@setspacing
-    % \preto{\itemize}{
-      % \begin{singlespace}
-    % }  
-    % \g@addto@macro{\enditemize}{
-	% \end{singlespace}
-    % }
-  % \fi
   \let\enumerate\compactenum%
   \let\endenumerate\endcompactenum%
   \let\description\compactdesc%
   \let\enddescription\endcompactdesc%
-
-  \pltopsep=0.5\medskipamount%
+  \plpartopsep=\smallskipamount
+  \pltopsep=\smallskipamount
+  \ifost@setspacing
+    \ifost@sensitivespacing
+      \newcounter{listingdepth}
+      \setcounter{listingdepth}{0}
+      \preto{\itemize}{%
+	\ifnum\thelistingdepth=0
+	  \begin{onehalfspace}
+	\fi%
+	\addtocounter{listingdepth}{1}
+      }  
+      \g@addto@macro{\enditemize}{%
+	\ifnum\thelistingdepth=1
+	  \end{onehalfspace}
+	\fi%
+	\addtocounter{listingdepth}{-1}
+      }
+      \preto{\enumerate}{%
+	\ifnum\thelistingdepth=0
+	  \begin{onehalfspace}
+	\fi%
+	\addtocounter{listingdepth}{1}
+      }  
+      \g@addto@macro{\endenumerate}{%
+	\ifnum\thelistingdepth=1
+	  \end{onehalfspace}
+	\fi%
+	\addtocounter{listingdepth}{-1}
+      }
+      \preto{\description}{%
+	\ifnum\thelistingdepth=0
+	  \begin{onehalfspace}
+	\fi%
+	\addtocounter{listingdepth}{1}
+      }  
+      \g@addto@macro{\enddescription}{%
+	\ifnum\thelistingdepth=1
+	  \end{onehalfspace}
+	\fi%
+	\addtocounter{listingdepth}{-1}
+      }
+    \fi
+  \fi
 \fi%
 
 \ifost@fancylist%
@@ -660,8 +729,8 @@
   \newlength{\ostLengthListIndentvi}
   \setlength{\ostLengthListIndentvi}{1em}
 
-  \setdefaultleftmargin{\ostLengthListIndenti}{\ostLengthListIndentii}{\ostLengthListIndentiii}{\ostLengthListIndentiv}{\ostLengthListIndentv}{\ostLengthListIndentvi}%
   \setdefaultitem{\ostSymbolItemizei}{\ostSymbolItemizeii}{\ostSymbolItemizeiii}{\ostSymbolItemizeiv}%
+  \setdefaultleftmargin{\ostLengthListIndenti}{\ostLengthListIndentii}{\ostLengthListIndentiii}{\ostLengthListIndentiv}{\ostLengthListIndentv}{\ostLengthListIndentvi}%
   \setdefaultenum{1.}{a)}{i.}{A)}%
 \fi
 
@@ -746,7 +815,14 @@
 %% where to put this?
 \RequirePackage{marginnote}
 \newcommand{\ostFontMarginNote}{\small}  
-\renewcommand*{\marginfont}{\color{ostColorMarginNote}\ostFontMarginNote}
+
+\ifost@setspacing
+  \ifost@sensitivespacing
+    \renewcommand*{\marginfont}{\singlespacing\color{ostColorMarginNote}\ostFontMarginNote}
+  \else
+    \renewcommand*{\marginfont}{\color{ostColorMarginNote}\ostFontMarginNote}
+  \fi
+\fi
 
 %%%-------------------------------------------------%%%
 %%% Table related options %%%
@@ -837,6 +913,14 @@
 \RequirePackage{biblatex}
 % \defbibheading{bibempty}{}
 \let\ostAddBibliography\addbibresource
+
+\ifost@setspacing
+  \ifost@sensitivespacing
+    \preto{\printbibliography}{
+      \singlespacing
+    }  
+  \fi
+\fi
 
 % usage:
 %  \citet{jon90} ⇒ Jones et al. (1990)
@@ -971,7 +1055,7 @@
 
 \newcommand{\ostquote}[2][]{
   \setkeys{ostQuote}{#1} 
-  \def\ost@temp{\begin{minipage}{0.8\textwidth}%
+  \def\ost@temp{\begin{minipage}{0.8\textwidth}% 
       {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
     \end{minipage}
   }%
@@ -1008,7 +1092,9 @@
 
 \preto{\tableofcontents}{
   \ifost@setspacing
+    \ifost@sensitivespacing
     \begin{singlespace}
+    \fi
   \fi
   \hypersetup{linkcolor=black} 
   \ost@chapterwithtocfalse
@@ -1017,13 +1103,17 @@
   \hypersetup{linkcolor=ostColorLinks} 
   \ost@chapterwithtocfalse
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 
 \preto{\listoffigures}{
   \ifost@setspacing
-    \begin{singlespace}
+    \ifost@sensitivespacing
+      \begin{singlespace}
+    \fi
   \fi
   \hypersetup{linkcolor=black} 
   \ost@chapterwithtocfalse
@@ -1031,32 +1121,42 @@
 \g@addto@macro{\listoffigures}{
   \hypersetup{linkcolor=ostColorLinks} 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 
 \preto{\listoftables}{
   \ifost@setspacing
+    \ifost@sensitivespacing
     \begin{singlespace}
+    \fi
   \fi
   \hypersetup{linkcolor=black} 
 } 
 \g@addto@macro{\listoftables}{
   \hypersetup{linkcolor=ostColorLinks} 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 
 \newenvironment{ostPartialToc}{%
   \ifost@setspacing
-    \begin{singlespace}
+    \ifost@sensitivespacing
+      \begin{singlespace}
+    \fi
   \fi
   \hypersetup{linkcolor=black}
 }{%
   \hypersetup{linkcolor=ostColorLinks}
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 
@@ -1103,13 +1203,24 @@
 \define@key{ostAffidavit}{sectioning}{\def\affidavitsectioning{#1}}
 \presetkeys{ostAffidavit}{sectioning=chapter}{}%
 \newcommand{\makeaffidavit}[1][]{
-  \setkeys{ostAffidavit}{#1}
+  \setkeys{ostAffidavit}{#1} 
+  \ifost@setspacing
+    \ifost@sensitivespacing
+    \begin{singlespace}
+    \fi
+  \fi
   \csname\affidavitsectioning\endcsname{\ostAffidavitName} 
   \ostAffidavitDeclaration{} 
 
   \vspace{4\baselineskip}
   \ostAffidavitSignatureLine{}
+  \ifost@setspacing
+    \ifost@sensitivespacing
+    \end{singlespace}
+    \fi
+  \fi
 }
+
 \let\printaffidavit\makeaffidavit
 
 %% Title header defaults %% 
@@ -1256,8 +1367,9 @@
 \newcommand{\ostSubtitle}{This is a subtitle}
 \newcommand{\ostSetSubtitle}[1]{\def\ostSubtitle{#1}}
 
-\newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a}, Author two\textsuperscript{2}, \ldots} 
+\newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} \and Author two\textsuperscript{2}, \ldots} 
 \newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
+% \let\ostAuthors\author
 
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
@@ -1283,7 +1395,9 @@
 
 \newcommand{\ostMakeTitle}{% 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \begin{singlespace}
+    \fi
   \fi
   \begin{titlepage}
     \ostTitlePageBackgroundPic{}
@@ -1304,7 +1418,9 @@
     }      
   \end{titlepage}
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 \fi%
@@ -1313,7 +1429,9 @@
 
 \newcommand{\ostMakeTitle}{% 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \begin{singlespace}
+    \fi
   \fi
   \begin{titlepage}
     {\centering% 
@@ -1336,7 +1454,9 @@
     }      
   \end{titlepage} 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 \fi
@@ -1345,7 +1465,9 @@
 
 \newcommand{\ostMakeTitle}{% 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \begin{singlespace}
+    \fi
   \fi
   \begin{titlepage}
     {\centering% 
@@ -1363,7 +1485,9 @@
     }      
   \end{titlepage} 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 \fi
@@ -1372,7 +1496,9 @@
 
 \newcommand{\ostMakeTitle}{% 
   \ifost@setspacing
+    \ifost@sensitivespacing
     \begin{singlespace}
+    \fi
   \fi
   \begin{titlepage}
     \mbox{ 
@@ -1394,14 +1520,16 @@
     }
   \end{titlepage}
   \ifost@setspacing
+    \ifost@sensitivespacing
     \end{singlespace}
+    \fi
   \fi
 }
 \fi% 
 
 % new definition old macro
 \let\maketitle\ostMakeTitle
-\let\printtitle\ostMakeTitle
+\let\printtitlepage\ostMakeTitle
 
 %Set the Environments for Textsizes etc
 \newenvironment{smallpar}{\par\small}{\par}
@@ -1768,6 +1896,7 @@
     \listofrevisions
   \fi
 }
+\let\printallcontenttables\makealltables
 
 \ifost@fancytocs%
   \contentsmargin{1.8em} 
