@@ -163,8 +163,23 @@
   \fi%
 }
 
+\newif\ifost@floatbarrier
+\newif\ifost@floatbarrierpart%
+\newif\ifost@floatbarrierchapter%
+\newif\ifost@floatbarriersection%
 
-
+\define@choicekey*[KV]{open-science-thesis}{addfloatbarrierto}[\val\nr]{part, chapter, section}{%
+  \ifcase\nr\relax%
+    \ost@floatbarrierparttrue%
+    \ost@floatbarriertrue%
+  \or% 
+    \ost@floatbarrierchaptertrue%
+    \ost@floatbarriertrue%
+  \or
+    \ost@floatbarriersectiontrue%
+    \ost@floatbarriertrue%
+  \fi%
+}
 
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
@@ -416,9 +431,12 @@
   \colorlet{ostColorHeaderRule}{LightGray!30}
   \colorlet{ostColorPageNumber}{gray}
   \colorlet{ostColorPageNumberSurrounding}{gray}
-  \colorlet{ostColorLinks}{gray}
+  \colorlet{ostColorLinks}{black}
   \colorlet{ostColorCitationLinks}{black}
-    
+  \colorlet{ostColorFileLinks}{black}
+  \colorlet{ostColorMenuLinks}{black}
+  \colorlet{ostColorURLLinks}{black}
+
   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
   \xdefinecolor{ostColor@ListingBase01}{HTML}{586e75}
@@ -474,6 +492,9 @@
    \colorlet{ostColorPageNumberSurrounding}{black}
    \colorlet{ostColorLinks}{black}
    \colorlet{ostColorCitationLinks}{black}
+   \colorlet{ostColorFileLinks}{black}
+   \colorlet{ostColorMenuLinks}{black}
+   \colorlet{ostColorURLLinks}{black}
 
    \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
    \colorlet{ostColor@ListingBase00}{black}
@@ -800,10 +821,11 @@
 %%% Control floatings and captions %%%
 %%%-------------------------------------------------%%%
 
-%% Control float placement %%
 \RequirePackage{float} 
 
-\RequirePackage{placeins}
+\ifost@floatbarrier
+  \RequirePackage{placeins}
+\fi
 
 %% Control caption layout %%
 \RequirePackage[format=plain, margin=7pt, font={small,it}, labelformat=default, labelfont=bf]{caption}
@@ -819,9 +841,9 @@
 \ifost@setspacing
   \ifost@sensitivespacing
     \renewcommand*{\marginfont}{\singlespacing\color{ostColorMarginNote}\ostFontMarginNote}
-  \else
-    \renewcommand*{\marginfont}{\color{ostColorMarginNote}\ostFontMarginNote}
   \fi
+\else
+  \renewcommand*{\marginfont}{\color{ostColorMarginNote}\ostFontMarginNote}
 \fi
 
 %%%-------------------------------------------------%%%
@@ -1070,6 +1092,8 @@
     \end{minipage}
   \end{center}
 }
+% give better named alias
+\let\barquote\ostquote
 
 \g@addto@macro{\frontmatter}{
   \ost@chapterwithtocfalse
@@ -1537,6 +1561,15 @@
 \newenvironment{hugepar}{\par\huge}{\par}
 
 %% definitions for framed environments
+
+\let\tmpfigure\figure
+\let\endtmpfigure\endfigure
+\renewenvironment{figure}[1][h]{%
+   \expandafter\tmpfigure\expandafter[#1]%
+}{%
+   \endtmpfigure
+}
+
 \providecommand*{\placement}{}
 \providecommand*{\envwidth}{}
 \providecommand*{\mappath}{}
@@ -1545,17 +1578,17 @@
 \providecommand*{\envlabel}{}
 \providecommand*{\envcaption}{}
 
-\define@key{ostFramedEnvOverlay}{placement}{\renewcommand*\placement{#1}}
-\define@key{ostFramedEnvOverlay}{width}{\renewcommand*\envwidth{#1}}
-\define@key{ostFramedEnvOverlay}{mappath}{\renewcommand*\mappath{#1}}
-\define@key{ostFramedEnvOverlay}{picpath}{\renewcommand*\picturepath{#1}}
-\define@key{ostFramedEnvOverlay}{overlaytext}{\renewcommand*\overlaytextname{#1}}
-\define@key{ostFramedEnvOverlay}{label}{\renewcommand*\envlabel{#1}}
+\define@key{framedfigureOverlay}{placement}{\renewcommand*\placement{#1}}
+\define@key{framedfigureOverlay}{width}{\renewcommand*\envwidth{#1}}
+\define@key{framedfigureOverlay}{mappath}{\renewcommand*\mappath{#1}}
+\define@key{framedfigureOverlay}{picpath}{\renewcommand*\picturepath{#1}}
+\define@key{framedfigureOverlay}{overlaytext}{\renewcommand*\overlaytextname{#1}}
+\define@key{framedfigureOverlay}{label}{\renewcommand*\envlabel{#1}}
 
-\presetkeys{ostFramedEnvOverlay}{placement=H, width=0.95\textwidth, label=fig:DefaultLabel}{}%
+\presetkeys{framedfigureOverlay}{placement=H, width=0.95\textwidth, label=fig:DefaultLabel}{}%
 
-\providecommand{\ostFramedEnvOverlay}[2][]{
-  \setkeys{ostFramedEnvOverlay}{#1}
+\providecommand{\framedfigureOverlay}[2][]{
+  \setkeys{framedfigureOverlay}{#1}
   \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -1584,8 +1617,8 @@
       \end{figure}
     }
 
-\WithSuffix\providecommand\ostFramedEnvOverlay*[2][]{
-  \setkeys{ostFramedEnvOverlay}{#1}
+\WithSuffix\providecommand\framedfigureOverlay*[2][]{
+  \setkeys{framedfigureOverlay}{#1}
   \begin{figure*}
     \centering
     \begin{tikzpicture}
@@ -1614,7 +1647,7 @@
       \end{figure*}
     }
 
-% \ostFramedEnvOverlay*[% 
+% \framedfigureOverlay*[% 
 	% mappath=ost/graphics/MapPelargoniumSidoides.pdf,% 
 	% picpath=ost/graphics/Pelargoniumsidoides.png,%
 	% overlaytext=Pelargonium sidoides,%
@@ -1624,7 +1657,7 @@
 	% distribution is restricted to regions in Lesotho and South Africa.
 	% (Rot).}  
 
-% \ostFramedEnvOverlay[% 
+% \framedfigureOverlay[% 
 	% mappath=ost/graphics/MapPelargoniumSidoides.pdf,%
 	% label=fig:KaplandPelargonie]{%   
 	% Distribution of Pelargonium sidoides. Die maps was created from data
@@ -1632,14 +1665,13 @@
 	% distribution is restricted to regions in Lesotho and South Africa.
 	% (Rot).}  
 
-\define@key{ostFramedEnv}{placement}{\renewcommand*\placement{#1}}
-\define@key{ostFramedEnv}{label}{\renewcommand*\envlabel{#1}}
-\define@key{ostFramedEnv}{caption}{\renewcommand*\envcaption{#1}}
-\presetkeys{ostFramedEnv}{placement = H, label = nolabel, caption = fillme}{}%
+\define@key{framedfigure}{placement}{\renewcommand*\placement{#1}}
+\define@key{framedfigure}{label}{\renewcommand*\envlabel{#1}}
+\presetkeys{framedfigure}{placement = H, label=none}{}%
 
-\providecommand\ostframedenv[3][]{
-\setkeys{ostFramedEnv}{#1}
-  \begin{figure}[H]
+\providecommand\framedfigure[3][]{
+\setkeys{framedfigure}{#1}
+  \begin{figure}[\placement]
     \centering
     \begin{tikzpicture}
       \node[imageframe]{%
@@ -1655,9 +1687,9 @@
   \end{figure}
 } 
 
-\WithSuffix\providecommand\ostframedenv*[3][]{%
-\setkeys{ostFramedEnv}{#1}
-  \begin{figure*}[\placement]
+\WithSuffix\providecommand\framedfigure*[3][]{%
+\setkeys{framedfigure}{#1}
+  \begin{figure*}[H]
     \centering
     \begin{tikzpicture}
       \node[imageframe]{%
@@ -1675,13 +1707,13 @@
 
 % Usage: 
 
-% \ostFramedEnv[label=type:name]{%
+% \framedfigure[label=type:name]{%
   % % Content here
 % }{Caption here}
 
 % Example usage:  
 
-% \ostFramedEnv*[label=fig:distmatwo]{   
+% \framedfigure*[label=fig:distmatwo]{   
 % <<distmap_two, fig.width=10, fig.height=5, echo=FALSE, message=FALSE>>=   
   % ost_distmap(species=c('Accipiter erythronemius', 'Junco hyemalis', 'Aix sponsa'))
 % @  
@@ -1737,14 +1769,13 @@
   % a + b = c
 % \end{ostCodeEnv}
 
-
 %%%-------------------------------------------------%%%
 %%% Typographical options of the headings %%%
 %%%-------------------------------------------------%%%
 
 \RequirePackage[noindentafter,calcwidth]{titlesec}  
 
-% Note: This are the defaults
+% Note: This are the default values
 % \titleformat{\chapter}[display]
 % {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge} 
 % \titleformat{\section} 
@@ -1764,9 +1795,9 @@
 % \titlespacing*{\paragraph} {0pt}{3.25ex plus 1ex minus .2ex}{1em}
 % \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
 
+% TODO: unused atm
 % \newcommand\partialtoccontentsname{\contentsname}
 % \newcommand{\ostPartialContentHeader}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
-% TODO: unused atm
 
 \ifost@addtoctopart%
   \titleformat{\part}[display]%
@@ -1880,12 +1911,29 @@
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \fi%
 
+\ifost@floatbarrierpart
+  \preto{\part}{%
+    \FloatBarrier
+  }  
+\fi
+
+\ifost@floatbarrierchapter
+  \preto{\chapter}{%
+    \FloatBarrier
+  }  
+\fi
+
+\ifost@floatbarriersection
+  \preto{\section}{%
+    \FloatBarrier
+  }  
+\fi
+
 \RequirePackage{titletoc}
 
 % \titlecontents{ <section> }[ <left> ]{ <above-code> }
               % { <numbered-entry-format> }{ <numberless-entry-format> }
               % { <filler-page-format> }[ <below-code> ]
-
 
 % convenient for all default content tables
 \def\makealltables{
@@ -1979,24 +2027,23 @@
   \let\listofrevisions\listoftodos
 
   \def\ostSetRevisor#1{ 
-    % \ifcsname#1\endcsname\relax\else\ClassWarning{open-science-thesis}{You cannot define \csname#1\endcsname as it is a command already!}\fi
     \ifcase\value{ostCounter@Revisor}\relax
-	  \definecolor{ostColorRevisor0}{RGB}{153,216,201} 
-	  \expandafter\def\csname#1\endcsname##1{\todo[color=ostColorRevisor0]{{\sc#1}: ##1}}%
+      \definecolor{ostColorRevisor0}{RGB}{153,216,201} 
+      \expandafter\def\csname#1\endcsname##1{\todo[color=ostColorRevisor0]{{\sc#1}: ##1}}%
     \or%
-	  \definecolor{ostColorRevisor1}{RGB}{188,189,220}
-	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor1]{{\sc#1}: ##1}}%
+      \definecolor{ostColorRevisor1}{RGB}{188,189,220}
+      \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor1]{{\sc#1}: ##1}}%
     \or%
-	  \definecolor{ostColorRevisor2}{RGB}{254,232,200}
-	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor2]{{\sc#1}: ##1}}%
-	  \stepcounter{ostCounter@Revisor}%
+      \definecolor{ostColorRevisor2}{RGB}{254,232,200}
+      \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor2]{{\sc#1}: ##1}}%
+      \stepcounter{ostCounter@Revisor}%
     \or%
-	  \definecolor{ostColorRevisor3}{RGB}{253,224,221}
-	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor3]{{\sc#1}: ##1}}%
-	  \stepcounter{ostCounter@Revisor}%
+      \definecolor{ostColorRevisor3}{RGB}{253,224,221}
+      \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor3]{{\sc#1}: ##1}}%
+      \stepcounter{ostCounter@Revisor}%
     \else%
-	  \definecolor{ostColorRevisor4}{RGB}{247,252,185}
-	  \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor4]{{\sc#1}: ##1}}%
+      \definecolor{ostColorRevisor4}{RGB}{247,252,185}
+      \expandafter\def\csname#1\endcsname##1{\todo[color= ostColorRevisor4]{{\sc#1}: ##1}}%
     \fi%
     \global\stepcounter{ostCounter@Revisor}%
   }
@@ -2006,15 +2053,15 @@
   \let\listofrevisions\relax
   \def\ostSetRevisor#1{
     \ifcase\value{ostCounter@Revisor}\relax
-	  \expandafter\def\csname#1\endcsname##1{\relax}%
+      \expandafter\def\csname#1\endcsname##1{\relax}%
     \or%
-	  \expandafter\def\csname#1\endcsname##1{\relax}%
+      \expandafter\def\csname#1\endcsname##1{\relax}%
     \or%
-	  \expandafter\def\csname#1\endcsname##1{\relax}%
+      \expandafter\def\csname#1\endcsname##1{\relax}%
     \or%
-	  \expandafter\def\csname#1\endcsname##1{\relax}%
+      \expandafter\def\csname#1\endcsname##1{\relax}%
     \else%
-	  \expandafter\def\csname#1\endcsname##1{\relax}%
+      \expandafter\def\csname#1\endcsname##1{\relax}%
     \fi%
     \global\stepcounter{ostCounter@Revisor}%
   }
@@ -2037,7 +2084,7 @@
 %% To set right space after macros %%
 \RequirePackage{xspace}
 
-%% TeX typesetting parameters %%
+%% TeX fintuning parameters %%
 \clubpenalty = 9999 % No "Schusterjungen"
 \widowpenalty = 9999 % No "Hurenkinder"
 \displaywidowpenalty = 9999
@@ -2052,15 +2099,13 @@
    babel=true,%
    spacing=false]{microtype}     
 \else%
-   %% Microtype for fine-tuning of typesetting %%
    \RequirePackage[protrusion=true,%
    expansion=true,%
    babel=true,%
    tracking=true,% 
    spacing=false]{microtype}     
-
    \DeclareMicrotypeSet*[tracking]{my}% 
-          {font = */*/*/sc/*}% 
+	  {font = */*/*/sc/*}% 
    \SetTracking{encoding = *, shape = sc}{40}
 \fi 
 
@@ -2077,9 +2122,9 @@
    colorlinks=true,%
    linkcolor=ostColorLinks,
    citecolor=ostColorCitationLinks,%
-   filecolor=ostColorLinks,%
-   menucolor=ostColorLinks,%	
-   urlcolor=ostColorLinks,%
+   filecolor=ostColorFileLinks,%
+   menucolor=ostColorMenuLinks,%	
+   urlcolor=ostColorURLLinks,%
    breaklinks=true,%
    raiselinks=true,%
    pdfauthor={Open-Science-Thesis},%
@@ -2093,7 +2138,7 @@
 %  \url{URL}
 %  \nolinkurl{URL}
 
-% Note: load glossaries after hyperref!
+% Note: load glossaries always after hyperref!
 \RequirePackage[xindy, acronym, toc]{glossaries} 
 \RequirePackage{glossaries-babel}
 
