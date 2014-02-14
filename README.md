@@ -92,6 +92,9 @@ class option:
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
+Some of the titlepage have additional fields or setter commands associated with
+them which are listed along with the layout theme examples below.
+
 - vertical
 
 ```
