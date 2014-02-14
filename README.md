@@ -54,7 +54,7 @@ size of literally any element in your document.
 ```
 
 As you can see you can set content, font and color on of an element, here the
-`Title` that appears on our titlepage. For more see sections below.
+`Title` that appears on our titlepage. For more see the sections below.
 
 
 ### Titlepages
@@ -85,8 +85,8 @@ same.
 \end{document}
 ```
 
-You can change the titlepage layout to four predefined styles via a class
-option:
+You can change the titlepage layout to one of four predefined styles via a
+class option:
 
 ```
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
