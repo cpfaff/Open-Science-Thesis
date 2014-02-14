@@ -4,18 +4,18 @@
 
 The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
-document scaffold which is thought to be forked and used for scientific thesis
-writing on GitHub. The document combines the typesetting capabilities of LaTeX
-with the R programming language for statistics, using the
-[Knitr](http://yihui.name/knitr/) package. This combination allows for the
-creation of executable documents that enhance the reproducibility of your
-research documents.
+document scaffold (or project) which is thought to be forked and used for
+scientific thesis writing on GitHub. The document combines the typesetting
+capabilities of LaTeX with the R programming language for statistics, using the
+[Knitr](http://yihui.name/knitr/) R package. This combination allows to create
+executable documents that enhance the reproducibility of your research
+documents.
 
 The Open-Science-Thesis offers a clean and logical folder structure and lots of
 examples of typical typesetting requirements to help you typeset your thesis.
 It comes with a makefile that helps you to compile, clean and archive the
 document. For an example see the PDF file inside of the repository or have a
-look into the impressions section below.
+look into the sections below.
 
 ### Development Note
 
@@ -26,8 +26,8 @@ PDF is not possible!
 
 ### Use LaTeX-Class only
 
-If you do not like to use the the complete document scaffold presented here you
-can also use stand along LaTeX-Class in your documents. You need to
+If you do not like to use the complete document scaffold presented here you can
+also use stand along LaTeX-Class in your documents. You need to
 [download](http://bit.ly/1dowUNP) the class file save it next to your document
 tex file and then include and load it in your preamble with:
 
@@ -40,8 +40,8 @@ tex file and then include and load it in your preamble with:
 
 The open_science_thesis latex class is based on several fine LaTeX packages and
 serves you a nice and clean user interface to handle most of your typesetting
-requirements. You can handle linespacing, justification and various other
-paramters globally by class options. Additionally there are a handful of
+requirements. You can handle line spacing, justification and various other
+parameters globally by class options. Additionally there are a handful of
 commands that you can use in your preamble to set content, control the color or
 size of literally any element in your document.
 
@@ -53,15 +53,16 @@ size of literally any element in your document.
 \ostSetColor{Title}{green}
 ```
 
-As you can see you can set content, font and color on of an element, here the
-`Title` that appears on our title-page. For more see the sections below.
+As you can see you can set content, font and color on of an element by using
+its name, here the `Title` that appears on the documents title-page. For more
+see the sections below.
 
-Notably is as well that you can distinguish between commands that go into the
-preamble and the ones you can use in your document body by their casing. While
-the camel case commands always have to go into the preamble the small case only
-are suitable for your document body.
+Notably is that you can distinguish between commands that go into the preamble
+and the ones you can use in your document body by their casing. While the camel
+case commands always have to go into the preamble the small case only are
+suitable for your document body.
 
-### Titlepages
+### Title pages
 
 In order to get a title-page you need to set the contents of the title-page
 fields in your preamble. As the class defines defaults for the fields you need
@@ -96,8 +97,8 @@ class option:
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
-Some of the title-page have additional fields or setter commands associated with
-them which are listed along with the layout theme examples below.
+Some of the title-page have additional fields or setter commands associated
+with them which are listed along with the layout theme examples below.
 
 - vertical
 
@@ -178,7 +179,7 @@ You can set the font shapes sizes and colors on the title page:
 
 ![fancytoc](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/toc_fancy_blue.png)
 
-- Nice formatted parts and partial tocs either on part
+- Nice formatted parts and partial table of contents either on part
 
 ```latex
 \documentclass[toctosection=part]{open_science_thesis}
@@ -222,7 +223,7 @@ The class comes with four predefined color schemes. You can choose by class opti
 
 You can set the color of almost any element in the document. The most prominent
 elements that follow the color theme are the title page elements, sections and
-the label for the captions. You can set your own colortheme by setting the
+the label for the captions. You can set your own color theme by setting the
 following elements colors in your preamble:
 
 ```latex
@@ -319,21 +320,21 @@ You can modify fonts globally by class option.
 
 ### Global formatting
 
-You can change the linespacing globally by `linespacing` class option.
+You can change the line spacing globally by `linespacing` class option.
 
 ```latex
 \documentclass[linespacing={onehalfspacing, doublespacing}]{open_science_thesis}
 ```
 
-* `onehalfspacing` switches globally to onehalfspacing
-* `doublespacing` switches globally doublespacing
+* `onehalfspacing` switches globally to one and half space
+* `doublespacing` switches globally double space
 
-But globally does not mean it affekts all elements. I is selectively applied to
-some elements only. It does not affect the titlepage or any of the table of
-contents neither the marginnotes nor bullet, numbered or description lists.
+But globally does not mean it affects all elements. I is selectively applied to
+some elements only. It does not affect the title-page or any of the table of
+contents neither the margin notes nor bullet, numbered or description lists.
 There is also no space adjustment applied to the affidavit and the bibliography
 content. If you prefer to have the line spacing applied on any content in you
-doument you need to disable `sensitivespacing`.
+document you need to disable `sensitivespacing`.
 
 ```latex
 \documentclass[sentivspacing=false]{open_science_thesis}
@@ -348,7 +349,7 @@ You can change the justification globally by the `justification` class option.
 ### Float control
 
 You can add float barriers to various headers so you get a better control over
-floats.  That will ensure floats will not float over one of these and will just
+floats. That will ensure floats will not float over one of these and will just
 printed out before latex goes on with next sectioning.
 
 ```latex
@@ -363,7 +364,7 @@ You can modify the style of your bibliography:
 \documentclass[style=, citestyle=, bibstyle=, natbib=]{open_science_thesis}
 ```
 
-Then add a bibfile in your preamble
+Then add a bibliography file `*.bib` in your preamble
 
 ```latex
 \ostAddBibliography{path/to/test.bib}
@@ -425,7 +426,7 @@ culpa qui officia deserunt mollit anim id est laborum \Claas{This is so nice}
 ```
 
 You can compile the document in revision mode. This will set up the page to be
-larger but keeps the typesetting area the same. Additionally linenumbers are
+larger but keeps the typesetting area the same. Additionally line numbers are
 enabled and comments from revisors (see above) are shown as side notes. If you
 remove the option again then the comments of revisors are ignored.
 
@@ -442,15 +443,16 @@ This mechanism is picking colors automatically for 5 different revisors.
 
 ### Affidavit
 
-You can set up a predefined affidavit using one signel command.
+You can set up a predefined affidavit using one single command.
 
 ```latex
+% alias: printaffidavit
 \makeaffidavit
 ```
 
 ![revision](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/affidavit_page.png)
 
-The contents can be changed
+The contents of the affidavit can be changed with:
 
 ```latex
 \ostSetContent{AffidavitName}{Declaration}
@@ -461,6 +463,9 @@ The contents can be changed
 
 ### Set predefined names
 
+LaTeX has some built in names that follow the language you use with the babel
+package. You can change the names with:
+
 ```latex
 \ostSetContent{TableOfContentsName}{Content}
 \ostSetContent{ListOfFiguresName}{Figures}
@@ -469,11 +474,10 @@ The contents can be changed
 \ostSetContent{AffidavitName}{Declaration}
 ```
 
-
 ## See also
 
-The Open-Science-Thesis is one of a series of document classes. You might also
-be interested in one of the following repositories.
+The Open-Science-Thesis is one of a series of document classes or project
+scaffolds. You might also be interested in one of the following repositories.
 
 - [Open-Science-Paper](https://github.com/cpfaff/Open-Science-Paper)
 - [Open-Science-Poster](https://github.com/cpfaff/Open-Science-Poster)
@@ -490,4 +494,3 @@ Do you like the Open-Science-Thesis repository? You are welcome to follow me on
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cpfaff/open-science-thesis/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
