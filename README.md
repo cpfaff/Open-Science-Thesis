@@ -250,6 +250,8 @@ You can modify fonts globally by class option.
 
 ### Global formatting
 
+You can change the linespacing globally by `linespacing` class option.
+
 ```
 \documentclass[linespacing={onehalfspacing, doublespacing}]{open_science_thesis}
 ```
@@ -263,9 +265,27 @@ contents, marginnotes or bullet and numbered lists. There is also no
 doublespace in affidavit and in the bibliography.
 
 If you prefer to have more linespacing on any element in the document you have
-to set the class options like this.
+to add the class option `sentivspacing`.
 
+```
 \documentclass[sentivspacing=false]{open_science_thesis}
+```
+
+You can change the justification globally by `justification` class option.
+
+```
+\documentclass[justification={centered, raggedleft, raggedright}]{open_science_thesis}
+```
+
+### Float control
+
+You can add float barriers to various headers so you get a better control over
+floats.  That will ensure floats will not float over one of these and will just
+printed out before latex goes on with next sectioning.
+
+```
+\documentclass[addfloatbarrierto={part, chapter, section}]{open_science_thesis}
+```
 
 ### Bibliography (based on biblatex)
 
