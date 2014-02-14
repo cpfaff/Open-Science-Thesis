@@ -328,19 +328,18 @@ You can change the linespacing globally by `linespacing` class option.
 * `onehalfspacing` switches globally to onehalfspacing
 * `doublespacing` switches globally doublespacing
 
-But globally does not mean it affekts all elements. I is sentitively applied to
-text elements only. It will not be applied on titlepage any of the table of
-contents, marginnotes or bullet and numbered lists. There is also no
-doublespace in affidavit and in the bibliography.
-
-If you prefer to have more linespacing on any element in the document you have
-to add the class option `sentivspacing`.
+But globally does not mean it affekts all elements. I is selectively applied to
+some elements only. It does not affect the titlepage or any of the table of
+contents neither the marginnotes nor bullet, numbered or description lists.
+There is also no space adjustment applied to the affidavit and the bibliography
+content. If you prefer to have the line spacing applied on any content in you
+doument you need to disable `sensitivespacing`.
 
 ```
 \documentclass[sentivspacing=false]{open_science_thesis}
 ```
 
-You can change the justification globally by `justification` class option.
+You can change the justification globally by the `justification` class option.
 
 ```
 \documentclass[justification={centered, raggedleft, raggedright}]{open_science_thesis}
