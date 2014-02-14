@@ -36,8 +36,6 @@ tex file and then include and load it in your preamble with:
 ...
 ```
 
-
-
 ## User interface
 
 The open_science_thesis latex class is based on several fine LaTeX packages and
