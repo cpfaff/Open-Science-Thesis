@@ -92,9 +92,6 @@ class option:
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
-An set the contents for all titlepages with:
-
-
 - vertical
 
 ```
