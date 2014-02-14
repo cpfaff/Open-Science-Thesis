@@ -27,7 +27,7 @@ PDF is not possible!
 ### Use LaTeX-Class only
 
 If you do not like to use the complete document scaffold presented here you can
-also use stand along LaTeX-Class in your documents. You need to
+also only use the LaTeX-Class as document class in your documents. You need to
 [download](http://bit.ly/1dowUNP) the class file save it next to your document
 tex file and then include and load it in your preamble with:
 
