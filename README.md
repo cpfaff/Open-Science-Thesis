@@ -129,7 +129,7 @@ Sets up a text centered image for title-page background.
 - `voffset` adjust image vertically
 - `hoffset` adjust image horizontally
 
-```latex`
+```latex
 % set opacity of overlay for better reading of title content
 % set between 0-1
 \ostSetOpacity{TitleOverlay}{0.7}
