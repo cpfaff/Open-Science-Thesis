@@ -47,7 +47,7 @@ size of literally any element in your document.
 
 * Example for the user interface:
 
-```
+```latex
 \ostSetContent{Title}{This is the title of my document}
 \ostSetFont{Title}{\Huge}
 \ostSetColor{Title}{green}
@@ -67,7 +67,7 @@ In order to get a title-page you need to set the contents of the title-page
 fields in your preamble. As the class defines defaults for the fields you need
 to set the content to empty if you decide not to use a field.
 
-```
+```latex
 \ostSetContent{Title}{My own title}
 \ostSetContent{Subtitle}{The subtitle}
 \ostSetContent{Authors}{Authors}
@@ -82,7 +82,7 @@ In your document body then use the command `\maketitle` to print out the
 title-page. There is also an alias called `\printtitle` which does exactly the
 same.
 
-```
+```latex
 \begin{document}
 	% printtitle
 	\maketitle
@@ -92,7 +92,7 @@ same.
 You can change the title-page layout to one of four predefined styles via a
 class option:
 
-```
+```latex
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
@@ -101,7 +101,7 @@ them which are listed along with the layout theme examples below.
 
 - vertical
 
-```
+```latex
 % set the text on the bar
 \ostSetContent{TextOnBar}{Text on vertical bar}
 \ostSetFont{TextOnBar}{\Huge}
@@ -116,7 +116,7 @@ them which are listed along with the layout theme examples below.
 
 - image
 
-```
+```latex
 % set image
 \ostSetImage{TitlepageBackground}{pathto/image.png}
 % or with options
@@ -129,7 +129,7 @@ Sets up a text centered image for title-page background.
 - `voffset` adjust image vertically
 - `hoffset` adjust image horizontally
 
-````
+```latex`
 % set opacity of overlay for better reading of title content
 % set between 0-1
 \ostSetOpacity{TitleOverlay}{0.7}
@@ -154,7 +154,7 @@ You can set the font shapes sizes and colors on the title page:
 
 * colors
 
-```
+```latex
 \ostSetColor{Title}{SteelBlue}
 \ostSetColor{Subtitle}{SteelBlue}
 \ostSetColor{Authors}{SteelBlue}
@@ -164,7 +164,7 @@ You can set the font shapes sizes and colors on the title page:
 
 * fonts
 
-```
+```latex
 \ostSetFont{Title}{\Huge}
 \ostSetFont{Subtitle}{\Large\textbf}
 \ostSetFont{Authors}{...}
@@ -180,7 +180,7 @@ You can set the font shapes sizes and colors on the title page:
 
 - Nice formatted parts and partial tocs either on part
 
-```
+```latex
 \documentclass[toctosection=part]{open_science_thesis}
 ```
 
@@ -188,7 +188,7 @@ You can set the font shapes sizes and colors on the title page:
 
 - or chapter sections
 
-```
+```latex
 \documentclass[toctosection=chapter]{open_science_thesis}
 ```
 
@@ -198,7 +198,7 @@ You can set the font shapes sizes and colors on the title page:
 
 The class comes with four predefined color schemes. You can choose by class option:
 
-```
+```latex
 \documentclass[colortheme=orange]{open_science_thesis}
 ```
 
@@ -225,7 +225,7 @@ elements that follow the color theme are the title page elements, sections and
 the label for the captions. You can set your own colortheme by setting the
 following elements colors in your preamble:
 
-```
+```latex
 \ostSetColor{Title}{DarkOrange}
 \ostSetColor{Subtitle}{DarkOrange}
 \ostSetColor{ChapterHeader}{DarkOrange}
@@ -238,7 +238,7 @@ following elements colors in your preamble:
 
 Other elements you can change directly:
 
-```
+```latex
 \ostSetColor{ostColorTitleRule}{black}
 \ostSetColor{ostColorTitleRuleVertical}{black}
 \ostSetColor{ostColorTextOnBar}{black}
@@ -286,7 +286,7 @@ You can change them for example using a style file. That you include into the
 preamble then. Or use the `\makeatletter .... \makeatother` combination in your
 preamble to allow the use of at to set them:
 
-```
+```latex
 \makeatletter
 \ostSetColor{@ListingBackground}{gray}
 \ostSetColor{@ListingBase00}{gray}
@@ -312,7 +312,7 @@ preamble to allow the use of at to set them:
 
 You can modify fonts globally by class option.
 
-```
+```latex
 \documentclass[fontchoice={lmodern, libertine, times, palatino, utopia}]{open_science_thesis}
 % defaults to libertine fonts
 ```
@@ -321,7 +321,7 @@ You can modify fonts globally by class option.
 
 You can change the linespacing globally by `linespacing` class option.
 
-```
+```latex
 \documentclass[linespacing={onehalfspacing, doublespacing}]{open_science_thesis}
 ```
 
@@ -335,13 +335,13 @@ There is also no space adjustment applied to the affidavit and the bibliography
 content. If you prefer to have the line spacing applied on any content in you
 doument you need to disable `sensitivespacing`.
 
-```
+```latex
 \documentclass[sentivspacing=false]{open_science_thesis}
 ```
 
 You can change the justification globally by the `justification` class option.
 
-```
+```latex
 \documentclass[justification={centered, raggedleft, raggedright}]{open_science_thesis}
 ```
 
@@ -351,7 +351,7 @@ You can add float barriers to various headers so you get a better control over
 floats.  That will ensure floats will not float over one of these and will just
 printed out before latex goes on with next sectioning.
 
-```
+```latex
 \documentclass[addfloatbarrierto={part, chapter, section}]{open_science_thesis}
 ```
 
@@ -359,13 +359,13 @@ printed out before latex goes on with next sectioning.
 
 You can modify the style of your bibliography:
 
-```
+```latex
 \documentclass[style=, citestyle=, bibstyle=, natbib=]{open_science_thesis}
 ```
 
 Then add a bibfile in your preamble
 
-```
+```latex
 \ostAddBibliography{path/to/test.bib}
 ```
 
@@ -374,13 +374,13 @@ Then add a bibfile in your preamble
 * `compactlist` gives you more compact lists
 * `fancylist` redefines the spacing and symbols used in lists
 
-```
+```latex
 \documentclass[compactlist={true,false}, fancylist={true,false}]{open_science_thesis}
 ```
 
 ### Quotations
 
-```
+```latex
 \barquote[author=test]{You nice quote}
 % author is optional
 ```
@@ -389,7 +389,7 @@ Then add a bibfile in your preamble
 
 ### Frames for images
 
-```
+```latex
 \framedfigure[placement={H,h,t,b,p}, label=yourlabel]{\includegraphics...}{caption}
 ```
 
@@ -409,13 +409,13 @@ Then add a bibfile in your preamble
 
 Set up revisors:
 
-```
+```latex
 \ostSetRevisor{Claas}
 ```
 
 Then you can comment using revisor name in the document.
 
-```
+```latex
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
 nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -429,7 +429,7 @@ larger but keeps the typesetting area the same. Additionally linenumbers are
 enabled and comments from revisors (see above) are shown as side notes. If you
 remove the option again then the comments of revisors are ignored.
 
-```
+```latex
 \documentclass[revision=true]{open_science_thesis}
 ```
 
@@ -444,7 +444,7 @@ This mechanism is picking colors automatically for 5 different revisors.
 
 You can set up a predefined affidavit using one signel command.
 
-```
+```latex
 \makeaffidavit
 ```
 
@@ -452,7 +452,7 @@ You can set up a predefined affidavit using one signel command.
 
 The contents can be changed
 
-```
+```latex
 \ostSetContent{AffidavitName}{Declaration}
 \ostSetContent{AffidavitDeclaration}{This work has been done by me and nobody else!}
 \ostSetContent{AffidavitDate}{19.11.1981}
@@ -461,7 +461,7 @@ The contents can be changed
 
 ### Set predefined names
 
-```
+```latex
 \ostSetContent{TableOfContentsName}{Content}
 \ostSetContent{ListOfFiguresName}{Figures}
 \ostSetContent{ListOfTablesName}{Tables}
