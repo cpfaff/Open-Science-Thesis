@@ -42,8 +42,8 @@ The open_science_thesis latex class is based on several fine LaTeX packages and
 serves you a nice and clean user interface to handle most of your typesetting
 requirements. You can handle linespacing, justification and various other
 paramters globally by class options. Additionally there are a handful of
-commands that you can use in your preamble to set content, control  the color
-or spacing of literally any element in your document.
+commands that you can use in your preamble to set content, control the color or
+size of literally any element in your document.
 
 * Example for the user interface:
 
@@ -59,6 +59,32 @@ As you can see you can set content, font and color on of an element here the
 
 ### Titlepages
 
+In order to get a titlepage you need to set the contents of the titlepage
+fields in your preamble. As the class defines defaults for the fields you need
+to set the content to empty if you decide not to use a field.
+
+```
+\ostSetContent{Title}{My own title}
+\ostSetContent{Subtitle}{The subtitle}
+\ostSetContent{Authors}{Authors}
+\ostSetContent{Date}{10.10.1983}
+\ostSetContent{AdvisorOne}{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
+\ostSetContent{AdvisorTwo}{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
+% example where advisor two is not used
+\ostSetContent{AdvisorTwo}{}
+```
+
+In your document body then use the command `\maketitle` to print out the
+titlepage. There is also an alias called `\printtitle` which does exactly the
+same.
+
+```
+\begin{document}
+	% printtitle
+	\maketitle
+\end{document}
+```
+
 You can change the titlepage layout to four predefined styles via a class
 option:
 
@@ -68,14 +94,6 @@ option:
 
 An set the contents for all titlepages with:
 
-```
-\ostSetContent{Title}{My own title}
-\ostSetContent{Subtitle}{The subtitle}
-\ostSetContent{Authors}{Authors}
-\ostSetContent{Date}{10.10.1983}
-\ostSetContent{AdvisorOne}{Advisor: \\ Markus Muggel\\ Hogstreet 1\\ Telephone 1234234}
-\ostSetContent{AdvisorTwo}{Alexus Quercus\\ Hogstreet 1\\ Telephone 1234234}
-```
 
 - vertical
 
