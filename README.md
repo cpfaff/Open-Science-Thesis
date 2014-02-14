@@ -56,6 +56,10 @@ size of literally any element in your document.
 As you can see you can set content, font and color on of an element, here the
 `Title` that appears on our titlepage. For more see the sections below.
 
+Notably is as well that you can distiguish betwenn commands that go into the
+preamble and the ones you can use in your doucument body by their casing. While
+the camel case commands always have to go into the preamble the small case only
+are suitable for your document body.
 
 ### Titlepages
 
@@ -100,6 +104,8 @@ them which are listed along with the layout theme examples below.
 ```
 % set the text on the bar
 \ostSetContent{TextOnBar}{Text on vertical bar}
+\ostSetFont{TextOnBar}{\Huge}
+\ostSetColor{TextOnBar}{red}
 ```
 
 ![vertical](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_vertical_blue.png)
@@ -113,7 +119,7 @@ them which are listed along with the layout theme examples below.
 ```
 % set image
 \ostSetImage{TitlepageBackground}{pathto/image.png}
-% or
+% or with options
 \ostSetImage[width=5cm, voffset=1cm, hoffset=1cm]{TitlepageBackground}{pathto/image.png}
 
 % set opacity of overlay for better reading of title content
