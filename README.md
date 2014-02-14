@@ -391,6 +391,17 @@ The contents can be changed
 \ostSetContent{AffidavitLocation}{Stuttgart}
 ```
 
+### Set predefined names
+
+```
+\ostSetContent{TableOfContentsName}{Content}
+\ostSetContent{ListOfFiguresName}{Figures}
+\ostSetContent{ListOfTablesName}{Tables}
+\ostSetContent{BibliographyName}{Biblio}
+\ostSetContent{AffidavitName}{Declaration}
+```
+
+
 ## See also
 
 The Open-Science-Thesis is one of a series of document classes. You might also
