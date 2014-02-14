@@ -53,8 +53,8 @@ size of literally any element in your document.
 \ostSetColor{Title}{green}
 ```
 
-As you can see you can set content, font and color on of an element here the
-`Title` that appears on the titlepage. For more see sections below.
+As you can see you can set content, font and color on of an element, here the
+`Title` that appears on our titlepage. For more see sections below.
 
 
 ### Titlepages
