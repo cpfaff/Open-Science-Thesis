@@ -29,6 +29,7 @@
 \define@key[KV]{open-science-thesis}{backend}{\PassOptionsToPackage{backend = #1}{biblatex}}
 
 \newif\ifost@setspacing% 
+
 \define@key[KV]{open-science-thesis}{linespacing}{\PassOptionsToPackage{#1}{setspace}\ost@setspacingtrue}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sensitivespacing}[false]{}
 
@@ -82,11 +83,11 @@
   \fi%
 }
 
-\newif\ifost@libertine
-\newif\ifost@lmodern
-\newif\ifost@times
-\newif\ifost@palatino
-\newif\ifost@utopia
+\newif\ifost@libertine%
+\newif\ifost@lmodern%
+\newif\ifost@times%
+\newif\ifost@palatino%
+\newif\ifost@utopia%
 
 \define@choicekey*[KV]{open-science-thesis}{fontchoice}[\val\nr]{libertine, lmodern, times, palatino, utopia, false}{%
   \ifcase\nr\relax%
@@ -138,9 +139,9 @@
 
 \define@choicekey*[KV]{open-science-thesis}{revision}[\val\nr]{true, false}{%
   \ifcase\nr\relax% 
-    \ost@revisiontrue
-    \ost@linenumberstrue
-  \fi
+    \ost@revisiontrue%
+    \ost@linenumberstrue%
+  \fi%
 }
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{mathsupport}[false]{}
@@ -158,12 +159,12 @@
     \ost@raggedrighttrue%
   \or% 
     \ost@raggedlefttrue%
-  \or
+  \or%
     \ost@centeredtrue%
   \fi%
 }
 
-\newif\ifost@floatbarrier
+\newif\ifost@floatbarrier%
 \newif\ifost@floatbarrierpart%
 \newif\ifost@floatbarrierchapter%
 \newif\ifost@floatbarriersection%
@@ -175,7 +176,7 @@
   \or% 
     \ost@floatbarrierchaptertrue%
     \ost@floatbarriertrue%
-  \or
+  \or%
     \ost@floatbarriersectiontrue%
     \ost@floatbarriertrue%
   \fi%
@@ -230,6 +231,7 @@
 \ifost@setspacing
   \RequirePackage{setspace}
 \fi
+
 % enable and disable chaptertocs as it is not required 
 % to have them everywhere even if chapter toc is enabled
 \newif\ifost@chapterwithtoc%
@@ -270,17 +272,17 @@
   \RequirePackage{fourier}
 \fi%
 
-\ifost@mathsupport
+\ifost@mathsupport%
   \RequirePackage{amsmath} 
   \RequirePackage{amssymb}
   \RequirePackage{mathtools}
-\fi
+\fi%
 
-\ifost@symbolsupport
+\ifost@symbolsupport%
   \RequirePackage{wasysym}
   \RequirePackage{marvosym}
   \RequirePackage{textcomp}
-\fi
+\fi%
 
 %%%-------------------------------------------------%%%
 %%% Patches and tools %%%
@@ -524,13 +526,9 @@
    \RequirePackage{gitinfo} 
    % TODO: make settable the font
    \newcommand{\ostGitUrl}{\tiny{\href{ostGitUrl}{https://github.com/cpfaff/Open-Science-Thesis}}}
-   \newcommand{\ostSetGitUrl}[1]{\def\ostGitUrl{#1}}
-
    \newcommand{\ostGitInfoLine}{{\tiny Version from commit by \gitAuthorEmail~on~\gitAuthorDate; Source on: \ostGitUrl}\par}
-   \newcommand{\ostSetGitInfoLine}[1]{\def\ostGitInfo{#1}}
 \else%
    \newcommand{\ostGitInfoLine}{}
-   \newcommand{\ostSetGitInfoLine}[1]{\def\ostGitInfo{#1}}
 \fi%
 
 %%%-------------------------------------------------%%%
@@ -543,16 +541,10 @@
 }
 \fancyhf{}
 
-% Set the footer contents 
 \newcommand{\ostPageNumbering}{\relax}
 \newcommand{\ostSetPageNumbering}[1]{\def\ostPageNumbering{#1}}
-
-% create setter commands for color
 \newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
-\newcommand{\ostSetFooterRuleColor}[1]{\gdef\ostFooterRuleColor{#1}}
-
 \newcommand{\ostHeaderRuleColor}{ostColorHeaderRule} 
-\newcommand{\ostSetHeaderRuleColor}[1]{\gdef\ostHeaderRuleColor{#1}}
 
 % create lengths
 \newlength{\ostLengthHeaderRuleWidth} 
@@ -851,45 +843,40 @@
 %%%-------------------------------------------------%%%
 
 %% Professional tables %%
+
 \RequirePackage{booktabs}
+
 % useage:
 %	\toprule
 %	\midrule
 %	\bottomrule
 % 	\cmidrule{from column #. - to column #}
 
-%% Extended table functions %%
+%% More column types %%
+
 \RequirePackage{tabularx}
 
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
 % usage:
 %  R{column width} for raggedright column in certain width
 %  C{column width} for centered column in certain width
 
-%% Aggregate cells column and row wise %%
+%% Collapse fields rowise %%
+
 \RequirePackage{multirow}
+
 % usage:
 %  Horizontal aggregation of table cells
 %	 \multicolumn{count of columns}{alignment}{text}
+
 %  Vertical aggregation of table cells  
 %	 \multirow{count of rows}{width}{text}
 
-%% Tables spanning multiple pages %%
+%% Tables over multiple pages %%
 \RequirePackage{longtable}
-
-% \definecolor{DarkKhaki}{rgb}{0.74,0.72,0.42}
-% \colorlet{tableheadcolor}{DarkKhaki}
-% \newcommand{\theader}{\rowcolor{tableheadcolor}}
-% \colorlet{tablerowcolor}{DarkKhaki!50} 
-% \newcommand{\trow}{\rowcolor{tablerowcolor}}
-% \newenvironment{tabledata}[1][1]{%
-  % \renewcommand*{\extrarowheight}{0.1cm}%
-  % \tabular%
-% }{%
-  % \endtabular
-% }
 
 %%%-------------------------------------------------%%%
 %%% Multi column documents %%%
@@ -928,17 +915,15 @@
 % }
 
 %%%-------------------------------------------------%%%
-%%% Bibliography options %%%
+%%% Bibliography %%%
 %%%-------------------------------------------------%%%
 
-%% citation management %% 
 \RequirePackage{biblatex}
-% \defbibheading{bibempty}{}
-\let\ostAddBibliography\addbibresource
 
+\let\ostAddBibliography\addbibresource
 \ifost@setspacing
   \ifost@sensitivespacing
-    \preto{\printbibliography}{
+    \preto{\printbibliography}{%
       \singlespacing
     }  
   \fi
@@ -1005,11 +990,13 @@
 %  \prettyref{Fig:my_figure_label}
 
 %%%-------------------------------------------------%%%
-%%% Options for code listings in your document %%%
+%%% Code listings %%%
 %%%-------------------------------------------------%%%
 
 \RequirePackage{listings}
- 
+
+\def\ostFont@ListingBasic{\footnotesize\ttfamily}
+
 \lstset{%
    upquote=true,%
    columns=fixed,%
@@ -1045,16 +1032,15 @@
    {~}{{\textasciitilde}}1
 }
 
-% For inline code listings (may be refined with a tikz frame)
+% Inline code listings  (TODO: refine with tikz frame)
 \newcommand{\inlinecode}[1]{\colorbox{ostColorAtListingBackground}{\lstinline|#1|}}
+
 % Usage: 
 %       \inlinecode{a=a+b} 
 
 %%%-------------------------------------------------%%%
-%%% Definition of environments %%%
+%%% Bar-Quote  %%%
 %%%-------------------------------------------------%%%
-
-% nice formatted quotation environment
 
 \providecommand*{\ostQuoteAuthor}{}
 \define@key{ostQuote}{author}{\renewcommand*\ostQuoteAuthor{#1}}
@@ -1092,7 +1078,8 @@
     \end{minipage}
   \end{center}
 }
-% give better named alias
+
+% provide alias
 \let\barquote\ostquote
 
 \g@addto@macro{\frontmatter}{
@@ -1133,16 +1120,16 @@
   \fi
 }
 
-\preto{\listoffigures}{
-  \ifost@setspacing
-    \ifost@sensitivespacing
+\preto{\listoffigures}{%
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
       \begin{singlespace}
-    \fi
-  \fi
+    \fi%
+  \fi%
   \hypersetup{linkcolor=black} 
-  \ost@chapterwithtocfalse
+  \ost@chapterwithtocfalse%
 } 
-\g@addto@macro{\listoffigures}{
+\g@addto@macro{\listoffigures}{%
   \hypersetup{linkcolor=ostColorLinks} 
   \ifost@setspacing
     \ifost@sensitivespacing
@@ -1184,7 +1171,9 @@
   \fi
 }
 
-% affidavit
+%%%-------------------------------------------------%%%
+%%% Definition of affidavit %%%
+%%%-------------------------------------------------%%%
 
 \newcommand{\ostAffidavitDeclaration}{
     I hereby declare that this document has been written only by the undersigned
@@ -1192,8 +1181,6 @@
     sources have been used in the preparation of this document other than those
     indicated in the thesis itself. 
 }
-
-\newcommand{\ostSetAffidavitDeclaration}[1]{\def\ostAffidavitDeclaration{#1}}
 
 % \AtBeginDocument{
   % \iflanguage{ngerman}{\ostSetAffidavitDeclaration{
@@ -1207,25 +1194,14 @@
 % }
 
 \newcommand{\ostAffidavitDate}{}
-\newcommand{\ostSetAffidavitDate}[1]{\def\ostAffidavitDate{#1}}
-
 \newcommand{\ostAffidavitLocation}{}
-\newcommand{\ostSetAffidavitLocation}[1]{\def\ostAffidavitLocation{#1}}
-
 \newcommand{\ostAffidavitSignatureLine}{\noindent Date:\ifdefempty{\ostAffidavitDate}{\textcolor{gray}{\dotfill}}{~\ostAffidavitDate},\hspace{0.7em}Location:\ifdefempty{\ostAffidavitLocation}{\textcolor{gray}{\dotfill}}{~\ostAffidavitLocation},\hspace{0.7em}Signature:\textcolor{gray}{\dotfill}}
-\newcommand{\ostSetAffidavitSignatureLine}[1]{\def\ostAffidavitSignatureLine{#1}}
-
 \newcommand{\ostAffidavitName}{Affidavit}
-\newcommand{\ostSetAffidavitName}[1]{\def\ostAffidavitName{#1}}
-
-% FIXME: Make setting of built in headings possible via the interface
-% \newcommand{\ostTableOfContentsName}{Test}
-% \newcommand{\ostSetTableOfContentsName}[1]{\expandafter\renewcommand\expandafter\contentsname{#1}}
-% \ostSetTableOfContentsName{\ostTableOfContentsName}
 
 \newcommand{\affidavitsectioning}{chapter}
 \define@key{ostAffidavit}{sectioning}{\def\affidavitsectioning{#1}}
 \presetkeys{ostAffidavit}{sectioning=chapter}{}%
+
 \newcommand{\makeaffidavit}[1][]{
   \setkeys{ostAffidavit}{#1} 
   \ifost@setspacing
@@ -1247,9 +1223,11 @@
 
 \let\printaffidavit\makeaffidavit
 
-%% Title header defaults %% 
+%%%-------------------------------------------------%%%
+%%% Definition of titlepage %%%
+%%%-------------------------------------------------%%%
 
-% Define all fonts
+% fonts
 
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
 \newcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
@@ -1258,59 +1236,46 @@
 \newcommand{\ostFontDate}{\normalfont\sffamily\small}    
 \newcommand{\ostFontAdvisors}{\normalfont\sffamily\normalsize}  
 
-% Define all lengths
+% lengths
 
 \newlength{\ostHeightOfTitleBeforeReduceSize} 
 \setlength{\ostHeightOfTitleBeforeReduceSize}{2\baselineskip} 
-
 \newlength{\ostLengthTitleSpacerTitleRuleUpper} 
 \setlength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
-
 \newlength{\ostLengthTitleSpacerTitleRuleLower} 
 \setlength{\ostLengthTitleSpacerTitleRuleLower}{2em} 
-
 \newlength{\ostLengthTitleRuleWidth}
 \setlength{\ostLengthTitleRuleWidth}{3pt}
-
 \newlength{\ostLengthTitleRuleWidthVertical}
 \setlength{\ostLengthTitleRuleWidthVertical}{3pt}
-
-\newcommand{\ostTitleStretchAbove}{\vspace*{\stretch{1}}}  
-\newcommand{\ostSetTitleStretchAbove}[1]{\def\ostTitleStretchAbove{#1}} 
-
-\newcommand{\ostTitleStretchBelow}{\vspace*{\stretch{2}}} 
-\newcommand{\ostSetTitleStretchBelow}[1]{\def\ostTitleStretchBelow{#1}} 
-
-\newcommand{\ostTitleSpacerTitleRuleUpper}{\vspace{\ostLengthTitleSpacerTitleRuleUpper}}
-\newcommand{\ostTitleSpacerTitleRuleLower}{\vspace{\ostLengthTitleSpacerTitleRuleLower}}
-
-% Define aesthetics 
-
 \newlength{\ostLengthBackgroundPicVoffset} 
 \setlength\ostLengthBackgroundPicVoffset{0pt}
-
 \newlength{\ostLengthBackgroundPicHoffset} 
 \setlength\ostLengthBackgroundPicHoffset{0pt}
 
+% getter and setter
+\newcommand{\ostTitleStretchAbove}{\vspace*{\stretch{1}}}  
+\newcommand{\ostSetTitleStretchAbove}[1]{\def\ostTitleStretchAbove{#1}} 
+\newcommand{\ostTitleStretchBelow}{\vspace*{\stretch{2}}} 
+\newcommand{\ostSetTitleStretchBelow}[1]{\def\ostTitleStretchBelow{#1}} 
+\newcommand{\ostTitleSpacerTitleRuleUpper}{\vspace{\ostLengthTitleSpacerTitleRuleUpper}}
+\newcommand{\ostTitleSpacerTitleRuleLower}{\vspace{\ostLengthTitleSpacerTitleRuleLower}}
+
 \providecommand*{\widthOfTitlepageImage}{}
+
 \define@key{ostSetImage}{width}{\renewcommand*\widthOfTitlepageImage{#1}}
 \define@key{ostSetImage}{voffset}{\setlength\ostLengthBackgroundPicVoffset{#1}}
 \define@key{ostSetImage}{hoffset}{\setlength\ostLengthBackgroundPicHoffset{#1}}
-
 \presetkeys{ostSetImage}{width=\textwidth, voffset=0pt, hoffset=0pt}{}%
-
 \newsavebox\ostImageTitlepageBackground
-
 \newcommand{\ostSetImage}[3][]{%
     \setkeys{ostSetImage}{#1}
     \expandafter\savebox\csname ostImage#2\endcsname{\IfFileExists{#3}{\includegraphics[width=\widthOfTitlepageImage, keepaspectratio]{#3}}{\scalebox{2}{\color{red}Image file not found or set!}}}
 }
-
 \newcommand{\ostTitlePageBackgroundPic}[1]{
   \AddToShipoutPicture*{\AtTextCenter{%
     \hspace*{\ostLengthBackgroundPicHoffset}\raisebox{\ostLengthBackgroundPicVoffset}{\makebox(0,0){\ostTitleStretchAbove{}\usebox\ostImageTitlepageBackground\ostTitleStretchBelow{}
 }}}}}
-
 \ostSetImage{TitlepageBackground}{ost/graphics/ostTitlePageBackground.pdf}
 
 % \begin{tikzpicture}[remember picture, overlay]
@@ -1364,56 +1329,17 @@
 % }%
 % }
 
-
 \newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{\ostLengthTitleRuleWidth}}}
-\newcommand{\ostSetTitleRule}[1]{\def\ostTitleRule{#1}}
-
-% Define all fields that are available and their default values
-% TODO: implement this properly? Or better remove?
 \newcommand{\ostTitle}{The open science thesis} 
-
-\newdimen\ost@HeightTitle
-\newcommand{\ostSetTitle}[1]{%
-  \def\ost@temp{\normalfont\sffamily\Huge\bfseries #1}  
-  \ifost@titlepagevertical%
-    \settototalheight\ost@HeightTitle{\parbox{0.75\textwidth}{\ost@temp}}
-  \else
-    \settototalheight\ost@HeightTitle{\parbox{\textwidth}{\ost@temp}}
-  \fi
-  \ifdim\ost@HeightTitle>\ostHeightOfTitleBeforeReduceSize
-    \ostSetFont{Title}{\normalfont\sffamily\LARGE\bfseries}
-  \else 
-    \ostSetFont{Title}{\normalfont\sffamily\Huge\bfseries}
-  \fi 
-  \def\ostTitle{#1} 
-} 
-
 \newcommand{\ostSubtitle}{This is a subtitle}
-\newcommand{\ostSetSubtitle}[1]{\def\ostSubtitle{#1}}
-
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} \and Author two\textsuperscript{2}, \ldots} 
-\newcommand{\ostSetAuthors}[1]{\def\ostAuthors{#1}}
-% \let\ostAuthors\author
-
 \newcommand{\ostInsitution}{University of XY, Department Z} 
-\newcommand{\ostSetInstitution}[1]{\def\ostInsitution{#1}}
-
 \newcommand{\ostEmail}[1]{\href{mailto:#1}{#1}} 
-
-\newcommand{\ostAdvisorOne}{Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}
-\newcommand{\ostSetAdvisorOne}[1]{\def\ostAdvisorOne{#1}}
-
-\newcommand{\ostAdvisorTwo}{PD Dr. L. Dark\\Phone: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: \ostEmail{dark@uni-baz.de}}
-\newcommand{\ostSetAdvisorTwo}[1]{\def\ostAdvisorTwo{#1}}
-
 \newcommand{\ostDate}{\today} 
-\newcommand{\ostSetDate}[1]{\def\ostDate{#1}}
-
 \newcommand{\ostFontTextOnBar}{\huge}
-\newcommand{\ostSetFontTextOnBar}[1]{\def\ostFontTextOnBar{#1}}
-
 \newcommand{\ostTextOnBar}{\textcolor{LightGray}{Open~-~}\textcolor{gray}{Science}\textcolor{LightGray}{~-~Thesis}} 
-\newcommand{\ostSetTextOnBar}[1]{\def\ostTextOnBar{#1}}
+\newcommand{\ostAdvisorOne}{Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}
+\newcommand{\ostAdvisorTwo}{PD Dr. L. Dark\\Phone: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: \ostEmail{dark@uni-baz.de}}
 
 \ifost@titlepagebackgroundimage%
 
@@ -1589,7 +1515,7 @@
 
 \providecommand{\framedfigureOverlay}[2][]{
   \setkeys{framedfigureOverlay}{#1}
-  \begin{figure}[H]
+  \begin{figure}[\placement]
     \centering
     \begin{tikzpicture}
       \node[imageframe]{%
@@ -1893,7 +1819,7 @@
   \titlespacing*{\section}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-  \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
+  % \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
 
   \titleformat{\subsection}
   {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
@@ -2171,17 +2097,53 @@
 % \makeindex
 
 %%%-------------------------------------------------%%%
-%%% Do before the document starts %%%
+%%% Set the headings %%%
 %%%-------------------------------------------------%%%
 
-% \define@boolkey[KV]{open-science-thesis}[ost@]{reversepagelayout}[false]{}  
-% \ifost@reversepagelayout%
-   % \AtBeginDocument{
-      % \let\tmp\evensidemargin%
-      % \let\evensidemargin\oddsidemargin%
-      % \let\oddsidemargin\tmp%
-      % \reversemarginpar%
-   % }
-% \else% 
-   % \relax
-% \fi%
+\let\ostcontentsname\contentsname%
+\let\ostfiguresname\listfigurename%
+\let\osttablesname\listtablename%
+\let\ostbibname\bibname%
+
+\newcommand{\ostTableOfContentsName}{\ostcontentsname}
+\newcommand{\ostListOfFiguresName}{\ostfiguresname}
+\newcommand{\ostListOfTablesName}{\osttablesname}
+\newcommand{\ostBibliographyName}{\ostbibname}
+
+\addto\captionsenglish{%
+  \renewcommand{\contentsname}%
+    {\ostTableOfContentsName}%
+}
+
+\addto\captionsenglish{%
+  \renewcommand{\listfigurename}%
+    {\ostListOfFiguresName}%
+}
+
+\addto\captionsenglish{%
+  \renewcommand{\listtablename}%
+    {\ostListOfTablesName}%
+}
+
+\DefineBibliographyStrings{english}{%
+  bibliography = {\ostBibliographyName},%
+}
+
+\addto\captionsgerman{%
+  \renewcommand{\contentsname}%
+    {\ostTableOfContentsName}%
+}
+
+\addto\captionsgerman{%
+  \renewcommand{\listfigurename}%
+    {\ostListOfFiguresName}%
+}
+
+\addto\captionsgerman{%
+  \renewcommand{\listtablename}%
+    {\ostListOfTablesName}%
+}
+
+\DefineBibliographyStrings{german}{%
+  bibliography = {\ostBibliographyName},%
+}
