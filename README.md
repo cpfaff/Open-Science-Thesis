@@ -248,10 +248,52 @@ You can modify fonts globally by class option.
 % defaults to libertine fonts
 ```
 
+### Global formatting
+
+```
+\documentclass[linespacing={onehalfspacing, doublespacing}]{open_science_thesis}
+```
+
+* `onehalfspacing` switches globally to onehalfspacing
+* `doublespacing` switches globally doublespacing
+
+But globally does not mean it affekts all elements. I is sentitively applied to
+text elements only. It will not be applied on titlepage any of the table of
+contents, marginnotes or bullet and numbered lists. There is also no
+doublespace in affidavit and in the bibliography.
+
+If you prefer to have more linespacing on any element in the document you have
+to set the class options like this.
+
+\documentclass[sentivspacing=false]{open_science_thesis}
+
+### Bibliography (based on biblatex)
+
+You can modify the style of your bibliography:
+
+```
+\documentclass[style=, citestyle=, bibstyle=, natbib=]{open_science_thesis}
+```
+
+Then add a bibfile in your preamble
+
+```
+\ostAddBibliography{path/to/test.bib}
+```
+
+### Lists (spacing and symbols)
+
+* `compactlist` gives you more compact lists
+* `fancylist` redefines the spacing and symbols used in lists
+
+```
+\documentclass[compactlist={true,false}, fancylist={true,false}]{open_science_thesis}
+```
+
 ### Quotations
 
 ```
-\ostquote[author=test]{You nice quote}
+\barquote[author=test]{You nice quote}
 % author is optional
 ```
 
@@ -260,7 +302,7 @@ You can modify fonts globally by class option.
 ### Frames for images
 
 ```
-\ostframedenv{\includegraphics...}{caption}
+\framedfigure[placement={H,h,t,b,p}, label=yourlabel]{\includegraphics...}{caption}
 ```
 
 ![imageframed](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_image_framed_orange.png)
@@ -275,7 +317,7 @@ You can modify fonts globally by class option.
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
 
 
-### Revisions
+### Revisions (based on todonotes)
 
 Set up revisors:
 
