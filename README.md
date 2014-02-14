@@ -4,9 +4,9 @@
 
 The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
-document which is thought to be forked and used for scientific thesis writing
-on GitHub. The document combines the typesetting capabilities of LaTeX with the
-R programming language for statistics, using the
+document scaffold which is thought to be forked and used for scientific thesis
+writing on GitHub. The document combines the typesetting capabilities of LaTeX
+with the R programming language for statistics, using the
 [Knitr](http://yihui.name/knitr/) package. This combination allows for the
 creation of executable documents that enhance the reproducibility of your
 research documents.
@@ -19,17 +19,17 @@ look into the impressions section below.
 
 ### Development Note
 
-This repository is still in development and the commands, environments and the
-layout provided by the LaTeX class are subject to change. You might also find
-the current version in master branch in unstable state so a compilation to PDF
-is not possible!
+This project is still in lively development and the commands, environments and
+the layout provided by the LaTeX class are subject to change. You might also
+find the current version in master branch in unstable state so a compilation to
+PDF is not possible!
 
 ### Use LaTeX-Class only
 
-If you do not like to use the the document scaffold presented here you can also
-use the LaTeX-Class with your own documents. Just
-[download](https://github.com/cpfaff/Open-Science-Thesis/blob/master/ost/subdocuments/open_science_thesis.cls)
-the class and include it and load it in your preamble with:
+If you do not like to use the the complete document scaffold presented here you
+can also use stand along LaTeX-Class in your documents. You need to
+[download](http://bit.ly/1dowUNP) the class file save it next to your document
+tex file and then include and load it in your preamble with:
 
 ```
 \documentclass[options]{open_science_thesis}
@@ -37,7 +37,27 @@ the class and include it and load it in your preamble with:
 ```
 
 
-## Appetizer
+
+## User interface
+
+The open_science_thesis latex class is based on several fine LaTeX packages and
+serves you a nice and clean user interface to handle most of your typesetting
+requirements. You can handle linespacing, justification and various other
+paramters globally by class options. Additionally there are a handful of
+commands that you can use in your preamble to set content, control  the color
+or spacing of literally any element in your document.
+
+* Example for the user interface:
+
+```
+\ostSetContent{Title}{This is the title of my document}
+\ostSetFont{Title}{\Huge}
+\ostSetColor{Title}{green}
+```
+
+As you can see you can set content, font and color on of an element here the
+`Title` that appears on the titlepage. For more see sections below.
+
 
 ### Titlepages
 
