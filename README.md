@@ -31,7 +31,7 @@ can also use stand along LaTeX-Class in your documents. You need to
 [download](http://bit.ly/1dowUNP) the class file save it next to your document
 tex file and then include and load it in your preamble with:
 
-```
+```latex
 \documentclass[options]{open_science_thesis}
 ...
 ```
