@@ -54,16 +54,16 @@ size of literally any element in your document.
 ```
 
 As you can see you can set content, font and color on of an element, here the
-`Title` that appears on our titlepage. For more see the sections below.
+`Title` that appears on our title-page. For more see the sections below.
 
-Notably is as well that you can distiguish betwenn commands that go into the
-preamble and the ones you can use in your doucument body by their casing. While
+Notably is as well that you can distinguish between commands that go into the
+preamble and the ones you can use in your document body by their casing. While
 the camel case commands always have to go into the preamble the small case only
 are suitable for your document body.
 
 ### Titlepages
 
-In order to get a titlepage you need to set the contents of the titlepage
+In order to get a title-page you need to set the contents of the title-page
 fields in your preamble. As the class defines defaults for the fields you need
 to set the content to empty if you decide not to use a field.
 
@@ -79,7 +79,7 @@ to set the content to empty if you decide not to use a field.
 ```
 
 In your document body then use the command `\maketitle` to print out the
-titlepage. There is also an alias called `\printtitle` which does exactly the
+title-page. There is also an alias called `\printtitle` which does exactly the
 same.
 
 ```
@@ -89,14 +89,14 @@ same.
 \end{document}
 ```
 
-You can change the titlepage layout to one of four predefined styles via a
+You can change the title-page layout to one of four predefined styles via a
 class option:
 
 ```
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
-Some of the titlepage have additional fields or setter commands associated with
+Some of the title-page have additional fields or setter commands associated with
 them which are listed along with the layout theme examples below.
 
 - vertical
@@ -121,7 +121,15 @@ them which are listed along with the layout theme examples below.
 \ostSetImage{TitlepageBackground}{pathto/image.png}
 % or with options
 \ostSetImage[width=5cm, voffset=1cm, hoffset=1cm]{TitlepageBackground}{pathto/image.png}
+```
 
+Sets up a text centered image for title-page background.
+
+- `width` adjust with of the image
+- `voffset` adjust image vertically
+- `hoffset` adjust image horizontally
+
+````
 % set opacity of overlay for better reading of title content
 % set between 0-1
 \ostSetOpacity{TitleOverlay}{0.7}
@@ -129,6 +137,10 @@ them which are listed along with the layout theme examples below.
 % set color of overlay
 \ostSetColor{TitleOverlay}{gray}
 ```
+
+Sets up the color and the opacity of an overlay between the background image
+and the title-page contents. This can help make the contents better readable.
+This defaults to white and an opacity of 70 percent.
 
 ![image](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_image_blue.png)
 
