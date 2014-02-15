@@ -424,8 +424,18 @@ Then add a bibliography file `*.bib` in your preamble
 
 ### Code Listings (in solarized color theme)
 
+The code listings follow the solarized color theme by default.
+
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
 
+You can also have inline code listings that follow this style with the following commands.
+
+```latex
+\inlinecode{a+b=c}
+\sinlinecode{a+b=c}
+```
+
+![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/inline_listings.png)
 
 ### Revisions (based on todonotes)
 
