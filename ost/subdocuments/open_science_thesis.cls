@@ -317,8 +317,7 @@
 \newcommand{\ostDefineColor}[3]{\xdefinecolor{#1}{#2}{#3}}
 \newcommand{\ostSetOpacity}[2]{\expandafter\def\csname ostOpacity#1\endcsname{#2}}
 \newcommand{\ostSetFont}[2]{\expandafter\def\csname ostFont#1\endcsname{#2}}  
-
-% usage:
+\newcommand{\ostSet}[4]{\ostSetContent{#1}{#2} \ostSetFont{#1}{#3} \ostSetColor{#1}{#4}}
 
 %%%-------------------------------------------------%%%
 %%% Language adaption of the document %%%
@@ -1946,7 +1945,6 @@
   \newcommand{\ostRevisionName}{Notes of Revisors}
   \def\todosectioning{\section{\ostRevisionName}}
   
-  % \def\ostSetContent
   \renewcommand{\todosectioning}{\chapter{\ostRevisionName}}
 
   \renewcommand{\listoftodos}{{\todosectioning \begin{formattodo} \@starttoc{tdo} \end{formattodo} \vspace{\baselineskip}}}
