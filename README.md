@@ -428,12 +428,22 @@ The code listings follow the solarized color theme by default.
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
 
-You can also have inline code listings that follow this style with the following commands.
+You can typeset inline code listings that follow the same style using the command below.
 
 ```latex
 \inlinecode{a+b=c}
-\sinlinecode{a+b=c}
 ```
+
+You can change the inline code box style globally between `tikz` and `simple`
+with:
+
+```latex
+\documentclass[inlinecodestyle={tikz, simple}]{open_science_thesis}
+```
+
+While tikz resembles the first of the two shown in the example figure above and
+simple the second style.
+
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/inline_listings.png)
 
@@ -487,7 +497,7 @@ The contents of the affidavit can be changed with:
 
 ```latex
 \ostSetContent{AffidavitName}{Declaration}
-\ostSetContent{AffidavitDeclaration}{This work has been done by me and nobody else!}
+\ostSetContent{AffidavitText}{This work has been done by me and nobody else!}
 \ostSetContent{AffidavitDate}{19.11.1981}
 \ostSetContent{AffidavitLocation}{Stuttgart}
 ```

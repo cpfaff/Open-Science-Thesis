@@ -184,6 +184,17 @@
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{floatafter}[false]{}
 
+\newif\ifost@inlinecodestyletikz% 
+\newif\ifost@inlinecodestylesimple% 
+
+\define@choicekey*[KV]{open-science-thesis}{inlinecodestyle}[\val\nr]{tikz, simple}{%
+  \ifcase\nr\relax%
+    \ost@inlinecodestyletikztrue%
+  \or%
+    \ost@inlinecodestylesimpletrue%
+  \fi%
+}
+
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
@@ -212,6 +223,7 @@
   language=english,
   sensitivespacing=true,
   floatafter=false,
+  inlinecodestyle=tikz,
 }{}
 
 \ProcessOptionsX[KV]<open-science-thesis>
@@ -384,16 +396,18 @@
   \colorlet{ostColorPartHeader}{black} 
   \colorlet{ostColorPartHeaderNumber}{LightGray}  
   \colorlet{ostColorQuoteRule}{LightGray!30}
-    \ifost@orange%
-      \colorlet{ostColorTitle}{DarkOrange}
-      \colorlet{ostColorSubtitle}{DarkOrange}
-      \colorlet{ostColorChapterHeader}{DarkOrange} 
-      \colorlet{ostColorSectionHeader}{DarkOrange}  
-      \colorlet{ostColorSubsectionHeader}{DarkOrange}
-      \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
-      \colorlet{ostColorParagraphHeader}{DarkOrange} 
-      \colorlet{ostColorCaptionLabel}{DarkOrange}
-    \fi
+  \colorlet{ostColorInlineCodeFrame}{LightGray}
+  \colorlet{ostColorInlineCodeBackground}{LightGray!10}
+  \ifost@orange%
+    \colorlet{ostColorTitle}{DarkOrange}
+    \colorlet{ostColorSubtitle}{DarkOrange}
+    \colorlet{ostColorChapterHeader}{DarkOrange} 
+    \colorlet{ostColorSectionHeader}{DarkOrange}  
+    \colorlet{ostColorSubsectionHeader}{DarkOrange}
+    \colorlet{ostColorSubSubsectionHeader}{DarkOrange}
+    \colorlet{ostColorParagraphHeader}{DarkOrange} 
+    \colorlet{ostColorCaptionLabel}{DarkOrange}
+  \fi
   \ifost@blue
       \xdefinecolor{ostColorTitle}{RGB}{8,81,156}
       \xdefinecolor{ostColorSubtitle}{RGB}{49,130,189}
@@ -460,65 +474,67 @@
   \xdefinecolor{ostColor@ListingCyan}{HTML}{2AA198}
   \xdefinecolor{ostColor@ListingGreen}{HTML}{859900}
 \else%
-   \colorlet{ostColorTitleRule}{black}
-   \colorlet{ostColorTitleRuleVertical}{black} 
-   \colorlet{ostColorTextOnBar}{black}  
-   \colorlet{ostColorTocRule}{black} 
-   \colorlet{ostColorPartialToc}{black} 
-   \colorlet{ostColorTitleOverlay}{white} 
-   \colorlet{ostColorImageFrame}{black} 
-   \colorlet{ostColorTitle}{black} 
-   \colorlet{ostColorSubtitle}{black}
-   \colorlet{ostColorAuthors}{black}
-   \colorlet{ostColorInstitution}{black} 
-   \colorlet{ostColorAdvisors}{black} 
-   \colorlet{ostColorDate}{black}  
-   \colorlet{ostColorMarginNote}{black}
-   \colorlet{ostColorQuoteRule}{black}
-   \colorlet{ostColorAdvisors}{black}
-   \colorlet{ostColorCaptionLabel}{black}
-   \colorlet{ostColorPartHeader}{black}
-   \colorlet{ostColorPartHeaderNumber}{black}
-   \colorlet{ostColorChapterHeader}{black}
-   \colorlet{ostColorChapterHeaderNumber}{black}
-   \colorlet{ostColorSectionHeader}{black}
-   \colorlet{ostColorSectionHeaderNumber}{black}
-   \colorlet{ostColorSubsectionHeader}{black}
-   \colorlet{ostColorSubsectionHeaderNumber}{black}
-   \colorlet{ostColorSubSubsectionHeader}{black}
-   \colorlet{ostColorSubSubsectionHeaderNumber}{black}
-   \colorlet{ostColorParagraphHeader}{black}
-   \colorlet{ostColorParagraphHeaderNumber}{black}
-   \colorlet{ostColorLettrine}{black}
-   \colorlet{ostColorLineNumber}{black} 
-   \colorlet{ostColorHeaderRule}{black}
-   \colorlet{ostColorFooterRule}{black}
-   \colorlet{ostColorHeaderMarks}{black}
-   \colorlet{ostColorPageNumber}{black} 
-   \colorlet{ostColorPageNumberSurrounding}{black}
-   \colorlet{ostColorLinks}{black}
-   \colorlet{ostColorCitationLinks}{black}
-   \colorlet{ostColorFileLinks}{black}
-   \colorlet{ostColorMenuLinks}{black}
-   \colorlet{ostColorURLLinks}{black}
+  \colorlet{ostColorTitleRule}{black}
+  \colorlet{ostColorTitleRuleVertical}{black} 
+  \colorlet{ostColorTextOnBar}{black}  
+  \colorlet{ostColorTocRule}{black} 
+  \colorlet{ostColorPartialToc}{black} 
+  \colorlet{ostColorTitleOverlay}{white} 
+  \colorlet{ostColorImageFrame}{black} 
+  \colorlet{ostColorTitle}{black} 
+  \colorlet{ostColorSubtitle}{black}
+  \colorlet{ostColorAuthors}{black}
+  \colorlet{ostColorInstitution}{black} 
+  \colorlet{ostColorAdvisors}{black} 
+  \colorlet{ostColorDate}{black}  
+  \colorlet{ostColorMarginNote}{black}
+  \colorlet{ostColorQuoteRule}{black}
+  \colorlet{ostColorAdvisors}{black}
+  \colorlet{ostColorCaptionLabel}{black}
+  \colorlet{ostColorPartHeader}{black}
+  \colorlet{ostColorPartHeaderNumber}{black}
+  \colorlet{ostColorChapterHeader}{black}
+  \colorlet{ostColorChapterHeaderNumber}{black}
+  \colorlet{ostColorSectionHeader}{black}
+  \colorlet{ostColorSectionHeaderNumber}{black}
+  \colorlet{ostColorSubsectionHeader}{black}
+  \colorlet{ostColorSubsectionHeaderNumber}{black}
+  \colorlet{ostColorSubSubsectionHeader}{black}
+  \colorlet{ostColorSubSubsectionHeaderNumber}{black}
+  \colorlet{ostColorParagraphHeader}{black}
+  \colorlet{ostColorParagraphHeaderNumber}{black}
+  \colorlet{ostColorLettrine}{black}
+  \colorlet{ostColorLineNumber}{black} 
+  \colorlet{ostColorHeaderRule}{black}
+  \colorlet{ostColorFooterRule}{black}
+  \colorlet{ostColorHeaderMarks}{black}
+  \colorlet{ostColorPageNumber}{black} 
+  \colorlet{ostColorPageNumberSurrounding}{black}
+  \colorlet{ostColorLinks}{black}
+  \colorlet{ostColorCitationLinks}{black}
+  \colorlet{ostColorFileLinks}{black}
+  \colorlet{ostColorMenuLinks}{black}
+  \colorlet{ostColorURLLinks}{black}
 
-   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
-   \colorlet{ostColor@ListingBase00}{black}
-   \colorlet{ostColor@ListingBase01}{black}
-   \colorlet{ostColor@ListingBase02}{black}
-   \colorlet{ostColor@ListingBase03}{black}
-   \colorlet{ostColor@ListingBase0}{black}
-   \colorlet{ostColor@ListingBase1}{black}
-   \colorlet{ostColor@ListingBase2}{black}
-   \colorlet{ostColor@ListingBase3}{black}
-   \colorlet{ostColor@ListingYellow}{black}
-   \colorlet{ostColor@ListingOrange}{black}
-   \colorlet{ostColor@ListingRed}{black}
-   \colorlet{ostColor@ListingMagenta}{black}
-   \colorlet{ostColor@ListingViolet}{black}
-   \colorlet{ostColor@ListingBlue}{black}
-   \colorlet{ostColor@ListingCyan}{black}
-   \colorlet{ostColor@ListingGreen}{black}
+  \colorlet{ostColorInlineCodeFrame}{black}
+  \colorlet{ostColorInlineCodeBackground}{white}
+  \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
+  \colorlet{ostColor@ListingBase00}{black}
+  \colorlet{ostColor@ListingBase01}{black}
+  \colorlet{ostColor@ListingBase02}{black}
+  \colorlet{ostColor@ListingBase03}{black}
+  \colorlet{ostColor@ListingBase0}{black}
+  \colorlet{ostColor@ListingBase1}{black}
+  \colorlet{ostColor@ListingBase2}{black}
+  \colorlet{ostColor@ListingBase3}{black}
+  \colorlet{ostColor@ListingYellow}{black}
+  \colorlet{ostColor@ListingOrange}{black}
+  \colorlet{ostColor@ListingRed}{black}
+  \colorlet{ostColor@ListingMagenta}{black}
+  \colorlet{ostColor@ListingViolet}{black}
+  \colorlet{ostColor@ListingBlue}{black}
+  \colorlet{ostColor@ListingCyan}{black}
+  \colorlet{ostColor@ListingGreen}{black}
 \fi%
 
 
@@ -561,8 +577,8 @@
 \fi
 
 % patch rule commands with color
-\patchcmd{\footrule}{\hrule}{\color{ostFooterRuleColor}\hrule}{}{}
-\patchcmd{\headrule}{\hrule}{\color{ostHeaderRuleColor}\hrule}{}{}
+\patchcmd{\footrule}{\hrule}{\color{ostColorFooterRule}\hrule}{}{}
+\patchcmd{\headrule}{\hrule}{\color{ostColorHeaderRule}\hrule}{}{}
 
 \ifost@fancyhf
   \fancypagestyle{pageStyleChapter}{%
@@ -775,7 +791,8 @@
 \fi
 
 \tikzstyle{signbackground} = [rectangle, fill=white, fill opacity=0.7, text opacity=1, rounded corners]
-\tikzstyle{listinline} = [rectangle, rounded corners, draw=ostColorImageFrame, thin, fill=white] 
+
+\tikzstyle{listinline} = [rectangle, inner sep = 2pt, rounded corners, draw=ostColorInlineCodeFrame, fill=ostColorInlineCodeBackground] 
 
 \newcommand{\ostOpacityTitleOverlay}{0.7}
 
@@ -827,6 +844,8 @@
   \RequirePackage{flafter}
 \fi
 
+% \newcommand{\ostFontCaption}{small, it}
+
 %% Control caption layout %%
 \RequirePackage[format=plain, margin=7pt, font={small,it}, labelformat=default, labelfont=bf]{caption}
 
@@ -836,7 +855,7 @@
 
 %% where to put this?
 \RequirePackage{marginnote}
-\newcommand{\ostFontMarginNote}{\small}  
+\newcommand{\ostFontMarginNote}{\small} 
 
 \ifost@setspacing
   \ifost@sensitivespacing
@@ -1040,8 +1059,13 @@
    {~}{{\textasciitilde}}1
 }
 
-\newcommand{\sinlinecode}[1]{\colorbox{ostColor@ListingBackground}{\lstinline|#1|}}
-\newcommand{\inlinecode}[1]{\raisebox{-0.32em}{\begin{tikzpicture}\node[listinline]{\lstinline|#1|};\end{tikzpicture}}}
+\ifost@inlinecodestyletikz
+  \newcommand{\inlinecode}[1]{\raisebox{-0.27em}{\begin{tikzpicture}\node[listinline]{\lstinline|#1|};\end{tikzpicture}}}
+\fi%
+
+\ifost@inlinecodestylesimple
+  \newcommand{\inlinecode}[1]{\colorbox{ostColor@ListingBackground}{\lstinline|#1|}}
+\fi%
 
 % Usage: 
 %       \inlinecode{a=a+b} 
@@ -1181,7 +1205,7 @@
 %%% Definition of affidavit %%%
 %%%-------------------------------------------------%%%
 
-\newcommand{\ostAffidavitDeclaration}{
+\newcommand{\ostAffidavitText}{
     I hereby declare that this document has been written only by the undersigned
     and without any assistance from third parties. Furthermore, I confirm that no
     sources have been used in the preparation of this document other than those
@@ -1189,7 +1213,7 @@
 }
 
 % \AtBeginDocument{
-  % \iflanguage{ngerman}{\ostSetAffidavitDeclaration{
+  % \iflanguage{ngerman}{\ostSetAffidavitText{
     % Hiermit erkläre ich, dass ich die vorliegende Hausarbeit selbständig verfasst
     % und keine anderen als die angegebenen Hilfsmittel benutzt habe. Die Stellen
     % der Hausarbeit, die anderen Quellen im Wortlaut oder dem Sinn nach entnommen
@@ -1216,7 +1240,7 @@
     \fi
   \fi
   \csname\affidavitsectioning\endcsname{\ostAffidavitName} 
-  \ostAffidavitDeclaration{} 
+  \ostAffidavitText{} 
 
   \vspace{4\baselineskip}
   \ostAffidavitSignatureLine{}
