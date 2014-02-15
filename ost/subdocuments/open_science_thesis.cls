@@ -383,6 +383,7 @@
   \colorlet{ostColorAdvisors}{gray}
   \colorlet{ostColorPartHeader}{black} 
   \colorlet{ostColorPartHeaderNumber}{LightGray}  
+  \colorlet{ostColorQuoteRule}{LightGray!30}
     \ifost@orange%
       \colorlet{ostColorTitle}{DarkOrange}
       \colorlet{ostColorSubtitle}{DarkOrange}
@@ -439,7 +440,7 @@
   \colorlet{ostColorCitationLinks}{black}
   \colorlet{ostColorFileLinks}{black}
   \colorlet{ostColorMenuLinks}{black}
-  \colorlet{ostColorURLLinks}{black}
+  \colorlet{ostColorURLLinks}{gray}
 
   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
@@ -473,6 +474,7 @@
    \colorlet{ostColorAdvisors}{black} 
    \colorlet{ostColorDate}{black}  
    \colorlet{ostColorMarginNote}{black}
+   \colorlet{ostColorQuoteRule}{black}
    \colorlet{ostColorAdvisors}{black}
    \colorlet{ostColorCaptionLabel}{black}
    \colorlet{ostColorPartHeader}{black}
@@ -523,12 +525,12 @@
 %%%-------------------------------------------------%%%
 %%% Include Git information %%%
 %%%-------------------------------------------------%%%
+\newcommand{\ostFontGitInfo}{\tiny}
 
 \ifost@gitinfo%
    \RequirePackage{gitinfo} 
-   % TODO: make settable the font
-   \newcommand{\ostGitUrl}{\tiny{\href{ostGitUrl}{https://github.com/cpfaff/Open-Science-Thesis}}}
-   \newcommand{\ostGitInfoLine}{{\tiny Version from commit by \gitAuthorEmail~on~\gitAuthorDate; Source on: \ostGitUrl}\par}
+   \newcommand{\ostGitUrl}{\ostFontGitInfo{\href{ostGitUrl}{https://github.com/cpfaff/Open-Science-Thesis}}}
+   \newcommand{\ostGitInfoLine}{{\ostFontGitInfo Version from commit by \gitAuthorEmail~on~\gitAuthorDate; Source on: \ostGitUrl}\par}
 \else%
    \newcommand{\ostGitInfoLine}{}
 \fi%
@@ -545,8 +547,6 @@
 
 \newcommand{\ostPageNumbering}{\relax}
 \newcommand{\ostSetPageNumbering}[1]{\def\ostPageNumbering{#1}}
-\newcommand{\ostFooterRuleColor}{ostColorFooterRule} 
-\newcommand{\ostHeaderRuleColor}{ostColorHeaderRule} 
 
 % create lengths
 \newlength{\ostLengthHeaderRuleWidth} 
@@ -561,8 +561,8 @@
 \fi
 
 % patch rule commands with color
-\patchcmd{\footrule}{\hrule}{\color{\ostFooterRuleColor}\hrule}{}{}
-\patchcmd{\headrule}{\hrule}{\color{\ostHeaderRuleColor}\hrule}{}{}
+\patchcmd{\footrule}{\hrule}{\color{ostFooterRuleColor}\hrule}{}{}
+\patchcmd{\headrule}{\hrule}{\color{ostHeaderRuleColor}\hrule}{}{}
 
 \ifost@fancyhf
   \fancypagestyle{pageStyleChapter}{%
@@ -588,12 +588,13 @@
   }
 \fi%
 
-\newcommand\ostFontPageNumber{\normalsize\textbf}
+\newcommand{\ostFontPageNumber}{\normalsize\textbf}
+\newcommand{\ostFontHeaderMarks}{\textit}
+
+\newcommand{\ostPageNumberSurrounding}{\textendash}
+
 \newlength\ostLengthPageNumberSurroundingSep
 \setlength{\ostLengthPageNumberSurroundingSep}{{1mm}} 
-
-\newcommand\ostPageNumberSurrounding{\textendash}
-\newcommand\ostFontHeaderMarks{\textit}
 
 \if@twoside%  
   \setlength{\ostLengthPageNumberSurroundingSep}{{0mm}} 
@@ -639,7 +640,7 @@
    
 }
 
-\newcommand{\capital}[1]{%
+\newcommand{\bigletter}[1]{%
   \ostSet@LettrineOptions{#1}
   \lettrine{\textcolor{ostColorLettrine}{#1}}
 } 
@@ -774,6 +775,7 @@
 \fi
 
 \tikzstyle{signbackground} = [rectangle, fill=white, fill opacity=0.7, text opacity=1, rounded corners]
+\tikzstyle{listinline} = [rectangle, rounded corners, draw=ostColorImageFrame, thin, fill=white] 
 
 \newcommand{\ostOpacityTitleOverlay}{0.7}
 
@@ -1001,7 +1003,7 @@
 
 \RequirePackage{listings}
 
-\def\ostFont@ListingBasic{\footnotesize\ttfamily}
+\newcommand{\ostFont@ListingBasic}{\footnotesize\ttfamily}
 
 \lstset{%
    upquote=true,%
@@ -1038,8 +1040,8 @@
    {~}{{\textasciitilde}}1
 }
 
-% Inline code listings  (TODO: refine with tikz frame)
-\newcommand{\inlinecode}[1]{\colorbox{ostColorAtListingBackground}{\lstinline|#1|}}
+\newcommand{\sinlinecode}[1]{\colorbox{ostColor@ListingBackground}{\lstinline|#1|}}
+\newcommand{\inlinecode}[1]{\raisebox{-0.32em}{\begin{tikzpicture}\node[listinline]{\lstinline|#1|};\end{tikzpicture}}}
 
 % Usage: 
 %       \inlinecode{a=a+b} 
@@ -1058,10 +1060,8 @@
 \ostLengthQuoteRuleSep=-2.3em
 
 \ifost@color%
-  \colorlet{ostColorQuoteRule}{LightGray!30}
   \ostLengthQuoteRuleWidth=5pt
 \else%
-  \colorlet{ostColorQuoteRule}{black}
   \ostLengthQuoteRuleWidth=2pt 
 \fi%
 
@@ -1243,9 +1243,6 @@
 \newcommand{\ostFontAdvisors}{\normalfont\sffamily\normalsize}  
 
 % lengths
-
-% \newlength{\ostHeightOfTitleBeforeReduceSize} 
-% \setlength{\ostHeightOfTitleBeforeReduceSize}{2\baselineskip} 
 \newlength{\ostLengthTitleSpacerTitleRuleUpper} 
 \setlength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
 \newlength{\ostLengthTitleSpacerTitleRuleLower} 
