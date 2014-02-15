@@ -182,6 +182,8 @@
   \fi%
 }
 
+\define@boolkey[KV]{open-science-thesis}[ost@]{floatafter}[false]{}
+
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
@@ -209,6 +211,7 @@
   style=authoryear,
   language=english,
   sensitivespacing=true,
+  floatafter=false,
 }{}
 
 \ProcessOptionsX[KV]<open-science-thesis>
@@ -819,6 +822,10 @@
   \RequirePackage{placeins}
 \fi
 
+\ifost@floatafter
+  \RequirePackage{flafter}
+\fi
+
 %% Control caption layout %%
 \RequirePackage[format=plain, margin=7pt, font={small,it}, labelformat=default, labelfont=bf]{caption}
 
@@ -1238,8 +1245,8 @@
 
 % lengths
 
-\newlength{\ostHeightOfTitleBeforeReduceSize} 
-\setlength{\ostHeightOfTitleBeforeReduceSize}{2\baselineskip} 
+% \newlength{\ostHeightOfTitleBeforeReduceSize} 
+% \setlength{\ostHeightOfTitleBeforeReduceSize}{2\baselineskip} 
 \newlength{\ostLengthTitleSpacerTitleRuleUpper} 
 \setlength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
 \newlength{\ostLengthTitleSpacerTitleRuleLower} 
@@ -1486,11 +1493,10 @@
 \newenvironment{centerpar}{\par\center}{\par}
 \newenvironment{hugepar}{\par\huge}{\par}
 
-%% definitions for framed environments
-
+% make the figure environment expand arguments first
 \let\tmpfigure\figure
 \let\endtmpfigure\endfigure
-\renewenvironment{figure}[1][h]{%
+\renewenvironment{figure}[1][htbp]{%
    \expandafter\tmpfigure\expandafter[#1]%
 }{%
    \endtmpfigure
@@ -1593,7 +1599,7 @@
 
 \define@key{framedfigure}{placement}{\renewcommand*\placement{#1}}
 \define@key{framedfigure}{label}{\renewcommand*\envlabel{#1}}
-\presetkeys{framedfigure}{placement = H, label=none}{}%
+\presetkeys{framedfigure}{placement = htbp, label=none}{}%
 
 \providecommand\framedfigure[3][]{
 \setkeys{framedfigure}{#1}
@@ -1721,10 +1727,6 @@
 % \titlespacing*{\paragraph} {0pt}{3.25ex plus 1ex minus .2ex}{1em}
 % \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
 
-% TODO: unused atm
-% \newcommand\partialtoccontentsname{\contentsname}
-% \newcommand{\ostPartialContentHeader}{\raggedright{\textbf\partialtoccontentsname}\hfill\\}  
-
 \ifost@addtoctopart%
   \titleformat{\part}[display]%
   {\normalfont\sffamily}%
@@ -1769,33 +1771,30 @@
   \titlespacing*{\section}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   % \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
+  \titleformat{\subsection}
+  {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}
+  {\color{ostColorSubsectionHeaderNumber}\thesubsection}
+  {0.5em}
+  {}
+  \titlespacing*{\subsection}
+  {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \titleformat{\subsection}
-   {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}
-   {\color{ostColorSubsectionHeaderNumber}\thesubsection}
-   {0.5em}
-   {}
-   \titlespacing*{\subsection}
-   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
+  \titleformat{\subsubsection}
+  {\color{ostColorSubSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}
+  {\color{ostColorSubSubsectionHeaderNumber}\thesubsubsection}
+  {0.5em}
+  {}
+  \titlespacing*{\subsubsection}
+  {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
-   \titleformat{\subsubsection}
-   {\color{ostColorSubSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}
-   {\color{ostColorSubSubsectionHeaderNumber}\thesubsubsection}
-   {0.5em}
-   {}
-   \titlespacing*{\subsubsection}
-   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
-
-   \titleformat{\paragraph}[runin]
-   {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}
-   {\color{ostColorParagraphHeaderNumber}\theparagraph}
-   {0.5em}
-   {}
-   \titlespacing*{\paragraph}
-   {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
+  \titleformat{\paragraph}[runin]
+  {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}
+  {\color{ostColorParagraphHeaderNumber}\theparagraph}
+  {0.5em}
+  {}
+  \titlespacing*{\paragraph}
+  {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
-
   \ifost@addtoctochapter%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\normalfont\huge\bfseries}
@@ -1818,8 +1817,6 @@
   {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{}{0em}{}
   \titlespacing*{\section}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
-
-  % \AtBeginDocument{\renewcommand*{\refname}{\vspace*{-\baselineskip}}}
 
   \titleformat{\subsection}
   {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
@@ -1861,28 +1858,21 @@
               % { <numbered-entry-format> }{ <numberless-entry-format> }
               % { <filler-page-format> }[ <below-code> ]
 
-% convenient for all default content tables
-\def\makealltables{
-  \tableofcontents
-  \listoffigures 
-  \listoftables 
-  \ifost@revision
-    \listofrevisions
-  \fi
-}
-\let\printallcontenttables\makealltables
-
+% style of tocs 
 \ifost@fancytocs%
   \contentsmargin{1.8em} 
 
   \newlength{\ostLengthTocRuleWidth}
   \setlength{\ostLengthTocRuleWidth}{1.8pt}
 
-  \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}
-  {\ostLengthTocRuleWidth}}}
+  \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}{\ostLengthTocRuleWidth}}}
 
-  \titlecontents{part}[0em]{\addvspace{2pc}}{\contentslabel{0em}}
-  {\Large\bfseries\textsf}{\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
+  \titlecontents{part}
+  [0em]
+  {\addvspace{2pc}}
+  {\contentslabel{0em}}
+  {\Large\bfseries\textsf}
+  {\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
 
   \titlecontents{chapter}
   [1.5em]
@@ -1924,6 +1914,18 @@
 \else%
   \relax%
 \fi%
+
+% create all content tables
+\def\makeallcontenttables{
+  \tableofcontents%
+  \listoffigures%
+  \listoftables%
+  \ifost@revision%
+    \listofrevisions%
+  \fi%
+}
+\let\printallcontenttables\makeallcontenttables%
+
 
 %%%-------------------------------------------------%%%
 %%% Todonote based revision setup %%%

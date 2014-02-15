@@ -49,18 +49,19 @@ size of literally any element in your document.
 
 ```latex
 \ostSetContent{Title}{This is the title of my document}
-\ostSetFont{Title}{\Huge}
+\ostSetFont{Title}{\Huge\textit}
 \ostSetColor{Title}{green}
 ```
 
 As you can see you can set content, font and color on of an element by using
-its name, here the `Title` that appears on the documents title-page. For more
-see the sections below.
+its name, here the `Title` that appears on the documents title-page is set to
+be in huge and italic letters and appears in green. To find more names of
+elements you can modify read through the sections below.
 
-Notably is that you can distinguish between commands that go into the preamble
-and the ones you can use in your document body by their casing. While the camel
-case commands always have to go into the preamble the small case only are
-suitable for your document body.
+One note about commands provided by the class: You can distinguish between
+commands that go into your preamble and the ones you can use in your document
+body by their casing. While the camel case commands always have to go into the
+preamble the small case only commands are suitable for your document body.
 
 ### Title pages
 
@@ -80,13 +81,13 @@ to set the content to empty if you decide not to use a field.
 ```
 
 In your document body then use the command `\maketitle` to print out the
-title-page. There is also an alias called `\printtitle` which does exactly the
-same.
+title-page. There is also an alias called `\printtitlepage` which does exactly
+the same.
 
 ```latex
 \begin{document}
-	% printtitle
 	\maketitle
+	% alias: \printtitlepage
 \end{document}
 ```
 
@@ -174,6 +175,24 @@ You can set the font shapes sizes and colors on the title page:
 ```
 
 ### Table of Contents
+
+You can create your table of contents, the list of figures and the list of
+tables as usual using the commands shown below.
+
+```
+\tableofcontents
+\listoffigures
+\listoftables
+```
+
+Additionally there is a convenient replacement that creates all these tables
+for you. This convenient alternative will also create a list of revision notes
+when the document is compiled in revision mode (see below).
+
+```latex
+\makeallcontenttables
+% alias: \printallcontenttables
+```
 
 - fancy main tocs
 
@@ -446,8 +465,8 @@ This mechanism is picking colors automatically for 5 different revisors.
 You can set up a predefined affidavit using one single command.
 
 ```latex
-% alias: printaffidavit
 \makeaffidavit
+% alias: \printaffidavit
 ```
 
 ![revision](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/affidavit_page.png)
