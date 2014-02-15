@@ -52,7 +52,7 @@ size of literally any element in your document.
 \ostSetFont{Title}{\Huge\textit}
 \ostSetColor{Title}{green}
 % or if you prefer a oneliner
-\ostSet{Title}{This is the title of my document}{green}{\Huge\textit}
+\ostSet{Title}{This is the title of my document}{\Huge\textit}{green}
 ```
 
 As you can see you can set content, font and color on of an element by using
