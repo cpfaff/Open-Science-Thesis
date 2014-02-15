@@ -438,12 +438,11 @@ You can change the inline code box style globally between `tikz` and `simple`
 with:
 
 ```latex
-\documentclass[inlinecodestyle={tikz, simple}]{open_science_thesis}
+\documentclass[inlinecodestyle={round, box, plain}]{open_science_thesis}
 ```
 
 While tikz resembles the first of the two shown in the example figure above and
-simple the second style.
-
+simple the second style and plain is not shown here but has nothing around it.
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/inline_listings.png)
 

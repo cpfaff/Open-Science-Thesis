@@ -184,14 +184,25 @@
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{floatafter}[false]{}
 
-\newif\ifost@inlinecodestyletikz% 
-\newif\ifost@inlinecodestylesimple% 
+\newif\ifost@inlinecodestyleround% 
+\newif\ifost@inlinecodestylebox% 
+\newif\ifost@inlinecodestyleplain% 
 
-\define@choicekey*[KV]{open-science-thesis}{inlinecodestyle}[\val\nr]{tikz, simple}{%
+\define@choicekey*[KV]{open-science-thesis}{inlinecodestyle}[\val\nr]{round, box, plain}{%
   \ifcase\nr\relax%
-    \ost@inlinecodestyletikztrue%
+    \ost@inlinecodestyleroundtrue%
   \or%
-    \ost@inlinecodestylesimpletrue%
+    \ost@inlinecodestyleboxtrue%
+  \or%
+    \ost@inlinecodestyleplaintrue%
+  \fi%
+}
+
+\define@choicekey*[KV]{open-science-thesis}{pagelayout}[\val\nr]{oneside, twoside}{%
+  \ifcase\nr\relax%
+    \PassOptionsToClass{oneside}{scrbook}
+  \or%
+    \PassOptionsToClass{twoside}{scrbook}
   \fi%
 }
 
@@ -223,7 +234,7 @@
   language=english,
   sensitivespacing=true,
   floatafter=false,
-  inlinecodestyle=tikz,
+  inlinecodestyle=round,
 }{}
 
 \ProcessOptionsX[KV]<open-science-thesis>
@@ -1059,12 +1070,16 @@
    {~}{{\textasciitilde}}1
 }
 
-\ifost@inlinecodestyletikz
+\ifost@inlinecodestyleround
   \newcommand{\inlinecode}[1]{\raisebox{-0.27em}{\begin{tikzpicture}\node[listinline]{\lstinline|#1|};\end{tikzpicture}}}
 \fi%
 
-\ifost@inlinecodestylesimple
+\ifost@inlinecodestylebox
   \newcommand{\inlinecode}[1]{\colorbox{ostColor@ListingBackground}{\lstinline|#1|}}
+\fi%
+
+\ifost@inlinecodestyleplain
+  \newcommand{\inlinecode}[1]{\lstinline|#1|}
 \fi%
 
 % Usage: 
