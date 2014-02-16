@@ -567,15 +567,18 @@
 \newcommand{\ostFontPageNumber}{\bfseries}
 \newcommand{\ostFontHeaderMarks}{\itshape}
 \newcommand{\ostFontTextOnBar}{\huge}
+
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
 \newcommand{\ostFontSubtitle}{\normalsize\bfseries\itshape}  
 \newcommand{\ostFontAuthors}{\normalfont\normalsize}   
 \newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
 \newcommand{\ostFontDate}{\normalfont\sffamily\small}    
 \newcommand{\ostFontAdvisors}{\normalfont\sffamily\normalsize}  
-\newcommand{\ostFont@ListingBasic}{\footnotesize\ttfamily}
+
 \newcommand{\ostFontMarginNote}{\small} 
+
 \newcommand{\ostFontLineNumber}{\normalfont\tiny\sffamily}
+
 \newcommand{\ostFontChapterHeader}{\bfseries}
 \newcommand{\ostFontChapterHeaderNumber}{\bfseries}
 \newcommand{\ostFontSectionHeader}{\sffamily\bfseries}
@@ -586,11 +589,12 @@
 \newcommand{\ostFontSubSubsectionHeaderNumber}{\sffamily\bfseries}
 \newcommand{\ostFontParagraphHeader}{\sffamily\bfseries}
 \newcommand{\ostFontParagraphHeaderNumber}{\sffamily\bfseries}
+
 \newcommand{\ostFontPartialTocPart}{\normalfont}
 \newcommand{\ostFontPartialTocChapter}{\normalfont}
+\newcommand{\ostFont@ListingBasic}{\footnotesize\ttfamily}
 
 % Font sizes
-\newcommand{\ostSizeGitInfo}{\tiny}
 \newcommand{\ostSizePageNumber}{\normalsize}
 \newcommand{\ostSizeChapterHeader}{\huge}
 \newcommand{\ostSizeChapterHeaderNumber}{\huge}
@@ -602,8 +606,11 @@
 \newcommand{\ostSizeSubSubsectionHeaderNumber}{\normalsize}
 \newcommand{\ostSizeParagraphHeader}{\normalsize}
 \newcommand{\ostSizeParagraphHeaderNumber}{\normalsize}
+
 \newcommand{\ostSizePartialTocPart}{\large}
 \newcommand{\ostSizePartialTocChapter}{\large}
+
+\newcommand{\ostSizeGitInfo}{\tiny}
 
 % Predefined content
 \newcommand{\ostPageNumberSurrounding}{\textendash}
