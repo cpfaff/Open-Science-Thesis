@@ -16,7 +16,7 @@
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
 
-\ProvidesClass{open-science-thesis}[2014/01/06 version 0.6 LaTeX class of the Open-Science-Thesis]
+\ProvidesClass{open-science-thesis}[2014/01/06 version 0.6.5 LaTeX class of the Open-Science-Thesis]
 
 \RequirePackage{xkeyval} 
 
@@ -340,7 +340,10 @@
 \newcommand{\ostDefineColor}[3]{\xdefinecolor{#1}{#2}{#3}}
 \newcommand{\ostSetOpacity}[2]{\expandafter\def\csname ostOpacity#1\endcsname{#2}}
 \newcommand{\ostSetFont}[2]{\expandafter\def\csname ostFont#1\endcsname{#2}}  
-\newcommand{\ostSet}[4]{\ostSetContent{#1}{#2} \ostSetFont{#1}{#3} \ostSetColor{#1}{#4}}
+\newcommand{\ostSetSize}[2]{\expandafter\def\csname ostSize#1\endcsname{#2}}  
+
+% \newcommand{\ostSet}[4]{\ostSetContent{#1}{#2} \ostSetFont{#1}{#3} \ostSetColor{#1}{#4}}
+% \newcommand{\ostSet}[4]{\ostSetContent{#1}{#2} \ostSetFont{#1}{#3} \ostSetColor{#1}{#4}}
 
 %%%-------------------------------------------------%%%
 %%% Language adaption of the document %%%
@@ -381,11 +384,11 @@
 %%%-------------------------------------------------%%%
 
 \ifost@cmyk%
-  \RequirePackage[svgnames,cmyk, pdftex, tables]{xcolor}  
+  \RequirePackage[svgnames, cmyk, pdftex, tables]{xcolor}  
 \fi%
 
 \ifost@rgb%
-  \RequirePackage[svgnames,rgb, pdftex, tables]{xcolor} 
+  \RequirePackage[svgnames, rgb, pdftex, tables]{xcolor} 
 \fi% 
 
 \colorlet{ostColorGlsLinkColor}{black}
@@ -548,16 +551,69 @@
   \colorlet{ostColor@ListingGreen}{black}
 \fi%
 
+% Predefined names
+\let\ostcontentsname\contentsname%
+\let\ostfiguresname\listfigurename%
+\let\osttablesname\listtablename%
+\let\ostbibname\bibname%
+
+\newcommand{\ostTableOfContentsName}{\ostcontentsname}
+\newcommand{\ostListOfFiguresName}{\ostfiguresname}
+\newcommand{\ostListOfTablesName}{\osttablesname}
+\newcommand{\ostBibliographyName}{\ostbibname}
+
+% Font family, shapes, series
+\newcommand{\ostFontGitInfo}{\normalfont}
+\newcommand{\ostFontPageNumber}{\bfseries}
+\newcommand{\ostFontHeaderMarks}{\itshape}
+\newcommand{\ostPageNumberSurrounding}{\textendash}
+\newcommand{\ostFontTextOnBar}{\huge}
+\newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
+\newcommand{\ostFontSubtitle}{\normalsize\bfseries\itshape}  
+\newcommand{\ostFontAuthors}{\normalfont\normalsize}   
+\newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
+\newcommand{\ostFontDate}{\normalfont\sffamily\small}    
+\newcommand{\ostFontAdvisors}{\normalfont\sffamily\normalsize}  
+\newcommand{\ostFont@ListingBasic}{\footnotesize\ttfamily}
+\newcommand{\ostFontMarginNote}{\small} 
+\newcommand{\ostFontLineNumber}{\normalfont\tiny\sffamily}
+\newcommand{\ostFontChapterHeader}{\bfseries}
+\newcommand{\ostFontChapterHeaderNumber}{\bfseries}
+\newcommand{\ostFontSectionHeader}{\sffamily\bfseries}
+\newcommand{\ostFontSectionHeaderNumber}{\sffamily\bfseries}
+\newcommand{\ostFontSubsectionHeader}{\sffamily\bfseries}
+\newcommand{\ostFontSubsectionHeaderNumber}{\sffamily\bfseries}
+\newcommand{\ostFontSubSubsectionHeader}{\sffamily\bfseries}
+\newcommand{\ostFontSubSubsectionHeaderNumber}{\sffamily\bfseries}
+\newcommand{\ostFontParagraphHeader}{\sffamily\bfseries}
+\newcommand{\ostFontParagraphHeaderNumber}{\sffamily\bfseries}
+\newcommand{\ostFontPartialTocPart}{\normalfont}
+\newcommand{\ostFontPartialTocChapter}{\normalfont}
+
+% Font sizes
+\newcommand{\ostSizeGitInfo}{\tiny}
+\newcommand{\ostSizePageNumber}{\normalsize}
+\newcommand{\ostSizeChapterHeader}{\huge}
+\newcommand{\ostSizeChapterHeaderNumber}{\huge}
+\newcommand{\ostSizeSectionHeader}{\Large}
+\newcommand{\ostSizeSectionHeaderNumber}{\Large}
+\newcommand{\ostSizeSubsectionHeader}{\large}
+\newcommand{\ostSizeSubsectionHeaderNumber}{\large}
+\newcommand{\ostSizeSubSubsectionHeader}{\normalsize}
+\newcommand{\ostSizeSubSubsectionHeaderNumber}{\normalsize}
+\newcommand{\ostSizeParagraphHeader}{\normalsize}
+\newcommand{\ostSizeParagraphHeaderNumber}{\normalsize}
+\newcommand{\ostSizePartialTocPart}{\large}
+\newcommand{\ostSizePartialTocChapter}{\large}
 
 %%%-------------------------------------------------%%%
 %%% Include Git information %%%
 %%%-------------------------------------------------%%%
-\newcommand{\ostFontGitInfo}{\tiny}
 
 \ifost@gitinfo%
    \RequirePackage{gitinfo} 
-   \newcommand{\ostGitUrl}{\ostFontGitInfo{\href{ostGitUrl}{https://github.com/cpfaff/Open-Science-Thesis}}}
-   \newcommand{\ostGitInfoLine}{{\ostFontGitInfo Version from commit by \gitAuthorEmail~on~\gitAuthorDate; Source on: \ostGitUrl}\par}
+   \newcommand{\ostGitUrl}{\ostSizeGitInfo\ostFontGitInfo{\href{ostGitUrl}{https://github.com/cpfaff/Open-Science-Thesis}}}
+   \newcommand{\ostGitInfoLine}{{\ostSizeGitInfo\ostFontGitInfo Version from commit by \gitAuthorEmail~on~\gitAuthorDate; Source on: \ostGitUrl}\par}
 \else%
    \newcommand{\ostGitInfoLine}{}
 \fi%
@@ -615,11 +671,6 @@
   }
 \fi%
 
-\newcommand{\ostFontPageNumber}{\normalsize\textbf}
-\newcommand{\ostFontHeaderMarks}{\textit}
-
-\newcommand{\ostPageNumberSurrounding}{\textendash}
-
 \newlength\ostLengthPageNumberSurroundingSep
 \setlength{\ostLengthPageNumberSurroundingSep}{{1mm}} 
 
@@ -627,14 +678,14 @@
   \setlength{\ostLengthPageNumberSurroundingSep}{{0mm}} 
   \renewcommand\ostPageNumberSurrounding{\relax}
 
-\ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+\ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
   \fancyfoot[RO, LE]{\ostPageNumbering}     
   \ifost@fancyhf
   \fancyhead[LE,RO]{\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}}
   \fancyhead[LO,RE]{\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}} 
   \fi
 \else%
-  \ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+  \ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
   \fancyfoot[C]{\ostPageNumbering} 
   \ifost@fancyhf
   \fancyhead[L]{\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}}
@@ -675,8 +726,6 @@
 %%%-------------------------------------------------%%%
 %%% Enable linenumbers %%%
 %%%-------------------------------------------------%%%
-
-\newcommand{\ostFontLineNumber}{\normalfont\tiny\sffamily}
 
 \newlength\ostLengthLineNumberSep
 \setlength\ostLengthLineNumberSep{0.2em}
@@ -866,7 +915,6 @@
 
 %% where to put this?
 \RequirePackage{marginnote}
-\newcommand{\ostFontMarginNote}{\small} 
 
 \ifost@setspacing
   \ifost@sensitivespacing
@@ -1032,8 +1080,6 @@
 %%%-------------------------------------------------%%%
 
 \RequirePackage{listings}
-
-\newcommand{\ostFont@ListingBasic}{\footnotesize\ttfamily}
 
 \lstset{%
    upquote=true,%
@@ -1272,15 +1318,6 @@
 %%% Definition of titlepage %%%
 %%%-------------------------------------------------%%%
 
-% fonts
-
-\newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
-\newcommand{\ostFontSubtitle}{\normalsize\bfseries\textit}  
-\newcommand{\ostFontAuthors}{\normalfont\normalsize}   
-\newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
-\newcommand{\ostFontDate}{\normalfont\sffamily\small}    
-\newcommand{\ostFontAdvisors}{\normalfont\sffamily\normalsize}  
-
 % lengths
 \newlength{\ostLengthTitleSpacerTitleRuleUpper} 
 \setlength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
@@ -1378,7 +1415,6 @@
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostEmail}[1]{\href{mailto:#1}{#1}} 
 \newcommand{\ostDate}{\today} 
-\newcommand{\ostFontTextOnBar}{\huge}
 \newcommand{\ostTextOnBar}{\textcolor{LightGray}{Open~-~}\textcolor{gray}{Science}\textcolor{LightGray}{~-~Thesis}} 
 \newcommand{\ostAdvisorOne}{Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}
 \newcommand{\ostAdvisorTwo}{PD Dr. L. Dark\\Phone: 0234 44 36 33 9\\Fax: 0323 44 38 22 9\\E-Mail: \ostEmail{dark@uni-baz.de}}
@@ -1740,9 +1776,10 @@
 %%% Typographical options of the headings %%%
 %%%-------------------------------------------------%%%
 
-\RequirePackage[noindentafter,calcwidth]{titlesec}  
+\RequirePackage[noindentafter,calcwidth, compact]{titlesec}  
 
 % Note: This are the default values
+
 % \titleformat{\chapter}[display]
 % {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge} 
 % \titleformat{\section} 
@@ -1766,105 +1803,108 @@
   \titleformat{\part}[display]%
   {\normalfont\sffamily}%
   {\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}%
-  {\textbf\thepart}}}%
+  {\bfseries\thepart}}}%
   {-2ex}%
-  {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\textbf}%
-  [\vspace*{4pc}{\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
+  {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}%
+  [\vspace*{4pc}{\ostSizePartialTocPart\ostSizePartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
 \else%
   \titleformat{\part}[display]%
   {\normalfont\sffamily}%
-  {\hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\textbf\thepart}%
+  {\hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\bfseries\thepart}%
   {-2ex}%
-  {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\textbf}%
+  {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}%
   [\thispagestyle{empty}]
 \fi%
 
 \ifost@sectionnumbers% 
   \ifost@addtoctochapter%
-    \titleformat{\chapter}
-    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}
+    \titleformat{\chapter}[display]
+    {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
     {\color{ostColorChapterHeaderNumber}\thechapter}
     {0.5em}
-    {\Huge}
-    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}}\fi \thispagestyle{pageStyleChapter}]
+    {\ostSizeChapterHeaderNumber\ostFontChapterHeaderNumber}
+    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\ostSizePartialTocChapter\ostFontPartialTocChapter \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}}\fi \thispagestyle{pageStyleChapter}]
+
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \else%
-    \titleformat{\chapter}
-    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}
+    \titleformat{\chapter}[display]
+    {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
     {\color{ostColorChapterHeaderNumber}\thechapter}
     {0.5em}
-    {\Huge}
+    {\ostSizeChapterHeaderNumber\ostFontChapterHeaderNumber}
     [\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \fi%
- 
+
   \titleformat{\section}
-  {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}
-  {{\color{ostColorSectionHeaderNumber}\thesection}}
+  {\color{ostColorSectionHeader}\ostSizeSectionHeader\ostFontSectionHeader}
+  {\color{ostColorSectionHeaderNumber}\thesection}
   {0.5em}
-  {}
+  {\ostSizeSectionHeaderNumber\ostFontSectionHeaderNumber}
   \titlespacing*{\section}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\subsection}
-  {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}
+  {\color{ostColorSubsectionHeader}\ostSizeSubsectionHeader\ostFontSubsectionHeader}
   {\color{ostColorSubsectionHeaderNumber}\thesubsection}
   {0.5em}
-  {}
+  {\ostSizeSubsectionHeaderNumber\ostFontSubsectionHeaderNumber}
   \titlespacing*{\subsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\subsubsection}
-  {\color{ostColorSubSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}
+  {\color{ostColorSubSubsectionHeader}\ostSizeSubSubsectionHeader\ostFontSubSubsectionHeader}
   {\color{ostColorSubSubsectionHeaderNumber}\thesubsubsection}
   {0.5em}
-  {}
+  {\ostSizeSubSubsectionHeaderNumber\ostFontSubSubsectionHeaderNumber}
   \titlespacing*{\subsubsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\paragraph}[runin]
-  {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}
+  {\color{ostColorParagraphHeader}\ostSizeParagraphHeader\ostFontParagraphHeader}
   {\color{ostColorParagraphHeaderNumber}\theparagraph}
   {0.5em}
-  {}
+  {\ostSizeParagraphHeaderNumber\ostFontParagraphHeaderNumber}
   \titlespacing*{\paragraph}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
+  
   \ifost@addtoctochapter%
     \titleformat{\chapter}
-    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}
+    {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
     {\color{ostColorChapterHeaderNumber}}
     {0em}
-    {\Huge}
-    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\normalfont\large \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}} \fi \thispagestyle{pageStyleChapter}]
+    {}
+    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\ostSizePartialTocChapter\ostFontPartialTocChapter \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}} \fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \else%
     \titleformat{\chapter}
-    {\color{ostColorChapterHeader}\normalfont\huge\bfseries}
+    {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
     {}
     {0em}
-    {\Huge}
+    {}
     [\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \fi%
 
   \titleformat{\section}
-  {\color{ostColorSectionHeader}\normalfont\sffamily\Large\bfseries}{}{0em}{}
+  {\color{ostColorSectionHeader}\ostSizeSectionHeader\ostFontSectionHeader}
+  {}{0em}{}
   \titlespacing*{\section}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\subsection}
-  {\color{ostColorSubsectionHeader}\normalfont\sffamily\large\bfseries}{}{0em}{}
+  {\color{ostColorSubsectionHeader}\ostSizeSubsectionHeader\ostFontSubsectionHeader}{}{0em}{}
   \titlespacing*{\subsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\subsubsection}
-  {\color{ostColorSubsectionHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
+  {\color{ostColorSubsectionHeader}\ostSizeSubSubsectionHeader\ostFontSubSubsectionHeader}{}{0em}{}
   \titlespacing*{\subsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\paragraph}[runin]
-  {\color{ostColorParagraphHeader}\normalfont\sffamily\normalsize\bfseries}{}{0em}{}
+  {\color{ostColorParagraphHeader}\ostSizeParagraphHeader\ostFontParagraphHeader}{}{0em}{}
   \titlespacing*{\paragraph}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \fi%
@@ -1889,9 +1929,9 @@
 
 \RequirePackage{titletoc}
 
-% \titlecontents{ <section> }[ <left> ]{ <above-code> }
-              % { <numbered-entry-format> }{ <numberless-entry-format> }
-              % { <filler-page-format> }[ <below-code> ]
+% \titlecontents{<section>}[<left>]{<above-code>}
+              % {<numbered-entry-format>}{<numberless-entry-format>}
+              % {<filler-page-format>}[<below-code>]
 
 % style of tocs 
 \ifost@fancytocs%
@@ -1899,14 +1939,13 @@
 
   \newlength{\ostLengthTocRuleWidth}
   \setlength{\ostLengthTocRuleWidth}{1.8pt}
-
   \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}{\ostLengthTocRuleWidth}}}
 
   \titlecontents{part}
   [0em]
   {\addvspace{2pc}}
   {\contentslabel{0em}}
-  {\Large\bfseries\textsf}
+  {\Large\sffamily\bfseries}
   {\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
 
   \titlecontents{chapter}
@@ -1969,7 +2008,6 @@
 \newcounter{ostCounter@Revisor}
 
 \ifost@revision 
-
   \RequirePackage[colorinlistoftodos, textwidth=7cm, shadow]{todonotes}
   \RequirePackage[a3,center]{crop}
 
@@ -1977,7 +2015,7 @@
 		 {\list{}{\leftmargin2em \rightmargin0em}%
 		  \item\relax}
 		 {\endlist}
-  % FIXME: todoname needs to be settable by interface
+
   \newcommand{\ostRevisionName}{Notes of Revisors}
   \def\todosectioning{\section{\ostRevisionName}}
   
@@ -2040,10 +2078,10 @@
    \setlength{\parindent}{0em} 
 \fi% 
 
-%% Correction of white spaces %%
+%% Correction of white spaces
 \RequirePackage{ellipsis}
 
-%% To set right space after macros %%
+%% To set right space after macros
 \RequirePackage{xspace}
 
 %% TeX fintuning parameters %%
@@ -2135,16 +2173,6 @@
 %%%-------------------------------------------------%%%
 %%% Set the headings %%%
 %%%-------------------------------------------------%%%
-
-\let\ostcontentsname\contentsname%
-\let\ostfiguresname\listfigurename%
-\let\osttablesname\listtablename%
-\let\ostbibname\bibname%
-
-\newcommand{\ostTableOfContentsName}{\ostcontentsname}
-\newcommand{\ostListOfFiguresName}{\ostfiguresname}
-\newcommand{\ostListOfTablesName}{\osttablesname}
-\newcommand{\ostBibliographyName}{\ostbibname}
 
 \addto\captionsenglish{%
   \renewcommand{\contentsname}%

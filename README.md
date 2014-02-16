@@ -49,10 +49,8 @@ size of literally any element in your document.
 
 ```latex
 \ostSetContent{Title}{This is the title of my document}
-\ostSetFont{Title}{\Huge\textit}
+\ostSetFont{Title}{\Huge\itshape}
 \ostSetColor{Title}{green}
-% or if you prefer a oneliner
-\ostSet{Title}{This is the title of my document}{\Huge\textit}{green}
 ```
 
 As you can see you can set content, font and color on of an element by using
@@ -170,7 +168,7 @@ You can set the font shapes sizes and colors on the title page:
 
 ```latex
 \ostSetFont{Title}{\Huge}
-\ostSetFont{Subtitle}{\Large\textbf}
+\ostSetFont{Subtitle}{\Large\bfseries}
 \ostSetFont{Authors}{...}
 \ostSetFont{Date}{...}
 \ostSetFont{Advisor}{...}
