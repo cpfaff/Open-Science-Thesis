@@ -350,7 +350,7 @@
 %%%-------------------------------------------------%%%
 
 \RequirePackage{babel} 
-\RequirePackage[autostyle]{csquotes}  
+\RequirePackage[autostyle, german=guillemets]{csquotes}  
 
 % usage:
 %  \enquote{} to put a text in the right quotes
@@ -566,7 +566,6 @@
 \newcommand{\ostFontGitInfo}{\normalfont}
 \newcommand{\ostFontPageNumber}{\bfseries}
 \newcommand{\ostFontHeaderMarks}{\itshape}
-\newcommand{\ostPageNumberSurrounding}{\textendash}
 \newcommand{\ostFontTextOnBar}{\huge}
 \newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
 \newcommand{\ostFontSubtitle}{\normalsize\bfseries\itshape}  
@@ -605,6 +604,13 @@
 \newcommand{\ostSizeParagraphHeaderNumber}{\normalsize}
 \newcommand{\ostSizePartialTocPart}{\large}
 \newcommand{\ostSizePartialTocChapter}{\large}
+
+% Predefined content
+\newcommand{\ostPageNumberSurrounding}{\textendash}
+
+
+% Opacity 
+\newcommand{\ostOpacityTitleOverlay}{0.7}
 
 %%%-------------------------------------------------%%%
 %%% Include Git information %%%
@@ -706,7 +712,7 @@
 \newlength{\ostLengthDefaultNindent}
 \setlength{\ostLengthDefaultNindent}{0.02em}
 
-\newcommand{\ostSet@LettrineOptions}[1]{%
+\newcommand{\ostSetOptions@Lettrine}[1]{%
    \ifstrequal{#1}{A}{
       \setlength{\ostLengthDefaultFindent}{-0.2em}
       \setlength{\ostLengthDefaultNindent}{0.5em}
@@ -715,11 +721,10 @@
       \setlength{\ostLengthDefaultFindent}{0.27em}
       \setlength{\ostLengthDefaultNindent}{0.02em}
    }{\relax}
-   
 }
 
-\newcommand{\bigletter}[1]{%
-  \ostSet@LettrineOptions{#1}
+\newcommand{\intro}[1]{%
+  \ostSetOptions@Lettrine{#1}
   \lettrine{\textcolor{ostColorLettrine}{#1}}
 } 
 
@@ -727,17 +732,16 @@
 %%% Enable linenumbers %%%
 %%%-------------------------------------------------%%%
 
-\newlength\ostLengthLineNumberSep
-\setlength\ostLengthLineNumberSep{0.2em}
-
 \RequirePackage[pagewise]{lineno}
 
 \ifost@linenumbers%
-   \renewcommand\linenumberfont{\color{ostColorLineNumber}\ostFontLineNumber}
-   \AtBeginDocument{
-     \setlength{\linenumbersep}{\ostLengthLineNumberSep}
-     \linenumbers 
-   }
+  \newlength{\ostLengthLineNumberSep}
+  \setlength{\ostLengthLineNumberSep}{0.2em}
+  \renewcommand\linenumberfont{\color{ostColorLineNumber}\ostFontLineNumber}
+    \AtBeginDocument{
+      \setlength{\linenumbersep}{\ostLengthLineNumberSep}
+      \linenumbers 
+    }
 \fi% 
 
 %%%-------------------------------------------------%%%
@@ -795,8 +799,8 @@
 	\fi%
 	\addtocounter{listingdepth}{-1}
       }
-    \fi
-  \fi
+    \fi%
+  \fi%
 \fi%
 
 \ifost@fancylist%
@@ -835,8 +839,9 @@
 \RequirePackage{eso-pic} 
 \RequirePackage{overpic}
 \RequirePackage{tikz}
+\RequirePackage{subcaption} 
 
-%% Load some tikz libraries %%
+% Load some tikz libraries
 \usetikzlibrary{spy,external,automata,patterns,shadows.blur,trees,mindmap,arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
 \pgfdeclarelayer{background}
 \pgfdeclarelayer{foreground}
@@ -845,50 +850,14 @@
 %% Define tikz styles %% 
 
 \ifost@color
-   \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, thick, fill=white] 
+  \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, thick, fill=white] 
 \else%
-   \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, fill=white]
+  \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, fill=white]
 \fi
 
 \tikzstyle{signbackground} = [rectangle, fill=white, fill opacity=0.7, text opacity=1, rounded corners]
-
 \tikzstyle{listinline} = [rectangle, inner sep = 2pt, rounded corners, draw=ostColorInlineCodeFrame, fill=ostColorInlineCodeBackground] 
-
-\newcommand{\ostOpacityTitleOverlay}{0.7}
-
 \tikzstyle{titlepageoverlay} = [rectangle, fill=ostColorTitleOverlay, fill opacity=\ostOpacityTitleOverlay, text opacity=1, rounded corners]
-
-\RequirePackage{subcaption} 
-
-% usage:
-
-% \begin{figure}
-  % \centering
-  % \begin{subfigure}[b]{0.3\textwidth}
-    % \centering
-    % \includegraphics[width=\textwidth]{path/to/figure.png}
-    % \caption{Picture A}
-    % \label{fig:pica}
-  % \end{subfigure}%
-  % ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-  % %(or a blank line to force the subfigure onto a new line)
-  % \begin{subfigure}[b]{0.3\textwidth}
-    % \centering
-    % \includegraphics[width=\textwidth]{path/to/figure.png}
-    % \caption{Picture B}
-    % \label{fig:picb}
-  % \end{subfigure}
-  % ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
-  % %(or a blank line to force the subfigure onto a new line)
-  % \begin{subfigure}[b]{0.3\textwidth}
-    % \centering
-    % \includegraphics[width=\textwidth]{path/to/figure.png}
-    % \caption{Picture C}
-    % \label{fig:picc}
-  % \end{subfigure}
-  % \caption{Pictures of animals}\label{fig:allfigs}
-% \end{figure}
-
 
 %%%-------------------------------------------------%%%
 %%% Control floatings and captions %%%
@@ -1169,7 +1138,6 @@
     \end{minipage}
   \end{center}
 }
-
 % provide alias
 \let\barquote\ostquote
 
@@ -1288,8 +1256,8 @@
 \newcommand{\ostAffidavitLocation}{}
 \newcommand{\ostAffidavitSignatureLine}{\noindent Date:\ifdefempty{\ostAffidavitDate}{\textcolor{gray}{\dotfill}}{~\ostAffidavitDate},\hspace{0.7em}Location:\ifdefempty{\ostAffidavitLocation}{\textcolor{gray}{\dotfill}}{~\ostAffidavitLocation},\hspace{0.7em}Signature:\textcolor{gray}{\dotfill}}
 \newcommand{\ostAffidavitName}{Affidavit}
-
 \newcommand{\affidavitsectioning}{chapter}
+
 \define@key{ostAffidavit}{sectioning}{\def\affidavitsectioning{#1}}
 \presetkeys{ostAffidavit}{sectioning=chapter}{}%
 
@@ -1806,7 +1774,7 @@
   {\bfseries\thepart}}}%
   {-2ex}%
   {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}%
-  [\vspace*{4pc}{\ostSizePartialTocPart\ostSizePartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
+  [\vspace*{4pc}{\ostSizePartialTocPart\ostFontPartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
 \else%
   \titleformat{\part}[display]%
   {\normalfont\sffamily}%
@@ -1818,7 +1786,7 @@
 
 \ifost@sectionnumbers% 
   \ifost@addtoctochapter%
-    \titleformat{\chapter}[display]
+    \titleformat{\chapter}
     {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
     {\color{ostColorChapterHeaderNumber}\thechapter}
     {0.5em}
@@ -1827,7 +1795,7 @@
 
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \else%
-    \titleformat{\chapter}[display]
+    \titleformat{\chapter}
     {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
     {\color{ostColorChapterHeaderNumber}\thechapter}
     {0.5em}
@@ -2085,8 +2053,8 @@
 \RequirePackage{xspace}
 
 %% TeX fintuning parameters %%
-\clubpenalty = 9999 % No "Schusterjungen"
-\widowpenalty = 9999 % No "Hurenkinder"
+\widowpenalty = 9999 % No widows
+\clubpenalty = 9999 % No orphans 
 \displaywidowpenalty = 9999
 \tolerance = 200
 \hbadness = 1414
