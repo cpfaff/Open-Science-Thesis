@@ -239,6 +239,8 @@
 
 \ProcessOptionsX[KV]<open-science-thesis>
 
+% load scrbook class as base 
+% todo: this needs to be cleaned up an put into opens above
 \ifost@revision
   \LoadClass[oneside, 12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
 \else
@@ -253,10 +255,6 @@
     \fi% 
   \fi%
 \fi% 
-
-\ifost@setspacing
-  \RequirePackage{setspace}
-\fi
 
 % enable and disable chaptertocs as it is not required 
 % to have them everywhere even if chapter toc is enabled
@@ -615,9 +613,16 @@
 % Predefined content
 \newcommand{\ostPageNumberSurrounding}{\textendash}
 
-
 % Opacity 
 \newcommand{\ostOpacityTitleOverlay}{0.7}
+
+%%%-------------------------------------------------%%%
+%%% Global spacing %%%
+%%%-------------------------------------------------%%%
+
+\ifost@setspacing
+  \RequirePackage{setspace}
+\fi
 
 %%%-------------------------------------------------%%%
 %%% Include Git information %%%
@@ -1974,7 +1979,6 @@
   \fi%
 }
 \let\printallcontenttables\makeallcontenttables%
-
 
 %%%-------------------------------------------------%%%
 %%% Todonote based revision setup %%%
