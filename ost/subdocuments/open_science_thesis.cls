@@ -107,8 +107,14 @@
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{}
-\define@boolkey[KV]{open-science-thesis}[ost@]{resetdefaultclassoptions}[false]{}  
+
+\newif\ifost@loadgeometry% 
+
+\define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{
+  \PassOptionsToClass{12pt, headings=small, captions=tableheading, DIV=calc}{scrbook}
+  \ost@loadgeometrytrue  
+}
+
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{fancyhf}[false]{}
 
@@ -141,6 +147,7 @@
   \ifcase\nr\relax% 
     \ost@revisiontrue%
     \ost@linenumberstrue%
+    \PassOptionsToClass{oneside, 12pt, headings=small, captions=tableheading, DIV=calc}{scrbook}
   \fi%
 }
 
@@ -206,6 +213,8 @@
   \fi%
 }
 
+\define@key[KV]{open-science-thesis}{fontsize}{\PassOptionsToClass{#1}{scrbook}}
+
 \DeclareOptionX*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 
 \presetkeys{open-science-thesis}{%
@@ -221,7 +230,7 @@
   sectionnumbers=true,
   fontchoice=libertine, 
   autolayout=true,
-  resetdefaultclassoptions=false, 
+  fontsize=12pt,
   parindent=true,
   revision=false,
   mathsupport=true,
@@ -239,22 +248,11 @@
 
 \ProcessOptionsX[KV]<open-science-thesis>
 
-% load scrbook class as base 
-% todo: this needs to be cleaned up an put into opens above
-\ifost@revision
-  \LoadClass[oneside, 12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
-\else
-  \ifost@resetdefaultclassoptions%
-    \LoadClass{scrbook}   
-  \else% 
-    \ifost@autolayout  
-      \LoadClass[12pt, headings=small, captions=tableheading, DIV=calc]{scrbook}   
-    \else%
-      \LoadClass[12pt, headings=small, captions=tableheading]{scrbook}
-      \RequirePackage{geometry}
-    \fi% 
-  \fi%
-\fi% 
+\LoadClass{scrbook}
+
+\ifost@loadgeometry%
+  \RequirePackage{geometry}
+\fi%
 
 % enable and disable chaptertocs as it is not required 
 % to have them everywhere even if chapter toc is enabled
@@ -560,22 +558,42 @@
 \newcommand{\ostListOfTablesName}{\osttablesname}
 \newcommand{\ostBibliographyName}{\ostbibname}
 
-% Font family, shapes, series
+% Font family, shapes, series sizes
+\newcommand{\ostSizeGitInfo}{\tiny}
 \newcommand{\ostFontGitInfo}{\normalfont}
+
+\newcommand{\ostSizePageNumber}{\normalsize}
 \newcommand{\ostFontPageNumber}{\bfseries}
+
 \newcommand{\ostFontHeaderMarks}{\itshape}
-\newcommand{\ostFontTextOnBar}{\huge}
+\newcommand{\ostSizeHeaderMarks}{\normalfont\relax}
 
-\newcommand{\ostFontTitle}{\normalfont\sffamily\Huge\bfseries}  
+\newcommand{\ostFontTextOnBar}{\relax}
+\newcommand{\ostSizeTextOnBar}{\huge}
+ 
+\newcommand{\ostFontTitle}{\sffamily\bfseries}  
+\newcommand{\ostSizeTitle}{\Huge}  
+
 \newcommand{\ostFontSubtitle}{\normalsize\bfseries\itshape}  
-\newcommand{\ostFontAuthors}{\normalfont\normalsize}   
-\newcommand{\ostFontInstitution}{\normalfont\sffamily\normalsize}    
-\newcommand{\ostFontDate}{\normalfont\sffamily\small}    
-\newcommand{\ostFontAdvisors}{\normalfont\sffamily\normalsize}  
+\newcommand{\ostSizeSubtitle}{\relax}  
 
-\newcommand{\ostFontMarginNote}{\small} 
+\newcommand{\ostFontAuthors}{\normalfont}   
+\newcommand{\ostSizeAuthors}{\normalsize}   
+
+\newcommand{\ostFontInstitution}{\normalfont\sffamily}    
+\newcommand{\ostSizeInstitution}{\normalsize}    
+
+\newcommand{\ostFontDate}{\normalfont\sffamily}    
+\newcommand{\ostSizeDate}{\small}    
+
+\newcommand{\ostFontAdvisors}{\normalfont\sffamily}  
+\newcommand{\ostSizeAdvisors}{\normalsize}  
+
+\newcommand{\ostFontMarginNote}{\normalfont} 
+\newcommand{\ostSizeMarginNote}{\small} 
 
 \newcommand{\ostFontLineNumber}{\normalfont\tiny\sffamily}
+\newcommand{\ostSizeLineNumber}{\tiny}
 
 \newcommand{\ostFontChapterHeader}{\bfseries}
 \newcommand{\ostFontChapterHeaderNumber}{\bfseries}
@@ -588,12 +606,6 @@
 \newcommand{\ostFontParagraphHeader}{\sffamily\bfseries}
 \newcommand{\ostFontParagraphHeaderNumber}{\sffamily\bfseries}
 
-\newcommand{\ostFontPartialTocPart}{\normalfont}
-\newcommand{\ostFontPartialTocChapter}{\normalfont}
-\newcommand{\ostFont@ListingBasic}{\footnotesize\ttfamily}
-
-% Font sizes
-\newcommand{\ostSizePageNumber}{\normalsize}
 \newcommand{\ostSizeChapterHeader}{\huge}
 \newcommand{\ostSizeChapterHeaderNumber}{\huge}
 \newcommand{\ostSizeSectionHeader}{\Large}
@@ -605,10 +617,15 @@
 \newcommand{\ostSizeParagraphHeader}{\normalsize}
 \newcommand{\ostSizeParagraphHeaderNumber}{\normalsize}
 
+\newcommand{\ostFontPartialTocPart}{\normalfont}
 \newcommand{\ostSizePartialTocPart}{\large}
+
+\newcommand{\ostFontPartialTocChapter}{\normalfont}
 \newcommand{\ostSizePartialTocChapter}{\large}
 
-\newcommand{\ostSizeGitInfo}{\tiny}
+% fixme: unused atm
+\newcommand{\ostFont@ListingBasic}{\ttfamily}
+\newcommand{\ostSize@ListingBasic}{\footnotesize}
 
 % Predefined content
 \newcommand{\ostPageNumberSurrounding}{\textendash}
@@ -699,15 +716,15 @@
 \ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
   \fancyfoot[RO, LE]{\ostPageNumbering}     
   \ifost@fancyhf
-  \fancyhead[LE,RO]{\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}}
-  \fancyhead[LO,RE]{\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}} 
+  \fancyhead[LE,RO]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}}
+  \fancyhead[LO,RE]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}} 
   \fi
 \else%
   \ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
   \fancyfoot[C]{\ostPageNumbering} 
   \ifost@fancyhf
-  \fancyhead[L]{\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}}
-  \fancyhead[R]{\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}} 
+  \fancyhead[L]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}}
+  \fancyhead[R]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}} 
   \fi
 \fi%
 
@@ -750,7 +767,7 @@
 
 \ifost@linenumbers%
   \setlength{\ostLengthLineNumberSep}{0.2em}
-  \renewcommand\linenumberfont{\color{ostColorLineNumber}\ostFontLineNumber}
+  \renewcommand\linenumberfont{\color{ostColorLineNumber}\ostSizeLineNumber\ostFontLineNumber}
     \AtBeginDocument{
       \setlength{\linenumbersep}{\ostLengthLineNumberSep}
       \linenumbers 
@@ -900,10 +917,10 @@
 
 \ifost@setspacing
   \ifost@sensitivespacing
-    \renewcommand*{\marginfont}{\singlespacing\color{ostColorMarginNote}\ostFontMarginNote}
+    \renewcommand*{\marginfont}{\singlespacing\color{ostColorMarginNote}\ostSizeMarginNote\ostFontMarginNote}
   \fi
 \else
-  \renewcommand*{\marginfont}{\color{ostColorMarginNote}\ostFontMarginNote}
+  \renewcommand*{\marginfont}{\color{ostColorMarginNote}\ostSizeMarginNote\ostFontMarginNote}
 \fi
 
 %%%-------------------------------------------------%%%
@@ -1413,17 +1430,17 @@
     {\centering% 
       \ostTitleStretchAbove{} 
       {\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth}\begin{center} 
-      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
-      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
-      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{} 
       \end{center}\end{minipage}};\end{tikzpicture}}\\
       \ostTitleStretchBelow{} 
-      {\ifdefempty{\ostAdvisorOne}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisors}\ostFontAdvisors\ostAdvisorOne}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
+      {\ifdefempty{\ostAdvisorOne}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisors}\ostSizeAdvisors\ostFontAdvisors\ostAdvisorOne}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
       \vspace{\baselineskip}
-      {\ifdefempty{\ostAdvisorTwo}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisors}\ostFontAdvisors\ostAdvisorTwo}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
+      {\ifdefempty{\ostAdvisorTwo}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisors}\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
     }      
   \end{titlepage}
   \ifost@setspacing
@@ -1447,19 +1464,19 @@
       \ostTitleStretchAbove{}
       \ostTitleRule%
       \ostTitleSpacerTitleRuleUpper{}
-      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
-      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
-      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{}
       \vspace{-1\baselineskip}
       \ostTitleSpacerTitleRuleLower{} 
       \ostTitleRule%
       \ostTitleStretchBelow{}
-      {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorOne}}}\par} 
+      {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorOne}}}\par} 
       \vspace{\baselineskip}
-      {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorTwo}}}\par} 
+      {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}}}\par} 
     }      
   \end{titlepage} 
   \ifost@setspacing
@@ -1481,16 +1498,16 @@
   \begin{titlepage}
     {\centering% 
       \ostTitleStretchAbove{}
-      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
-      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
-      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par}
+      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
+      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{}
       \ostTitleStretchBelow{}
-      {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorOne}}}\par} 
+      {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorOne}}}\par} 
       \vspace{\baselineskip}
-      {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorTwo}}}\par} 
+      {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}}}\par} 
     }      
   \end{titlepage} 
   \ifost@setspacing
@@ -1512,19 +1529,19 @@
   \begin{titlepage}
     \mbox{ 
       \hspace*{0.2\textwidth} 
-      \rotatebox{90}{{\ostFontTextOnBar\color{ostColorTextOnBar}\ostTextOnBar}}
+      \rotatebox{90}{{\ostSizeTextOnBar\ostFontTextOnBar\color{ostColorTextOnBar}\ostTextOnBar}}
       \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\textheight}}  
       \hspace*{0.05\textwidth} 
       \parbox[b]{0.75\textwidth}{ 
-        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\begin{flushleft}\ostFontTitle\ostTitle\end{flushleft}}}\par}}\vspace{2\baselineskip}
-        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\begin{flushleft}\ostFontSubtitle\ostSubtitle\end{flushleft}}}\par}}\vspace{4\baselineskip}
-        {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostFontAuthors\ostAuthors}}\par}}
-        {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostFontInstitution\ostInsitution}}}\par}
-        {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostFontDate\ostDate}}}\par} 
+        {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\begin{flushleft}\ostSizeTitle\ostFontTitle\ostTitle\end{flushleft}}}\par}}\vspace{2\baselineskip}
+        {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\begin{flushleft}\ostSizeSubtitle\ostFontSubtitle\ostSubtitle\end{flushleft}}}\par}}\vspace{4\baselineskip}
+        {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
+        {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+        {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par} 
         \ostGitInfoLine{}
         \vspace{0.2\textheight} 
-        {\ifdefempty{\ostAdvisorOne}{\vspace{4\baselineskip}}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorOne}}}\par}\vspace{\baselineskip}
-        {\ifdefempty{\ostAdvisorTwo}{\vspace{4\baselineskip}}{\color{ostColorAdvisors}{{\ostFontAdvisors\ostAdvisorTwo}}}\par} 
+        {\ifdefempty{\ostAdvisorOne}{\vspace{4\baselineskip}}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorOne}}}\par}\vspace{\baselineskip}
+        {\ifdefempty{\ostAdvisorTwo}{\vspace{4\baselineskip}}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}}}\par} 
       }
     }
   \end{titlepage}
