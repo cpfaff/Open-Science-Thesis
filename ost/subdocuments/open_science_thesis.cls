@@ -112,7 +112,7 @@
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{
   \PassOptionsToClass{12pt, headings=small, captions=tableheading, DIV=calc}{scrbook}
-  \ost@loadgeometrytrue  
+  \ost@loadgeometryfalse
 }
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
@@ -337,6 +337,7 @@
 \newcommand{\ostSetOpacity}[2]{\expandafter\def\csname ostOpacity#1\endcsname{#2}}
 \newcommand{\ostSetFont}[2]{\expandafter\def\csname ostFont#1\endcsname{#2}}  
 \newcommand{\ostSetSize}[2]{\expandafter\def\csname ostSize#1\endcsname{#2}}  
+\newcommand{\ostSetFormat}[2]{\expandafter\def\csname ostFormat#1\endcsname{#2}}  
 
 % \newcommand{\ostSet}[4]{\ostSetContent{#1}{#2} \ostSetFont{#1}{#3} \ostSetColor{#1}{#4}}
 % \newcommand{\ostSet}[4]{\ostSetContent{#1}{#2} \ostSetFont{#1}{#3} \ostSetColor{#1}{#4}}
@@ -403,7 +404,6 @@
   \colorlet{ostColorDate}{black} 
   \colorlet{ostColorMarginNote}{DarkGray}
   \colorlet{ostColorAdvisors}{gray}
-  \colorlet{ostColorPartHeader}{black} 
   \colorlet{ostColorPartHeaderNumber}{LightGray}  
   \colorlet{ostColorQuoteRule}{LightGray!30}
   \colorlet{ostColorInlineCodeFrame}{LightGray}
@@ -411,6 +411,7 @@
   \ifost@orange%
     \colorlet{ostColorTitle}{DarkOrange}
     \colorlet{ostColorSubtitle}{DarkOrange}
+    \colorlet{ostColorPartHeader}{DarkOrange} 
     \colorlet{ostColorChapterHeader}{DarkOrange} 
     \colorlet{ostColorSectionHeader}{DarkOrange}  
     \colorlet{ostColorSubsectionHeader}{DarkOrange}
@@ -421,6 +422,7 @@
   \ifost@blue
       \xdefinecolor{ostColorTitle}{RGB}{8,81,156}
       \xdefinecolor{ostColorSubtitle}{RGB}{49,130,189}
+      \xdefinecolor{ostColorPartHeader}{RGB}{8,81,156}
       \xdefinecolor{ostColorChapterHeader}{RGB}{8,81,156} 
       \xdefinecolor{ostColorSectionHeader}{RGB}{49,130,189} 
       \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,130,189} 
@@ -431,6 +433,7 @@
   \ifost@green
      \xdefinecolor{ostColorTitle}{RGB}{0,109,44}
      \xdefinecolor{ostColorSubtitle}{RGB}{49,163,84}
+     \xdefinecolor{ostColorPartHeader}{RGB}{0,109,44} 
      \xdefinecolor{ostColorChapterHeader}{RGB}{0,109,44} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{49,163,84} 
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{49,163,84} 
@@ -441,6 +444,7 @@
   \ifost@red
      \xdefinecolor{ostColorTitle}{RGB}{165,15,21}
      \xdefinecolor{ostColorSubtitle}{RGB}{222,45,38}
+     \xdefinecolor{ostColorPartHeader}{RGB}{165,15,21} 
      \xdefinecolor{ostColorChapterHeader}{RGB}{165,15,21} 
      \xdefinecolor{ostColorSectionHeader}{RGB}{222,45,38} 
      \xdefinecolor{ostColorSubsectionHeader}{RGB}{222,45,38} 
@@ -566,7 +570,7 @@
 \newcommand{\ostFontPageNumber}{\bfseries}
 
 \newcommand{\ostFontHeaderMarks}{\itshape}
-\newcommand{\ostSizeHeaderMarks}{\normalfont\relax}
+\newcommand{\ostSizeHeaderMarks}{\rmfamily\relax}
 
 \newcommand{\ostFontTextOnBar}{\relax}
 \newcommand{\ostSizeTextOnBar}{\huge}
@@ -574,26 +578,31 @@
 \newcommand{\ostFontTitle}{\sffamily\bfseries}  
 \newcommand{\ostSizeTitle}{\Huge}  
 
-\newcommand{\ostFontSubtitle}{\normalsize\bfseries\itshape}  
-\newcommand{\ostSizeSubtitle}{\relax}  
+\newcommand{\ostFontSubtitle}{\bfseries\itshape}  
+\newcommand{\ostSizeSubtitle}{\normalsize}  
 
-\newcommand{\ostFontAuthors}{\normalfont}   
+\newcommand{\ostFontAuthors}{\rmfamily}   
 \newcommand{\ostSizeAuthors}{\normalsize}   
 
-\newcommand{\ostFontInstitution}{\normalfont\sffamily}    
+\newcommand{\ostFontInstitution}{\rmfamily}    
 \newcommand{\ostSizeInstitution}{\normalsize}    
 
-\newcommand{\ostFontDate}{\normalfont\sffamily}    
+\newcommand{\ostFontDate}{\rmfamily}    
 \newcommand{\ostSizeDate}{\small}    
 
-\newcommand{\ostFontAdvisors}{\normalfont\sffamily}  
+\newcommand{\ostFontAdvisors}{\sffamily}  
 \newcommand{\ostSizeAdvisors}{\normalsize}  
 
-\newcommand{\ostFontMarginNote}{\normalfont} 
+\newcommand{\ostFontMarginNote}{\rmfamily} 
 \newcommand{\ostSizeMarginNote}{\small} 
 
-\newcommand{\ostFontLineNumber}{\normalfont\tiny\sffamily}
+\newcommand{\ostFontLineNumber}{\sffamily}
 \newcommand{\ostSizeLineNumber}{\tiny}
+
+\newcommand{\ostSizePartHeader}{\hfill\fontsize{50}{70}\selectfont}
+\newcommand{\ostFontPartHeader}{\sffamily\bfseries}
+\newcommand{\ostFontPartHeaderNumber}{\sffamily\bfseries}
+\newcommand{\ostSizePartHeaderNumber}{\hfill\fontsize{110}{70}\selectfont}
 
 \newcommand{\ostFontChapterHeader}{\bfseries}
 \newcommand{\ostFontChapterHeaderNumber}{\bfseries}
@@ -617,11 +626,30 @@
 \newcommand{\ostSizeParagraphHeader}{\normalsize}
 \newcommand{\ostSizeParagraphHeaderNumber}{\normalsize}
 
-\newcommand{\ostFontPartialTocPart}{\normalfont}
+\newcommand{\ostFontPartialTocPart}{\rmfamily}
 \newcommand{\ostSizePartialTocPart}{\large}
 
-\newcommand{\ostFontPartialTocChapter}{\normalfont}
+\newcommand{\ostFontPartialTocChapter}{\rmfamily}
 \newcommand{\ostSizePartialTocChapter}{\large}
+
+\newcommand{\ostFontTocPart}{\sffamily\bfseries}
+\newcommand{\ostSizeTocPart}{\Large}
+\newcommand{\ostFontTocChapter}{\bfseries}
+\newcommand{\ostSizeTocChapter}{\relax}
+\newcommand{\ostFontTocPChapter}{\bfseries}
+\newcommand{\ostSizeTocPChapter}{\relax}
+\newcommand{\ostFontTocSection}{\relax}
+\newcommand{\ostSizeTocSection}{\relax}
+\newcommand{\ostFontTocPSection}{\relax}
+\newcommand{\ostSizeTocPSection}{\relax}
+\newcommand{\ostFontTocSubsection}{\relax}
+\newcommand{\ostSizeTocSubsection}{\relax}
+\newcommand{\ostFontTocPSubsection}{\relax}
+\newcommand{\ostSizeTocPSubsection}{\relax}
+\newcommand{\ostFontTocFigure}{\relax}
+\newcommand{\ostSizeTocFigure}{\relax}
+\newcommand{\ostFontTocTable}{\relax}
+\newcommand{\ostSizeTocTable}{\relax}
 
 % fixme: unused atm
 \newcommand{\ostFont@ListingBasic}{\ttfamily}
@@ -1797,20 +1825,39 @@
 % \titlespacing*{\paragraph} {0pt}{3.25ex plus 1ex minus .2ex}{1em}
 % \titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
 
+% \titleformat{<command>}[<shape>]{<format>}{<label>}{<sep>}{<before-code>}[<after-code>]
+% hang, block, display, runin, leftmargin, rightmargin, drop, wrap, frame
+
+% \ifost@addtoctopart%
+  % \titleformat{\part}[display]%
+  % {\sffamily}%
+  % {\filleft{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}%
+  % {\bfseries\thepart}}}%
+  % {-2ex}%
+  % {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}%
+  % [\vspace*{4pc}{\ostSizePartialTocPart\ostFontPartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
+% \else%
+  % \titleformat{\part}[display]%
+  % {\sffamily}% influences all content 
+  % {\filleft\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\bfseries\thepart}% that is the part number
+  % {-2ex}%
+  % {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}% that is influencing the header
+  % [\thispagestyle{empty}]
+% \fi%
+
 \ifost@addtoctopart%
   \titleformat{\part}[display]%
-  {\normalfont\sffamily}%
-  {\hfill{\fontsize{110}{70}\selectfont\textcolor{ostColorPartHeaderNumber}%
-  {\bfseries\thepart}}}%
+  {\sffamily}%
+  {\ostSizePartHeaderNumber\color{ostColorPartHeaderNumber}\ostFontPartHeaderNumber\thepart}%
   {-2ex}%
-  {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}%
+  {\ostSizePartHeader\color{ostColorPartHeader}\ostFontPartHeader}%
   [\vspace*{4pc}{\ostSizePartialTocPart\ostFontPartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
 \else%
   \titleformat{\part}[display]%
-  {\normalfont\sffamily}%
-  {\hfill\fontsize{110}{70}\selectfont\color{ostColorPartHeaderNumber}\bfseries\thepart}%
+  {\sffamily}% influences all content 
+  {\ostSizePartHeaderNumber\color{ostColorPartHeaderNumber}\ostFontPartHeaderNumber\thepart}% that is the part number
   {-2ex}%
-  {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}%
+  {\ostSizePartHeader\color{ostColorPartHeader}\ostFontPartHeader}% that is influencing the header
   [\thispagestyle{empty}]
 \fi%
 
@@ -1940,9 +1987,6 @@
   \setlength{\ostLengthTocRuleWidth}{1.8pt}
   \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}{\ostLengthTocRuleWidth}}}
 
-  \newcommand{\ostFontTocPart}{\sffamily\bfseries}
-  \newcommand{\ostSizeTocPart}{\Large}
-
   \titlecontents{part}
   [0em]
   {\addvspace{2pc}}
@@ -1950,18 +1994,12 @@
   {\ostSizeTocPart\ostFontTocPart}
   {\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
 
-  \newcommand{\ostFontTocChapter}{\bfseries}
-  \newcommand{\ostSizeTocChapter}{\relax}
-
   \titlecontents{chapter}
   [1.5em]
   {\addvspace{0.7pc}}
   {\ostSizeTocChapter\ostFontTocChapter\contentslabel{1em}}
   {\ostSizeTocChapter\ostFontTocChapter\hspace*{-1em}}
   {\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
-
-  \newcommand{\ostFontTocPChapter}{\bfseries}
-  \newcommand{\ostSizeTocPChapter}{\relax}
 
   \titlecontents{p-chapter}
   [1.5em]
@@ -1971,9 +2009,6 @@
   {\titlerule*[0.7em]{.}\contentspage}
   [\thispagestyle{pageStyleToc}]
 
-  \newcommand{\ostFontTocSection}{\relax}
-  \newcommand{\ostSizeTocSection}{\relax}
-
   \titlecontents{section}
   [3em]
   {\ostFontTocSection\ostSizeTocSection}
@@ -1982,19 +2017,13 @@
   {\titlerule*[0.7em]{.}\contentspage}
   [\thispagestyle{pageStyleToc}]
 
-  \newcommand{\ostFontTocPSection}{\relax}
-  \newcommand{\ostSizeTocPSection}{\relax}
-  
   \titlecontents{p-section}
   [3em]
   {\ostSizeTocPSection\ostFontTocPSection}
   {\ostSizeTocPSection\ostFontTocPSection\contentslabel{1.6em}}
   {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
-
-  \newcommand{\ostFontTocSubsection}{\relax}
-  \newcommand{\ostSizeTocSubsection}{\relax}
-
+  
   \titlecontents{subsection}
   [5em]
   {\ostSizeTocSubsection\ostFontTocSubsection}
@@ -2002,24 +2031,15 @@
   {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \newcommand{\ostFontTocPSubsection}{\relax}
-  \newcommand{\ostSizeTocPSubsection}{\relax}
-
   \titlecontents{p-subsection}[5em]
   {\ostSizeTocPSubsection\ostFontTocPSubsection}
   {\ostSizeTocPSubsection\ostFontTocPSubsection\contentslabel{2.3em}}{}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \newcommand{\ostFontTocFigure}{\relax}
-  \newcommand{\ostSizeTocFigure}{\relax}
-
   \titlecontents{figure}[2em]
   {\ostSizeTocFigure\ostFontTocFigure\addvspace{1pc}}
   {\ostSizeTocFigure\ostFontTocFigure\contentslabel{2em}}{}
   {~\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
-
-  \newcommand{\ostFontTocTable}{\relax}
-  \newcommand{\ostSizeTocTable}{\relax}
 
   \titlecontents{table}[2em]
   {\ostSizeTocTable\ostFontTocTable\addvspace{1pc}}
