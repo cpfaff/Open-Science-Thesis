@@ -746,8 +746,9 @@
 
 \RequirePackage[pagewise]{lineno}
 
+\newlength{\ostLengthLineNumberSep}
+
 \ifost@linenumbers%
-  \newlength{\ostLengthLineNumberSep}
   \setlength{\ostLengthLineNumberSep}{0.2em}
   \renewcommand\linenumberfont{\color{ostColorLineNumber}\ostFontLineNumber}
     \AtBeginDocument{
@@ -1907,66 +1908,106 @@
   }  
 \fi
 
-\RequirePackage{titletoc}
-
-% \titlecontents{<section>}[<left>]{<above-code>}
-              % {<numbered-entry-format>}{<numberless-entry-format>}
-              % {<filler-page-format>}[<below-code>]
-
 % style of tocs 
 \ifost@fancytocs%
-  \contentsmargin{1.8em} 
+  \RequirePackage{titletoc}
+  % \titlecontents{<section>}
+		% [<left>]
+		% {<above-code>}
+		% {<numbered-entry-format>}
+		% {<numberless-entry-format>}
+		% {<filler-page-format>}[<below-code>]
 
+  \contentsmargin{1.8em} 
   \newlength{\ostLengthTocRuleWidth}
   \setlength{\ostLengthTocRuleWidth}{1.8pt}
   \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}{\ostLengthTocRuleWidth}}}
 
+  \newcommand{\ostFontTocPart}{\sffamily\bfseries}
+  \newcommand{\ostSizeTocPart}{\Large}
+
   \titlecontents{part}
   [0em]
   {\addvspace{2pc}}
-  {\contentslabel{0em}}
-  {\Large\sffamily\bfseries}
+  {\ostSizeTocPart\ostFontTocPart\contentslabel{0em}}
+  {\ostSizeTocPart\ostFontTocPart}
   {\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
+
+  \newcommand{\ostFontTocChapter}{\bfseries}
+  \newcommand{\ostSizeTocChapter}{\relax}
 
   \titlecontents{chapter}
   [1.5em]
   {\addvspace{0.7pc}}
-  {\bfseries\contentslabel{1em}}
-  {\bfseries\hspace*{-1em}}
+  {\ostSizeTocChapter\ostFontTocChapter\contentslabel{1em}}
+  {\ostSizeTocChapter\ostFontTocChapter\hspace*{-1em}}
   {\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
+
+  \newcommand{\ostFontTocPChapter}{\bfseries}
+  \newcommand{\ostSizeTocPChapter}{\relax}
 
   \titlecontents{p-chapter}
   [1.5em]
   {\addvspace{0.7pc}}
-  {\bfseries\contentslabel{1em}}
-  {\hspace*{-1.5em}}
+  {\ostSizeTocPChapter\ostFontTocPChapter\contentslabel{1em}}
+  {\ostSizeTocPChapter\ostFontTocPChapter\hspace*{-1.5em}}
   {\titlerule*[0.7em]{.}\contentspage}
   [\thispagestyle{pageStyleToc}]
+
+  \newcommand{\ostFontTocSection}{\relax}
+  \newcommand{\ostSizeTocSection}{\relax}
 
   \titlecontents{section}
   [3em]
-  {}
-  {\contentslabel{1.6em}}
+  {\ostFontTocSection\ostSizeTocSection}
+  {\ostFontTocSection\ostSizeTocSection\contentslabel{1.6em}}
   {}
   {\titlerule*[0.7em]{.}\contentspage}
   [\thispagestyle{pageStyleToc}]
+
+  \newcommand{\ostFontTocPSection}{\relax}
+  \newcommand{\ostSizeTocPSection}{\relax}
   
-  \titlecontents{p-section}[3em]{}{\contentslabel{1.6em}}{}
+  \titlecontents{p-section}
+  [3em]
+  {\ostSizeTocPSection\ostFontTocPSection}
+  {\ostSizeTocPSection\ostFontTocPSection\contentslabel{1.6em}}
+  {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \titlecontents{subsection}[5em]{}{\contentslabel{2.3em}}{}
+  \newcommand{\ostFontTocSubsection}{\relax}
+  \newcommand{\ostSizeTocSubsection}{\relax}
+
+  \titlecontents{subsection}
+  [5em]
+  {\ostSizeTocSubsection\ostFontTocSubsection}
+  {\ostSizeTocSubsection\ostFontTocSubsection\contentslabel{2.3em}}
+  {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \titlecontents{p-subsection}[5em]{}{\contentslabel{2.3em}}{}
+  \newcommand{\ostFontTocPSubsection}{\relax}
+  \newcommand{\ostSizeTocPSubsection}{\relax}
+
+  \titlecontents{p-subsection}[5em]
+  {\ostSizeTocPSubsection\ostFontTocPSubsection}
+  {\ostSizeTocPSubsection\ostFontTocPSubsection\contentslabel{2.3em}}{}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \titlecontents{figure}[2em]{\addvspace{1pc}}{\contentslabel{2em}}{}
+  \newcommand{\ostFontTocFigure}{\relax}
+  \newcommand{\ostSizeTocFigure}{\relax}
+
+  \titlecontents{figure}[2em]
+  {\ostSizeTocFigure\ostFontTocFigure\addvspace{1pc}}
+  {\ostSizeTocFigure\ostFontTocFigure\contentslabel{2em}}{}
   {~\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \titlecontents{table}[2em]{\addvspace{1pc}}{\contentslabel{2em}}{}
+  \newcommand{\ostFontTocTable}{\relax}
+  \newcommand{\ostSizeTocTable}{\relax}
+
+  \titlecontents{table}[2em]
+  {\ostSizeTocTable\ostFontTocTable\addvspace{1pc}}
+  {\ostSizeTocTable\ostFontTocTable\contentslabel{2em}}{}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
-\else%
-  \relax%
 \fi%
 
 % create all content tables
