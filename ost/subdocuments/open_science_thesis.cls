@@ -2168,11 +2168,14 @@
    expansion=true,%
    babel=true,%
    tracking=true,% 
+   kerning=true,
    spacing=false]{microtype}     
    \DeclareMicrotypeSet*[tracking]{my}% 
 	  {font = */*/*/sc/*}% 
    \SetTracking{encoding = *, shape = sc}{40}
 \fi 
+
+% \RequirePackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 
 %%%-------------------------------------------------%%%
 %%% PDF Options %%%
