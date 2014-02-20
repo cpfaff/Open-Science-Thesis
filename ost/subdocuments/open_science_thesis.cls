@@ -650,7 +650,6 @@
 \newcommand{\ostFontTocTable}{\relax}
 \newcommand{\ostSizeTocTable}{\relax}
 
-% fixme: unused atm
 \newcommand{\ostFont@ListingBasic}{\ttfamily}
 \newcommand{\ostSize@ListingBasic}{\footnotesize}
 
@@ -1033,6 +1032,7 @@
 \RequirePackage{biblatex}
 
 \let\ostAddBibliography\addbibresource
+
 \ifost@setspacing
   \ifost@sensitivespacing
     \preto{\printbibliography}{%
@@ -1108,13 +1108,12 @@
 \RequirePackage{listings}
 \RequirePackage{lstautogobble}
 
-\usepackage[scaled]{beramono}
-% \newcommand\Small{\fontsize{9}{9.9}\selectfont}
-\newcommand*\LSTfont{\footnotesize\ttfamily\SetTracking{encoding=*}{-60}\lsstyle}
+% \RequirePackage[scaled=0.83]{beramono}
 
 \lstset{%
    upquote=true,%
-   columns=fixed,%
+   % columns=fixed,%
+   columns=fullflexible,
    tabsize=2,%
    autogobble=true,
    showstringspaces=false,%
@@ -1129,7 +1128,7 @@
    % rulesepcolor=\color{ostColor@ListingBase03},%
    % numberblanklines=true,%
    numberstyle=\tiny\color{ostColor@ListingBase01},%
-   basicstyle=\LSTfont,%
+   basicstyle=\ifost@setspacing\ifost@sensitivespacing\singlespacing\fi\fi\ostSize@ListingBasic\ostFont@ListingBasic,%
    keywordstyle=\color{ostColor@ListingGreen},%
    stringstyle=\color{ostColor@ListingCyan}\ttfamily,%
    identifierstyle=\color{ostColor@ListingBlue},%
@@ -1227,6 +1226,7 @@
 }
 
 \preto{\tableofcontents}{
+  \microtypesetup{protrusion=false}
   \ifost@setspacing
     \ifost@sensitivespacing
     \begin{singlespace}
@@ -1243,9 +1243,11 @@
     \end{singlespace}
     \fi
   \fi
+  \microtypesetup{protrusion=true}
 }
 
 \preto{\listoffigures}{%
+  \microtypesetup{protrusion=false}
   \ifost@setspacing%
     \ifost@sensitivespacing%
       \begin{singlespace}
@@ -1261,9 +1263,11 @@
     \end{singlespace}
     \fi
   \fi
+  \microtypesetup{protrusion=true}
 }
 
 \preto{\listoftables}{
+  \microtypesetup{protrusion=false}
   \ifost@setspacing
     \ifost@sensitivespacing
     \begin{singlespace}
@@ -1278,6 +1282,7 @@
     \end{singlespace}
     \fi
   \fi
+  \microtypesetup{protrusion=false}
 }
 
 \newenvironment{ostPartialToc}{%
@@ -2152,7 +2157,7 @@
 %% TeX fintuning parameters %%
 \widowpenalty = 9999 % No widows
 \clubpenalty = 9999 % No orphans 
-\displaywidowpenalty = 9999
+\displaywidowpenalty = 9999 
 \tolerance = 200
 \hbadness = 1414
 \emergencystretch = 1.5em
@@ -2164,15 +2169,23 @@
    babel=true,%
    spacing=false]{microtype}     
 \else%
-   \RequirePackage[protrusion=true,%
-   expansion=true,%
-   babel=true,%
-   tracking=true,% 
-   kerning=true,
-   spacing=false]{microtype}     
+   % \RequirePackage[protrusion=true,%
+   % expansion=true,%
+   % babel=true,%
+   % final,%
+   % tracking=true,% 
+   % kerning=true,%
+   % spacing=false]{microtype}     
+   \RequirePackage[final, tracking=true]{microtype}
    \DeclareMicrotypeSet*[tracking]{my}% 
 	  {font = */*/*/sc/*}% 
    \SetTracking{encoding = *, shape = sc}{40}
+
+  % protusion for superscript numbers
+  % \SetProtrusion{encoding={*},family={bch},series={*},size={6,7}}
+		% {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
+		 % 6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
+
 \fi 
 
 % \RequirePackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
