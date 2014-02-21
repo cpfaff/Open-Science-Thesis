@@ -1450,7 +1450,7 @@
 \newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{\ostLengthTitleRuleWidth}}}
 \newcommand{\ostTitle}{The open science thesis} 
 \newcommand{\ostSubtitle}{This is a subtitle}
-\newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} \and Author two\textsuperscript{2}, \ldots} 
+\newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} and Author two\textsuperscript{2}, \ldots} 
 \newcommand{\ostInsitution}{University of XY, Department Z} 
 \newcommand{\ostEmail}[1]{\href{mailto:#1}{#1}} 
 \newcommand{\ostDate}{\today} 
@@ -1461,11 +1461,11 @@
 \ifost@titlepagebackgroundimage%
 
 \newcommand{\ostMakeTitle}{% 
-  \ifost@setspacing
-    \ifost@sensitivespacing
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
     \begin{singlespace}
-    \fi
-  \fi
+    \fi%
+  \fi%
   \begin{titlepage}
     \ostTitlePageBackgroundPic{}
     {\centering% 
@@ -1484,22 +1484,21 @@
       {\ifdefempty{\ostAdvisorTwo}{\relax}{\begin{tikzpicture}\node[titlepageoverlay]{\begin{minipage}{\textwidth} \begin{center}{\color{ostColorAdvisors}\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}\end{center}\end{minipage}};\end{tikzpicture}}\par} 
     }      
   \end{titlepage}
-  \ifost@setspacing
-    \ifost@sensitivespacing
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
     \end{singlespace}
-    \fi
-  \fi
+    \fi%
+  \fi%
 }
 \fi%
 
 \ifost@titlepagehorizontal  
-
 \newcommand{\ostMakeTitle}{% 
-  \ifost@setspacing
-    \ifost@sensitivespacing
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
     \begin{singlespace}
-    \fi
-  \fi
+    \fi%
+  \fi%
   \begin{titlepage}
     {\centering% 
       \ostTitleStretchAbove{}
@@ -1520,77 +1519,75 @@
       {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}}}\par} 
     }      
   \end{titlepage} 
-  \ifost@setspacing
-    \ifost@sensitivespacing
-    \end{singlespace}
-    \fi
-  \fi
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
+      \end{singlespace}
+    \fi%
+  \fi%
 }
 \fi
 
 \ifost@titlepageplain
-
 \newcommand{\ostMakeTitle}{% 
-  \ifost@setspacing
-    \ifost@sensitivespacing
-    \begin{singlespace}
-    \fi
-  \fi
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
+      \begin{singlespace}
+    \fi%
+  \fi%
   \begin{titlepage}
-    {\centering% 
+    {\centering%
       \ostTitleStretchAbove{}
-      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
-      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
-      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
-      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
-      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par}
-      \ostGitInfoLine{}
-      \ostTitleStretchBelow{}
+      {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip} 
+      {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip} 
+      {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}} 
+      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par} 
+      {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par} 
+      \ostGitInfoLine{} 
+      \ostTitleStretchBelow{} 
       {\ifdefempty{\ostAdvisorOne}{\relax}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorOne}}}\par} 
       \vspace{\baselineskip}
       {\ifdefempty{\ostAdvisorTwo}{\relax}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}}}\par} 
-    }      
-  \end{titlepage} 
-  \ifost@setspacing
-    \ifost@sensitivespacing
-    \end{singlespace}
-    \fi
-  \fi
+    }
+  \end{titlepage}
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
+      \end{singlespace}
+    \fi%
+  \fi%
 }
-\fi
+\fi%
 
 \ifost@titlepagevertical%
-
 \newcommand{\ostMakeTitle}{% 
-  \ifost@setspacing
-    \ifost@sensitivespacing
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
     \begin{singlespace}
-    \fi
-  \fi
+    \fi%
+  \fi%
   \begin{titlepage}
-    \mbox{ 
-      \hspace*{0.2\textwidth} 
+    \mbox{
+      \hspace*{0.2\textwidth}
       \rotatebox{90}{{\ostSizeTextOnBar\ostFontTextOnBar\color{ostColorTextOnBar}\ostTextOnBar}}
-      \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\textheight}}  
-      \hspace*{0.05\textwidth} 
-      \parbox[b]{0.75\textwidth}{ 
+      \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\textheight}}
+      \hspace*{0.05\textwidth}
+      \parbox[b]{0.75\textwidth}{
         {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\begin{flushleft}\ostSizeTitle\ostFontTitle\ostTitle\end{flushleft}}}\par}}\vspace{2\baselineskip}
         {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\begin{flushleft}\ostSizeSubtitle\ostFontSubtitle\ostSubtitle\end{flushleft}}}\par}}\vspace{4\baselineskip}
         {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
         {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
-        {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par} 
+        {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\ostSizeDate\ostFontDate\ostDate}}}\par}
         \ostGitInfoLine{}
-        \vspace{0.2\textheight} 
+        \vspace{0.2\textheight}
         {\ifdefempty{\ostAdvisorOne}{\vspace{4\baselineskip}}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorOne}}}\par}\vspace{\baselineskip}
-        {\ifdefempty{\ostAdvisorTwo}{\vspace{4\baselineskip}}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}}}\par} 
+        {\ifdefempty{\ostAdvisorTwo}{\vspace{4\baselineskip}}{\color{ostColorAdvisors}{{\ostSizeAdvisors\ostFontAdvisors\ostAdvisorTwo}}}\par}
       }
     }
   \end{titlepage}
-  \ifost@setspacing
-    \ifost@sensitivespacing
+  \ifost@setspacing%
+    \ifost@sensitivespacing%
     \end{singlespace}
-    \fi
-  \fi
+    \fi%
+  \fi%
 }
 \fi% 
 
@@ -2157,13 +2154,13 @@
 %% TeX fintuning parameters %%
 \widowpenalty = 9999 % No widows
 \clubpenalty = 9999 % No orphans 
-\displaywidowpenalty = 9999 
+\displaywidowpenalty = 9999
 \tolerance = 200
 \hbadness = 1414
 \emergencystretch = 1.5em
 \hfuzz = 0.3pt
 
-\ifluatex% 
+\ifluatex%
    \RequirePackage[protrusion=true,%
    expansion=true,%
    babel=true,%
@@ -2186,7 +2183,7 @@
 		% {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
 		 % 6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
 
-\fi 
+\fi
 
 % \RequirePackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 
