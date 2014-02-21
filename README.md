@@ -59,7 +59,7 @@ size of literally any element in your document.
 
 There is also a one line command that does the styling.
 
-```
+```latex
 \ostSetStyle{<name>}{<size>}{<font>}{<colorname>}
 % e.g for the title like above
 \ostSetStyle{Title}{\Huge}{\itshape}{green}
