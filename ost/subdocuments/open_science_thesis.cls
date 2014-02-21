@@ -337,8 +337,7 @@
 \newcommand{\ostSetOpacity}[2]{\expandafter\def\csname ostOpacity#1\endcsname{#2}}
 \newcommand{\ostSetFont}[2]{\expandafter\def\csname ostFont#1\endcsname{#2}}  
 \newcommand{\ostSetSize}[2]{\expandafter\def\csname ostSize#1\endcsname{#2}}  
-% \newcommand{\ostSetFormat}[2]{\expandafter\def\csname ostFormat#1\endcsname{#2}}  
-% \newcommand{\ostSet}[4]{\ostSetContent{#1}{#2} \ostSetFont{#1}{#3} \ostSetColor{#1}{#4}}
+\newcommand{\ostSetStyle}[4]{\ostSetSize{#1}{#2}\ostSetFont{#1}{#3}\ostSetColor{#1}{#4}}
 
 %%%-------------------------------------------------%%%
 %%% Language adaption of the document %%%
@@ -468,6 +467,7 @@
   \colorlet{ostColorFileLinks}{black}
   \colorlet{ostColorMenuLinks}{black}
   \colorlet{ostColorURLLinks}{gray}
+  \colorlet{ostColorEmail}{gray}
 
   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
@@ -528,6 +528,7 @@
   \colorlet{ostColorFileLinks}{black}
   \colorlet{ostColorMenuLinks}{black}
   \colorlet{ostColorURLLinks}{black}
+  \colorlet{ostColorEmail}{black}
 
   \colorlet{ostColorInlineCodeFrame}{black}
   \colorlet{ostColorInlineCodeBackground}{white}
@@ -564,6 +565,9 @@
 % Font family, shapes, series sizes
 \newcommand{\ostSizeGitInfo}{\tiny}
 \newcommand{\ostFontGitInfo}{\normalfont}
+
+\newcommand{\ostSizeEmail}{\relax}
+\newcommand{\ostFontEmail}{\relax}
 
 \newcommand{\ostSizePageNumber}{\normalsize}
 \newcommand{\ostFontPageNumber}{\bfseries}
@@ -1452,7 +1456,7 @@
 \newcommand{\ostSubtitle}{This is a subtitle}
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} and Author two\textsuperscript{2}, \ldots} 
 \newcommand{\ostInsitution}{University of XY, Department Z} 
-\newcommand{\ostEmail}[1]{\href{mailto:#1}{#1}} 
+\newcommand{\ostEmail}[1]{\href{mailto:#1}{\ostSizeEmail\ostFontEmail\color{ostColorEmail}#1}} 
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostTextOnBar}{\textcolor{LightGray}{Open~-~}\textcolor{gray}{Science}\textcolor{LightGray}{~-~Thesis}} 
 \newcommand{\ostAdvisorOne}{Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}

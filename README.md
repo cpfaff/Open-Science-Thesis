@@ -48,9 +48,21 @@ size of literally any element in your document.
 * Example for the user interface:
 
 ```latex
+% set the conent of a field
 \ostSetContent{Title}{This is the title of my document}
-\ostSetFont{Title}{\Huge\itshape}
+
+% set the stlye of a field
+\ostSetSize{Title}{\Huge}
+\ostSetFont{Title}{\itshape}
 \ostSetColor{Title}{green}
+```
+
+There is also a one line command that does the styling.
+
+```
+\ostSetStyle{<name>}{<size>}{<font>}{<colorname>}
+% e.g for the title like above
+\ostSetStyle{Title}{\Huge}{\itshape}{green}
 ```
 
 As you can see you can set content, font and color on of an element by using
