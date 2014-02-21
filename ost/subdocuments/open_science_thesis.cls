@@ -327,8 +327,11 @@
 %%%-------------------------------------------------%%%
 
 \newcommand{\ostSetContent}[2]{\expandafter\def\csname ost#1\endcsname{#2}}
+
 \newcommand{\ostSetLength}[2]{\setlength{\csname ostLength#1\endcsname}{#2}}
 \newcommand{\ostSetHeight}[2]{\setlength{\csname ostHeight#1\endcsname}{#2}}
+\newcommand{\ostSetWidth}[2]{\setlength{\csname ostWidth#1\endcsname}{#2}}
+
 \newcommand{\ostSetColor}[2]{\colorlet{ostColor#1}{#2}} 
 \newcommand{\ostSaveColor}[1]{\colorlet{ostColor@savecolor}{#1}} 
 \newcommand{\ostSaveColorTo}[2]{\colorlet{#1}{#2}} 
@@ -389,7 +392,7 @@
 \colorlet{ostColorGlsLinkColor}{black}
 
 \ifost@color%  
-  \colorlet{ostColorTitleRule}{LightGray} 
+  \colorlet{ostColorHorizontalTitleRule}{LightGray} 
   \colorlet{ostColorTitleRuleVertical}{LightGray}  
   \colorlet{ostColorTextOnBar}{gray}  
   \colorlet{ostColorTitleOverlay}{white} 
@@ -487,7 +490,7 @@
   \xdefinecolor{ostColor@ListingCyan}{HTML}{2AA198}
   \xdefinecolor{ostColor@ListingGreen}{HTML}{859900}
 \else%
-  \colorlet{ostColorTitleRule}{black}
+  \colorlet{ostColorHorizontalTitleRule}{black}
   \colorlet{ostColorTitleRuleVertical}{black} 
   \colorlet{ostColorTextOnBar}{black}  
   \colorlet{ostColorTocRule}{black} 
@@ -1361,15 +1364,25 @@
 %%% Definition of titlepage %%%
 %%%-------------------------------------------------%%%
 
-% lengths
+% lengths (between objects)
+
 \newlength{\ostLengthTitleSpacerTitleRuleUpper} 
 \setlength{\ostLengthTitleSpacerTitleRuleUpper}{2em} 
 \newlength{\ostLengthTitleSpacerTitleRuleLower} 
 \setlength{\ostLengthTitleSpacerTitleRuleLower}{2em} 
-\newlength{\ostLengthTitleRuleWidth}
-\setlength{\ostLengthTitleRuleWidth}{3pt}
-\newlength{\ostLengthTitleRuleWidthVertical}
-\setlength{\ostLengthTitleRuleWidthVertical}{3pt}
+
+% dimensions (are part of an object)
+
+\newlength{\ostWidthHorizontalTitleRule}
+\setlength{\ostWidthHorizontalTitleRule}{\linewidth}
+\newlength{\ostHeightHorizontalTitleRule}
+\setlength{\ostHeightHorizontalTitleRule}{3pt}
+
+\newlength{\ostWidthVerticalTitleRule}
+\setlength{\ostWidthVerticalTitleRule}{3pt}
+\newlength{\ostHeightVerticalTitleRule}
+\setlength{\ostHeightVerticalTitleRule}{\textheight}
+
 \newlength{\ostLengthBackgroundPicVoffset} 
 \setlength\ostLengthBackgroundPicVoffset{0pt}
 \newlength{\ostLengthBackgroundPicHoffset} 
@@ -1451,7 +1464,7 @@
 % }%
 % }
 
-\newcommand{\ostTitleRule}{\textcolor{ostColorTitleRule}{\noindent\rule{\linewidth}{\ostLengthTitleRuleWidth}}}
+\newcommand{\ostTitleRule}{\textcolor{ostColorHorizontalTitleRule}{\noindent\rule{\ostWidthHorizontalTitleRule}{\ostHeightHorizontalTitleRule}}}
 \newcommand{\ostTitle}{The open science thesis} 
 \newcommand{\ostSubtitle}{This is a subtitle}
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} and Author two\textsuperscript{2}, \ldots} 
@@ -1572,7 +1585,7 @@
     \mbox{
       \hspace*{0.2\textwidth}
       \rotatebox{90}{{\ostSizeTextOnBar\ostFontTextOnBar\color{ostColorTextOnBar}\ostTextOnBar}}
-      \textcolor{ostColorTitleRuleVertical}{\rule{\ostLengthTitleRuleWidthVertical}{\textheight}}
+      \textcolor{ostColorTitleRuleVertical}{\rule{\ostWidthVerticalTitleRule}{\ostHeightVerticalTitleRule}}
       \hspace*{0.05\textwidth}
       \parbox[b]{0.75\textwidth}{
         {\noindent\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\begin{flushleft}\ostSizeTitle\ostFontTitle\ostTitle\end{flushleft}}}\par}}\vspace{2\baselineskip}
