@@ -12,6 +12,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 
+
 %%%-------------------------------------------------%%%
 %%% Provides class. Load options from class call %%%
 %%%-------------------------------------------------%%%
@@ -662,8 +663,10 @@
 \newcommand{\ostFont@ListingBasic}{\ttfamily}
 \newcommand{\ostSize@ListingBasic}{\footnotesize}
 
-% Predefined content
+% Predefined content and composites
 \newcommand{\ostPageNumberSurrounding}{\textendash}
+\newcommand{\ostPageNumber}{\thepage}
+\newcommand{\ostPageNumbering}{\relax}
 
 % Opacity 
 \newcommand{\ostOpacityTitleOverlay}{0.7}
@@ -698,19 +701,16 @@
 }
 \fancyhf{}
 
-\newcommand{\ostPageNumbering}{\relax}
-\newcommand{\ostSetPageNumbering}[1]{\def\ostPageNumbering{#1}}
-
 % create lengths
-\newlength{\ostWidthHeaderRule} 
-\newlength{\ostWidthFooterRule}
+\newlength{\ostHeightHeaderRule} 
+\newlength{\ostHeightFooterRule}
 
 \ifost@color
-  \setlength{\ostWidthHeaderRule}{3.0pt} 
-  \setlength{\ostWidthFooterRule}{3.0pt} 
+  \setlength{\ostHeightHeaderRule}{3.0pt} 
+  \setlength{\ostHeightFooterRule}{3.0pt} 
 \else
-  \setlength{\ostWidthHeaderRule}{1.0pt} 
-  \setlength{\ostWidthFooterRule}{1.0pt} 
+  \setlength{\ostHeightHeaderRule}{1.0pt} 
+  \setlength{\ostHeightFooterRule}{1.0pt} 
 \fi
 
 % patch rule commands with color
@@ -720,11 +720,11 @@
 \ifost@fancyhf
   \fancypagestyle{pageStyleChapter}{%
     \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{\ostWidthFooterRule}
+    \renewcommand{\footrulewidth}{\ostHeightFooterRule}
     \fancyhead{}
   } 
-  \renewcommand{\headrulewidth}{\ostWidthHeaderRule}
-  \renewcommand{\footrulewidth}{\ostWidthFooterRule}
+  \renewcommand{\headrulewidth}{\ostHeightHeaderRule}
+  \renewcommand{\footrulewidth}{\ostHeightFooterRule}
   \fancypagestyle{pageStyleToc}{%
     \renewcommand{\headrulewidth}{0pt}
     \renewcommand{\footrulewidth}{0pt}
@@ -748,14 +748,16 @@
   \setlength{\ostLengthPageNumberSurroundingSep}{{0mm}} 
   \renewcommand\ostPageNumberSurrounding{\relax}
 
-\ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+\def\ostPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\ostPageNumber}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+
   \fancyfoot[RO, LE]{\ostPageNumbering}     
   \ifost@fancyhf
   \fancyhead[LE,RO]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}}
   \fancyhead[LO,RE]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}} 
   \fi
 \else%
-  \ostSetPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\thepage}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+  \def\ostPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\ostPageNumber}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+
   \fancyfoot[C]{\ostPageNumbering} 
   \ifost@fancyhf
   \fancyhead[L]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}}
@@ -1182,18 +1184,18 @@
 \define@key{ostQuote}{author}{\renewcommand*\ostQuoteAuthor{#1}}
 \presetkeys{ostQuote}{author=}{}%
 
-\newdimen\ostLengthQuoteRuleHeight
-\newdimen\ostLengthQuoteRuleWidth 
+\newdimen\ostHeightQuoteRule
+\newdimen\ostWidthQuoteRule 
 \newdimen\ostLengthQuoteRuleSep 
 \ostLengthQuoteRuleSep=-2.3em
 
 \ifost@color%
-  \ostLengthQuoteRuleWidth=5pt
+  \ostWidthQuoteRule=5pt
 \else%
-  \ostLengthQuoteRuleWidth=2pt 
+  \ostWidthQuoteRule=2pt 
 \fi%
 
-\newcommand{\ostQuoteRule}{\textcolor{ostColorQuoteRule}{\rule{\ostLengthQuoteRuleWidth}{\ostLengthQuoteRuleHeight}}}
+\newcommand{\ostQuoteRule}{\textcolor{ostColorQuoteRule}{\rule{\ostWidthQuoteRule}{\ostHeightQuoteRule}}}
 
 \newcommand{\ostquote}[2][]{
   \setkeys{ostQuote}{#1} 
@@ -1201,7 +1203,7 @@
       {\small #2 \ifdefempty{\ostQuoteAuthor}{\relax}{\\[0.5em] \raggedright{\textbf{--}~\textit{\ostQuoteAuthor}~\textbf{--}}}}
     \end{minipage}
   }%
-  \settototalheight\ostLengthQuoteRuleHeight\ost@temp
+  \settototalheight\ostHeightQuoteRule\ost@temp
   \begin{center}
     \begin{minipage}{0.1\textwidth}
       \ostQuoteRule{}
