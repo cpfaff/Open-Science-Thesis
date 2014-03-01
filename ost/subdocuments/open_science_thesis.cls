@@ -463,6 +463,8 @@
   \colorlet{ostColorLineNumber}{DarkGray} 
   \colorlet{ostColorFooterRule}{LightGray!30} 
   \colorlet{ostColorHeaderMarks}{black}
+  \colorlet{ostColorFooterMarks}{gray}
+
   \colorlet{ostColorHeaderRule}{LightGray!30}
   \colorlet{ostColorPageNumber}{gray}
   \colorlet{ostColorPageNumberSurrounding}{gray}
@@ -525,6 +527,8 @@
   \colorlet{ostColorHeaderRule}{black}
   \colorlet{ostColorFooterRule}{black}
   \colorlet{ostColorHeaderMarks}{black}
+  \colorlet{ostColorFooterMarks}{black}
+
   \colorlet{ostColorPageNumber}{black} 
   \colorlet{ostColorPageNumberSurrounding}{black}
   \colorlet{ostColorLinks}{black}
@@ -580,6 +584,9 @@
 
 \newcommand{\ostFontHeaderMarks}{\itshape}
 \newcommand{\ostSizeHeaderMarks}{\rmfamily\relax}
+
+\newcommand{\ostFontFooterMarks}{\relax}
+\newcommand{\ostSizeFooterMarks}{\relax}
 
 \newcommand{\ostFontTextOnBar}{\relax}
 \newcommand{\ostSizeTextOnBar}{\huge}
@@ -744,17 +751,15 @@
 \newlength{\ostLengthPageNumberSurroundingSep}
 \setlength{\ostLengthPageNumberSurroundingSep}{{1mm}} 
 
-% \ostSetContent{Header}{<left>}{center}{right}
-% \ostSetContent{Footer}{<left>}{center}{right}
-
 \newcommand{\ostHeaderRightMark}{\rightmark}
 \newcommand{\ostHeaderLeftMark}{\leftmark}
 \newcommand{\ostHeaderCenterMark}{\relax}
 \newcommand{\ostFooterRightMark}{\relax}
 \newcommand{\ostFooterLeftMark}{\relax}
 \newcommand{\ostFooterCenterMark}{\ostPageNumbering}
-\newcommand{\ostHeaderSetup}[2]{\fancyhead[#1]{#2}}
-\newcommand{\ostFooterSetup}[2]{\fancyfoot[#1]{#2}}
+
+\newcommand{\ostHeaderSetup}[2]{\fancyhead[#1]{{\ostSizeHeaderMarks\ostFontHeaderMarks\textcolor{ostColorHeaderMarks}{#2}}}}
+\newcommand{\ostFooterSetup}[2]{\fancyfoot[#1]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{#2}}}
 
 \if@twoside%
   \setlength{\ostLengthPageNumberSurroundingSep}{{0mm}} 
@@ -772,20 +777,20 @@
     \fancyhead[LO]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\ostHeaderLeftMark}}}} 
     \fancyhead[RE]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\ostHeaderLeftMark}}}} 
 
-    \fancyfoot[C]{\ostFooterCenterMark} 
-    \fancyfoot[L]{\ostFooterLeftMark} 
-    \fancyfoot[R]{\ostFooterRightMark} 
+    \fancyfoot[L]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostFooterLeftMark}}
+    \fancyfoot[C]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostFooterCenterMark}}
+    \fancyfoot[R]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostFooterRightMark}} 
   \fi
 \else%
   \def\ostPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\ostPageNumber}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
 
   \fancyhead[L]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\ostHeaderLeftMark}}}}
-  \fancyhead[C]{\ostHeaderCenterMark}
+  \fancyhead[C]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\ostHeaderCenterMark}}}}
   \fancyhead[R]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\ostHeaderRightMark}}}} 
 
-  \fancyfoot[C]{\ostFooterCenterMark} 
-  \fancyfoot[L]{\ostFooterLeftMark} 
-  \fancyfoot[R]{\ostFooterRightMark} 
+  \fancyfoot[L]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostFooterLeftMark}}
+  \fancyfoot[C]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostFooterCenterMark}}
+  \fancyfoot[R]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostFooterRightMark}} 
 
   \ifost@fancyhf
   \fi
