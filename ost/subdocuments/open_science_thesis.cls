@@ -753,9 +753,8 @@
 \newcommand{\ostFooterRightMark}{\relax}
 \newcommand{\ostFooterLeftMark}{\relax}
 \newcommand{\ostFooterCenterMark}{\ostPageNumbering}
-
-\newcommand{\ostSetupHeader}[2]{\fancyhead[#1]{#2}}
-\newcommand{\ostSetupFooter}[2]{\fancyfoot[#1]{#2}}
+\newcommand{\ostHeaderSetup}[2]{\fancyhead[#1]{#2}}
+\newcommand{\ostFooterSetup}[2]{\fancyfoot[#1]{#2}}
 
 \if@twoside%
   \setlength{\ostLengthPageNumberSurroundingSep}{{0mm}} 

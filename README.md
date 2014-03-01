@@ -490,6 +490,40 @@ remove the option again then the comments of revisors are ignored.
 
 This mechanism is picking colors automatically for 5 different revisors.
 
+### Header and footer (fancyhdr)
+
+Header and footer setup is done with the commands below. As thhe fancyhdr
+package offers a very nice interface to do this, there is not much done from my
+side but provide a camel case command that fits with the rest of commands.
+
+\ostHeaderSetup{<places comma separated>}{<content>}
+\ostFooterSetup{<places comma separated>}{<content>}
+
+An example:
+
+```
+\ostHeaderSetup{LO,RE}{\itshape testcontent}
+\ostHeaderSetup{RO,LE}{the other}
+\ostHeaderSetup{C}{the center}
+\ostFooterSetup{LO,RE}{testcontent}
+\ostFooterSetup{RO,LE}{the other}
+\ostFooterSetup{C}{the center}
+```
+
+As placments are allowed:
+
+* for twoside documents:
+	* `LO` left odd
+	* `LE` left even
+	* `RO` right odd
+	* `RE` right even
+	* `C` center
+
+* for oneside documents:
+	* `L` left
+	* `R` right
+	* `C` center
+
 
 ### Affidavit
 
