@@ -492,14 +492,31 @@ This mechanism is picking colors automatically for 5 different revisors.
 
 ### Header and footer (fancyhdr)
 
-Header and footer setup is done with the commands below. As thhe fancyhdr
-package offers a very nice interface to do this, there is not much done from my
-side but provide a camel case command that fits with the rest of commands.
+Header and footer are setup by the open science thesis with predefined
+parameters. If you are not happy with the styling you can change the
+fontattributes with the commands below:
+
+```latex
+\ostSetSize{HeaderMarks}{\Large}
+\ostSetFont{HeaderMarks}{\upshape}
+\ostSetColor{HeaderMarks}{red}
+
+\ostSetSize{FooterMarks}{\Large}
+\ostSetFont{FooterMarks}{\upshape}
+\ostSetColor{FooterMarks}{red}
+```
+
+If you are not happy with the content in the header and footer marks you can
+setup the fields with the commands below. As thhe fancyhdr package offers a
+very nice interface to do this it operates direcly on its commands.
 
 ```latex
 \ostHeaderSetup{<places comma separated>}{<content>}
 \ostFooterSetup{<places comma separated>}{<content>}
 ```
+
+The setup of size, font and color of the header and footer marks as shown above
+will also apply to your setup with these comands.
 
 An example:
 
@@ -526,6 +543,17 @@ As placments are allowed:
 	* `R` right
 	* `C` center
 
+Header and footer rules can be changed by following commands.
+
+```latex
+\ostSetHeight{HeaderRule}{3pt}
+\ostSetColor{HeaderRule}{red}
+% width is not settable atm
+
+\ostSetHeight{FooterRule}{3pt}
+\ostSetColor{FooterRule}{red}
+% width is not settable atm
+```
 
 ### Affidavit
 
