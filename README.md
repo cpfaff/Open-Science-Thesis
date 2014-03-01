@@ -496,12 +496,14 @@ Header and footer setup is done with the commands below. As thhe fancyhdr
 package offers a very nice interface to do this, there is not much done from my
 side but provide a camel case command that fits with the rest of commands.
 
+```latex
 \ostHeaderSetup{<places comma separated>}{<content>}
 \ostFooterSetup{<places comma separated>}{<content>}
+```
 
 An example:
 
-```
+```latex
 \ostHeaderSetup{LO,RE}{\itshape testcontent}
 \ostHeaderSetup{RO,LE}{the other}
 \ostHeaderSetup{C}{the center}
