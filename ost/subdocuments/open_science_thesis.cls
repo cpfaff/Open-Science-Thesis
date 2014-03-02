@@ -673,7 +673,6 @@
 % Predefined content and composites
 \newcommand{\ostPageNumberSurrounding}{\textendash}
 \newcommand{\ostPageNumber}{\thepage}
-\newcommand{\ostPageNumbering}{\relax}
 
 % Opacity 
 \newcommand{\ostOpacityTitleOverlay}{0.7}
@@ -753,7 +752,10 @@
 
 \newcommand{\ostHeaderSetup}[2]{\fancyhead[#1]{{\ostSizeHeaderMarks\ostFontHeaderMarks\textcolor{ostColorHeaderMarks}{#2}}}}
 \newcommand{\ostFooterSetup}[2]{\fancyfoot[#1]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{#2}}}
-\def\ostPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\ostPageNumber}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+
+% \def\ostPageNumbering{\textcolor{ostColorPageNumber}{{\ostSizePageNumber\ostFontPageNumber{\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}\hspace{\ostLengthPageNumberSurroundingSep}{\ostPageNumber}\hspace{\ostLengthPageNumberSurroundingSep}\textcolor{ostColorPageNumberSurrounding}{\ostPageNumberSurrounding}}}}} 
+
+\newcommand{\ostPageNumbering}{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostPageNumberSurrounding\hspace{\ostLengthPageNumberSurroundingSep}\thepage\hspace{\ostLengthPageNumberSurroundingSep}\ostPageNumberSurrounding}}
 
 \if@twoside%
   \setlength{\ostLengthPageNumberSurroundingSep}{{0mm}} 
@@ -763,13 +765,13 @@
     \fancyhead[RE]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}} 
     \fancyhead[LO]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}} 
     \fancyhead[RO]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}}
-    \fancyfoot[LE, RO]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostPageNumbering}}
   \fi%
-  \fancyfoot[RO, LE]{\ostPageNumbering}     
+  \ostFooterSetup[RO,LE]{\ostPageNumberSurrounding\hspace{\ostLengthPageNumberSurroundingSep}\ostPageNumber\hspace{\ostLengthPageNumberSurroundingSep}\ostPageNumberSurrounding}
+  % \fancyfoot[RO, LE]{\ostPageNumbering}
 \else%
   \fancyhead[L]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}}
   \fancyhead[R]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}} 
-  \fancyfoot[C]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostPageNumbering}}
+  \fancyfoot[C]{\ostPageNumbering}
 \fi%
 
 %%%-------------------------------------------------%%%
