@@ -498,12 +498,12 @@ fontattributes with the commands below:
 
 ```latex
 \ostSetSize{HeaderMarks}{\Large}
-\ostSetFont{HeaderMarks}{\upshape}
+\ostSetFont{HeaderMarks}{\scshape}
 \ostSetColor{HeaderMarks}{red}
 
 \ostSetSize{FooterMarks}{\Large}
-\ostSetFont{FooterMarks}{\upshape}
-\ostSetColor{FooterMarks}{red}
+\ostSetFont{FooterMarks}{\itshape}
+\ostSetColor{FooterMarks}{green}
 ```
 
 If you are not happy with the content in the header and footer marks you can
@@ -521,7 +521,7 @@ will also apply to your setup with these comands.
 An example:
 
 ```latex
-\ostHeaderSetup{LO,RE}{\itshape testcontent}
+\ostHeaderSetup{LO,RE}{testcontent}
 \ostHeaderSetup{RO,LE}{the other}
 \ostHeaderSetup{C}{the center}
 \ostFooterSetup{LO,RE}{testcontent}
