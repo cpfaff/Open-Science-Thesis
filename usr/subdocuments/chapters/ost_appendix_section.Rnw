@@ -7,7 +7,7 @@
 \chapter{Figures}
 
 % {{{ plot fig:test_plot_two 
-\ostFramedEnv[label = fig:test_plot_two_appendix]{ 
+\framedfigure[label = fig:test_plot_two_appendix]{ 
 <<test_plot_one_appendix, fig.width=3.415, fig.height=2.5, echo=FALSE>>=
    ggplot(movies, aes(x=rating)) +
    geom_density() +

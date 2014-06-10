@@ -13,7 +13,7 @@
 \lipsum[1-2]
 
 % {{{ plot: fig:test_plot_one 
-\ostFramedEnv[label = fig:test_plot_one]{ 
+\framedfigure[label = fig:test_plot_one]{ 
 <<test_plot, fig.width=3.27, fig.height=2.5, echo=FALSE>>= 
    ggplot(cars, aes(x=dist, y=speed)) +
    geom_point(shape=1) + geom_smooth(method = "lm", size = 1) +
@@ -42,7 +42,7 @@
 \end{multline}
 
 % {{{ plot fig:test_plot_two 
-\ostFramedEnv[label = fig:test_plot_two]{ 
+\framedfigure[label = fig:test_plot_two]{ 
 <<test_plot_two, fig.width=3.415, fig.height=2.5, echo=FALSE>>=
    ggplot(movies, aes(x=rating)) +
    geom_density() +

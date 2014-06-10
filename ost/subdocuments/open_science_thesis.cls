@@ -793,6 +793,7 @@
   \ostSetOptions@Lettrine{#1}
   \lettrine{\textcolor{ostColorLettrine}{#1}}
 } 
+\let\capital\intro
 
 %%%-------------------------------------------------%%%
 %%% Enable linenumbers %%%
@@ -1216,6 +1217,7 @@
 }
 % provide alias
 \let\barquote\ostquote
+\let\ostQuote\ostquote
 
 \g@addto@macro{\frontmatter}{
   \ost@chapterwithtocfalse
@@ -2091,7 +2093,7 @@
   \fi%
 }
 \let\printallcontenttables\makeallcontenttables%
-
+\let\makealltables\makeallcontenttables
 %%%-------------------------------------------------%%%
 %%% Todonote based revision setup %%%
 %%%-------------------------------------------------%%%
