@@ -744,7 +744,7 @@
 \setlength{\ostLengthPageNumberSurroundingSep}{{1mm}} 
 
 \newcommand{\ostHeaderSetup}[2]{\fancyhead[#1]{{\ostSizeHeaderMarks\ostFontHeaderMarks\textcolor{ostColorHeaderMarks}{#2}}}}
-\newcommand{\ostFooterSetup}[2]{\fancyfoot[#1]{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{#2}}}
+\newcommand{\ostFooterSetup}[2]{\fancyfoot[#1]{{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{#2}}}}
 
 \newcommand{\ostPageNumbering}{\ostSizeFooterMarks\ostFontFooterMarks\textcolor{ostColorFooterMarks}{\ostPageNumberSurrounding\hspace{\ostLengthPageNumberSurroundingSep}\ostPageNumber\hspace{\ostLengthPageNumberSurroundingSep}\ostPageNumberSurrounding}}
 
@@ -757,7 +757,8 @@
     \fancyhead[LO]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}} 
     \fancyhead[RO]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}}
   \fi%
-  \ostFooterSetup[RO,LE]{\ostPageNumbering}
+  % \ostFooterSetup[RO,LE]{\ostPageNumbering}
+  \fancyfoot[RO,LE]{\ostPageNumbering}
 \else%
   \fancyhead[L]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\leftmark}}}}
   \fancyhead[R]{\ostSizeHeaderMarks\ostFontHeaderMarks{\nouppercase{\textcolor{ostColorHeaderMarks}{\rightmark}}}} 
@@ -2012,17 +2013,20 @@
 		% {<numberless-entry-format>}
 		% {<filler-page-format>}[<below-code>]
 
-  \contentsmargin{1.8em} 
-  \newlength{\ostLengthTocRuleWidth}
-  \setlength{\ostLengthTocRuleWidth}{1.8pt}
-  \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\linewidth}{\ostLengthTocRuleWidth}}}
+  \contentsmargin{2.8em} 
+  \newlength{\ostHeightTocRule}
+  \newlength{\ostWidthTocRule}
+  \setlength{\ostHeightTocRule}{1.8pt}
+  \setlength{\ostWidthTocRule}{\linewidth}
+
+  \newcommand{\ostTocRule}{\textcolor{ostColorTocRule}{\noindent\rule{\ostWidthTocRule}{\ostHeightTocRule}}}
 
   \titlecontents{part}
   [0em]
   {\addvspace{2pc}}
   {\ostSizeTocPart\ostFontTocPart\contentslabel{0em}}
   {\ostSizeTocPart\ostFontTocPart}
-  {\titlerule*{}\bfseries\contentspage}[\vspace{-0.7em}\ostTocRule\thispagestyle{pageStyleToc}]
+  {\titlerule*{}\contentspage}[\ostTocRule\thispagestyle{pageStyleToc}]
 
   \titlecontents{chapter}
   [1.5em]
