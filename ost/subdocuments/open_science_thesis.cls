@@ -1884,7 +1884,7 @@
   {\ostSizePartHeaderNumber\color{ostColorPartHeaderNumber}\ostFontPartHeaderNumber\thepart}%
   {-2ex}%
   {\ostSizePartHeader\color{ostColorPartHeader}\ostFontPartHeader}%
-  [\vspace*{4pc}{\ostSizePartialTocPart\ostFontPartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
+  [\vspace*{4pc}{\color{ostColorPartialToc}\ostSizePartialTocPart\ostFontPartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
 \else%
   \titleformat{\part}[display]%
   {\sffamily}% influences all content 
