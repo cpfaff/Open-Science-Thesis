@@ -2026,29 +2026,29 @@
   \titlecontents{part}
   [0em]
   {\addvspace{2pc}}
-  {\ostSizeTocPart\ostFontTocPart\contentslabel{0em}}
+  {\ostSizeTocPart\ostFontTocPart\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocPart\ostFontTocPart}
   {\titlerule*{}\contentspage}[\ostTocRule\thispagestyle{pageStyleToc}]
 
   \titlecontents{chapter}
   [1.5em]
   {\addvspace{0.7pc}}
-  {\ostSizeTocChapter\ostFontTocChapter\contentslabel{1em}}
-  {\ostSizeTocChapter\ostFontTocChapter\hspace*{-1em}}
+  {\ostSizeTocChapter\ostFontTocChapter\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {\ostSizeTocChapter\ostFontTocChapter}
   {\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{p-chapter}
   [1.5em]
   {\addvspace{0.7pc}}
-  {\ostSizeTocPChapter\ostFontTocPChapter\contentslabel{1em}}
+  {\ostSizeTocPChapter\ostFontTocPChapter\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocPChapter\ostFontTocPChapter\hspace*{-1.5em}}
   {\titlerule*[0.7em]{.}\contentspage}
   [\thispagestyle{pageStyleToc}]
 
   \titlecontents{section}
   [3em]
+  {\ostFontTocSection\ostSizeTocSection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostFontTocSection\ostSizeTocSection}
-  {\ostFontTocSection\ostSizeTocSection\contentslabel{1.6em}}
   {}
   {\titlerule*[0.7em]{.}\contentspage}
   [\thispagestyle{pageStyleToc}]
@@ -2056,30 +2056,33 @@
   \titlecontents{p-section}
   [3em]
   {\ostSizeTocPSection\ostFontTocPSection}
-  {\ostSizeTocPSection\ostFontTocPSection\contentslabel{1.6em}}
+  {\ostSizeTocPSection\ostFontTocPSection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
   
   \titlecontents{subsection}
   [5em]
+  {\ostSizeTocSubsection\ostFontTocSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocSubsection\ostFontTocSubsection}
-  {\ostSizeTocSubsection\ostFontTocSubsection\contentslabel{2.3em}}
   {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{p-subsection}[5em]
   {\ostSizeTocPSubsection\ostFontTocPSubsection}
-  {\ostSizeTocPSubsection\ostFontTocPSubsection\contentslabel{2.3em}}{}
+  {\ostSizeTocPSubsection\ostFontTocPSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{figure}[2em]
-  {\ostSizeTocFigure\ostFontTocFigure\addvspace{1pc}}
-  {\ostSizeTocFigure\ostFontTocFigure\contentslabel{2em}}{}
+  {\ostSizeTocFigure\ostFontTocFigure\addvspace{0.5pc}}
+  {\ostSizeTocFigure\ostFontTocFigure\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {}
   {~\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{table}[2em]
-  {\ostSizeTocTable\ostFontTocTable\addvspace{1pc}}
-  {\ostSizeTocTable\ostFontTocTable\contentslabel{2em}}{}
+  {\ostSizeTocTable\ostFontTocTable\addvspace{0.5pc}}
+  {\ostSizeTocTable\ostFontTocTable\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 \fi%
 
