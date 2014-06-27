@@ -638,7 +638,7 @@
 \newcommand{\ostFontPartialTocPart}{\rmfamily}
 \newcommand{\ostSizePartialTocPart}{\large}
 
-\newcommand{\ostFontPartialTocChapter}{\rmfamily}
+\newcommand{\ostFontPartialTocChapter}{\normalfont}
 \newcommand{\ostSizePartialTocChapter}{\large}
 
 \newcommand{\ostFontTocPart}{\sffamily\bfseries}
@@ -2031,7 +2031,7 @@
   {\titlerule*{}\contentspage}[\ostTocRule\thispagestyle{pageStyleToc}]
 
   \titlecontents{chapter}
-  [1.5em]
+  [1em]
   {\addvspace{0.7pc}}
   {\ostSizeTocChapter\ostFontTocChapter\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocChapter\ostFontTocChapter}
@@ -2046,7 +2046,7 @@
   [\thispagestyle{pageStyleToc}]
 
   \titlecontents{section}
-  [3em]
+  [2.65em]
   {\ostFontTocSection\ostSizeTocSection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostFontTocSection\ostSizeTocSection}
   {}
@@ -2054,20 +2054,21 @@
   [\thispagestyle{pageStyleToc}]
 
   \titlecontents{p-section}
-  [3em]
+  [2em]
   {\ostSizeTocPSection\ostFontTocPSection}
   {\ostSizeTocPSection\ostFontTocPSection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
   
   \titlecontents{subsection}
-  [5em]
+  [5.1em]
   {\ostSizeTocSubsection\ostFontTocSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocSubsection\ostFontTocSubsection}
   {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \titlecontents{p-subsection}[5em]
+  \titlecontents{p-subsection}
+  [4.44em]
   {\ostSizeTocPSubsection\ostFontTocPSubsection}
   {\ostSizeTocPSubsection\ostFontTocPSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {}
