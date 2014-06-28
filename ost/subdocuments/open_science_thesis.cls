@@ -635,30 +635,38 @@
 \newcommand{\ostSizeParagraphHeader}{\normalsize}
 \newcommand{\ostSizeParagraphHeaderNumber}{\normalsize}
 
-\newcommand{\ostFontPartialTocPart}{\rmfamily}
-\newcommand{\ostSizePartialTocPart}{\large}
 
-\newcommand{\ostFontPartialTocChapter}{\normalfont}
-\newcommand{\ostSizePartialTocChapter}{\large}
-
+% normal toc
 \newcommand{\ostFontTocPart}{\sffamily\bfseries}
 \newcommand{\ostSizeTocPart}{\Large}
 \newcommand{\ostFontTocChapter}{\bfseries}
 \newcommand{\ostSizeTocChapter}{\relax}
-\newcommand{\ostFontTocPChapter}{\bfseries}
-\newcommand{\ostSizeTocPChapter}{\relax}
 \newcommand{\ostFontTocSection}{\relax}
 \newcommand{\ostSizeTocSection}{\relax}
-\newcommand{\ostFontTocPSection}{\relax}
-\newcommand{\ostSizeTocPSection}{\relax}
 \newcommand{\ostFontTocSubsection}{\relax}
 \newcommand{\ostSizeTocSubsection}{\relax}
-\newcommand{\ostFontTocPSubsection}{\relax}
-\newcommand{\ostSizeTocPSubsection}{\relax}
 \newcommand{\ostFontTocFigure}{\relax}
 \newcommand{\ostSizeTocFigure}{\relax}
 \newcommand{\ostFontTocTable}{\relax}
 \newcommand{\ostSizeTocTable}{\relax}
+
+%partial tocs
+\newcommand{\ostFontPartPartialToc}{\normalfont}
+\newcommand{\ostSizePartPartialToc}{\large}
+\newcommand{\ostFontPartPartialTocChapter}{\bfseries}
+\newcommand{\ostSizePartPartialTocChapter}{\relax}
+
+\newcommand{\ostFontPartPartialTocSection}{\relax}
+\newcommand{\ostSizePartPartialTocSection}{\relax}
+\newcommand{\ostFontPartPartialTocSubsection}{\relax}
+\newcommand{\ostSizePartPartialTocSubsection}{\relax}
+
+\newcommand{\ostFontChapterPartialToc}{\normalfont}
+\newcommand{\ostSizeChapterPartialToc}{\large}
+\newcommand{\ostFontChapterPartialTocSection}{\relax}
+\newcommand{\ostSizeChapterPartialTocSection}{\relax}
+\newcommand{\ostFontChapterPartialTocSubsection}{\relax}
+\newcommand{\ostSizeChapterPartialTocSubsection}{\relax}
 
 \newcommand{\ostFont@ListingBasic}{\ttfamily}
 \newcommand{\ostSize@ListingBasic}{\footnotesize}
@@ -1868,7 +1876,7 @@
   % {\bfseries\thepart}}}%
   % {-2ex}%
   % {\filleft\fontsize{50}{70}\selectfont\color{ostColorPartHeader}\bfseries}%
-  % [\vspace*{4pc}{\ostSizePartialTocPart\ostFontPartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
+  % [\vspace*{4pc}{\ostSizePartPartialToc\ostFontPartPartialToc \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
 % \else%
   % \titleformat{\part}[display]%
   % {\sffamily}% influences all content 
@@ -1880,11 +1888,11 @@
 
 \ifost@addtoctopart%
   \titleformat{\part}[display]%
-  {\sffamily}%
+  {\sffamily}
   {\ostSizePartHeaderNumber\color{ostColorPartHeaderNumber}\ostFontPartHeaderNumber\thepart}%
   {-2ex}%
   {\ostSizePartHeader\color{ostColorPartHeader}\ostFontPartHeader}%
-  [\vspace*{4pc}{\color{ostColorPartialToc}\ostSizePartialTocPart\ostFontPartialTocPart \begin{ostPartialToc}\startcontents\printcontents{p-}{0}{}\end{ostPartialToc}}\thispagestyle{empty}]
+  [\vspace*{4pc}{\color{ostColorPartialToc}\ostSizePartPartialToc\ostFontPartPartialToc \startcontents\printcontents{p-}{0}{}}\thispagestyle{empty}]
 \else%
   \titleformat{\part}[display]%
   {\sffamily}% influences all content 
@@ -1901,7 +1909,7 @@
     {\color{ostColorChapterHeaderNumber}\thechapter}
     {0.5em}
     {\ostSizeChapterHeaderNumber\ostFontChapterHeaderNumber}
-    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\ostSizePartialTocChapter\ostFontPartialTocChapter \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}}\fi \thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\ostSizeChapterPartialToc\ostFontChapterPartialToc \begin{ostPartialToc}\startcontents\printcontents{c-}{1}{}\end{ostPartialToc}}\fi \thispagestyle{pageStyleChapter}]
 
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \else%
@@ -1953,7 +1961,7 @@
     {\color{ostColorChapterHeaderNumber}}
     {0em}
     {}
-    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\ostSizePartialTocChapter\ostFontPartialTocChapter \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}} \fi \thispagestyle{pageStyleChapter}]
+    [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\ostSizeChapterPartialToc\ostFontChapterPartialToc \begin{ostPartialToc}\startcontents\printcontents{p-}{1}{}\end{ostPartialToc}} \fi \thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \else%
     \titleformat{\chapter}
@@ -2030,6 +2038,28 @@
   {\ostSizeTocPart\ostFontTocPart}
   {\titlerule*{}\contentspage}[\ostTocRule\thispagestyle{pageStyleToc}]
 
+  \titlecontents{p-chapter}
+  [1.5em]
+  {\addvspace{0.7pc}}
+  {\ostSizePartPartialTocChapter\ostFontPartPartialTocChapter\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {\ostSizePartPartialTocChapter\ostFontPartPartialTocChapter\hspace*{-1.5em}}
+  {\titlerule*[0.7em]{.}\contentspage}
+  [\thispagestyle{pageStyleToc}]
+
+  \titlecontents{p-section}
+  [3.1em]
+  {\ostSizePartPartialTocSection\ostFontPartPartialTocSection}
+  {\ostSizePartPartialTocSection\ostFontPartPartialTocSection\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
+
+  \titlecontents{p-subsection}
+  [5.44em]
+  {\ostSizePartPartialTocSubsection\ostFontPartPartialTocSubsection}
+  {\ostSizePartPartialTocSubsection\ostFontPartPartialTocSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
+  
   \titlecontents{chapter}
   [1em]
   {\addvspace{0.7pc}}
@@ -2037,40 +2067,32 @@
   {\ostSizeTocChapter\ostFontTocChapter}
   {\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
 
-  \titlecontents{p-chapter}
-  [1.5em]
-  {\addvspace{0.7pc}}
-  {\ostSizeTocPChapter\ostFontTocPChapter\makebox[0pt][r]{\thecontentslabel\enspace}}
-  {\ostSizeTocPChapter\ostFontTocPChapter\hspace*{-1.5em}}
-  {\titlerule*[0.7em]{.}\contentspage}
-  [\thispagestyle{pageStyleToc}]
+  \titlecontents{c-section}
+  [1.9em]
+  {\ostSizeChapterPartialTocSection\ostFontChapterPartialTocSection}
+  {\ostSizeChapterPartialTocSection\ostFontChapterPartialTocSection\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
+
+  \titlecontents{c-subsection}
+  [4.2em]
+  {\ostSizeChapterPartialTocSubsection\ostFontChapterPartialTocSubsection}
+  {\ostSizeChapterPartialTocSubsection\ostFontChapterPartialTocSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
+  {}
+  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
   \titlecontents{section}
-  [2.65em]
+  [2.6em]
   {\ostFontTocSection\ostSizeTocSection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostFontTocSection\ostSizeTocSection}
   {}
   {\titlerule*[0.7em]{.}\contentspage}
   [\thispagestyle{pageStyleToc}]
-
-  \titlecontents{p-section}
-  [2em]
-  {\ostSizeTocPSection\ostFontTocPSection}
-  {\ostSizeTocPSection\ostFontTocPSection\makebox[0pt][r]{\thecontentslabel\enspace}}
-  {}
-  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
-  
+ 
   \titlecontents{subsection}
-  [5.1em]
+  [4.9em]
   {\ostSizeTocSubsection\ostFontTocSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocSubsection\ostFontTocSubsection}
-  {}
-  {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
-
-  \titlecontents{p-subsection}
-  [4.44em]
-  {\ostSizeTocPSubsection\ostFontTocPSubsection}
-  {\ostSizeTocPSubsection\ostFontTocPSubsection\makebox[0pt][r]{\thecontentslabel\enspace}}
   {}
   {\titlerule*[0.7em]{.}\contentspage}[\thispagestyle{pageStyleToc}]
 
