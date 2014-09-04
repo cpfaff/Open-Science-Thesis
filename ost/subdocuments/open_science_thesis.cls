@@ -1482,7 +1482,7 @@
 \newcommand{\ostTitle}{The open science thesis} 
 \newcommand{\ostSubtitle}{This is a subtitle}
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} and Author two\textsuperscript{2}, \ldots} 
-\newcommand{\ostInsitution}{University of XY, Department Z} 
+\newcommand{\ostInstitution}{University of XY, Department Z} 
 \newcommand{\ostEmail}[1]{\href{mailto:#1}{\ostSizeEmail\ostFontEmail\color{ostColorEmail}#1}} 
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostTextOnBar}{\textcolor{LightGray}{Open~-~}\textcolor{gray}{Science}\textcolor{LightGray}{~-~Thesis}} 
@@ -1505,7 +1505,7 @@
       {\par\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\noindent\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\noindent\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\noindent\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
-      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostInstitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInstitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\noindent\ostSizeDate\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{} 
       \end{center}\end{minipage}};\end{tikzpicture}}\\
@@ -1538,7 +1538,7 @@
       {\par\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\noindent\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\noindent\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\noindent\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
-      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostInstitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInstitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\noindent\ostSizeDate\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{}
       \vspace{-1\baselineskip}
@@ -1571,7 +1571,7 @@
       {\par\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\noindent\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
       {\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\noindent\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
       {\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\noindent\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
-      {\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+      {\ifdefempty{\ostInstitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInstitution}}}\par}
       {\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\noindent\ostSizeDate\ostFontDate\ostDate}}}\par}
       \ostGitInfoLine{} 
       \ostTitleStretchBelow{} 
@@ -1605,7 +1605,7 @@
 	{\par\ifdefempty{\ostTitle}{\relax}{\color{ostColorTitle}{{\noindent\ostSizeTitle\ostFontTitle\ostTitle}}\par}}\vspace{\baselineskip}   
 	{\ifdefempty{\ostSubtitle}{\relax}{\color{ostColorSubtitle}{{\noindent\ostSizeSubtitle\ostFontSubtitle\ostSubtitle}}\par}}\vspace{\baselineskip}
 	{\ifdefempty{\ostAuthors}{\relax}{\color{ostColorAuthors}{{\noindent\ostSizeAuthors\ostFontAuthors\ostAuthors}}\par}}
-	{\ifdefempty{\ostInsitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInsitution}}}\par}
+	{\ifdefempty{\ostInstitution}{\relax}{\color{ostColorInstitution}{{\noindent\ostSizeInstitution\ostFontInstitution\ostInstitution}}}\par}
 	{\ifdefempty{\ostDate}{\relax}{\color{ostColorDate}{{\noindent\ostSizeDate\ostFontDate\ostDate}}}\par}
         \ostGitInfoLine{}
 	\vspace{0.2\textheight}
