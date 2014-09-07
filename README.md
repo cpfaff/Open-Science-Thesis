@@ -4,32 +4,38 @@
 
 The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
-document scaffold (or project) which is thought to be forked and used for
-scientific thesis writing on GitHub. The document combines the typesetting
+document packed into a nice and logical folder and file structure that you can
+use a scaffold for your next writing project. is thought to be forked and used
+for writing scientific thesis while keeping the document in version control and
+host it on GitHub. The Open-Science-Thesis combines the typesetting
 capabilities of LaTeX with the R programming language for statistics, using the
-[Knitr](http://yihui.name/knitr/) R package. This combination allows to create
-executable documents that enhance the reproducibility of your research
-documents.
+[Knitr](http://yihui.name/knitr/) R package. This combination allows for the
+creation executable documents which allows for the reproducibility of your
+research documents.
 
-The Open-Science-Thesis offers a clean and logical folder structure and lots of
-examples of typical typesetting requirements to help you typeset your thesis.
-It comes with a makefile that helps you to compile, clean and archive the
-document. For an example see the PDF file inside of the repository or have a
-look into the sections below.
+The Open-Science-Thesis offers a clean and logical folder structure and many
+examples of typical typesetting needs when your thesis (tables, figues,
+affidavit). On top of that it comes with a simple makefile that helps you to
+compile, clean and archive the document. For an example on the style of the
+Open-Science-Thes just have a look into the PDF file inside of the repository
+or scroll down further into the sections below.
 
 ### Development Note
 
 This project is still in lively development and the commands, environments and
-the layout provided by the LaTeX class are subject to change. You might also
+the layout provided by the LaTeX class can be subject to change! You might also
 find the current version in master branch in unstable state so a compilation to
-PDF is not possible!
+PDF is not possible with that version! Thus I recommend you to checkout the
+versions that you can find under the `Releases` in the upper part of that
+repository homepage.
 
 ### Use LaTeX-Class only
 
 If you do not like to use the complete document scaffold presented here you can
-also only use the LaTeX-Class as document class in your documents. You need to
-[download](http://bit.ly/1dowUNP) the class file save it next to your
-`document.tex` file and then include and load it in your preamble with:
+also use the LaTeX-Class as document class in your documents on its own. For
+that to work you need to [download](http://bit.ly/1dowUNP) the class file save
+it into the same folder as your own `document.tex` file and then use it in your
+preamble with:
 
 ```latex
 \documentclass[options]{open_science_thesis}
@@ -39,11 +45,11 @@ also only use the LaTeX-Class as document class in your documents. You need to
 ## User interface
 
 The open_science_thesis latex class is based on several fine LaTeX packages and
-serves you a nice and clean user interface to handle most of your typesetting
-requirements. You can handle line spacing, justification and various other
-parameters globally by class options. Additionally there are a handful of
+tries to serve you a nice and clean user interface to handle most of your
+typesetting requirements. You can handle line spacing, justification and
+various other parameters globally by class options. Additionally there are a
 commands that you can use in your preamble to set content, control the color or
-size of literally any element in your document.
+size of literally any element in your document referenced with a name.
 
 * Example for the user interface:
 
@@ -65,10 +71,12 @@ There is also a one line command that does the styling.
 \ostSetStyle{Title}{\Huge}{\itshape}{green}
 ```
 
-As you can see you can set content, font and color on of an element by using
-its name, here the `Title` that appears on the documents title-page is set to
-be in huge and italic letters and appears in green. To find more names of
-elements you can modify read through the sections below.
+You can set content, font and color on of an element by using its name, here
+the `Title` that appears on the documents title-page is set to the text size
+`\Huge` and should appear in italic shape and green color. To find more names
+of elements you can modify read through the sections below.
+
+NOTE:
 
 One note about commands provided by the class: You can distinguish between
 commands that go into your preamble and the ones you can use in your document
