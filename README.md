@@ -5,23 +5,23 @@
 The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
 document packed into a logical file and folder structure that you can use a
-scaffold for your next writing project. The project is thought to be forked and
-to be used for scientific thesis writing while keeping the document in version
-control using git and GitHub. The Open-Science-Thesis combines the typesetting
+scaffold for your next writing project. The document is thought to be forked
+and used for scientific thesis writing while keeping the document under version
+control with git and GitHub. The Open-Science-Thesis combines the typesetting
 capabilities of LaTeX with the R programming language for statistics, using the
-[Knitr](http://yihui.name/knitr/) R package. This combination allows for the
-creation of executable documents that allows for a better reproducibility of
-your research documents.
+[Knitr](http://yihui.name/knitr/) R package. This combination allows to create
+executable documents for a better reproducibility of your research documents.
 
 The Open-Science-Thesis offers a clean and logical folder structure and
-contains many examples for typical typesetting requirements you have to deal
-with typesetting a thesis (tables, figures, affidavit, ...). On top of that the
-document scaffold comes with its own simple makefile that helps you to compile,
-clean and archive the document on the command line. For an example on the style
-of the Open-Science-Thesis just have a look into the
+contains many examples of typical typesetting requirements you have to deal
+with when writing a thesis (title-page, tables, figures, affidavit, ...). On
+top of that the scaffold comes with its own simple makefile that helps you to
+compile (translate to PDF), clean and archive your document on the command
+line. For an example on the style of the Open-Science-Thesis just have a look
+into the
 [PDF](https://github.com/cpfaff/Open-Science-Thesis/blob/master/open_science_thesis.pdf)
-file contained in this repository or just scroll further down into the sections
-below.
+file that is contained in this repository or just scroll further down into the
+sections below.
 
 ### Development Note
 
@@ -35,28 +35,30 @@ repository homepage.
 ### Use LaTeX-Class only
 
 You might be in the situation that you do not like to use the complete document
-scaffold presented here. That is no problem as you can also download and use
-the Open-Science-Thesis LaTeX-Class as a document class for your own LaTeX
-documents. You can [download](http://bit.ly/1dowUNP) the class file, then save
-it into the same folder as your own `main_document.tex` file and then load the
-document class in your preamble:
+scaffold presented here. That is no problem at all as you can also just
+download and use the Open-Science-Thesis LaTeX-Class and use it as document
+class for your own LaTeX documents. You can [download](http://bit.ly/1dowUNP)
+the class file, then save it into the same folder as your own
+`main_document.tex` file and then load the class in your preamble:
 
 ```latex
 \documentclass[options]{open_science_thesis}
 ...
 ```
 
-NOTE: There is no `.cls` appended to the name when loading the class.
+NOTE:
+
+There is no `.cls` appended to the name when loading the class.
 
 ## User interface
 
-The Open Science Thesis latex class is based on several fine LaTeX packages and
-tries to serve a nice and clean user interface to handle most of your
-typesetting requirements. You can handle line spacing, justification and
+The Open Science Thesis class is based on several fine LaTeX packages and tries
+to serve a clean and logical user interface that helps you deal with most of
+your typesetting requirements. You can handle line spacing, justification and
 various other parameters globally by class options. Additionally there are
-commands that you can use in your preamble to set content (e.g. predefined
-headings), or to control the color and the size of literally any element in
-your document referencing to it with its name.
+commands that you can use in your preamble to set the content (e.g. title,
+predefined headings), or to control the color and the size of literally any
+element in your document using its name as reference reference.
 
 * Example for the user interface:
 
@@ -80,10 +82,10 @@ element.
 ```
 
 With this interface it is simple to change the content, the font and the color
-of an element by using its name in a clean and readable way. Here the `Title`
-that appears on the documents title-page is filled with content, set to the
-text size `\Huge`, with italic shape in green color. To find more names of
-elements you can modify read through the sections below.
+of an element, using its name, in a clean and readable way. Here the `Title`
+that appears on the documents title-page is filled with content, set to text
+size `\Huge` and it will appear in an italic shape with green color. To find
+more names of elements you can modify read through the sections below.
 
 NOTE:
 
@@ -96,7 +98,7 @@ preamble the small case only commands are suitable for your document body.
 
 In order to get a title-page you need to set the contents of the title-page
 fields in your preamble. As the class defines defaults for each of the fields,
-you need to set the content to empty if you decide not to use a field.
+you need to set the content of a field to empty if you decide not to use it.
 
 ```latex
 \ostSetContent{Title}{My own title}
@@ -109,9 +111,9 @@ you need to set the content to empty if you decide not to use a field.
 \ostSetContent{AdvisorTwo}{}
 ```
 
-In your document body then use the command `\maketitle` to print out the
-title-page. There is also an alias called `\printtitlepage` which does exactly
-the same.
+After setting the contents of the title-page elements you can print out the
+title-page using the command `\maketitle` in your document body. There is also
+an alias called `\printtitlepage` which does exactly the same.
 
 ```latex
 \begin{document}
@@ -120,15 +122,16 @@ the same.
 \end{document}
 ```
 
-You can choose from four predefined layouts for the Title-page. They can be
-activated via a class option:
+The class defines four layouts for title pages you can choose from. You can
+switch the styles via the following class option:
 
 ```latex
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
-Some of the title-pages have additional fields or setter commands associated
-with them which are listed along with the layout theme examples below.
+Some of the title-pages have additional elements associated with them which are
+listed along with the layout theme examples below. These elements names can be
+used as explained above to modify content and style.
 
 - vertical
 
@@ -150,15 +153,25 @@ with them which are listed along with the layout theme examples below.
 ```latex
 % set image
 \ostSetImage{TitlepageBackground}{pathto/image.png}
+```
+
+Sets up a typesetting area centered image for title-page background. You can
+also modify the image in width as well as you can adjust it via a horizontal
+and vertical offset to make it appear where you like.
+
+```latex
 % or with options
 \ostSetImage[width=5cm, voffset=1cm, hoffset=1cm]{TitlepageBackground}{pathto/image.png}
 ```
 
-Sets up a text centered image for title-page background.
-
 - `width` adjust with of the image
 - `voffset` adjust image vertically
 - `hoffset` adjust image horizontally
+
+Depending on the image in the background and the text color you use for your
+title-page contents it can happen that the text becomes hard to read. In that
+case you can set and modify an overlay that goes between your title-page text
+and the background image.
 
 ```latex
 % set opacity of overlay for better reading of title content
@@ -169,9 +182,10 @@ Sets up a text centered image for title-page background.
 \ostSetColor{TitleOverlay}{gray}
 ```
 
-Sets up the color and the opacity of an overlay between the background image
-and the title-page contents. This can help make the contents better readable.
-This defaults to white and an opacity of 70 percent.
+NOTE:
+
+This defaults to white and an opacity of 70 percent. If you like to make the
+overlay disappear you need to set it to 100 percent of opacity.
 
 ![image](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/titlepage_image_blue.png)
 
@@ -181,7 +195,8 @@ This defaults to white and an opacity of 70 percent.
 
 #### Colors and fonts
 
-You can set the font shapes sizes and colors on the title page:
+You can set the font shapes, sizes and colors on the title page using the
+following elements names and commands:
 
 * colors
 
@@ -196,17 +211,24 @@ You can set the font shapes sizes and colors on the title page:
 * fonts
 
 ```latex
-\ostSetFont{Title}{\Huge}
-\ostSetFont{Subtitle}{\Large\bfseries}
+\ostSetFont{Title}{\bfseries}
+\ostSetFont{Subtitle}{\bfseries}
 \ostSetFont{Authors}{...}
 \ostSetFont{Date}{...}
 \ostSetFont{Advisor}{...}
 ```
 
+* sizes
+
+\ostSetSize{Title}{\Huge}
+\ostSetSize{Subtitle}{\Large}
+\ostSetSize{Authors}{...}
+\ostSetSize{Date}{...}
+\ostSetSize{Advisor}{...}
+
 ### Table of Contents
 
-You can create your table of contents, the list of figures and the list of
-tables as usual using the commands shown below.
+You can create the table of contents using the following LaTeX commands.
 
 ```
 \tableofcontents
@@ -214,16 +236,17 @@ tables as usual using the commands shown below.
 \listoftables
 ```
 
-Additionally there is a convenient replacement that creates all these tables
-for you. This convenient alternative will also create a list of revision notes
-when the document is compiled in revision mode (see below).
+Additionally the Open-Science-Thesis provides a convenient replacement for
+these commands which creates all these tables for you using a single command.
+This convenient alternative also creates a list of revision notes when the
+document is compiled in revision mode (see below).
 
 ```latex
 \makeallcontenttables
 % alias: \printallcontenttables
 ```
 
-- fancy main tocs
+- Nice styled table of contents
 
 ![fancytoc](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/toc_fancy_blue.png)
 
@@ -245,7 +268,8 @@ when the document is compiled in revision mode (see below).
 
 ### Lettrines + coloring
 
-The class comes with four predefined color schemes. You can choose by class option:
+The Open-Science-Thesis class comes with four predefined color schemes. You can
+choose by the following class option:
 
 ```latex
 \documentclass[colortheme=orange]{open_science_thesis}
@@ -269,10 +293,11 @@ The class comes with four predefined color schemes. You can choose by class opti
 
 #### Own color theme
 
-You can set the color of almost any element in the document. The most prominent
+You can set the color of almost any element in the document via the styling
+commands the Open-Science-Thesis class provides you with. The most prominent
 elements that follow the color theme are the title page elements, sections and
 the label for the captions. You can set your own color theme by setting the
-following elements colors in your preamble:
+following named elements colors in your preamble:
 
 ```latex
 \ostSetColor{Title}{DarkOrange}
@@ -285,7 +310,7 @@ following elements colors in your preamble:
 \ostSetColor{CaptionLabel}{DarkOrange}
 ```
 
-Other elements you can change directly:
+This is a list of other elements you can change the color and style from:
 
 ```latex
 \ostSetColor{TitleRule}{black}
@@ -330,40 +355,13 @@ Other elements you can change directly:
 \ostSetColor{URLLinks}{black}
 ```
 
-The colors for the solarize themed code listings are protected in the class.
-You can change them for example using a style file. That you include into the
-preamble then. Or use the `\makeatletter .... \makeatother` combination in your
-preamble to allow the use of at to set them:
-
-```latex
-\makeatletter
-\ostSetColor{@ListingBackground}{gray}
-\ostSetColor{@ListingBase00}{gray}
-\ostSetColor{@ListingBase01}{gray}
-\ostSetColor{@ListingBase02}{gray}
-\ostSetColor{@ListingBase03}{gray}
-\ostSetColor{@ListingBase0}{gray}
-\ostSetColor{@ListingBase1}{gray}
-\ostSetColor{@ListingBase2}{gray}
-\ostSetColor{@ListingBase3}{gray}
-\ostSetColor{@ListingYellow}{gray}
-\ostSetColor{@ListingOrange}{gray}
-\ostSetColor{@ListingRed}{gray}
-\ostSetColor{@ListingMagenta}{gray}
-\ostSetColor{@ListingViolet}{gray}
-\ostSetColor{@ListingBlue}{gray}
-\ostSetColor{@ListingCyan}{gray}
-\ostSetColor{@ListingGreen}{gray}
-\makeatother
-```
-
 ### Fonts
 
-You can modify fonts globally by class option.
+You can modify the use of fonts globally by the following class option.
 
 ```latex
 \documentclass[fontchoice={lmodern, libertine, times, palatino, utopia}]{open_science_thesis}
-% defaults to libertine fonts
+% defaults to the libertine fonts
 ```
 
 ### Global formatting
@@ -451,37 +449,74 @@ Then add a bibliography file `*.bib` in your preamble
 
 ### Code Listings (in solarized color theme)
 
-The code listings follow the solarized color theme by default.
+- The code listings follow the solarized color theme by default.
+
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
 
-You can typeset inline code listings that follow the same style using the command below.
+NOTE:
+
+The elements names of the code listings are protected in the class. This means
+they cannot simply be changed like described above. The names contain an `@`
+character that is not valid in a normal LaTeX document as it has a special
+meaning. In order to be able to change the elements you need to put the
+commands into a style file that can be included in your preamble. However you
+could also change it directly in you preamble using the following construct.
+
+```latex
+\makeatletter
+\ostSetColor{@ListingBackground}{gray}
+\ostSetColor{@ListingBase00}{gray}
+\ostSetColor{@ListingBase01}{gray}
+\ostSetColor{@ListingBase02}{gray}
+\ostSetColor{@ListingBase03}{gray}
+\ostSetColor{@ListingBase0}{gray}
+\ostSetColor{@ListingBase1}{gray}
+\ostSetColor{@ListingBase2}{gray}
+\ostSetColor{@ListingBase3}{gray}
+\ostSetColor{@ListingYellow}{gray}
+\ostSetColor{@ListingOrange}{gray}
+\ostSetColor{@ListingRed}{gray}
+\ostSetColor{@ListingMagenta}{gray}
+\ostSetColor{@ListingViolet}{gray}
+\ostSetColor{@ListingBlue}{gray}
+\ostSetColor{@ListingCyan}{gray}
+\ostSetColor{@ListingGreen}{gray}
+\makeatother
+```
+
+You can typeset in-line code listings as well that follow the same style as
+code-boxes using the command below.
 
 ```latex
 \inlinecode{a+b=c}
 ```
 
-You can change the inline code box style globally between `tikz` and `simple`
-with:
+You can change the style of in-line code boxes globally between `round` and
+`box` and `plain` with:
 
 ```latex
 \documentclass[inlinecodestyle={round, box, plain}]{open_science_thesis}
 ```
 
-While tikz resembles the first of the two shown in the example figure above and
-simple the second style and plain is not shown here but has nothing around it.
-
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/inline_listings.png)
+
+While round style is the first of the three shown in the example figure above
+and box the second. The plain style is not shown here but has no box or
+anything that would surround it.
 
 ### Revisions (based on todonotes)
 
-Set up revisors:
+If you like somebody to comment on your document you can do this with the
+revision mechanism. The fist you need to to is set up the revisor using the
+command below with a name.
 
 ```latex
 \ostSetRevisor{Claas}
 ```
 
-Then you can comment using revisor name in the document.
+After that the revisor can comment in-linke using the name that has been set
+up.
 
 ```latex
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
@@ -492,26 +527,33 @@ fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum \Claas{This is so nice}
 ```
 
-You can compile the document in revision mode. This will set up the page to be
-larger but keeps the typesetting area the same. Additionally line numbers are
-enabled and comments from revisors (see above) are shown as side notes. If you
-remove the option again then the comments of revisors are ignored.
+To show the comments you can compile the document in revision mode. This will
+set up the page to be larger (A3) but keeps the typesetting area the same.
+Additionally line numbers are enabled and comments from revisors are shown as
+margin notes.
 
 ```latex
 \documentclass[revision=true]{open_science_thesis}
 ```
 
-* Displays
+NOTE:
+
+You can disable the revision mode removing or just disabling the class option.
+This will then compile as normal and ignore the comments of revisors. However
+you need to leave the revisor setup command in place as otherwise the command
+will be unknown and the compilation fails.
 
 ![revision](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/revision_example_note.png)
+
+NOTE:
 
 This mechanism is picking colors automatically for 5 different revisors.
 
 ### Header and footer (fancyhdr)
 
 Header and footer are setup by the open science thesis with predefined
-parameters. If you are not happy with the styling you can change the
-fontattributes with the commands below:
+parameters. If you are not happy with the styling you can change the font
+attributes with the commands below:
 
 ```latex
 \ostSetSize{HeaderMarks}{\Large}
@@ -524,8 +566,8 @@ fontattributes with the commands below:
 ```
 
 If you are not happy with the content in the header and footer marks you can
-setup the fields with the commands below. As thhe fancyhdr package offers a
-very nice interface to do this it operates direcly on its commands.
+setup the fields with the commands below. As the fancyhdr package offers a
+very nice interface to do this it operates directly on its commands.
 
 ```latex
 \ostHeaderSetup{<places comma separated>}{<content>}
@@ -533,7 +575,7 @@ very nice interface to do this it operates direcly on its commands.
 ```
 
 The setup of size, font and color of the header and footer marks as shown above
-will also apply to your setup with these comands.
+will also apply to your setup with these commands.
 
 An example:
 
