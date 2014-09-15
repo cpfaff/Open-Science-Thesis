@@ -4,7 +4,7 @@
 
 The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
-document packed into a logical file and folder structure that you can use a
+document packed into a logical file and folder structure that you can use as a
 scaffold for your next writing project. The document is thought to be forked
 and used for scientific thesis writing while keeping the document under version
 control with git and GitHub. The Open-Science-Thesis combines the typesetting
