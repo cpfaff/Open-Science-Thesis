@@ -565,9 +565,12 @@ attributes with the commands below:
 \ostSetColor{FooterMarks}{green}
 ```
 
-If you are not happy with the content in the header and footer marks you can
-setup the fields with the commands below. As the fancyhdr package offers a
-very nice interface to do this it operates directly on its commands.
+If you are not happy with the content in the header or the footer you can setup
+the fields to your needs. As the `fancyhdr` package offers a very nice
+interface for modifications to the header and the footer, the commands below
+operate directly on these. However the Open-Science-Thesis class offers aliases
+to make the commands follow the naming of commands in the Open-Science-Thesis
+class.
 
 ```latex
 \ostHeaderSetup{<places comma separated>}{<content>}
@@ -588,7 +591,7 @@ An example:
 \ostFooterSetup{C}{the center}
 ```
 
-As placments are allowed:
+As placements are allowed:
 
 * for twoside documents:
 	* `LO` left odd
@@ -616,7 +619,7 @@ Header and footer rules can be changed by following commands.
 
 ### Affidavit
 
-You can set up a predefined affidavit using one single command.
+You can print out a predefined affidavit using one single command.
 
 ```latex
 \makeaffidavit
@@ -636,8 +639,8 @@ The contents of the affidavit can be changed with:
 
 ### Set predefined names
 
-LaTeX has some built in names that follow the language you use with the babel
-package. You can change the names with:
+LaTeX comes with some built-in names that change automatically if you change
+the language with the babel package. You can change the names with:
 
 ```latex
 \ostSetContent{TableOfContentsName}{Content}
