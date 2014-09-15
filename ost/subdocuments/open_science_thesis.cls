@@ -1906,51 +1906,53 @@
   \ifost@addtoctochapter%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
-    {\color{ostColorChapterHeaderNumber}\thechapter}
+    {\color{ostColorChapterHeaderNumber}\ostSizeChapterHeaderNumber\ostFontChapterHeaderNumber\thechapter}
     {0.5em}
-    {\ostSizeChapterHeaderNumber\ostFontChapterHeaderNumber}
+    {\relax}
     [\ifost@chapterwithtoc\vspace*{3pc}{\color{ostColorPartialToc}\ostSizeChapterPartialToc\ostFontChapterPartialToc \begin{ostPartialToc}\startcontents\printcontents{c-}{1}{}\end{ostPartialToc}}\fi \thispagestyle{pageStyleChapter}]
 
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \else%
     \titleformat{\chapter}
     {\color{ostColorChapterHeader}\ostSizeChapterHeader\ostFontChapterHeader}
-    {\color{ostColorChapterHeaderNumber}\thechapter}
+    {\color{ostColorChapterHeaderNumber}\ostSizeChapterHeaderNumber\ostFontChapterHeaderNumber\thechapter}
     {0.5em}
-    {\ostSizeChapterHeaderNumber\ostFontChapterHeaderNumber}
+    {\relax}
     [\thispagestyle{pageStyleChapter}]
     \titlespacing*{\chapter}{0pt}{50pt}{40pt}
   \fi%
 
   \titleformat{\section}
   {\color{ostColorSectionHeader}\ostSizeSectionHeader\ostFontSectionHeader}
-  {\color{ostColorSectionHeaderNumber}\thesection}
+  {\color{ostColorSectionHeaderNumber}\ostSizeSectionHeaderNumber\ostFontSectionHeaderNumber\thesection}
   {0.5em}
-  {\ostSizeSectionHeaderNumber\ostFontSectionHeaderNumber}
+  {\relax}
   \titlespacing*{\section}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
+  % \titleformat{\section}{format}{label}{sep}{before}[after]
+
   \titleformat{\subsection}
   {\color{ostColorSubsectionHeader}\ostSizeSubsectionHeader\ostFontSubsectionHeader}
-  {\color{ostColorSubsectionHeaderNumber}\thesubsection}
+  {\color{ostColorSubsectionHeaderNumber}\ostSizeSubsectionHeaderNumber\ostFontSubsectionHeaderNumber\thesubsection}
   {0.5em}
-  {\ostSizeSubsectionHeaderNumber\ostFontSubsectionHeaderNumber}
+  {\relax}
   \titlespacing*{\subsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\subsubsection}
   {\color{ostColorSubSubsectionHeader}\ostSizeSubSubsectionHeader\ostFontSubSubsectionHeader}
-  {\color{ostColorSubSubsectionHeaderNumber}\thesubsubsection}
+  {\color{ostColorSubSubsectionHeaderNumber}\ostSizeSubSubsectionHeaderNumber\ostFontSubSubsectionHeaderNumber\thesubsubsection}
   {0.5em}
-  {\ostSizeSubSubsectionHeaderNumber\ostFontSubSubsectionHeaderNumber}
+  {\relax}
   \titlespacing*{\subsubsection}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1.5ex plus 0.2ex}
 
   \titleformat{\paragraph}[runin]
   {\color{ostColorParagraphHeader}\ostSizeParagraphHeader\ostFontParagraphHeader}
-  {\color{ostColorParagraphHeaderNumber}\theparagraph}
+  {\color{ostColorParagraphHeaderNumber}\ostSizeParagraphHeaderNumber\ostFontParagraphHeaderNumber\theparagraph}
   {0.5em}
-  {\ostSizeParagraphHeaderNumber\ostFontParagraphHeaderNumber}
+  {\relax}
   \titlespacing*{\paragraph}
   {0pt}{3.25ex plus 1ex minus 0.2ex}{1em}
 \else%  
