@@ -50,7 +50,7 @@ the class file, then save it into the same folder as your own
 
 % body
 
-\begin{document}
+\end{document}
 ```
 
 NOTE:
