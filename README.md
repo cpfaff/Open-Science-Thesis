@@ -43,7 +43,14 @@ the class file, then save it into the same folder as your own
 
 ```latex
 \documentclass[options]{open_science_thesis}
-...
+
+% preamble
+
+\begin{document}
+
+% body
+
+\begin{document}
 ```
 
 NOTE:
