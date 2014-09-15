@@ -33,6 +33,9 @@
 %  Application Programming Interface Desc}
 %  }
 
+% starts the glossary files creation
+\makeglossaries
+
 % start your declarations
 
 \newglossaryentry{eml}{
@@ -79,5 +82,3 @@
 	}
 }
 
-% create the glossary files
-\makeglossaries

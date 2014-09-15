@@ -4,7 +4,6 @@
 
 <<ost_global_r_options, tidy=FALSE, highlight=FALSE, include=FALSE, cache=FALSE, eval=TRUE>>=  
   ## Load packages 
-
   suppressPackageStartupMessages(library(ggplot2)) 
   suppressPackageStartupMessages(library(plyr))
   suppressPackageStartupMessages(library(rgbif))
@@ -82,7 +81,6 @@
 	strip.background = element_rect(fill = "grey80", colour = "grey50")
       )
   }
-
 
   ## Helpers functions
 
