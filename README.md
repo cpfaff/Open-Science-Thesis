@@ -4,21 +4,24 @@
 
 The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
-document packed into a nice and logical folder and file structure that you can
-use a scaffold for your next writing project. is thought to be forked and used
-for writing scientific thesis while keeping the document in version control and
-host it on GitHub. The Open-Science-Thesis combines the typesetting
+document packed into a logical file and folder structure that you can use a
+scaffold for your next writing project. The project is thought to be forked and
+to be used for scientific thesis writing while keeping the document in version
+control using git and GitHub. The Open-Science-Thesis combines the typesetting
 capabilities of LaTeX with the R programming language for statistics, using the
 [Knitr](http://yihui.name/knitr/) R package. This combination allows for the
-creation executable documents which allows for the reproducibility of your
-research documents.
+creation of executable documents that allows for a better reproducibility of
+your research documents.
 
-The Open-Science-Thesis offers a clean and logical folder structure and many
-examples of typical typesetting needs when your thesis (tables, figues,
-affidavit). On top of that it comes with a simple makefile that helps you to
-compile, clean and archive the document. For an example on the style of the
-Open-Science-Thes just have a look into the PDF file inside of the repository
-or scroll down further into the sections below.
+The Open-Science-Thesis offers a clean and logical folder structure and
+contains many examples for typical typesetting requirements you have to deal
+with typesetting a thesis (tables, figures, affidavit, ...). On top of that the
+document scaffold comes with its own simple makefile that helps you to compile,
+clean and archive the document on the command line. For an example on the style
+of the Open-Science-Thesis just have a look into the
+[PDF](https://github.com/cpfaff/Open-Science-Thesis/blob/master/open_science_thesis.pdf)
+file contained in this repository or just scroll further down into the sections
+below.
 
 ### Development Note
 
@@ -31,25 +34,29 @@ repository homepage.
 
 ### Use LaTeX-Class only
 
-If you do not like to use the complete document scaffold presented here you can
-also use the LaTeX-Class as document class in your documents on its own. For
-that to work you need to [download](http://bit.ly/1dowUNP) the class file save
-it into the same folder as your own `document.tex` file and then use it in your
-preamble with:
+You might be in the situation that you do not like to use the complete document
+scaffold presented here. That is no problem as you can also download and use
+the Open-Science-Thesis LaTeX-Class as a document class for your own LaTeX
+documents. You can [download](http://bit.ly/1dowUNP) the class file, then save
+it into the same folder as your own `main_document.tex` file and then load the
+document class in your preamble:
 
 ```latex
 \documentclass[options]{open_science_thesis}
 ...
 ```
 
+NOTE: There is no `.cls` appended to the name when loading the class.
+
 ## User interface
 
-The open_science_thesis latex class is based on several fine LaTeX packages and
-tries to serve you a nice and clean user interface to handle most of your
+The Open Science Thesis latex class is based on several fine LaTeX packages and
+tries to serve a nice and clean user interface to handle most of your
 typesetting requirements. You can handle line spacing, justification and
-various other parameters globally by class options. Additionally there are a
-commands that you can use in your preamble to set content, control the color or
-size of literally any element in your document referenced with a name.
+various other parameters globally by class options. Additionally there are
+commands that you can use in your preamble to set content (e.g. predefined
+headings), or to control the color and the size of literally any element in
+your document referencing to it with its name.
 
 * Example for the user interface:
 
@@ -63,7 +70,8 @@ size of literally any element in your document referenced with a name.
 \ostSetColor{Title}{green}
 ```
 
-There is also a one line command that does the styling.
+There is also a one line command that covers the full range of styling an
+element.
 
 ```latex
 \ostSetStyle{<name>}{<size>}{<font>}{<colorname>}
@@ -71,10 +79,11 @@ There is also a one line command that does the styling.
 \ostSetStyle{Title}{\Huge}{\itshape}{green}
 ```
 
-You can set content, font and color on of an element by using its name, here
-the `Title` that appears on the documents title-page is set to the text size
-`\Huge` and should appear in italic shape and green color. To find more names
-of elements you can modify read through the sections below.
+With this interface it is simple to change the content, the font and the color
+of an element by using its name in a clean and readable way. Here the `Title`
+that appears on the documents title-page is filled with content, set to the
+text size `\Huge`, with italic shape in green color. To find more names of
+elements you can modify read through the sections below.
 
 NOTE:
 
@@ -86,8 +95,8 @@ preamble the small case only commands are suitable for your document body.
 ### Title pages
 
 In order to get a title-page you need to set the contents of the title-page
-fields in your preamble. As the class defines defaults for the fields you need
-to set the content to empty if you decide not to use a field.
+fields in your preamble. As the class defines defaults for each of the fields,
+you need to set the content to empty if you decide not to use a field.
 
 ```latex
 \ostSetContent{Title}{My own title}
@@ -111,14 +120,14 @@ the same.
 \end{document}
 ```
 
-You can change the title-page layout to one of four predefined styles via a
-class option:
+You can choose from four predefined layouts for the Title-page. They can be
+activated via a class option:
 
 ```latex
 \documentclass[titlepagetheme=vertical]{open_science_thesis}
 ```
 
-Some of the title-page have additional fields or setter commands associated
+Some of the title-pages have additional fields or setter commands associated
 with them which are listed along with the layout theme examples below.
 
 - vertical
