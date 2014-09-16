@@ -109,12 +109,17 @@
 \define@boolkey[KV]{open-science-thesis}[ost@]{gitinfo}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{sectionnumbers}[false]{}
 
-\newif\ifost@loadgeometry% 
+\newif\ifost@loadgeometrypackage% 
 
-\define@boolkey[KV]{open-science-thesis}[ost@]{autolayout}[false]{
-  \PassOptionsToClass{12pt, headings=small, captions=tableheading, DIV=calc}{scrbook}
-  \ost@loadgeometryfalse
+\define@choicekey*[KV]{open-science-thesis}{autolayout}[\val\nr]{true, false}{%
+  \ifcase\nr\relax% 
+    \PassOptionsToClass{12pt, headings=small, captions=tableheading, DIV=calc}{scrbook}
+    \ost@loadgeometrypackagefalse%
+  \or 
+    \ost@loadgeometrypackagetrue%
+  \fi%
 }
+
 
 \define@boolkey[KV]{open-science-thesis}[ost@]{parindent}[false]{}
 \define@boolkey[KV]{open-science-thesis}[ost@]{fancyhf}[false]{}
@@ -251,9 +256,14 @@
 
 \LoadClass{scrbook}
 
-\ifost@loadgeometry%
+\ifost@loadgeometrypackage%
   \RequirePackage{geometry}
+  \newcommand{\ostSetGeometry}[1]{\geometry{#1}}
+\else%
+  \newcommand{\geometry}[1]{\relax}
+  \newcommand{\ostSetGeometry}[1]{\relax}
 \fi%
+
 
 % enable and disable chaptertocs as it is not required 
 % to have them everywhere even if chapter toc is enabled
