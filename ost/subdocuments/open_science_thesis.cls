@@ -480,8 +480,9 @@
   \colorlet{ostColorCitationLinks}{black}
   \colorlet{ostColorFileLinks}{black}
   \colorlet{ostColorMenuLinks}{black}
-  \colorlet{ostColorURLLinks}{gray}
+  \colorlet{ostColorURLLinks}{black}
   \colorlet{ostColorEmail}{gray}
+  \colorlet{ostColoremail}{gray}
 
   \xdefinecolor{ostColor@ListingBackground}{gray}{.97} 
   \xdefinecolor{ostColor@ListingBase00}{HTML}{657b83}
@@ -543,6 +544,7 @@
   \colorlet{ostColorMenuLinks}{black}
   \colorlet{ostColorURLLinks}{black}
   \colorlet{ostColorEmail}{black}
+  \colorlet{ostColoremail}{black}
 
   \colorlet{ostColorInlineCodeFrame}{black}
   \colorlet{ostColorInlineCodeBackground}{white}
@@ -582,8 +584,13 @@
 \newcommand{\ostSizeGitInfo}{\tiny}
 \newcommand{\ostFontGitInfo}{\normalfont}
 
+% title-page emails
 \newcommand{\ostSizeEmail}{\relax}
 \newcommand{\ostFontEmail}{\relax}
+
+% in text emails
+\newcommand{\ostSizeemail}{\relax}
+\newcommand{\ostFontemail}{\relax}
 
 \newcommand{\ostFontHeaderMarks}{\itshape}
 \newcommand{\ostSizeHeaderMarks}{\rmfamily}
@@ -792,18 +799,21 @@
 % set defaults
 \newlength{\ostLengthDefaultFindent}
 \setlength{\ostLengthDefaultFindent}{0.2em}
+\setlength{\DefaultFindent}{\ostLengthDefaultFindent}
 
 \newlength{\ostLengthDefaultNindent}
 \setlength{\ostLengthDefaultNindent}{0.02em}
+\setlength{\DefaultNindent}{\ostLengthDefaultNindent}
 
 \newcommand{\ostSetOptions@Lettrine}[1]{%
    \ifstrequal{#1}{A}{
-      \setlength{\ostLengthDefaultFindent}{-0.2em}
-      \setlength{\ostLengthDefaultNindent}{0.5em}
+      \setlength{\DefaultFindent}{-0.2em}
+      \setlength{\DefaultNindent}{0.5em}
    }{\relax}
+
    \ifstrequal{#1}{T}{
-      \setlength{\ostLengthDefaultFindent}{0.27em}
-      \setlength{\ostLengthDefaultNindent}{0.02em}
+      \setlength{\DefaultFindent}{0.27em}
+      \setlength{\DefaultNindent}{0.02em}
    }{\relax}
 }
 
@@ -811,6 +821,7 @@
   \ostSetOptions@Lettrine{#1}
   \lettrine{\textcolor{ostColorLettrine}{#1}}
 } 
+
 \let\capital\intro
 
 %%%-------------------------------------------------%%%
@@ -835,6 +846,11 @@
 %%%-------------------------------------------------%%%
 
 \RequirePackage[neverdecrease]{paralist}
+% \RequirePackage{enumitem}
+
+% \setlist[description,1]{leftmargin=1cm}
+% the problem with paralist is! It is not so flexible 
+% so maybe switch to enumitem package
 
 \ifost@compactlist%
   \let\itemize\compactitem%
@@ -997,8 +1013,8 @@
 
 \RequirePackage{tabularx}
 
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
-\newcolumntype{R}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
 % usage:
@@ -1130,6 +1146,7 @@
 % Usage:
 %  \prettyref{fig:my_figure_label}
 %  \prettyref{Fig:my_figure_label}
+\let\ostref\prettyref
 
 %%%-------------------------------------------------%%%
 %%% Code listings %%%
@@ -1493,7 +1510,10 @@
 \newcommand{\ostSubtitle}{This is a subtitle}
 \newcommand{\ostAuthors}{Author one\textsuperscript{1,2,a} and Author two\textsuperscript{2}, \ldots} 
 \newcommand{\ostInstitution}{University of XY, Department Z} 
+% title page emails
 \newcommand{\ostEmail}[1]{\href{mailto:#1}{\ostSizeEmail\ostFontEmail\color{ostColorEmail}#1}} 
+% in text emails
+\newcommand{\ostemail}[1]{\href{mailto:#1}{\ostSizeemail\ostFontemail\color{ostColoremail}#1}} 
 \newcommand{\ostDate}{\today} 
 \newcommand{\ostTextOnBar}{\textcolor{LightGray}{Open~-~}\textcolor{gray}{Science}\textcolor{LightGray}{~-~Thesis}} 
 \newcommand{\ostAdvisorOne}{Advisor:\\ Prof. Dr. M. Sickel\\Phone: 0234 97 38 59 1\\Fax: 0341 97 38 54 9\\E-Mail: \ostEmail{sickel@uni-fubar.de}}
@@ -2279,6 +2299,9 @@
 %  \href{URL}{text} 
 %  \url{URL}
 %  \nolinkurl{URL}
+
+% To change the font of URLs use this one
+% \renewcommand\UrlFont{\color{ostColorURLLinks}\normalfont\normalsize}
 
 % Note: load glossaries always after hyperref!
 \RequirePackage[xindy, acronym, toc]{glossaries} 
