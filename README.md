@@ -6,11 +6,12 @@ The Open-Science-Thesis
 [repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
 document packed into a logical file and folder structure that you can use as a
 scaffold for your next writing project. The document is thought to be forked
-and used for scientific thesis writing while keeping the document under version
-control with git and GitHub. The Open-Science-Thesis combines the typesetting
-capabilities of LaTeX with the R programming language for statistics, using the
-[Knitr](http://yihui.name/knitr/) R package. This combination allows to create
-executable documents for a better reproducibility of your research documents.
+and used for e.g. scientific thesis writing while keeping the document under
+version control with git and GitHub. The Open-Science-Thesis combines the
+typesetting capabilities of LaTeX with the R programming language for
+statistics, using the [Knitr](http://yihui.name/knitr/) R package. This
+combination allows to create executable documents for a better reproducibility
+of your research documents.
 
 The Open-Science-Thesis offers a clean and logical folder structure and
 contains many examples of typical typesetting requirements you have to deal
@@ -444,7 +445,14 @@ Then add a bibliography file `*.bib` in your preamble
 ### Frames for images
 
 ```latex
-\framedfigure[placement={H,h,t,b,p}, label=yourlabel]{\includegraphics...}{caption}
+\begin{figure}[placement]
+  \centering
+    \begin{figureframe}[optional width e.g. 0.2\textwidth]
+		\includegraphics{path/to/image.pdf}
+    \end{figureframe}
+  \caption[An example short caption]{An example long caption}
+  \label{fig:yourlabel}
+\end{figure}
 ```
 
 ![imageframed](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/focus_image_framed_orange.png)
@@ -457,7 +465,6 @@ Then add a bibliography file `*.bib` in your preamble
 ### Code Listings (in solarized color theme)
 
 - The code listings follow the solarized color theme by default.
-
 
 ![code](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/oneside_color_orange_listing.png)
 
