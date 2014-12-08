@@ -407,7 +407,7 @@
   \colorlet{ostColorTitleRuleVertical}{LightGray}  
   \colorlet{ostColorTextOnBar}{gray}  
   \colorlet{ostColorTitleOverlay}{white} 
-  \colorlet{ostColorImageFrame}{LightGray} 
+  \colorlet{ostColorFigureFrame}{LightGray} 
   \colorlet{ostColorTocRule}{LightGray}
   \colorlet{ostColorPartialToc}{black} 
   \colorlet{ostColorAuthors}{black}
@@ -508,7 +508,7 @@
   \colorlet{ostColorTocRule}{black} 
   \colorlet{ostColorPartialToc}{black} 
   \colorlet{ostColorTitleOverlay}{white} 
-  \colorlet{ostColorImageFrame}{black} 
+  \colorlet{ostColorFigureFrame}{black} 
   \colorlet{ostColorTitle}{black} 
   \colorlet{ostColorSubtitle}{black}
   \colorlet{ostColorAuthors}{black}
@@ -952,9 +952,9 @@
 %% Define tikz styles %% 
 
 \ifost@color
-  \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, thick, fill=white] 
+  \tikzstyle{figureframe} = [rectangle, rounded corners, draw=ostColorFigureFrame, thick, fill=white] 
 \else%
-  \tikzstyle{imageframe} = [rectangle, rounded corners, draw=ostColorImageFrame, fill=white]
+  \tikzstyle{figureframe} = [rectangle, rounded corners, draw=ostColorFigureFrame, fill=white]
 \fi
 
 \tikzstyle{signbackground} = [rectangle, fill=white, fill opacity=0.7, text opacity=1, rounded corners]
@@ -1692,7 +1692,7 @@
   \begin{figure}[\placement]
     \centering
     \begin{tikzpicture}
-      \node[imageframe]{%
+      \node[figureframe]{%
         \begin{minipage}{0.47\textwidth}%
           \begin{centerpar}
             \begin{overpic}[keepaspectratio, keepaspectratio, trim=1.2cm 5.2cm 1.2cm 5.2cm, clip, width=\textwidth]{\mappath}
@@ -1722,7 +1722,7 @@
   \begin{figure*}
     \centering
     \begin{tikzpicture}
-      \node[imageframe]{%
+      \node[figureframe]{%
         \begin{minipage}{\textwidth}%
           \begin{centerpar}
             \begin{overpic}[keepaspectratio, keepaspectratio, trim=1.2cm 5.2cm 1.2cm 5.2cm, clip, width=\textwidth]{\mappath}
@@ -1767,32 +1767,69 @@
 
 \define@key{framedfigure}{placement}{\renewcommand*\placement{#1}}
 \define@key{framedfigure}{label}{\renewcommand*\envlabel{#1}}
+% \define@key{framedfigure}{shortcaption}{\renewcommand*\shortcaption{#1}}
 \presetkeys{framedfigure}{placement = htbp, label=none}{}%
+
+\RequirePackage{collect}
+\RequirePackage{environ}
 
 \providecommand\framedfigure[3][]{
 \setkeys{framedfigure}{#1}
   \begin{figure}[\placement]
     \centering
     \begin{tikzpicture}
-      \node[imageframe]{%
-        \begin{minipage}{0.97\columnwidth}
-          \begin{center} 
-            #2
-          \end{center}
-        \end{minipage}
+      \node[figureframe]{%
+	\begin{minipage}{0.97\columnwidth}
+	  \begin{center} 
+	    #2
+	  \end{center}
+	\end{minipage}
       };
     \end{tikzpicture}
+    % \ifdefempty{\shortcaption}{\captionbelow{#3}}{\captionbelow[\shortcaption]{#3}}
     \captionbelow{#3}
     \label{\envlabel}
   \end{figure}
 } 
+
+% \providecommand*{\ostWidthFigureFrame}{}
+% \define@key{figureframe}{width}{\renewcommand*\ostWidthFigureFrame{#1}}
+% \presetkeys{figureframe}{width = 0.97\textwidth}{}%
+
+\NewEnviron{figureframe}[1][0.97\textwidth]{%
+  \begin{tikzpicture}%
+    \node[figureframe]{%
+      \begin{minipage}{#1}
+	\begin{center} 
+	  \BODY%
+	  % equals someting like \includegraphics[width=0.9\textwidth]{usr/graphics/dynamic/test_plot.pdf}
+	\end{center}
+      \end{minipage}
+    };%
+  \end{tikzpicture}%
+}%
+
+% This is a working example with the new syntax:
+
+% \begin{figure}[H]
+  % \centering
+    % \begin{figureframe}[0.2\textwidth]
+% <<another_test_plot, fig.width=3.27, fig.height=2.5, echo=FALSE>>= 
+   % ggplot(cars, aes(x=dist, y=speed)) +
+   % geom_point(shape=1) + geom_smooth(method = "lm", size = 1) +
+   % theme_ost() 
+% @
+    % \end{figureframe}
+  % \captionbelow[A short caption]{This is my new long caption}
+  % \label{test:label}
+% \end{figure}
 
 \WithSuffix\providecommand\framedfigure*[3][]{%
 \setkeys{framedfigure}{#1}
   \begin{figure*}[H]
     \centering
     \begin{tikzpicture}
-      \node[imageframe]{%
+      \node[figureframe]{%
         \begin{minipage}{0.97\textwidth}
           \begin{center} 
             #2
