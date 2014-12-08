@@ -12,7 +12,7 @@
 %%
 %
 
-\documentclass[autolayout=true]{ost/subdocuments/open_science_thesis} 
+\documentclass[fontchoice=libertine]{ost/subdocuments/open_science_thesis} 
 
 % linenumbers = true/[false] Enable or disable line numbering. This can be handy on revisions.
 % colormode = [rgb]/cmyk The colormode can be switched between rgb which is optima for displays 
@@ -23,6 +23,8 @@
 %		          up revisors for the document. Comments of revisors in the margin of the page. If you set up a revisor 
 %                         for example with \ostSetRevisor{chris} the revisor can use the command \chris{Some note} in your text to
 %			  place a note. If you set this option to true the notes get visible
+
+% libertine, lmodern, times, palatino, utopia, false
 
 % Available class options [defaults]
 
@@ -52,8 +54,6 @@
 % - print true/[false] switches between the color model rgb which is optimal for displays 
 %   and the cmyk color model which is required for professional printing. 
 % - linenumbers true/[false]: Switch on/off line numbers for the whole document. 
-
-
 
 % - resetdefaultclassoptions true/[false] resets the default options the open science thesis 
 %   loads the scrartcl class. After that you can modify every option via the open science 
@@ -122,8 +122,8 @@
 % \tableofcontents
 % \listoffigures 
 % \listoftables 
+% \listofrevisions
 \makealltables
-\listofrevisions
 
 \mainmatter
 
