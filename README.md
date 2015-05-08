@@ -472,11 +472,13 @@ Then add a bibliography file `*.bib` in your preamble
 NOTE:
 
 The elements names of the code listings are protected in the class. This means
-they cannot simply be changed like described above. The names contain an `@`
-character that is not valid in a normal LaTeX document as it has a special
-meaning. In order to be able to change the elements you need to put the
-commands into a style file that can be included in your preamble. However you
-could also change it directly in you preamble using the following construct.
+they cannot simply be changed like described above with other element names.
+The names contain an `@` character that is not valid in a normal LaTeX document
+as it has a special meaning. In order to be able to change the elements you
+need to put the commands into a style file that can be included in your
+preamble. For that you can use the style file the Open-Science-Thesis provides
+you with in the user folder. However you could also change it directly in you
+preamble using the following construct.
 
 ```latex
 \makeatletter
