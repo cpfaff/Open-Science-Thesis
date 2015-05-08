@@ -3,25 +3,23 @@
 ### About
 
 The Open-Science-Thesis
-[repository](https://github.com/cpfaff/Open-Science-Thesis) contains a LaTeX
-document packed into a logical file and folder structure that you can use as a
-scaffold for your next writing project. The document is thought to be forked
-and used for e.g. scientific thesis writing while keeping the document under
-version control with git and GitHub. The Open-Science-Thesis combines the
-typesetting capabilities of LaTeX with the R programming language for
-statistics, using the [Knitr](http://yihui.name/knitr/) R package. This
-combination allows to create executable documents for a better reproducibility
-of your research documents.
+[repository](https://github.com/cpfaff/Open-Science-Thesis) is a LaTeX document
+packed into a logical file and folder structure that you can use as a scaffold
+for your next writing project. The document is thought to be forked and used
+for e.g. scientific thesis writing while keeping the document under version
+control with git and GitHub. The Open-Science-Thesis combines the typesetting
+capabilities of LaTeX with the R programming language for statistics, using the
+[Knitr](http://yihui.name/knitr/) R package. This combination allows to create
+executable documents for a better reproducibility of your research documents.
 
 The Open-Science-Thesis offers a clean and logical folder structure and
-contains many examples of typical typesetting requirements you have to deal
-with when writing a thesis (title-page, tables, figures, affidavit, ...). On
-top of that the scaffold comes with its own simple makefile that helps you to
-compile (translate to PDF), clean and archive your document on the command
-line. For an example on the style of the Open-Science-Thesis just have a look
-into the
+contains a variety of examples covering typical typesetting requirements when
+writing a thesis (title-page, tables, figures, affidavit, ...).  The scaffold
+comes with its own small makefile that helps you to compile (translate to PDF),
+clean and archive your document from the command line. For an impression on the
+style of the Open-Science-Thesis just have a look into the
 [PDF](https://github.com/cpfaff/Open-Science-Thesis/blob/master/open_science_thesis.pdf)
-file that is contained in this repository or just scroll further down into the
+file contained in this repository or just scroll down a bit further to the
 sections below.
 
 ### Development Note
@@ -31,7 +29,7 @@ the layout provided by the LaTeX class can be subject to change! You might also
 find the current version in master branch in unstable state so a compilation to
 PDF is not possible with that version! Thus I recommend you to checkout the
 versions that you can find under the `Releases` in the upper part of that
-repository homepage.
+repository homepage. They represent stable and working states that you can use.
 
 ### Use LaTeX-Class only
 
@@ -64,9 +62,9 @@ The Open Science Thesis class is based on several fine LaTeX packages and tries
 to serve a clean and logical user interface that helps you deal with most of
 your typesetting requirements. You can handle line spacing, justification and
 various other parameters globally by class options. Additionally there are
-commands that you can use in your preamble to set the content (e.g. title,
+commands that you can use in your preamble to set content (e.g. title,
 predefined headings), or to control the color and the size of literally any
-element in your document using its name as reference reference.
+element in your document using the name of that element as reference.
 
 * Example for the user interface:
 
@@ -97,7 +95,7 @@ more names of elements you can modify read through the sections below.
 
 NOTE:
 
-One note about commands provided by the class: You can distinguish between
+One note about commands provided by the class: You can also distinguish between
 commands that go into your preamble and the ones you can use in your document
 body by their casing. While the camel case commands always have to go into the
 preamble the small case only commands are suitable for your document body.
