@@ -226,11 +226,14 @@ following elements names and commands:
 
 * sizes
 
+
+```latex
 \ostSetSize{Title}{\Huge}
 \ostSetSize{Subtitle}{\Large}
 \ostSetSize{Authors}{...}
 \ostSetSize{Date}{...}
 \ostSetSize{Advisor}{...}
+```
 
 ### Table of Contents
 
