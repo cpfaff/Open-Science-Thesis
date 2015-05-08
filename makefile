@@ -195,7 +195,7 @@ rmgithooks:
 # Prep 
 
 # As the name suggest this is for preparation purposes and should be used for
-# development only.  It helps me to put all stuff where I need it for example
+# development only. It helps me to put all stuff where I need it for example
 # and temp content.
 
 prep: 
@@ -203,7 +203,3 @@ prep:
 	$(COPY) usr/subdocuments/* ost/subdocuments/exmpl/
 	$(COPY) README.md ost/subdocuments/exmpl/
 	$(COPY) usr/subdocuments/options/ ost/subdocuments/temp/  
-
-# Installers (this package is not maintained at the moment but works well so far)
-installtikzdev:  
-	Rscript -e "install.packages('tikzDevice', repos='http://R-Forge.R-project.org')" 
