@@ -38,15 +38,6 @@
 
 % start your declarations
 
-\newglossaryentry{eml}{
-	type        = \acronymtype,
-	name        = EML,
-	text        = EML,
-	first       = Ecological Metadata Language (EML),
-	see         = [Glossary:]{\gls{emlg}},
-	description = \glslink{emlg}{Ecological Metadata Language}
-}
-
 \newglossaryentry{emlg}{
 	name        = \glslink{eml}{Ecological Metadata Language (EML)},
 	description = {
@@ -63,15 +54,6 @@
 	}
 }
 
-\newglossaryentry{xml}{
-	type        = \acronymtype,
-	name        = XML,
-	text        = XML,
-	first       = Extensible Markup Language (XML),
-	see         = [Glossary:]{\gls{xmlg}},
-	description = \glslink{xmlg}{Extensible Markup Language}
-}
-
 \newglossaryentry{xmlg}{
 	name        = \glslink{xml}{Extensible Markup Language (XML)},
 	description = {
@@ -82,3 +64,20 @@
 	}
 }
 
+\newglossaryentry{xml}{
+	type        = \acronymtype,
+	name        = XML,
+	text        = XML,
+	first       = Extensible Markup Language (XML),
+	see         = [Glossary:]{xmlg},
+	description = \glslink{xmlg}{Extensible Markup Language}
+}
+
+\newglossaryentry{eml}{
+	type        = \acronymtype,
+	name        = EML,
+	text        = EML,
+	first       = Ecological Metadata Language (EML),
+	see         = [Glossary:]{emlg},
+	description = \glslink{emlg}{Ecological Metadata Language}
+}
