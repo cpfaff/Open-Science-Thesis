@@ -532,8 +532,9 @@ command below with a name.
 \ostSetRevisor{Claas}
 ```
 
-After that the revisor can comment in-linke using the name that has been set
-up.
+After that the revisor can comment in-line using the revisor name that has been
+set up as command embracing its comments in curly bracets. See the example
+below:
 
 ```latex
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
@@ -544,10 +545,11 @@ fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum \Claas{This is so nice}
 ```
 
-To show the comments you can compile the document in revision mode. This will
-set up the page to be larger (A3) but keeps the typesetting area the same.
-Additionally line numbers are enabled and comments from revisors are shown as
-margin notes.
+To show the comments you need to compile the document in revision mode. This
+will set up the page to be larger (A3) but keeps the typesetting area the same
+(A4). Additionally the revision mode enables line numbers and comments from
+revisors are shown as margin notes connected with a line to the comment in the
+text.
 
 ```latex
 \documentclass[revision=true]{open_science_thesis}
@@ -555,10 +557,11 @@ margin notes.
 
 NOTE:
 
-You can disable the revision mode removing or just disabling the class option.
-This will then compile as normal and ignore the comments of revisors. However
-you need to leave the revisor setup command in place as otherwise the command
-will be unknown and the compilation fails.
+You can disable the revision mode removing or disabling the class option for
+revisions. This will then compile as normal and ignore the comments of
+revisors. However if the text contains comments with revisor names as commands
+you need to leave the command setting up the revisor in place as otherwise the
+command will be unknown and the compilation fails.
 
 ![revision](https://raw.github.com/wiki/cpfaff/Open-Science-Thesis/figures/revision_example_note.png)
 
