@@ -2102,7 +2102,7 @@
 
   \titlecontents{part}
   [0em]
-  {\addvspace{2pc}}
+  {\addvspace{1.0em plus 2pc minus 0.1em}}
   {\ostSizeTocPart\ostFontTocPart\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocPart\ostFontTocPart}
   {\titlerule*{}\contentspage}[\ostTocRule\thispagestyle{pageStyleToc}]
@@ -2131,7 +2131,7 @@
   
   \titlecontents{chapter}
   [1em]
-  {\addvspace{0.7pc}}
+  {\addvspace{1.0em plus 0.7pc minus 0.1em}}
   {\ostSizeTocChapter\ostFontTocChapter\makebox[0pt][r]{\thecontentslabel\enspace}}
   {\ostSizeTocChapter\ostFontTocChapter}
   {\titlerule*{}\contentspage}[\thispagestyle{pageStyleToc}]
